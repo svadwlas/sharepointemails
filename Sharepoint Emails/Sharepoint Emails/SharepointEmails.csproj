@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F3BF939-370A-4A37-B500-66825513EB73}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SharepointEmails</RootNamespace>
+    <AssemblyName>SharepointEmails</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BB1F664B-9266-4fd6-B973-E1E44974B511};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SandboxedSolution>False</SandboxedSolution>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SharePoint.ApplicationPages.Administration">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\CONFIG\ADMINBIN\Microsoft.SharePoint.ApplicationPages.Administration.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.SharePoint" />
+    <Reference Include="Microsoft.SharePoint.Security" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADMIN\SharePointEmailsServiceApplication\CreateApplication.aspx.cs">
+      <DependentUpon>CreateApplication.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ADMIN\SharePointEmailsServiceApplication\CreateApplication.aspx.designer.cs">
+      <DependentUpon>CreateApplication.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ADMIN\SharePointEmailsServiceApplication\SharePointEmailsAdmin.aspx.cs">
+      <DependentUpon>SharePointEmailsAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ADMIN\SharePointEmailsServiceApplication\SharePointEmailsAdmin.aspx.designer.cs">
+      <DependentUpon>SharePointEmailsAdmin.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.EventReceiver.cs">
+      <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmailsServiceApplication\Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmailsServiceApplication\Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharePointEmailsService.cs" />
+    <Compile Include="SharePointEmailsServiceApplication.cs" />
+    <Compile Include="SharePointEmailsServiceApplicationProxy.cs" />
+    <Compile Include="SharePointEmailsServiceInstance.cs" />
+    <Compile Include="SharePointEmailsServiceProxy.cs" />
+    <Compile Include="WebServices\SharePointEmailsWebApplication\ISharePointEmailsService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ADMIN\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{04e36e60-8d9d-49d7-a186-b2009476f7b3}</SharePointProjectItemId>
+    </None>
+    <None Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.feature">
+      <FeatureId>{234cf3d6-3900-4198-8878-b024024fd5cc}</FeatureId>
+    </None>
+    <None Include="key.snk" />
+    <None Include="Layouts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{1fc49e23-0e55-490f-a0a3-418da6976166}</SharePointProjectItemId>
+    </None>
+    <None Include="Package\Package.package">
+      <PackageId>{8c9912e3-636c-4168-b5f3-a90e4c3c1b90}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="WebServices\SharePointEmailsWebApplication\web.config" />
+    <None Include="WebServices\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{5f5f0e30-3470-4388-bf65-f7fce89e0893}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ADMIN\SharePointEmailsServiceApplication\CreateApplication.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="ADMIN\SharePointEmailsServiceApplication\SharePointEmailsAdmin.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.Template.xml">
+      <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
+    </Content>
+    <Content Include="Layouts\SharepointEmailsServiceApplication\Test.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="WebServices\SharePointEmailsWebApplication\Service.svc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" />
+</Project>

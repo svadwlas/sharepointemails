@@ -1,0 +1,1 @@
+﻿<%@ServiceHost language="C#" Debug="true" Service="SharePointEmails.SharePointEmailsApplication, SharePointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b" %>

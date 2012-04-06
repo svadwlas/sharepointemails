@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="8c9912e3-636c-4168-b5f3-a90e4c3c1b90" solutionId="8c9912e3-636c-4168-b5f3-a90e4c3c1b90" resetWebServer="true" name="Sharepoint_Emails" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="234cf3d6-3900-4198-8878-b024024fd5cc" />
+  </features>
+  <projectItems>
+    <projectItemReference itemId="5f5f0e30-3470-4388-bf65-f7fce89e0893" />
+    <projectItemReference itemId="04e36e60-8d9d-49d7-a186-b2009476f7b3" />
+    <projectItemReference itemId="1fc49e23-0e55-490f-a0a3-418da6976166" />
+  </projectItems>
+</package>

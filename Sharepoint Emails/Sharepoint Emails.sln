@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharepointEmails", "Sharepoint Emails\SharepointEmails.csproj", "{0F3BF939-370A-4A37-B500-66825513EB73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Core", "SharePointEmails.Core\SharePointEmails.Core.csproj", "{E73985B3-3C00-4C7C-92D3-70186DBC3D93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Configuration", "SharePointEmails.Configuration\SharePointEmails.Configuration.csproj", "{58B9C47A-8C1D-4FB7-A606-4CAB64016D15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Logging", "SharePointEmails.Logging\SharePointEmails.Logging.csproj", "{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs27
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Sharepoint\u0020Emails\\SharepointEmails.csproj
+		SccProjectName1 = Sharepoint\u0020Emails
+		SccLocalPath1 = Sharepoint\u0020Emails
+		SccProjectUniqueName2 = SharePointEmails.Configuration\\SharePointEmails.Configuration.csproj
+		SccProjectName2 = SharePointEmails.Configuration
+		SccLocalPath2 = SharePointEmails.Configuration
+		SccProjectUniqueName3 = SharePointEmails.Core\\SharePointEmails.Core.csproj
+		SccProjectName3 = SharePointEmails.Core
+		SccLocalPath3 = SharePointEmails.Core
+		SccProjectUniqueName4 = SharePointEmails.Logging\\SharePointEmails.Logging.csproj
+		SccProjectName4 = SharePointEmails.Logging
+		SccLocalPath4 = SharePointEmails.Logging
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F3BF939-370A-4A37-B500-66825513EB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3BF939-370A-4A37-B500-66825513EB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3BF939-370A-4A37-B500-66825513EB73}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0F3BF939-370A-4A37-B500-66825513EB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3BF939-370A-4A37-B500-66825513EB73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3BF939-370A-4A37-B500-66825513EB73}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E73985B3-3C00-4C7C-92D3-70186DBC3D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E73985B3-3C00-4C7C-92D3-70186DBC3D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E73985B3-3C00-4C7C-92D3-70186DBC3D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E73985B3-3C00-4C7C-92D3-70186DBC3D93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B9C47A-8C1D-4FB7-A606-4CAB64016D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B9C47A-8C1D-4FB7-A606-4CAB64016D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B9C47A-8C1D-4FB7-A606-4CAB64016D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B9C47A-8C1D-4FB7-A606-4CAB64016D15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
