@@ -13,7 +13,7 @@
     </ContentTypes>
       <Fields>
       <Field ID="{f6f70e6e-3141-41e3-b9ed-880e2af2b8ba}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails" />
-      <Field ID="{6d84cc10-8162-49b7-a086-2bdc868473b4}" Name="TemplateBody" DisplayName="Template Body" Type="HTML" Group="SharePointEmails" />
+      <Field ID="{6d84cc10-8162-49b7-a086-2bdc868473b4}" Name="TemplateBody" DisplayName="Template Body" Type="Note" Group="SharePointEmails" />
       <Field ID="{657f00f4-aea2-48fc-8a4b-866fc1128d13}" Name="TemplateType" DisplayName="Template Type" Type="Choice" Group="SharePointEmails">
           <CHOICES>
             <CHOICE>All</CHOICE>
