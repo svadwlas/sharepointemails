@@ -11,13 +11,15 @@ namespace SharePointEmails.Core
     {
         static ClassContainer _Instance = null;
 
+        static object lockObj=new object();
+
         public static ClassContainer Instance
         {
             get
             {
                 if (_Instance == null)
                 {
-                    lock (_Instance)
+                    lock (lockObj)
                     {
                         if (_Instance == null)
                         {
@@ -38,13 +40,13 @@ namespace SharePointEmails.Core
             container.RegisterInstance<ISiteManager>(new DefaultSiteManager());
         }
 
-        public UnityContainer Container
+        private UnityContainer Container
         {
             get
             {
                 if (m_Container == null)
                 {
-                    lock (m_Container)
+                    lock (lockObj)
                     {
                         if (m_Container==null)
                         {

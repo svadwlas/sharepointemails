@@ -6,13 +6,13 @@ using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core
 {
-    public class OwnersManager
+    public class RequestManager
     {
-        public static OwnersManager Instanse
+        public static RequestManager Instanse
         {
             get
             {
-                return new OwnersManager();
+                return new RequestManager();
             }
         }
         public ITemplateOwner Create(SPList List)

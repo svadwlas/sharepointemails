@@ -5,34 +5,42 @@ using System.Text;
 
 namespace SharePointEmails.Core
 {
-    public interface ITemplateOwner
+    public  class TemplateOwner:ITemplateOwner
     {
-        Guid SiteId
+        public Guid SiteId
         {
             get;
             set;
         }
 
-        Guid WebId
+        public Guid WebId
         {
             get;
             set;
         }
 
-        Guid ListId
+        public Guid ListId
         {
             get;
             set;
         }
 
-        Guid ItemId
+        public Guid ItemId
         {
             get;
             set;
         }
 
-        string ContentTypeId { get; }
-    
-        bool Is();
+        public bool Is()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public string ContentTypeId
+        {
+            get;
+            set;
+        }
     }
 }

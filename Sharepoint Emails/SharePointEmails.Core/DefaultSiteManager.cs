@@ -10,12 +10,16 @@ namespace SharePointEmails.Core
     {
         public SPList CreateHiddenTemplatesList(SPWeb web)
         {
-            var list=web.Lists.TryGetList(Constants.TemplateListName);
+            var list = web.Lists.TryGetList(Constants.TemplateListName);
             if (list == null)
             {
-                var guid=web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, SPListTemplateType.GenericList);
+                var guid = web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, "Lists/" + Constants.TemplateListName, SEMailTemplateCT.FeatureId, 10000,"100");
                 web.Update();
-                list=web.Lists.TryGetList(Constants.TemplateListName);
+                list = web.Lists.TryGetList(Constants.TemplateListName);
+            }
+            else
+            {
+                AddNeededContentTypes(list);
             }
             return list;
         }
@@ -28,6 +32,16 @@ namespace SharePointEmails.Core
                 web.Lists.Delete(list.ID);
                 web.Update();
             }
+        }
+
+        private void AddNeededContentTypes(SPList list)
+        {
+            var ct = list.ParentWeb.ContentTypes[new SPContentTypeId(SEMailTemplateCT.CTId)];
+            if (ct != null)
+            {
+                list.ContentTypes.Add(ct);
+            }
+            list.Update();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core
 {
@@ -12,6 +13,10 @@ namespace SharePointEmails.Core
             get;
             set;
         }
+
+        TemplateStateEnum State { set; get; }
+
+        int Type { set; get; }
 
         string Pattern
         {
@@ -49,6 +54,13 @@ namespace SharePointEmails.Core
             set;
         }
 
+        int Property
+        {
+            get;
+            set;
+        }
+
         void Update();
+        void SaveTo(SPListItem item);
     }
 }

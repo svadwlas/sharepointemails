@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharepointEmails", "Sharepoint Emails\SharepointEmails.csproj", "{0F3BF939-370A-4A37-B500-66825513EB73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777} = {F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Core", "SharePointEmails.Core\SharePointEmails.Core.csproj", "{E73985B3-3C00-4C7C-92D3-70186DBC3D93}"
 EndProject

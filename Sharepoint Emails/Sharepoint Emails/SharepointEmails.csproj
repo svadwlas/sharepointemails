@@ -17,6 +17,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <AssemblyDeploymentTarget>WebApplication</AssemblyDeploymentTarget>
+    <IncludeAssemblyInPackage>True</IncludeAssemblyInPackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,6 +81,9 @@
     <Compile Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.EventReceiver.cs">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\SharePointEmails\SharePointEmails.EventReceiver.cs">
+      <DependentUpon>SharePointEmails.feature</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\SharepointEmailsServiceApplication\Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -98,6 +103,9 @@
     <None Include="ADMIN\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{04e36e60-8d9d-49d7-a186-b2009476f7b3}</SharePointProjectItemId>
     </None>
+    <None Include="Features\SharePointEmails\SharePointEmails.feature">
+      <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
+    </None>
     <None Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.feature">
       <FeatureId>{234cf3d6-3900-4198-8878-b024024fd5cc}</FeatureId>
     </None>
@@ -111,12 +119,17 @@
     <None Include="Package\Package.Template.xml">
       <DependentUpon>Package.package</DependentUpon>
     </None>
+    <None Include="SEMailTemplateCT\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{968cb4f4-66a6-4f48-b652-c258ec496b7f}</SharePointProjectItemId>
+    </None>
+    <None Include="TemplatesList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{4163220e-72ae-4fea-ba3e-51c4f76f6ade}</SharePointProjectItemId>
+    </None>
     <None Include="WebServices\SharePointEmailsWebApplication\web.config" />
     <None Include="WebServices\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{5f5f0e30-3470-4388-bf65-f7fce89e0893}</SharePointProjectItemId>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="ADMIN\SharePointEmailsServiceApplication\CreateApplication.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -124,13 +137,31 @@
     <Content Include="ADMIN\SharePointEmailsServiceApplication\SharePointEmailsAdmin.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
+      <DependentUpon>SharePointEmails.feature</DependentUpon>
+    </Content>
     <Content Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.Template.xml">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
     </Content>
     <Content Include="Layouts\SharepointEmailsServiceApplication\Test.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="SEMailTemplateCT\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TemplatesList\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TemplatesList\Schema.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="WebServices\SharePointEmailsWebApplication\Service.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">
+      <Project>{E73985B3-3C00-4C7C-92D3-70186DBC3D93}</Project>
+      <Name>SharePointEmails.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" />

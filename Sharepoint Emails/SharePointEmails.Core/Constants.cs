@@ -11,7 +11,7 @@ namespace SharePointEmails.Core
         {
             get
             {
-                return "SharePointEmailsHiddenList";
+                return "HiddenTemplatesList";
             }
         }
 

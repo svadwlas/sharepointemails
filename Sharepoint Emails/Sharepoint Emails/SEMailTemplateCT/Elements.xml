@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <!-- Parent ContentType: Item (0x01) -->
+  <Field ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails"/>
+  <Field ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" Type="HTML" Group="SharePointEmails" Required="FALSE"  Sealed="TRUE" RichText="TRUE" RichTextMode="FullHtml"/>
+  <Field ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" Type="Choice" Group="SharePointEmails">
+    <CHOICES>
+      <CHOICE>All</CHOICE>
+      <CHOICE>Item added</CHOICE>
+      <CHOICE>Item removed</CHOICE>
+      <CHOICE>Item updated</CHOICE>
+    </CHOICES>
+  </Field>
+  <Field ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" Type="Choice" Group="SharePointEmails">
+    <CHOICES>
+      <CHOICE>Draft</CHOICE>
+      <CHOICE>Published</CHOICE>
+    </CHOICES>
+  </Field>
+  <ContentType ID="0x01006230043d1f824022a80ad3e43a7b6da4"
+               Name="SEMailTemplateCT"
+               Group="SharePointEmails"
+               Description="Mails template"
+               Inherits="TRUE"
+               Version="0">
+    <FieldRefs>
+      <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Required="True"/>
+      <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" />
+      <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" Required="True"/>
+      <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" Required="True"/>
+    </FieldRefs>
+  </ContentType>
+</Elements>

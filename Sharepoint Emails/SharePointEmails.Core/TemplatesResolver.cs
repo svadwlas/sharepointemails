@@ -52,8 +52,7 @@ namespace SharePointEmails.Core
 
         }
 
-
-        SPList GetTemplatesList(Guid siteId)
+        SPList GetTemplatesList(Guid siteId,Guid webId,bool create=false)
         {
             Logger.Write("try to get template list",SeverityEnum.Trace,AreasEnum.Default);
             if (siteId == Guid.Empty)
@@ -68,16 +67,22 @@ namespace SharePointEmails.Core
                 {
                     using (var site = new SPSite(siteId))
                     {
-                        using (var web = site.RootWeb)
+
+                        using (var web = site.AllWebs[webId])
                         {
-                            var list = EnsureList(web);
+                            SPList list=null;
+                            if (create)
+                                list = EnsureList(web);
+                            else
+                                list = web.Lists.TryGetList(Constants.TemplateListName);
+
                             if (list != null)
                             {
                                 return list;
                             }
                             else
                             {
-                                throw new Exception("list is null");
+                                return null;
                             }
                         }
                     }
@@ -92,7 +97,7 @@ namespace SharePointEmails.Core
 
         public ITemplate GetTemplate(ITemplateOwner owner, TemplateGettingEnum settings)
         {
-            SPList list = GetTemplatesList(OwnersManager.Instanse.GetSiteId(owner));
+            SPList list = GetTemplatesList(owner.SiteId,owner.WebId);
             if (list != null)
             {
                 SPListItemCollection items;
@@ -102,7 +107,7 @@ namespace SharePointEmails.Core
                     case TemplateGettingEnum.Default:
                         {
                             var query = GetQueryList(owner);
-                            items = list.GetItems(query);
+                            items = list.Items;
                             break;
                         }
                     default:
@@ -134,18 +139,15 @@ namespace SharePointEmails.Core
             }
         }
 
-
-
         public void AddTemplate(ITemplate template, ITemplateOwner owner)
         {
             try
             {
-                var list = GetTemplatesList(OwnersManager.Instanse.GetSiteId(owner));
+                var list = GetTemplatesList(owner.SiteId,owner.WebId,true);
                 if (list != null)
                 {
                     var item = list.AddItem();
-                    item["Title"] = string.IsNullOrEmpty(template.Name) ? Guid.NewGuid().ToString() : template.Name;
-                    item.Update();
+                    template.SaveTo(item);
                 }
                 else
                 {
@@ -161,7 +163,7 @@ namespace SharePointEmails.Core
         public List<ITemplate> GetAllTemplates(ITemplateOwner owner)
         {
             var res = new List<ITemplate>();
-              SPList list = GetTemplatesList(OwnersManager.Instanse.GetSiteId(owner));
+              SPList list = GetTemplatesList(owner.SiteId,owner.WebId);
               if (list != null)
               {
                   foreach (SPListItem item in list.Items)
@@ -179,7 +181,7 @@ namespace SharePointEmails.Core
               }
               return res;
         }
-
+        
         ITemplate TemplateFromItem(SPListItem item,ITemplateOwner owner)
         {
             return new Template(item);
