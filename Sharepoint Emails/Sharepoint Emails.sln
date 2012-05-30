@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Configurat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Logging", "SharePointEmails.Logging\SharePointEmails.Logging.csproj", "{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SbSharePointEmails", "SbSharePointEmails\SbSharePointEmails.csproj", "{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.SandBox.Core", "SharePointEmails.SandBox.Core\SharePointEmails.SandBox.Core.csproj", "{6A581B6C-EE14-4ED4-A039-89B6ACE077AE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 5
@@ -51,6 +55,16 @@ Global
 		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E6693B5-1A59-4BC4-9436-E838ECF6A8D6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6A581B6C-EE14-4ED4-A039-89B6ACE077AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A581B6C-EE14-4ED4-A039-89B6ACE077AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A581B6C-EE14-4ED4-A039-89B6ACE077AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A581B6C-EE14-4ED4-A039-89B6ACE077AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
