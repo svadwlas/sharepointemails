@@ -65,8 +65,29 @@
     <Reference Include="Microsoft.SharePoint" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlTemplates\SharepointEmails\AddAssociation.ascx.cs">
+      <DependentUpon>AddAssociation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlTemplates\SharepointEmails\AddAssociation.ascx.designer.cs">
+      <DependentUpon>AddAssociation.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlTemplates\SharepointEmails\AllAssociations.ascx.cs">
+      <DependentUpon>AllAssociations.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlTemplates\SharepointEmails\AllAssociations.ascx.designer.cs">
+      <DependentUpon>AllAssociations.ascx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.EventReceiver.cs">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\AddAssociation.aspx.cs">
+      <DependentUpon>AddAssociation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\AddAssociation.aspx.designer.cs">
+      <DependentUpon>AddAssociation.aspx.cs</DependentUpon>
     </Compile>
     <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.cs">
       <DependentUpon>WebSettings.aspx</DependentUpon>
@@ -84,6 +105,9 @@
     <Compile Include="WebServices\SharePointEmailsWebApplication\ISharePointEmailsService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ControlTemplates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{4b9e2ef8-bf09-480d-91da-5e4a2a5400cd}</SharePointProjectItemId>
+    </None>
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
     </None>
@@ -115,11 +139,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ControlTemplates\SharepointEmails\AddAssociation.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="ControlTemplates\SharepointEmails\AllAssociations.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
     <Content Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.Template.xml">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
+    </Content>
+    <Content Include="Layouts\SharepointEmails\AddAssociation.aspx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>

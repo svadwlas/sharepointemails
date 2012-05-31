@@ -19,17 +19,27 @@ namespace SharePointEmails.Core
     public abstract class Association
     {
         public Guid ID { set; get; }
+        public string Name { set; get; }
+        
         public Association()
         {
             ID = Guid.NewGuid();
+            Name = "Ass" + ID;
         }
         public abstract bool IsMatch(object obj);
+        public abstract string Type { get; }
     }
 
     [Serializable]
     public class TypeAssociation : Association
     {
         public ItemType ItemType { set; get; }
+
+        public override string Type
+        {
+            get { return "By type"; }
+        }
+
         public override bool IsMatch(object obj)
         {
             if (obj == null) return false;
@@ -62,6 +72,12 @@ namespace SharePointEmails.Core
     {
         public Guid ID { set; get; }
         public string ItemName { set; get; }
+
+        public override string Type
+        {
+            get { return "By ID"; }
+        }
+
         public string RelativeItemUrl { set; get; }
         public override bool IsMatch(object obj)
         {

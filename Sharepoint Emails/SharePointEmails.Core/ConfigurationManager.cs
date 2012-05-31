@@ -28,7 +28,7 @@ namespace SharePointEmails.Core
         WebConfiguration GetConfig(SPWeb web)
         {
             if (web == null) return null;
-            if (!web.Properties.ContainsKey(SE_WEB_CONFIG_PROP))
+            if (web.Properties.ContainsKey(SE_WEB_CONFIG_PROP))
             {
                 var value = web.Properties[SE_WEB_CONFIG_PROP];
                 using (var reader = new StringReader(value))
@@ -51,6 +51,7 @@ namespace SharePointEmails.Core
                 Searilizer.Serialize(writer, config);
             }
             web.Properties[SE_WEB_CONFIG_PROP] = value.ToString();
+            web.Update();
             return true;
         }
 
@@ -76,5 +77,14 @@ namespace SharePointEmails.Core
             return false;
         }
 
+        public WebConfiguration Get(SPWeb web)
+        {
+            return GetConfig(web);
+        }
+
+        public ICollection<Association> GetAllAssociations(SPWeb web)
+        {
+            return GetConfig(web).Associations;
+        }
     }
 }
