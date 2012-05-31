@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <CustomAction
+        Id="SharepointEmails.WebSettings"
+        GroupId="SiteCollectionAdmin"
+        Location="Microsoft.SharePoint.SiteSettings"
+        Sequence="1000"
+        Title="SharePoint Emails Web Settings">
+        <UrlAction Url="SharePointEmails/WebSettings.aspx"/>
+  </CustomAction>
+</Elements>

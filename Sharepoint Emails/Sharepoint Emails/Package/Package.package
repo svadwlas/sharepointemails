@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="8c9912e3-636c-4168-b5f3-a90e4c3c1b90" solutionId="8c9912e3-636c-4168-b5f3-a90e4c3c1b90" resetWebServer="true" name="Sharepoint_Emails" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="8c9912e3-636c-4168-b5f3-a90e4c3c1b90" solutionId="8c9912e3-636c-4168-b5f3-a90e4c3c1b90" resetWebServer="true" name="SharepointEmails" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
   <assemblies>
     <projectOutputAssembly location="SharePointEmails.Core.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\SharePointEmails.Core\SharePointEmails.Core.csproj" />
     <customAssembly location="Microsoft.Practices.Unity.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\ThirdParty\Unity\Bin\Microsoft.Practices.Unity.dll" />
