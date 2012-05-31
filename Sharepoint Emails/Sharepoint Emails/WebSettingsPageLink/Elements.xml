@@ -6,6 +6,6 @@
         Location="Microsoft.SharePoint.SiteSettings"
         Sequence="1000"
         Title="SharePoint Emails Web Settings">
-        <UrlAction Url="SharePointEmails/WebSettings.aspx"/>
+        <UrlAction Url="_Layouts/SharePointEmails/WebSettings.aspx"/>
   </CustomAction>
 </Elements>

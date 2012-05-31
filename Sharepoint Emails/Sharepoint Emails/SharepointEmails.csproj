@@ -68,6 +68,13 @@
     <Compile Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.EventReceiver.cs">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.cs">
+      <DependentUpon>WebSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.designer.cs">
+      <DependentUpon>WebSettings.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePointEmailsService.cs" />
     <Compile Include="SharePointEmailsServiceApplication.cs" />
@@ -84,6 +91,9 @@
       <FeatureId>{234cf3d6-3900-4198-8878-b024024fd5cc}</FeatureId>
     </None>
     <None Include="key.snk" />
+    <None Include="Layouts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{043c094b-0c59-49f6-bb29-113f4fa00327}</SharePointProjectItemId>
+    </None>
     <None Include="Package\Package.package">
       <PackageId>{8c9912e3-636c-4168-b5f3-a90e4c3c1b90}</PackageId>
     </None>
@@ -110,6 +120,9 @@
     </Content>
     <Content Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.Template.xml">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
+    </Content>
+    <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="SEMailTemplateCT\Elements.xml">
       <SubType>Designer</SubType>
