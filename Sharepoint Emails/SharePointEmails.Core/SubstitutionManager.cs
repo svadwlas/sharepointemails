@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core
 {
@@ -10,6 +11,11 @@ namespace SharePointEmails.Core
         public List<ISubstitutionWorker> GetAll()
         {
             throw new System.NotImplementedException();
+        }
+
+        public ISubstitutionWorker GetWorker(ISubstitutionContext context)
+        {
+            return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SharePointEmails.Core
 {
     public interface ISubstitutionWorker
     {
-        void Process(string data);
+        string Process(string data);
     }
 
     public interface ISubstitution

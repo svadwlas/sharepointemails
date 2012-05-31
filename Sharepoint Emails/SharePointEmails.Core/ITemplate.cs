@@ -11,7 +11,6 @@ namespace SharePointEmails.Core
         string ProcessedText
         {
             get;
-            set;
         }
 
         TemplateStateEnum State { set; get; }

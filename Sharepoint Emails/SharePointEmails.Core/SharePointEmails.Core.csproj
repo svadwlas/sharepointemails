@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="ClassContainer.cs" />
+    <Compile Include="ConfigurationManager.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DefaultSiteManager.cs" />
     <Compile Include="Enums.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="TemplateGettingEnum.cs" />
     <Compile Include="TemplateOwner.cs" />
     <Compile Include="TemplatesResolver.cs" />
+    <Compile Include="WebConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.cd" />

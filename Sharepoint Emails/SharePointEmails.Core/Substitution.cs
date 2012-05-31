@@ -8,7 +8,7 @@ namespace SharePointEmails.Core
 {
     public class SubstitutionWorker : ISubstitutionWorker
     {
-        private List<ISubstitution> m_substitutions = new List<ISubstitution>();
+        private List<ISubstitution> m_substitutions;
 
         private ILogger m_Logger;
 
@@ -18,24 +18,34 @@ namespace SharePointEmails.Core
         {
             m_Logger = logger;
             m_context = context;
+            m_substitutions = new List<ISubstitution>
+            {
+                new Substitution(),
+                new Substitution()
+            };
         }
 
-        public void Process(string data)
+        public string Process(string data)
         {
+            var res = string.Empty;
             if (m_substitutions != null)
             {
                 foreach (var substitution in m_substitutions)
                 {
                     try
                     {
-                        substitution.Process(data, m_context);
+                        res = substitution.Process(data, m_context);
                     }
                     catch (Exception ex)
                     {
-                        m_Logger.Write(ex,SeverityEnum.CriticalError);
+                        m_Logger.Write(ex, SeverityEnum.CriticalError);
                     }
                 }
             }
+            if (string.IsNullOrEmpty(res))
+                return "empty";
+            else
+                return res;
         }
     }
 }

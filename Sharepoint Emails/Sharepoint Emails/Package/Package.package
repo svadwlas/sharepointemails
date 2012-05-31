@@ -4,6 +4,7 @@
     <projectOutputAssembly location="SharePointEmails.Core.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\SharePointEmails.Core\SharePointEmails.Core.csproj" />
     <customAssembly location="Microsoft.Practices.Unity.dll" deploymentTarget="GlobalAssemblyCache" sourcePath="..\ThirdParty\Unity\Bin\Microsoft.Practices.Unity.dll" />
     <projectOutputAssembly location="SharePointEmails.Logging.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\SharePointEmails.Logging\SharePointEmails.Logging.csproj" />
+    <projectOutputAssembly location="SharePointEmails.Controls.dll" deploymentTarget="GlobalAssemblyCache" projectPath="..\SharePointEmails.Controls\SharePointEmails.Controls.csproj" />
   </assemblies>
   <features>
     <featureReference itemId="585de7b7-919f-4687-ac7b-c8e5c57f976c" />

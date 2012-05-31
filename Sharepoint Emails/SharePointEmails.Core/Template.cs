@@ -44,6 +44,8 @@ namespace SharePointEmails.Core
             Update();
         }
 
+        public ISubstitutionContext Context { set; get; }
+
         public void Update()
         {
             m_Item[SEMailTemplateCT.TemplateName] = this.Name;
@@ -56,8 +58,27 @@ namespace SharePointEmails.Core
 
         public string ProcessedText
         {
-            get;
-            set;
+            get
+            {
+                var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
+                if (manager != null)
+                {
+                    var worker = manager.GetWorker(Context);
+                    if (worker != null)
+                    {
+                        var res = worker.Process(Pattern);
+                        return res;
+                    }
+                    else
+                    {
+                        return "no worker";
+                    }
+                }
+                else
+                {
+                    return "no manager";
+                }
+            }
         }
 
         public string Pattern
@@ -113,6 +134,5 @@ namespace SharePointEmails.Core
             get;
             set;
         }
-
     }
 }

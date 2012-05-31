@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharePointEmails.Core
 {
-    public abstract class Substitution : ISubstitution
+    public class Substitution : ISubstitution
     {
         public string Pattern
         {
@@ -45,7 +45,7 @@ namespace SharePointEmails.Core
 
         public string Process(string text, ISubstitutionContext context)
         {
-            throw new NotImplementedException();
+            return text + "first substitution|";
         }
     }
 }

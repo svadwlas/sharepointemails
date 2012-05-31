@@ -38,6 +38,8 @@ namespace SharePointEmails.Core
             container.RegisterInstance<ILogger>(new DefaultLogger());
             container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger()));
             container.RegisterInstance<ISiteManager>(new DefaultSiteManager());
+            container.RegisterInstance<ConfigurationManager>(new ConfigurationManager());
+            container.RegisterInstance<SubstitutionManager>(new SubstitutionManager());
         }
 
         private UnityContainer Container
