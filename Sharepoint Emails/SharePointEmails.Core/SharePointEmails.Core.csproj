@@ -91,7 +91,7 @@
     <Compile Include="TemplateGettingEnum.cs" />
     <Compile Include="SearchContext.cs" />
     <Compile Include="TemplatesResolver.cs" />
-    <Compile Include="WebConfiguration.cs" />
+    <Compile Include="AssConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.cd" />

@@ -70,6 +70,7 @@ namespace SharePointEmails.Core
     {
         public string ID { set; get; }
         public string Name { set; get; }
+        public string Description { set; get; }
         
         public Association()
         {
@@ -124,7 +125,13 @@ namespace SharePointEmails.Core
     [Serializable]
     public enum GroupType
     {
-        None,AllList,AllDiscusionBoard,AllDocumentLibrary,AllBlogs,AllTasks, AllMyTasks
+        None=-1,
+        AllList=1,
+        AllDiscusionBoard=2,
+        AllDocumentLibrary=3,
+        AllBlogs=4,
+        AllTasks=5, 
+        AllMyTasks=6
     }
 
     [Serializable]

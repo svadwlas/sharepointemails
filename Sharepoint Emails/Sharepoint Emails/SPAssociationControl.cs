@@ -22,12 +22,21 @@ namespace SharepointEmails
         Button btn_Delete;
 
         Panel p_Create;
+        TextBox Create_tb_Name;
+        TextBox Create_tb_Desc;
+        DropDownList Create_cb_AssType;
+
+        TextBox Create_ById_tb_ItemId;
+        DropDownList Create_ByGroup_cb_GroupType;
 
         MultiView mv_Main;
         MultiView mv_CreateMain;
 
         View v_Displaying;
         View v_Editing;
+
+        CustomValidator cv_General;
+        ValidationSummary vs_Total;
 
         bool Edit
         {
@@ -166,42 +175,59 @@ namespace SharepointEmails
             }
         }
 
+        void ShowError(string message)
+        {
+            cv_General.IsValid = false;
+            cv_General.ErrorMessage = message;
+        }
+
         Association FromCreatePanel()
         {
             EnsureChildControls();
 
-            var createPanel = TemplateContainer.FindControl("p_Create");
-            var tb_Name = (TextBox)TemplateContainer.FindControl("tb_Name");
-            var cb_assType = (DropDownList)TemplateContainer.FindControl("cb_AssType");
-
-            if (string.IsNullOrEmpty(cb_assType.Text)) return null;
-
-            switch ((AssType)Convert.ToInt32(cb_assType.Text))
+            if (string.IsNullOrEmpty(Create_cb_AssType.Text))
             {
-                case AssType.ID:
-                    {
+                ShowError("No association type");
+                return null;
+            }
+            if (string.IsNullOrEmpty(Create_tb_Name.Text))
+            {
+                ShowError("No association name");
+                return null;
+            }
 
-                        return new IDAssociation
+            try
+            {
+                var name = Create_tb_Name.Text;
+                switch ((AssType)Convert.ToInt32(Create_cb_AssType.Text))
+                {
+                    case AssType.ID:
                         {
-                            Name = tb_Name.Text ?? "noname"
-                        };
-                    }
+                            return new IDAssociation
+                            {
+                                Name = name,
+                                ItemID = new Guid(Create_ById_tb_ItemId.Text),
+                                Description = Create_tb_Desc.Text
+                            };
+                        }
 
-                case AssType.Group:
-                    {
-
-                        return new GroupAssociation
+                    case AssType.Group:
                         {
-                            Name = tb_Name.Text ?? "noname",
-                            ItemType = GroupType.AllDocumentLibrary
-                        };
-                    }
+
+                            return new GroupAssociation
+                            {
+                                Name = name,
+                                ItemType = (GroupType)Convert.ToInt32(Create_ByGroup_cb_GroupType.SelectedValue),
+                                Description = Create_tb_Desc.Text
+                            };
+                        }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
             }
             return null;
-        }
-
-        private void Render(TemplateConfiguration config)
-        {
         }
 
         protected override void CreateChildControls()
@@ -217,6 +243,15 @@ namespace SharepointEmails
             btn_Delete = (Button)TemplateContainer.FindControl("btn_Delete");
             btn_Add = (Button)TemplateContainer.FindControl("btn_Add");
             p_Create = (Panel)TemplateContainer.FindControl("p_Create");
+            Create_tb_Name = (TextBox)TemplateContainer.FindControl("Create_tb_Name");
+            Create_tb_Desc = (TextBox)TemplateContainer.FindControl("Create_tb_Desc");
+            Create_cb_AssType= (DropDownList)TemplateContainer.FindControl("Create_cb_AssType");
+
+            Create_ById_tb_ItemId = (TextBox)TemplateContainer.FindControl("Create_ById_tb_ItemId");
+            Create_ByGroup_cb_GroupType = (DropDownList)TemplateContainer.FindControl("Create_ByGroup_cb_GroupType ");
+
+            cv_General = (CustomValidator)TemplateContainer.FindControl("cv_General");
+            vs_Total = (ValidationSummary)TemplateContainer.FindControl("vs_Total");
 
             mv_CreateMain.Visible = Edit;
 
@@ -346,30 +381,11 @@ namespace SharepointEmails
             grd_Asses.DataBind();
         }
 
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            //if (SPContext.Current.FormContext.FormMode == SPControlMode.Edit || SPContext.Current.FormContext.FormMode == SPControlMode.New)
-            //{
-            //    SPContext.Current.FormContext.OnSaveHandler += new EventHandler(OnSave);
-            //}
-          
-        }
-
         protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
             if (!this.Page.IsPostBack)
                 Temp = FromItem;
-            base.OnLoad(e);
-        }
-
-        void OnSave(object sender, EventArgs e)
-        {
-            Page.Validate();
-            if (Page.IsValid)
-            {
-                
-            }
         }
     }
 

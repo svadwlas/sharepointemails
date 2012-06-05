@@ -8,7 +8,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SPAssociationControl.ascx.cs" Inherits="SharepointEmails.ControlTemplates.SPAssociationControl" %>
 <SharePoint:RenderingTemplate ID="SPAssociationEditTemplate" runat="server">
 <Template>
-    <asp:UpdatePanel runat="server" ID="updatePanel">
+  <script src="../_layouts/SharepointEmails/Scripts/SEAssociationFieldControl.js" type="text/javascript"></script>
+  <asp:UpdatePanel runat="server" ID="updatePanel">
         <ContentTemplate>
      <table style="width: 100%;">
         <tr>
@@ -50,17 +51,30 @@
           <tr>
             <td>
                 <asp:Panel ID="p_Create" runat="server" >
-                    <asp:Literal ID="Literal1" runat="server">Name : </asp:Literal>
-                    <asp:TextBox ID="tb_Name" runat="server"></asp:TextBox>
-                    <asp:Literal ID="Literal2" runat="server">Type : </asp:Literal>
-                    <asp:DropDownList ID="cb_AssType" runat="server">
-                        <asp:ListItem Value="1">By Group</asp:ListItem>
-                        <asp:ListItem Value="2">By ID</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:MultiView ID="mv_CreateMain" runat="server">
-                        <asp:View ID="v_ById" runat="server" >
+                    Name : <asp:TextBox ID="Create_tb_Name" runat="server"></asp:TextBox>
+                    Type : <asp:DropDownList ID="Create_cb_AssType" runat="server" AutoPostBack="True">
+                                <asp:ListItem Value="1" Text="By Group" Selected="True"/>
+                                <asp:ListItem Value="2" Text="By Id" />
+                           </asp:DropDownList>
+                    Desc : <asp:TextBox ID="Create_tb_Desc" runat="server" TextMode="MultiLine"></asp:TextBox>
+                    <asp:MultiView ID="mv_CreateMain" runat="server" ActiveViewIndex="1">
+                       <asp:View ID="v_ById" runat="server" >
+                           <asp:Panel ID="Panel1" runat="server">
+                                Item Id : <asp:TextBox ID="Create_ById_tb_ItemId" runat="server"></asp:TextBox>
+                                <asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="OpenDialog();"/>
+                           </asp:Panel>
                         </asp:View>
                         <asp:View ID="v_ByGroup" runat="server">
+                            <asp:Panel ID="Panel2" runat="server"> 
+                                Group Type : <asp:DropDownList ID="Create_ByGroup_cb_GroupType" runat="server">
+                                                <asp:ListItem Value="1" Text="AllList" Selected="True"/>
+                                                <asp:ListItem Value="2" Text="AllDiscusionBoard"/>
+                                                <asp:ListItem Value="3" Text="AllDocumentLibrary"/>
+                                                <asp:ListItem Value="4" Text="AllBlogs"/>   
+                                                <asp:ListItem Value="5" Text="AllTasks"/>   
+                                                <asp:ListItem Value="6" Text="AllMyTasks"/>   
+                                             </asp:DropDownList>
+                            </asp:Panel>
                         </asp:View>
                     </asp:MultiView>
                     <asp:Button ID="btn_Add" runat="server" Text="Add" />
@@ -75,5 +89,7 @@
                 Processing...
             </ProgressTemplate>
     </asp:UpdateProgress>
+    <asp:CustomValidator ID="cv_General" runat="server" ErrorMessage="CustomValidator"></asp:CustomValidator>
+    <asp:ValidationSummary ID="vs_Total" runat="server" />
 </Template>
 </SharePoint:RenderingTemplate>

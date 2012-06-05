@@ -96,6 +96,13 @@
     <Compile Include="Layouts\SharepointEmails\AddAssociation.aspx.designer.cs">
       <DependentUpon>AddAssociation.aspx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.cs">
+      <DependentUpon>ChooseItemPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.designer.cs">
+      <DependentUpon>ChooseItemPage.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.cs">
       <DependentUpon>WebSettings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -169,6 +176,10 @@
     <Content Include="Layouts\SharepointEmails\AddAssociation.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Layouts\SharepointEmails\ChooseItemPage.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Layouts\SharepointEmails\Scripts\SEAssociationFieldControl.js" />
     <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
