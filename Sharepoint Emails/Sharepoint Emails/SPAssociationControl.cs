@@ -16,8 +16,8 @@ namespace SharepointEmails
 
         GridView grd_Asses;
 
-        DropDownList cb_AssType;
         Button btn_Create;
+        Button btn_Create_Hide;
         Button btn_Add;
         Button btn_Delete;
 
@@ -28,6 +28,9 @@ namespace SharepointEmails
 
         TextBox Create_ById_tb_ItemId;
         DropDownList Create_ByGroup_cb_GroupType;
+
+        CustomValidator cv_Create;
+        ValidationSummary vs_Create;
 
         MultiView mv_Main;
         MultiView mv_CreateMain;
@@ -100,8 +103,8 @@ namespace SharepointEmails
         {
             get
             {
-                return base.Value;
-                //return Temp.ToString();
+                //return base.Value;
+                return Temp.ToString();
                 //try
                 //{
                 //    return GetValue();
@@ -175,10 +178,11 @@ namespace SharepointEmails
             }
         }
 
-        void ShowError(string message)
+        void ShowError(CustomValidator validator, string message)
         {
-            cv_General.IsValid = false;
-            cv_General.ErrorMessage = message;
+            validator.IsValid = false;
+            validator.ErrorMessage = message;
+            validator.Validate();
         }
 
         Association FromCreatePanel()
@@ -187,80 +191,91 @@ namespace SharepointEmails
 
             if (string.IsNullOrEmpty(Create_cb_AssType.Text))
             {
-                ShowError("No association type");
+                ShowError(cv_Create,"No association type");
                 return null;
             }
             if (string.IsNullOrEmpty(Create_tb_Name.Text))
             {
-                ShowError("No association name");
+                ShowError(cv_Create,"No association name");
                 return null;
             }
 
-            try
+            var name = Create_tb_Name.Text;
+            switch ((AssType)Convert.ToInt32(Create_cb_AssType.Text))
             {
-                var name = Create_tb_Name.Text;
-                switch ((AssType)Convert.ToInt32(Create_cb_AssType.Text))
-                {
-                    case AssType.ID:
+                case AssType.ID:
+                    {
+                        return new IDAssociation
                         {
-                            return new IDAssociation
-                            {
-                                Name = name,
-                                ItemID = new Guid(Create_ById_tb_ItemId.Text),
-                                Description = Create_tb_Desc.Text
-                            };
-                        }
+                            Name = name,
+                            ItemID = new Guid(Create_ById_tb_ItemId.Text),
+                            Description = Create_tb_Desc.Text
+                        };
+                    }
 
-                    case AssType.Group:
+                case AssType.Group:
+                    {
+
+                        return new GroupAssociation
                         {
-
-                            return new GroupAssociation
-                            {
-                                Name = name,
-                                ItemType = (GroupType)Convert.ToInt32(Create_ByGroup_cb_GroupType.SelectedValue),
-                                Description = Create_tb_Desc.Text
-                            };
-                        }
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex.Message);
+                            Name = name,
+                            ItemType = (GroupType)Convert.ToInt32(Create_ByGroup_cb_GroupType.SelectedValue),
+                            Description = Create_tb_Desc.Text
+                        };
+                    }
             }
             return null;
         }
 
-        protected override void CreateChildControls()
+        void Assign()
         {
-            base.CreateChildControls();
             grd_Asses = (GridView)TemplateContainer.FindControl("grd_Asses");
+
             mv_Main = (MultiView)TemplateContainer.FindControl("mv_Main");
             v_Displaying = (View)TemplateContainer.FindControl("v_Displaying");
             v_Editing = (View)TemplateContainer.FindControl("v_Editing");
-            cb_AssType = (DropDownList)TemplateContainer.FindControl("cb_AssType");
             mv_CreateMain = (MultiView)TemplateContainer.FindControl("mv_CreateMain");
             btn_Create = (Button)TemplateContainer.FindControl("btn_Create");
+            btn_Create_Hide = (Button)TemplateContainer.FindControl("btn_Create_Hide");
             btn_Delete = (Button)TemplateContainer.FindControl("btn_Delete");
             btn_Add = (Button)TemplateContainer.FindControl("btn_Add");
             p_Create = (Panel)TemplateContainer.FindControl("p_Create");
             Create_tb_Name = (TextBox)TemplateContainer.FindControl("Create_tb_Name");
             Create_tb_Desc = (TextBox)TemplateContainer.FindControl("Create_tb_Desc");
-            Create_cb_AssType= (DropDownList)TemplateContainer.FindControl("Create_cb_AssType");
+            Create_cb_AssType = (DropDownList)TemplateContainer.FindControl("Create_cb_AssType");
 
             Create_ById_tb_ItemId = (TextBox)TemplateContainer.FindControl("Create_ById_tb_ItemId");
-            Create_ByGroup_cb_GroupType = (DropDownList)TemplateContainer.FindControl("Create_ByGroup_cb_GroupType ");
+            Create_ByGroup_cb_GroupType = (DropDownList)TemplateContainer.FindControl("Create_ByGroup_cb_GroupType");
+
+            cv_Create = (CustomValidator)TemplateContainer.FindControl("cv_Create");
+            vs_Create = (ValidationSummary)TemplateContainer.FindControl("vs_Create");
 
             cv_General = (CustomValidator)TemplateContainer.FindControl("cv_General");
             vs_Total = (ValidationSummary)TemplateContainer.FindControl("vs_Total");
+        }
 
-            mv_CreateMain.Visible = Edit;
-
+        void InitControlEvents()
+        {
             grd_Asses.SelectedIndexChanged += new EventHandler(grd_Asses_SelectedIndexChanged);
-            grd_Asses.SelectedIndexChanging += new GridViewSelectEventHandler(grd_Asses_SelectedIndexChanging);
-            cb_AssType.SelectedIndexChanged += new EventHandler(cb_AssType_SelectedIndexChanged);
+            Create_cb_AssType.SelectedIndexChanged += new EventHandler(cb_AssType_SelectedIndexChanged);
             btn_Add.Click += new EventHandler(btn_Add_Click);
             btn_Delete.Click += new EventHandler(btn_Delete_Click);
             btn_Create.Click += new EventHandler(btn_Create_Click);
+            btn_Create_Hide.Click += new EventHandler(btn_Create_Hide_Click);
+        }
+
+        void ShowCreatePanel(bool visible)
+        {
+            p_Create.Visible = visible;
+            btn_Create.Visible = !visible;
+            btn_Create_Hide.Visible = visible;
+        }
+
+       
+
+        void InitView()
+        {
+              mv_CreateMain.Visible = Edit;
 
             if (Edit)
             {
@@ -277,6 +292,7 @@ namespace SharepointEmails
                 var panel = new Panel()
                 {
                     ID = "panel_" + sufix,
+                    Visible=false
                 };
 
                 if (Edit)
@@ -299,7 +315,15 @@ namespace SharepointEmails
                     v_Displaying.Controls.Add(panel);
                 }
             }
+        }
 
+        protected override void CreateChildControls()
+        {
+            base.CreateChildControls();
+
+            Assign();
+            InitControlEvents();
+            InitView();
         }
 
         void btn_Delete_Click(object sender, EventArgs e)
@@ -310,46 +334,72 @@ namespace SharepointEmails
                 var id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
                 if (!string.IsNullOrEmpty(id))
                 {
-                    var t = Temp;
-                    t.Associations.RemoveAll(p => p.ID == id);
-
-                    Temp = t;
+                    DeleteAss(id);
+                    var view = (Edit) ? v_Editing : v_Displaying;
+                    foreach (Panel c in view.Controls.OfType<Panel>().ToList())
+                    {
+                        if (c.ID.ToLower().Contains(id.ToLower()))
+                            view.Controls.Remove(c);
+                    }
                 }
             }
         }
 
+        private void DeleteAss(string id)
+        {
+            var t = Temp;
+            t.Associations.RemoveAll(p => p.ID == id);
+
+            Temp = t; 
+
+
+        }
+
         void btn_Add_Click(object sender, EventArgs e)
         {
-            var ass = FromCreatePanel();
-            if (ass != null)
+
+            try
             {
-                var t = Temp;
-                t.Associations.Add(ass);
-                Temp = t;
+                Page.Validate("CreateGroup");
+                if (Page.IsValid)
+                {
+                    var ass = FromCreatePanel();
+                    if (ass != null)
+                    {
+                        var t = Temp;
+                        t.Associations.Add(ass);
+                        Temp = t;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                ShowError(cv_Create,ex.Message);
+                Page.Validate("CreateGroup");
+            }
+        }
+
+        void btn_Create_Hide_Click(object sender, EventArgs e)
+        {
+            ShowCreatePanel(false);
         }
 
         void btn_Create_Click(object sender, EventArgs e)
         {
-            p_Create.Visible = !p_Create.Visible;
+            ShowCreatePanel(true);
         }
 
         void cb_AssType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(cb_AssType.SelectedValue))
+            if (!string.IsNullOrEmpty(Create_cb_AssType.SelectedValue))
             {
-                var type=(AssType)Convert.ToInt32(cb_AssType.SelectedValue);
+                var type = (AssType)Convert.ToInt32(Create_cb_AssType.SelectedValue);
                 switch (type)
                 {
                     case AssType.ID: mv_CreateMain.SetActiveView(mv_CreateMain.Views[0]);break;
                     case AssType.Group: mv_CreateMain.SetActiveView(mv_CreateMain.Views[1]);break;
                 }
             }
-        }
-
-        void grd_Asses_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-        {
-           
         }
 
         void grd_Asses_SelectedIndexChanged(object sender, EventArgs e)
