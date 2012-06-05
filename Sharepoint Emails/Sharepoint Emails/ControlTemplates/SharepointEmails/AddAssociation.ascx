@@ -12,16 +12,15 @@
 <asp:DropDownList ID="cb_Types" runat="server" AutoPostBack="True" 
     onselectedindexchanged="cb_Types_SelectedIndexChanged">
 </asp:DropDownList><br />
-<asp:MultiView ID="MultiView1" runat="server">
-    <asp:View ID="v_ById" runat="server">
-        <asp:Label ID="Label3" runat="server" Text="Label">Item ID</asp:Label>
-        <asp:TextBox ID="tb_ItemId" runat="server"></asp:TextBox>
-    </asp:View>
+<asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
     <asp:View ID="v_ByType" runat="server">
         <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
         <asp:DropDownList ID="cb_ItemTypes" runat="server">
         </asp:DropDownList>
     </asp:View>
+    <asp:View ID="v_ById" runat="server">
+        <asp:Label ID="Label3" runat="server" Text="Label">Item ID</asp:Label>
+        <asp:TextBox ID="tb_ItemId" runat="server"></asp:TextBox>
+    </asp:View>   
 </asp:MultiView><br/>
 <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
-<asp:Button ID="btn_Add" runat="server" Text="Button" onclick="btn_Add_Click" />

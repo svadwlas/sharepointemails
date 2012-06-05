@@ -9,9 +9,10 @@
 asdfasfasdfasdf
 <asp:GridView ID="GridView1" runat="server" EnableModelValidation="True" 
     AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
-    BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical">
-    <AlternatingRowStyle BackColor="#DCDCDC" />
+    BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" 
+    AutoGenerateSelectButton="True" DataKeyNames="ID" >
     <Columns>
+        <asp:BoundField DataField="ID" Visible="False"/>
         <asp:BoundField DataField="Name" />
         <asp:BoundField DataField="Type" />
     </Columns>
@@ -21,3 +22,5 @@ asdfasfasdfasdf
     <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
     <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
 </asp:GridView>
+<asp:Button ID="btn_Delete" runat="server" onclick="btn_Delete_Click" 
+    Text="Delete" />

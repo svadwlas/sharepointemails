@@ -11,14 +11,14 @@ namespace SharepointEmails.ControlTemplates.SharepointEmails
     public partial class AddAssociation : UserControl
     {
 
-        List<string> types = new List<string>() {  "By Id","By type"};
+        List<string> types = new List<string>() { "By type" ,"By Id"};
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 cb_Types.DataSource = types;
                 cb_Types.DataBind();
-                cb_ItemTypes.DataSource = Enum.GetNames(typeof(ItemType));
+                cb_ItemTypes.DataSource = Enum.GetNames(typeof(GroupType));
                 cb_ItemTypes.DataBind();
             }
         }
@@ -36,18 +36,18 @@ namespace SharepointEmails.ControlTemplates.SharepointEmails
             Association ass = null;
             if (cb_Types.SelectedIndex == 0)
             {
-                ass = new TypeAssociation()
+                ass = new GroupAssociation()
                 {
-                    Name = tb_Name.Text ?? "no name",
-                    ItemType = (ItemType)Enum.Parse(typeof(ItemType), cb_ItemTypes.SelectedItem.Value),
+                    Name = string.IsNullOrEmpty(tb_Name.Text) ? "no name":tb_Name.Text,
+                    ItemType = (GroupType)Enum.Parse(typeof(GroupType), cb_ItemTypes.SelectedItem.Value),
                 };
             }
             else if (cb_Types.SelectedIndex == 1)
             {
                 ass = new IDAssociation()
                 {
-                    Name = tb_Name.Text ?? "no name",
-                    ID = Guid.Empty
+                    Name = string.IsNullOrEmpty(tb_Name.Text) ? "no name" : tb_Name.Text,
+                    ItemID = Guid.Empty
                 };
             }
             var manager = ClassContainer.Instance.Resolve<ConfigurationManager>();

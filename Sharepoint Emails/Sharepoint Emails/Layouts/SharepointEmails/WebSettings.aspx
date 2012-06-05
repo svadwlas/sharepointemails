@@ -15,7 +15,7 @@
 
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/_layouts/SharepointEmails/AddAssociation.aspx">Add association</asp:HyperLink>
-    <my:AllAss ID="asd" runat="server" ser></my:AllAss>
+    <my:AllAss ID="asd" runat="server" ser></my:AllAss><br/>
     <my:AddAss ID="asasdd" runat="server" ser></my:AddAss>
 </asp:Content>
 

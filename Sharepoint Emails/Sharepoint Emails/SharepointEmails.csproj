@@ -79,6 +79,13 @@
     <Compile Include="ControlTemplates\SharepointEmails\AllAssociations.ascx.designer.cs">
       <DependentUpon>AllAssociations.ascx.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlTemplates\SPAssociationControl.ascx.cs">
+      <DependentUpon>SPAssociationControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlTemplates\SPAssociationControl.ascx.designer.cs">
+      <DependentUpon>SPAssociationControl.ascx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Features\SharePointEmailsServiceApplicationFeature\SharePointEmailsServiceApplicationFeature.EventReceiver.cs">
       <DependentUpon>SharePointEmailsServiceApplicationFeature.feature</DependentUpon>
     </Compile>
@@ -102,6 +109,8 @@
     <Compile Include="SharePointEmailsServiceApplicationProxy.cs" />
     <Compile Include="SharePointEmailsServiceInstance.cs" />
     <Compile Include="SharePointEmailsServiceProxy.cs" />
+    <Compile Include="SPAssociationControl.cs" />
+    <Compile Include="SPAssociationFieldType.cs" />
     <Compile Include="WebServices\SharePointEmailsWebApplication\ISharePointEmailsService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +146,18 @@
     <None Include="WebSettingsPageLink\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{7261f3fb-451e-41af-8ac6-123c25cebce1}</SharePointProjectItemId>
     </None>
+    <None Include="XML\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{eb59aa06-c7ba-434f-90f9-bdc29eb33e86}</SharePointProjectItemId>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ControlTemplates\SharepointEmails\AddAssociation.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="ControlTemplates\SharepointEmails\AllAssociations.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="ControlTemplates\SPAssociationControl.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
@@ -170,6 +185,7 @@
     <Content Include="WebSettingsPageLink\Elements.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="XML\fldtypes_SPAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">

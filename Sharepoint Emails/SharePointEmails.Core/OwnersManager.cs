@@ -15,17 +15,17 @@ namespace SharePointEmails.Core
                 return new RequestManager();
             }
         }
-        public ITemplateOwner Create(SPList List)
+        public ISearchContext Create(SPList List)
         {
             throw new System.NotImplementedException();
         }
 
-        public ITemplateOwner Create(SPWeb Web)
+        public ISearchContext Create(SPWeb Web)
         {
             throw new System.NotImplementedException();
         }
 
-        public Guid GetSiteId(ITemplateOwner owner)
+        public Guid GetSiteId(ISearchContext owner)
         {
             return owner.SiteId;
         }

@@ -95,20 +95,23 @@ namespace SharePointEmails.Core
             }
         }
 
-        public ITemplate GetTemplate(ITemplateOwner owner, TemplateGettingEnum settings)
+        public ITemplate GetTemplate(ISearchContext context, TemplateGettingEnum settings=TemplateGettingEnum.Default)
         {
-            SPList list = GetTemplatesList(owner.SiteId,owner.WebId);
+            SPList list = GetTemplatesList(context.SiteId,context.WebId);
             if (list != null)
             {
-                SPListItemCollection items;
+                SPListItemCollection items=null;
 
                 switch (settings)
                 {
                     case TemplateGettingEnum.Default:
                         {
-                            var query = GetQueryList(owner);
-                            items = list.Items;
+                            foreach(var t in GetAllTemplates(context))
+                            {
+                                
+                            }
                             break;
+                            
                         }
                     default:
                         {
@@ -122,7 +125,7 @@ namespace SharePointEmails.Core
                     else
                     {
                         if (settings == TemplateGettingEnum.ExceptionIfMoreThenOne)
-                            return TemplateFromItem(items[0], owner);
+                            return TemplateFromItem(items[0], context);
                         else
                             throw new SeBaseException("More then one template");
                     }
@@ -139,7 +142,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public void AddTemplate(ITemplate template, ITemplateOwner owner)
+        public void AddTemplate(ITemplate template, ISearchContext owner)
         {
             try
             {
@@ -160,7 +163,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public List<ITemplate> GetAllTemplates(ITemplateOwner owner)
+        public List<ITemplate> GetAllTemplates(ISearchContext owner)
         {
             var res = new List<ITemplate>();
               SPList list = GetTemplatesList(owner.SiteId,owner.WebId);
@@ -182,14 +185,14 @@ namespace SharePointEmails.Core
               return res;
         }
         
-        ITemplate TemplateFromItem(SPListItem item,ITemplateOwner owner)
+        ITemplate TemplateFromItem(SPListItem item,ISearchContext owner)
         {
             return new Template(item);
         }
 
         #region Queries
 
-        SPQuery GetQueryList(ITemplateOwner owner)
+        SPQuery GetQueryList(ISearchContext owner)
         {
             var query = new SPQuery();
 

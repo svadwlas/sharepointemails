@@ -7,27 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SharepointEmails.ControlTemplates.SharepointEmails {
+namespace SharepointEmails.ControlTemplates {
     
     
-    public partial class UserControl1 {
+    public partial class SPAssociationControl {
         
         /// <summary>
-        /// GridView1 control.
+        /// SPAssociationEditTemplate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
-        
-        /// <summary>
-        /// btn_Delete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Delete;
+        protected global::Microsoft.SharePoint.WebControls.RenderingTemplate SPAssociationEditTemplate;
     }
 }

@@ -5,10 +5,12 @@ using System.Text;
 using Microsoft.SharePoint;
 using System.Xml.Serialization;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 
 namespace SharePointEmails.Core
 {
-    public class ConfigurationManager
+    [Synchronization]
+    public class ConfigurationManager : ContextBoundObject 
     {
         const string SE_WEB_CONFIG_PROP = "SEWEBPROP";
 
@@ -19,30 +21,30 @@ namespace SharePointEmails.Core
             {
                 if (_Serializer == null)
                 {
-                    _Serializer = new XmlSerializer(typeof(WebConfiguration));
+                    _Serializer = new XmlSerializer(typeof(TemplateConfiguration));
                 }
                 return _Serializer;
             }
         }XmlSerializer _Serializer;
 
-        WebConfiguration GetConfig(SPWeb web)
+        TemplateConfiguration GetConfig(SPWeb web)
         {
             if (web == null) return null;
-            if (web.Properties.ContainsKey(SE_WEB_CONFIG_PROP))
+            if (web.Properties.ContainsKey(SE_WEB_CONFIG_PROP) && (!string.IsNullOrEmpty( web.Properties[SE_WEB_CONFIG_PROP])))
             {
                 var value = web.Properties[SE_WEB_CONFIG_PROP];
                 using (var reader = new StringReader(value))
                 {
-                    return (WebConfiguration)Searilizer.Deserialize(reader);
+                    return (TemplateConfiguration)Searilizer.Deserialize(reader);
                 }
             }
             else
             {
-                return new WebConfiguration();
+                return new TemplateConfiguration();
             }
         }
 
-        bool SetConfig(SPWeb web, WebConfiguration config)
+        bool SetConfig(SPWeb web, TemplateConfiguration config)
         {
             if (web == null) return false;
             var value = new StringBuilder();
@@ -51,6 +53,7 @@ namespace SharePointEmails.Core
                 Searilizer.Serialize(writer, config);
             }
             web.Properties[SE_WEB_CONFIG_PROP] = value.ToString();
+            web.Properties.Update();
             web.Update();
             return true;
         }
@@ -62,22 +65,30 @@ namespace SharePointEmails.Core
             SetConfig(web, config);
         }
 
-        public bool RemoveAssociation(SPWeb web, Guid assId)
+        public bool RemoveAssociation(SPWeb web, string assId)
         {
             var config = GetConfig(web);
             if(config.Associations!=null)
             {
-                var asses = config.Associations.Where(p => p.ID == assId);
+                var asses = config.Associations.Where(p => p.ID == assId).ToList();
                 foreach (var ass in asses)
                 {
                     config.Associations.Remove(ass);
                 }
-                return asses.Any();
+                if (asses.Any())
+                {
+                    SetConfig(web, config);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             return false;
         }
 
-        public WebConfiguration Get(SPWeb web)
+        public TemplateConfiguration Get(SPWeb web)
         {
             return GetConfig(web);
         }

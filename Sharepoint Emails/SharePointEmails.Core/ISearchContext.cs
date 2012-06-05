@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharePointEmails.Core
 {
-    public interface ITemplateOwner
+    public interface ISearchContext
     {
         Guid SiteId
         {
@@ -30,6 +30,8 @@ namespace SharePointEmails.Core
             get;
             set;
         }
+
+        GroupType ItemType { get; set; }
 
         string ContentTypeId { get; }
     

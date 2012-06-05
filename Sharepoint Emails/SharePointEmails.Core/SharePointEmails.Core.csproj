@@ -77,7 +77,7 @@
     <Compile Include="ISubstitution.cs" />
     <Compile Include="ISubstitutionContext.cs" />
     <Compile Include="ITemplate.cs" />
-    <Compile Include="ITemplateOwner.cs" />
+    <Compile Include="ISearchContext.cs" />
     <Compile Include="ITemplatesResolver.cs" />
     <Compile Include="OwnersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Template.cs" />
     <Compile Include="TemplateCreator.cs" />
     <Compile Include="TemplateGettingEnum.cs" />
-    <Compile Include="TemplateOwner.cs" />
+    <Compile Include="SearchContext.cs" />
     <Compile Include="TemplatesResolver.cs" />
     <Compile Include="WebConfiguration.cs" />
   </ItemGroup>

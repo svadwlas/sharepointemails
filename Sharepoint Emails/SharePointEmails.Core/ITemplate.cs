@@ -41,7 +41,7 @@ namespace SharePointEmails.Core
             set;
         }
 
-        ITemplateOwner Owner
+        ISearchContext Owner
         {
             get;
             set;

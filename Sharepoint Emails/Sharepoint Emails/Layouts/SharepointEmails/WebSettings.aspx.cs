@@ -9,7 +9,7 @@ namespace SharepointEmails.Layouts.SharepointEmails
     {
         Presenter presenter;
 
-        public WebConfiguration Configuration { set; get; }
+        public TemplateConfiguration Configuration { set; get; }
 
         public event EventHandler OnFirstLoad;
          
@@ -53,7 +53,7 @@ namespace SharepointEmails.Layouts.SharepointEmails
     {
         ConfigurationManager Configmanager { get{return ClassContainer.Instance.Resolve<ConfigurationManager>();}}
 
-        public WebConfiguration LoadConfig()
+        public TemplateConfiguration LoadConfig()
         {
             if (SPContext.Current != null)
             {
