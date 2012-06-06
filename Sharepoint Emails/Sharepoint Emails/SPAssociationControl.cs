@@ -14,6 +14,8 @@ namespace SharepointEmails
         const int NAME_COLUMN_INDEX = 2;
         const int ID_COLUMN_INDEX = 1;
 
+        public string TempID = "{CEF7AB10-00B0-4739-8C6E-34A5F781B21C}";
+
         GridView grd_Asses;
 
         Button btn_Create;
@@ -70,31 +72,72 @@ namespace SharepointEmails
         {
             get
             {
-              //  return TempFromValue;
-                try
+                if (this.Context.Session != null)
                 {
-                    return TemplateConfiguration.Parse(SPContext.Current.Web.Properties["boo"] as string);
+                    if (this.Context.Session[TempID] != null)
+                    {
+                        return this.Context.Session[TempID] as TemplateConfiguration;
+                    }
+                    else
+                    {
+                        return new TemplateConfiguration();
+                    }
                 }
-                catch
+                else
                 {
-                    return new TemplateConfiguration();
+                    if (this.Context.Cache != null)
+                    {
+                        if (this.Context.Cache[TempID] != null)
+                        {
+                            return this.Context.Cache[TempID] as TemplateConfiguration;
+                        }
+                        else
+                        {
+                            return new TemplateConfiguration();
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            return TemplateConfiguration.Parse(SPContext.Current.Web.Properties["boo"] as string);
+                        }
+                        catch
+                        {
+                            return new TemplateConfiguration();
+                        }
+                    }
                 }
             }
 
             set
             {
-               // TempFromValue = value;
-                try
+             
+                if (this.Context.Session != null)
                 {
-                    if (value != null)
-                        SPContext.Current.Web.Properties["boo"] = value.ToString();
-                    else
-                        SPContext.Current.Web.Properties.Remove("boo");
-                    SPContext.Current.Web.AllowUnsafeUpdates = true;
-                    SPContext.Current.Web.Properties.Update();
-                    SPContext.Current.Web.AllowUnsafeUpdates = false;
+                    this.Context.Session[TempID] = value;
                 }
-                catch { }
+                else
+                {
+                    if (this.Context.Cache != null)
+                    {
+                        this.Context.Cache.Add(TempID, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(20), System.Web.Caching.CacheItemPriority.Default, null);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (value != null)
+                                SPContext.Current.Web.Properties["boo"] = value.ToString();
+                            else
+                                SPContext.Current.Web.Properties.Remove("boo");
+                            SPContext.Current.Web.AllowUnsafeUpdates = true;
+                            SPContext.Current.Web.Properties.Update();
+                            SPContext.Current.Web.AllowUnsafeUpdates = false;
+                        }
+                        catch { }
+                    }
+                }
             }
 
         }
@@ -103,6 +146,7 @@ namespace SharepointEmails
         {
             get
             {
+                
                 //return base.Value;
                 return Temp.ToString();
                 //try
@@ -351,31 +395,20 @@ namespace SharepointEmails
             t.Associations.RemoveAll(p => p.ID == id);
 
             Temp = t; 
-
-
         }
 
         void btn_Add_Click(object sender, EventArgs e)
         {
-
-            try
+            Page.Validate("CreateGroup");
+            if (Page.IsValid)
             {
-                Page.Validate("CreateGroup");
-                if (Page.IsValid)
+                var ass = FromCreatePanel();
+                if (ass != null)
                 {
-                    var ass = FromCreatePanel();
-                    if (ass != null)
-                    {
-                        var t = Temp;
-                        t.Associations.Add(ass);
-                        Temp = t;
-                    }
+                    var t = Temp;
+                    t.Associations.Add(ass);
+                    Temp = t;
                 }
-            }
-            catch (Exception ex)
-            {
-                ShowError(cv_Create,ex.Message);
-                Page.Validate("CreateGroup");
             }
         }
 
