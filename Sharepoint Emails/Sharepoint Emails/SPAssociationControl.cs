@@ -49,11 +49,11 @@ namespace SharepointEmails
 
         #region private props
 
-        TemplateConfiguration FromItem
+        AssociationConfiguration FromItem
         {
             get
             {
-                return TemplateConfiguration.ParseOrDefault(this.ItemFieldValue as string);
+                return AssociationConfiguration.ParseOrDefault(this.ItemFieldValue as string);
             }
         }
 
@@ -62,16 +62,16 @@ namespace SharepointEmails
             get { return ControlMode == SPControlMode.New || ControlMode == SPControlMode.Edit; }
         }
 
-        public TemplateConfiguration Temp
+        public AssociationConfiguration Temp
         {
             get
             {
-                TemplateConfiguration res = null;
+                AssociationConfiguration res = null;
                 if (this.Context.Session != null)
                 {
                     if (this.Context.Session[TempID] != null)
                     {
-                        res = this.Context.Session[TempID] as TemplateConfiguration;
+                        res = this.Context.Session[TempID] as AssociationConfiguration;
                     }
                 }
                 else
@@ -80,15 +80,15 @@ namespace SharepointEmails
                     {
                         if (this.Context.Cache[TempID] != null)
                         {
-                            res = this.Context.Cache[TempID] as TemplateConfiguration;
+                            res = this.Context.Cache[TempID] as AssociationConfiguration;
                         }
                     }
                     else
                     {
-                        res = TemplateConfiguration.ParseOrDefault(SPContext.Current.Web.Properties["boo"] as string);
+                        res = AssociationConfiguration.ParseOrDefault(SPContext.Current.Web.Properties["boo"] as string);
                     }
                 }
-                return res ?? new TemplateConfiguration();
+                return res ?? new AssociationConfiguration();
             }
 
             set
@@ -165,7 +165,7 @@ namespace SharepointEmails
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            grd_Asses.DataSource = Temp.Associations.Select(p => new AssInfo
+            grd_Asses.DataSource = Temp.Select(p => new AssInfo
             {
                 ID = p.ID,
                 Name = p.Name,
@@ -356,7 +356,7 @@ namespace SharepointEmails
                 mv_Main.SetActiveView(v_Displaying);
             }
 
-            foreach (var association in Temp.Associations)
+            foreach (var association in Temp)
             {
                 var sufix = association.ID.ToString();
                 var panel = new Panel()
@@ -392,7 +392,7 @@ namespace SharepointEmails
             if (ass != null)
             {
                 var t = Temp;
-                t.Associations.Add(ass);
+                t.Add(ass);
                 Temp = t;
             }
         }
@@ -402,7 +402,7 @@ namespace SharepointEmails
             if (!string.IsNullOrEmpty(id))
             {
                 var t = Temp;
-                t.Associations.RemoveAll(p => p.ID == id);
+                t.RemoveAll(p => p.ID == id);
                 Temp = t;
 
                 var view = (Edit) ? v_Editing : v_Displaying;

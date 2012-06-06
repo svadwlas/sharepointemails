@@ -14,7 +14,5 @@ namespace SharePointEmails.Core
                 return "HiddenTemplatesList";
             }
         }
-
-     
     }
 }

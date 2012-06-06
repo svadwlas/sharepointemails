@@ -35,7 +35,7 @@ namespace SharepointEmails
                 if (value != null)
                 {
                     var res = SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1);
-                    return TemplateConfiguration.ParseOrDefault(res).Associations.Count+" asses" ;
+                    return AssociationConfiguration.ParseOrDefault(res).Count+" asses" ;
                 }
                 return "";
             }

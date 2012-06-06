@@ -19,24 +19,6 @@ namespace SharePointEmails.Core
             set;
         }
 
-        Guid ListId
-        {
-            get;
-            set;
-        }
-
-        Guid ItemId
-        {
-            get;
-            set;
-        }
-
-        GroupType ItemType { get; set; }
-
-        string ContentTypeId { get; }
-    
-        bool Is();
-
         int Match(ITemplate template);
 
     }

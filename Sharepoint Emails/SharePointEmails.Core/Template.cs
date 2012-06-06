@@ -13,7 +13,7 @@ namespace SharePointEmails.Core
         {
             this.Name = "Noname";
             this.Pattern = "No body";
-            this.Type = (int)TemplateTypeEnum.Unknown;
+            this.EventTypes = (int)TemplateTypeEnum.Unknown;
             this.State = TemplateStateEnum.Unknown;
         }
         public Template(SPListItem item) 
@@ -29,11 +29,11 @@ namespace SharePointEmails.Core
             if (m_Item[SEMailTemplateCT.TemplateType] != null)
             {
                 var val = new SPFieldMultiChoiceValue(m_Item[SEMailTemplateCT.TemplateType].ToString());
-                this.Type = EnumConverter.ToType(val);
+                this.EventTypes = EnumConverter.ToType(val);
             }
             else
             {
-                this.Type = (int)TemplateTypeEnum.All;
+                this.EventTypes = (int)TemplateTypeEnum.All;
             }
             this.State = EnumConverter.ToState(m_Item[SEMailTemplateCT.TemplateState] as string);
         }
@@ -48,7 +48,7 @@ namespace SharePointEmails.Core
         {
             m_Item[SEMailTemplateCT.TemplateName] = this.Name;
             m_Item[SEMailTemplateCT.TemplateBody] = this.Pattern;
-            m_Item[SEMailTemplateCT.TemplateType] = EnumConverter.TypeToValue(this.Type);
+            m_Item[SEMailTemplateCT.TemplateType] = EnumConverter.TypeToValue(this.EventTypes);
             m_Item[SEMailTemplateCT.TemplateState] = EnumConverter.StateToValue(this.State);
             m_Item.Update();
             Refresh();
@@ -112,22 +112,22 @@ namespace SharePointEmails.Core
             set;
         }
 
-        public int Type
+        public int EventTypes
         {
             get;
             set;
         }
 
     
-        public TemplateConfiguration Config
+        public AssociationConfiguration Config
         {
             get
             {
-                return TemplateConfiguration.ParseOrDefault(_Config);
+                return AssociationConfiguration.ParseOrDefault(_Config);
             }
             set
             {
-                _Config = (value ?? TemplateConfiguration.Empty).ToString();
+                _Config = (value ?? AssociationConfiguration.Empty).ToString();
             }
         }
         string _Config = null;

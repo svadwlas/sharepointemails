@@ -19,38 +19,6 @@ namespace SharePointEmails.Core
             set;
         }
 
-        public Guid ListId
-        {
-            get;
-            set;
-        }
-
-        public Guid ItemId
-        {
-            get;
-            set;
-        }
-
-        public bool Is()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public string ContentTypeId
-        {
-            get;
-            set;
-        }
-
-
-        public GroupType ItemType
-        {
-            get;
-            set;
-        }
-
-
         public int Match(ITemplate template)
         {
             return -1;

@@ -66,33 +66,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="Associations\Association.cs" />
+    <Compile Include="Associations\GroupAssociation.cs" />
+    <Compile Include="Associations\IDAssociation.cs" />
     <Compile Include="ClassContainer.cs" />
-    <Compile Include="ConfigurationManager.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Dictionaries\Constants.cs" />
     <Compile Include="DefaultSiteManager.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\SeBaseException.cs" />
-    <Compile Include="HiddenTemplesList.cs" />
-    <Compile Include="ISiteManager.cs" />
-    <Compile Include="ISubstitution.cs" />
-    <Compile Include="ISubstitutionContext.cs" />
-    <Compile Include="ITemplate.cs" />
-    <Compile Include="ISearchContext.cs" />
-    <Compile Include="ITemplatesResolver.cs" />
-    <Compile Include="OwnersManager.cs" />
+    <Compile Include="Dictionaries\HiddenTemplesList.cs" />
+    <Compile Include="Interfaces\ISiteManager.cs" />
+    <Compile Include="Interfaces\ISubstitution.cs" />
+    <Compile Include="Interfaces\ISubstitutionContext.cs" />
+    <Compile Include="Interfaces\ITemplate.cs" />
+    <Compile Include="Interfaces\ISearchContext.cs" />
+    <Compile Include="Interfaces\ITemplatesResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SEMailTemplateCT.cs" />
-    <Compile Include="Substitution.cs" />
-    <Compile Include="SubstitutionBase.cs" />
-    <Compile Include="SubstitutionContext.cs" />
-    <Compile Include="SubstitutionManager.cs" />
+    <Compile Include="Dictionaries\SEMailTemplateCT.cs" />
+    <Compile Include="Substitutions\SubstitutionWorker.cs" />
+    <Compile Include="Substitutions\Substitution.cs" />
+    <Compile Include="Substitutions\SubstitutionContext.cs" />
+    <Compile Include="Substitutions\SubstitutionManager.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="SearchContext.cs" />
     <Compile Include="TemplatesResolver.cs" />
-    <Compile Include="AssConfiguration.cs" />
+    <Compile Include="Associations\AssociationConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Core.cd" />
     <None Include="key.snk" />
   </ItemGroup>
   <ItemGroup>

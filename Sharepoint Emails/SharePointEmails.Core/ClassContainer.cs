@@ -37,8 +37,7 @@ namespace SharePointEmails.Core
         {
             container.RegisterInstance<ILogger>(new DefaultLogger());
             container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger()));
-            container.RegisterInstance<ISiteManager>(new DefaultSiteManager());
-            container.RegisterInstance<ConfigurationManager>(new ConfigurationManager());
+            container.RegisterInstance<ISiteManager>(new SiteManager());
             container.RegisterInstance<SubstitutionManager>(new SubstitutionManager());
         }
 

@@ -12,7 +12,7 @@ namespace SharePointEmails.Core
 
         TemplateStateEnum State { set; get; }
 
-        int Type { set; get; }
+        int EventTypes { set; get; }
 
         string Pattern
         {
@@ -44,7 +44,7 @@ namespace SharePointEmails.Core
             set;
         }
 
-        TemplateConfiguration Config { get; set; }
+        AssociationConfiguration Config { get; set; }
 
         void Update();
         void SaveTo(SPListItem item);
