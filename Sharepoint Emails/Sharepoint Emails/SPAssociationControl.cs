@@ -203,6 +203,7 @@ namespace SharepointEmails
                 var ass = FromCreatePanel();
                 AddAss(ass);
             }
+            ShowCreatePanel(false);
         }
 
         void btn_Create_Hide_Click(object sender, EventArgs e)

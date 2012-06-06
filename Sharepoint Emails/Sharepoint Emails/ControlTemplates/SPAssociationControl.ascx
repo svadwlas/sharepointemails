@@ -53,7 +53,7 @@
                         <table>
                             <tr>
                                 <td>Name :</td>
-                                <td><asp:TextBox ID="Create_tb_Name" runat="server"></asp:TextBox></td>
+                                <td><asp:TextBox ID="Create_tb_Name" runat="server">no name</asp:TextBox></td>
                             </tr>
                             <tr>
                                 <td>Type :</td>

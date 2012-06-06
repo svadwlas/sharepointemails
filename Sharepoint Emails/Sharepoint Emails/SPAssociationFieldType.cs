@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.SharePoint;
 using SharePointEmails.Core;
 using Microsoft.SharePoint.Utilities;
+using System.Runtime.InteropServices;
 
 namespace SharepointEmails
 {
@@ -27,11 +28,21 @@ namespace SharepointEmails
                 return new SPAssociationControl() { FieldName = this.InternalName };
             }
         }
-
-        public override object GetFieldValue(string value)
+        public override string GetFieldValueAsHtml(object value)
         {
-            return base.GetFieldValue(value);
-            
+            try
+            {
+                if (value != null)
+                {
+                    var res = SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1);
+                    return TemplateConfiguration.ParseOrDefault(res).Associations.Count+" asses" ;
+                }
+                return "";
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }
