@@ -6,6 +6,7 @@ using Microsoft.SharePoint.WebControls;
 using Microsoft.SharePoint;
 using System.Web.UI.WebControls;
 using SharePointEmails.Core;
+using SharePointEmails.Core.Associations;
 
 namespace SharepointEmails
 {
