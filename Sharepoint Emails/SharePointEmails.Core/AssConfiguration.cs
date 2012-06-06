@@ -44,6 +44,8 @@ namespace SharePointEmails.Core
             }
         }
 
+        public static TemplateConfiguration Empty { get { return new TemplateConfiguration(); } }
+
         public override string ToString()
         {
             var value = new StringBuilder();

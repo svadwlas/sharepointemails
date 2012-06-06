@@ -8,10 +8,7 @@ namespace SharePointEmails.Core
 {
     public interface ITemplate
     {
-        string ProcessedText
-        {
-            get;
-        }
+        string GetProcessedText(ISubstitutionContext context);
 
         TemplateStateEnum State { set; get; }
 
@@ -41,23 +38,13 @@ namespace SharePointEmails.Core
             set;
         }
 
-        ISearchContext Owner
-        {
-            get;
-            set;
-        }
-
         string Name
         {
             get;
             set;
         }
 
-        int Property
-        {
-            get;
-            set;
-        }
+        TemplateConfiguration Config { get; set; }
 
         void Update();
         void SaveTo(SPListItem item);

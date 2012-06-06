@@ -87,8 +87,6 @@
     <Compile Include="SubstitutionContext.cs" />
     <Compile Include="SubstitutionManager.cs" />
     <Compile Include="Template.cs" />
-    <Compile Include="TemplateCreator.cs" />
-    <Compile Include="TemplateGettingEnum.cs" />
     <Compile Include="SearchContext.cs" />
     <Compile Include="TemplatesResolver.cs" />
     <Compile Include="AssConfiguration.cs" />

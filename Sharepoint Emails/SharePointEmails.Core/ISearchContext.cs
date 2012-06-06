@@ -36,5 +36,16 @@ namespace SharePointEmails.Core
         string ContentTypeId { get; }
     
         bool Is();
+
+        int Match(ITemplate template);
+
     }
+
+    public class SearchMatchLevel
+    {
+        public const int MAX = 1000;
+        public const int NONE = -1;
+        public const int MIDLE = 300;
+    }
+
 }

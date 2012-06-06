@@ -7,26 +7,6 @@ namespace SharePointEmails.Core
 {
     public interface ITemplatesManager
     {
-        Exception LastError
-        {
-            get;
-            set;
-        }
-
-        ITemplate GetTemplate(ISearchContext owner, TemplateGettingEnum settings);
-
-        /// <remarks>
-        /// Exeptions:
-        /// SeWrongOwner
-        /// SeBaseException
-        /// </remarks>
-        void AddTemplate(ITemplate template, ISearchContext owner);
-
-        /// <remarks>
-        /// Exceptions
-        /// SeBaseException
-        /// SeWrongOwnerException
-        /// </remarks>
-        List<ITemplate> GetAllTemplates(ISearchContext owner);
+        ITemplate GetTemplate(ISearchContext owner);
     }
 }

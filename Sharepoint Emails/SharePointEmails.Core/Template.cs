@@ -44,8 +44,6 @@ namespace SharePointEmails.Core
             Update();
         }
 
-        public ISubstitutionContext Context { set; get; }
-
         public void Update()
         {
             m_Item[SEMailTemplateCT.TemplateName] = this.Name;
@@ -56,28 +54,25 @@ namespace SharePointEmails.Core
             Refresh();
         }
 
-        public string ProcessedText
+        public string GetProcessedText(ISubstitutionContext context)
         {
-            get
+            var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
+            if (manager != null)
             {
-                var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
-                if (manager != null)
+                var worker = manager.GetWorker(context);
+                if (worker != null)
                 {
-                    var worker = manager.GetWorker(Context);
-                    if (worker != null)
-                    {
-                        var res = worker.Process(Pattern);
-                        return res;
-                    }
-                    else
-                    {
-                        return "no worker";
-                    }
+                    var res = worker.Process(Pattern);
+                    return res;
                 }
                 else
                 {
-                    return "no manager";
+                    return "no worker";
                 }
+            }
+            else
+            {
+                return "no manager";
             }
         }
 
@@ -105,12 +100,6 @@ namespace SharePointEmails.Core
             set;
         }
 
-        public ISearchContext Owner
-        {
-            get;
-            set;
-        }
-
         public string Name
         {
             get;
@@ -129,10 +118,18 @@ namespace SharePointEmails.Core
             set;
         }
 
-        public int Property
+    
+        public TemplateConfiguration Config
         {
-            get;
-            set;
+            get
+            {
+                return TemplateConfiguration.ParseOrDefault(_Config);
+            }
+            set
+            {
+                _Config = (value ?? TemplateConfiguration.Empty).ToString();
+            }
         }
+        string _Config = null;
     }
 }

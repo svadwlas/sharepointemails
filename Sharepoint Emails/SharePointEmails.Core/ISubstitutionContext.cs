@@ -8,22 +8,6 @@ namespace SharePointEmails.Core
 {
     public interface ISubstitutionContext
     {
-        SPList List
-        {
-            get;
-            set;
-        }
-
-        SPSite Site
-        {
-            get;
-            set;
-        }
-
-        SPListItem ListItem
-        {
-            get;
-            set;
-        }
+    
     }
 }

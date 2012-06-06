@@ -49,5 +49,11 @@ namespace SharePointEmails.Core
             get;
             set;
         }
+
+
+        public int Match(ITemplate template)
+        {
+            return -1;
+        }
     }
 }
