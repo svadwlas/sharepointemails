@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
+using SharePointEmails.Core;
+using Microsoft.SharePoint.Utilities;
 
 namespace SharepointEmails
 {
@@ -24,6 +26,12 @@ namespace SharepointEmails
             {
                 return new SPAssociationControl() { FieldName = this.InternalName };
             }
+        }
+
+        public override object GetFieldValue(string value)
+        {
+            return base.GetFieldValue(value);
+            
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SharepointEmails
 
         public string TempID = "{CEF7AB10-00B0-4739-8C6E-34A5F781B21C}";
 
+        #region Controls
+
         GridView grd_Asses;
 
         Button btn_Create;
@@ -43,44 +45,33 @@ namespace SharepointEmails
         CustomValidator cv_General;
         ValidationSummary vs_Total;
 
+        #endregion Controls
+
+        #region private props
+
+        TemplateConfiguration FromItem
+        {
+            get
+            {
+                return TemplateConfiguration.ParseOrDefault(this.ItemFieldValue as string);
+            }
+        }
+
         bool Edit
         {
             get { return ControlMode == SPControlMode.New || ControlMode == SPControlMode.Edit; }
-        }
-
-        protected override string DefaultTemplateName
-        {
-            get
-            {
-                return "SPAssociationEditTemplate";
-            }
-        }
-
-        public override string DisplayTemplateName
-        {
-            get
-            {
-                return "SPAssociationEditTemplate";
-            }
-            set
-            {
-                base.DisplayTemplateName = value;
-            }
         }
 
         public TemplateConfiguration Temp
         {
             get
             {
+                TemplateConfiguration res = null;
                 if (this.Context.Session != null)
                 {
                     if (this.Context.Session[TempID] != null)
                     {
-                        return this.Context.Session[TempID] as TemplateConfiguration;
-                    }
-                    else
-                    {
-                        return new TemplateConfiguration();
+                        res = this.Context.Session[TempID] as TemplateConfiguration;
                     }
                 }
                 else
@@ -89,30 +80,20 @@ namespace SharepointEmails
                     {
                         if (this.Context.Cache[TempID] != null)
                         {
-                            return this.Context.Cache[TempID] as TemplateConfiguration;
-                        }
-                        else
-                        {
-                            return new TemplateConfiguration();
+                            res = this.Context.Cache[TempID] as TemplateConfiguration;
                         }
                     }
                     else
                     {
-                        try
-                        {
-                            return TemplateConfiguration.Parse(SPContext.Current.Web.Properties["boo"] as string);
-                        }
-                        catch
-                        {
-                            return new TemplateConfiguration();
-                        }
+                        res = TemplateConfiguration.ParseOrDefault(SPContext.Current.Web.Properties["boo"] as string);
                     }
                 }
+                return res ?? new TemplateConfiguration();
             }
 
             set
             {
-             
+
                 if (this.Context.Session != null)
                 {
                     this.Context.Session[TempID] = value;
@@ -142,85 +123,131 @@ namespace SharepointEmails
 
         }
 
+        #endregion
+
+        #region overriden methods and props
+
+        protected override string DefaultTemplateName
+        {
+            get
+            {
+                return "SPAssociationEditTemplate";
+            }
+        }
+
+        public override string DisplayTemplateName
+        {
+            get
+            {
+                return "SPAssociationEditTemplate";
+            }
+            set
+            {
+                base.DisplayTemplateName = value;
+            }
+        }
+
         public override object Value
         {
-            get
-            {
-                
-                //return base.Value;
-                return Temp.ToString();
-                //try
-                //{
-                //    return GetValue();
-                //}
-                //catch
-                //{
-                //}
-                //return string.Empty;
-            }
-            set
-            {
-                base.Value = value;
-                //TemplateConfiguration config = null;
-                //try
-                //{
-                //    config = TemplateConfiguration.Parse(value as string);
-                //}
-                //catch
-                //{
-                //    config = new TemplateConfiguration();
-                //}
-                //Render(config);
-            }
+            get { return Temp.ToString(); }
+            set { base.Value = value; }
         }
 
-        public TemplateConfiguration TempFromValue
+        protected override void CreateChildControls()
         {
-            get
-            {
-                try
-                {
-                    return TemplateConfiguration.Parse(Value as string);
-                }
-                catch
-                {
-                    return new TemplateConfiguration();
-                }
-            }
+            base.CreateChildControls();
 
-            set
-            {
-                Value = value.ToString();
-            }
+            Assign();
+            InitControlEvents();
+            InitView();
         }
 
-        TemplateConfiguration FromItem
+        protected override void OnPreRender(EventArgs e)
         {
-            get
+            base.OnPreRender(e);
+            grd_Asses.DataSource = Temp.Associations.Select(p => new AssInfo
             {
-                //return new TemplateConfiguration()
-                //{
-                //    Associations = new List<Association>
-                //    {
-                //        new IDAssociation
-                //        {
-                //            ID="idforitem1",
-                //            ItemID=new Guid("{6790B5D7-4955-4F60-9589-967F6A9DBE7C}"),
-                //            Name="ID Ass 1 Name",
-                //            ItemName="Item1 Name"
-                //        },
-                //        new GroupAssociation
-                //        {
-                //            ID="idforitem2",
-                //            Name="Group Ass 2 Name",
-                //            ItemType=ItemType.AllDiscusionBoard
+                ID = p.ID,
+                Name = p.Name,
+                Type = p.Type.ToString()
+            });
+            grd_Asses.DataBind();
+        }
 
-                //        }
-                //    }
-                //};
-                return TemplateConfiguration.Parse(this.ItemFieldValue as string);
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if (!this.Page.IsPostBack)
+                Temp = FromItem;
+        }
+
+        #endregion
+
+        #region event handlers
+
+        void btn_Delete_Click(object sender, EventArgs e)
+        {
+            if (grd_Asses.SelectedRow != null)
+            {
+                Guid g;
+                var id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
+                RemoveAss(id);
             }
         }
+        
+        void btn_Add_Click(object sender, EventArgs e)
+        {
+            Page.Validate("CreateGroup");
+            if (Page.IsValid)
+            {
+                var ass = FromCreatePanel();
+                AddAss(ass);
+            }
+        }
+
+        void btn_Create_Hide_Click(object sender, EventArgs e)
+        {
+            ShowCreatePanel(false);
+        }
+
+        void btn_Create_Click(object sender, EventArgs e)
+        {
+            ShowCreatePanel(true);
+        }
+
+        void cb_AssType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Create_cb_AssType.SelectedValue))
+            {
+                var type = (AssType)Convert.ToInt32(Create_cb_AssType.SelectedValue);
+                switch (type)
+                {
+                    case AssType.ID: mv_CreateMain.SetActiveView(mv_CreateMain.Views[0]);break;
+                    case AssType.Group: mv_CreateMain.SetActiveView(mv_CreateMain.Views[1]);break;
+                }
+            }
+        }
+
+        void grd_Asses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (grd_Asses.SelectedRow != null)
+            {
+                string id = string.Empty;
+                id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    var view = (Edit) ? v_Editing : v_Displaying;
+                    foreach (Panel c in view.Controls.OfType<Panel>())
+                    {
+                        c.Visible = c.ID.ToLower().Contains(id.ToLower().Trim('{','}'));
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region private methods
 
         void ShowError(CustomValidator validator, string message)
         {
@@ -235,12 +262,12 @@ namespace SharepointEmails
 
             if (string.IsNullOrEmpty(Create_cb_AssType.Text))
             {
-                ShowError(cv_Create,"No association type");
+                ShowError(cv_Create, "No association type");
                 return null;
             }
             if (string.IsNullOrEmpty(Create_tb_Name.Text))
             {
-                ShowError(cv_Create,"No association name");
+                ShowError(cv_Create, "No association name");
                 return null;
             }
 
@@ -315,11 +342,9 @@ namespace SharepointEmails
             btn_Create_Hide.Visible = visible;
         }
 
-       
-
         void InitView()
         {
-              mv_CreateMain.Visible = Edit;
+            mv_CreateMain.Visible = Edit;
 
             if (Edit)
             {
@@ -336,7 +361,7 @@ namespace SharepointEmails
                 var panel = new Panel()
                 {
                     ID = "panel_" + sufix,
-                    Visible=false
+                    Visible = false
                 };
 
                 if (Edit)
@@ -361,115 +386,35 @@ namespace SharepointEmails
             }
         }
 
-        protected override void CreateChildControls()
+        void AddAss(Association ass)
         {
-            base.CreateChildControls();
-
-            Assign();
-            InitControlEvents();
-            InitView();
+            if (ass != null)
+            {
+                var t = Temp;
+                t.Associations.Add(ass);
+                Temp = t;
+            }
         }
 
-        void btn_Delete_Click(object sender, EventArgs e)
+        void RemoveAss(string id)
         {
-            if (grd_Asses.SelectedRow != null)
+            if (!string.IsNullOrEmpty(id))
             {
-                Guid g;
-                var id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
-                if (!string.IsNullOrEmpty(id))
+                var t = Temp;
+                t.Associations.RemoveAll(p => p.ID == id);
+                Temp = t;
+
+                var view = (Edit) ? v_Editing : v_Displaying;
+                foreach (Panel c in view.Controls.OfType<Panel>().ToList())
                 {
-                    DeleteAss(id);
-                    var view = (Edit) ? v_Editing : v_Displaying;
-                    foreach (Panel c in view.Controls.OfType<Panel>().ToList())
-                    {
-                        if (c.ID.ToLower().Contains(id.ToLower()))
-                            view.Controls.Remove(c);
-                    }
+                    if (c.ID.ToLower().Contains(id.ToLower()))
+                        view.Controls.Remove(c);
                 }
             }
         }
 
-        private void DeleteAss(string id)
-        {
-            var t = Temp;
-            t.Associations.RemoveAll(p => p.ID == id);
+        #endregion
 
-            Temp = t; 
-        }
-
-        void btn_Add_Click(object sender, EventArgs e)
-        {
-            Page.Validate("CreateGroup");
-            if (Page.IsValid)
-            {
-                var ass = FromCreatePanel();
-                if (ass != null)
-                {
-                    var t = Temp;
-                    t.Associations.Add(ass);
-                    Temp = t;
-                }
-            }
-        }
-
-        void btn_Create_Hide_Click(object sender, EventArgs e)
-        {
-            ShowCreatePanel(false);
-        }
-
-        void btn_Create_Click(object sender, EventArgs e)
-        {
-            ShowCreatePanel(true);
-        }
-
-        void cb_AssType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(Create_cb_AssType.SelectedValue))
-            {
-                var type = (AssType)Convert.ToInt32(Create_cb_AssType.SelectedValue);
-                switch (type)
-                {
-                    case AssType.ID: mv_CreateMain.SetActiveView(mv_CreateMain.Views[0]);break;
-                    case AssType.Group: mv_CreateMain.SetActiveView(mv_CreateMain.Views[1]);break;
-                }
-            }
-        }
-
-        void grd_Asses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (grd_Asses.SelectedRow != null)
-            {
-                string id = string.Empty;
-                id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
-                if (!string.IsNullOrEmpty(id))
-                {
-                    var view = (Edit) ? v_Editing : v_Displaying;
-                    foreach (Panel c in view.Controls.OfType<Panel>())
-                    {
-                        c.Visible = c.ID.ToLower().Contains(id.ToLower().Trim('{','}'));
-                    }
-                }
-            }
-        }        
-
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-            grd_Asses.DataSource = Temp.Associations.Select(p => new AssInfo
-            {
-                ID = p.ID,
-                Name=p.Name,
-                Type=p.Type.ToString()
-            });
-            grd_Asses.DataBind();
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            if (!this.Page.IsPostBack)
-                Temp = FromItem;
-        }
     }
 
     class AssInfo

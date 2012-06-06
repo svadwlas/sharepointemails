@@ -26,13 +26,17 @@ namespace SharePointEmails.Core
 
         public static TemplateConfiguration Parse(string str)
         {
-            if (string.IsNullOrEmpty(str)) return new TemplateConfiguration();
+            using (var reader = new StringReader(str))
+            {
+                return (TemplateConfiguration)Searilizer.Deserialize(reader);
+            }
+        }
+
+        public static TemplateConfiguration ParseOrDefault(string str)
+        {
             try
             {
-                using (var reader = new StringReader(str))
-                {
-                    return (TemplateConfiguration)Searilizer.Deserialize(reader);
-                }
+                return Parse(str);
             }
             catch
             {
