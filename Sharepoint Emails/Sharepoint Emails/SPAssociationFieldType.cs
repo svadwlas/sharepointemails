@@ -11,33 +11,33 @@ namespace SharepointEmails
 {
     public class SPAssociationFieldType : SPFieldMultiLineText
     {
-
         public SPAssociationFieldType(SPFieldCollection fields, string fieldName)
-            : base(fields, fieldName)
-        { }
+            : base(fields, fieldName){ }
 
         public SPAssociationFieldType(SPFieldCollection fields, string typeName, string displayName)
-            : base(fields, typeName, displayName)
-        {
-        }
+            : base(fields, typeName, displayName){}
 
         public override Microsoft.SharePoint.WebControls.BaseFieldControl FieldRenderingControl
         {
             get
             {
-                return new SPAssociationControl() { FieldName = this.InternalName };
+                return new SPAssociationControl()
+                {
+                    FieldName = this.InternalName
+                };
             }
         }
+
         public override string GetFieldValueAsHtml(object value)
         {
             try
             {
+                int count = 0;
                 if (value != null)
                 {
-                    var res = SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1);
-                    return AssociationConfiguration.ParseOrDefault(res).Count+" asses" ;
+                    count = AssociationConfiguration.ParseOrDefault(SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1)).Count;
                 }
-                return "";
+                return count+" associations";
             }
             catch(Exception ex)
             {
