@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- If you are customizing alerttemplates.xml or alerttemplates_sms.xml, please ensure you keep them in synchronization in every parts except the format section. -->
+<AlertTemplates>
+  <AlertTemplate Type="Custom"  Name="SETemplate" Default="True">
+    <EventTypes IsVisible="True"/>
+    <Properties>
+      <NotificationHandlerAssembly>SharepointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b</NotificationHandlerAssembly>
+      <NotificationHandlerClassName>SharepointEmails.AlertHandler</NotificationHandlerClassName>
+    </Properties>
+  </AlertTemplate>
+</AlertTemplates>

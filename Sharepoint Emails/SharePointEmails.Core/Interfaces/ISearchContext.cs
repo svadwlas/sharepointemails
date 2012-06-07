@@ -26,6 +26,7 @@ namespace SharePointEmails.Core
     public class SearchMatchLevel
     {
         public const int MAX = 1000;
+        public const int LOWERMAX = 900;
         public const int NONE = -1;
         public const int MIDLE = 300;
     }

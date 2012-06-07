@@ -17,6 +17,7 @@
       <CHOICE>Published</CHOICE>
     </CHOICES>
   </Field>
+  <Field ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations" Type="SPAssociation" Group="SharePointEmails" />
   <ContentType ID="0x01006230043d1f824022a80ad3e43a7b6da4"
                Name="SEMailTemplateCT"
                Group="SharePointEmails"
@@ -28,6 +29,7 @@
       <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" />
       <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" Required="True"/>
       <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" Required="True"/>
+      <FieldRef ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations"/>
     </FieldRefs>
   </ContentType>
 </Elements>

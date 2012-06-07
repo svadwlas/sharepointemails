@@ -7,10 +7,11 @@ using Microsoft.SharePoint;
 using System.Web.UI.WebControls;
 using SharePointEmails.Core;
 using SharePointEmails.Core.Associations;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharepointEmails
 {
-    class SPAssociationControl:BaseFieldControl
+    class SPAssociationControl : BaseFieldControl, ITemplateConfigurationHolder
     {
         const int NAME_COLUMN_INDEX = 2;
         const int ID_COLUMN_INDEX = 1;
@@ -190,12 +191,11 @@ namespace SharepointEmails
         {
             if (grd_Asses.SelectedRow != null)
             {
-                Guid g;
                 var id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
                 RemoveAss(id);
             }
         }
-        
+
         void btn_Add_Click(object sender, EventArgs e)
         {
             Page.Validate("CreateGroup");
@@ -224,8 +224,8 @@ namespace SharepointEmails
                 var type = (AssType)Convert.ToInt32(Create_cb_AssType.SelectedValue);
                 switch (type)
                 {
-                    case AssType.ID: mv_CreateMain.SetActiveView(mv_CreateMain.Views[0]);break;
-                    case AssType.Group: mv_CreateMain.SetActiveView(mv_CreateMain.Views[1]);break;
+                    case AssType.ID: mv_CreateMain.SetActiveView(mv_CreateMain.Views[0]); break;
+                    case AssType.Group: mv_CreateMain.SetActiveView(mv_CreateMain.Views[1]); break;
                 }
             }
         }
@@ -241,7 +241,7 @@ namespace SharepointEmails
                     var view = (Edit) ? v_Editing : v_Displaying;
                     foreach (Panel c in view.Controls.OfType<Panel>())
                     {
-                        c.Visible = c.ID.ToLower().Contains(id.ToLower().Trim('{','}'));
+                        c.Visible = c.ID.ToLower().Contains(id.ToLower().Trim('{', '}'));
                     }
                 }
             }
@@ -417,6 +417,11 @@ namespace SharepointEmails
 
         #endregion
 
+
+        public string[] Data
+        {
+            get { return new string[] { "data1", "data2", "data3" }; }
+        }
     }
 
     class AssInfo

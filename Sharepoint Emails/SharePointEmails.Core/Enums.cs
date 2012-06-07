@@ -8,7 +8,7 @@ namespace SharePointEmails.Core
 {
     public enum TemplateTypeEnum
     {
-        Unknown=1, All=2, ItemAdded=4, ItemRemoved=8, ItemUpdated=16
+        Unknown=1, AllItemEvents=2, ItemAdded=4, ItemRemoved=8, ItemUpdated=16
     }
     public enum TemplateStateEnum
     {
@@ -43,7 +43,7 @@ namespace SharePointEmails.Core
             foreach (var s in strs)
             {
                 if (s.ToLower() == SEMailTemplateCT.TypeChoices.All.ToLower())
-                    res = res | (int)TemplateTypeEnum.All;
+                    res = res | (int)TemplateTypeEnum.AllItemEvents;
                 else if (s.ToLower() == SEMailTemplateCT.TypeChoices.ItemAdded.ToLower())
                     res = res | (int)TemplateTypeEnum.ItemAdded;
                 else if (s.ToLower() == SEMailTemplateCT.TypeChoices.ItemRemoved.ToLower())
@@ -71,7 +71,7 @@ namespace SharePointEmails.Core
         {
             var res = new SPFieldMultiChoiceValue();
 
-            if (((value & (int)TemplateTypeEnum.All) == (int)TemplateTypeEnum.All))
+            if (((value & (int)TemplateTypeEnum.AllItemEvents) == (int)TemplateTypeEnum.AllItemEvents))
                 res.Add(SEMailTemplateCT.TypeChoices.All);
             else
             {

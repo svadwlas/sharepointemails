@@ -6,8 +6,6 @@ namespace SharepointEmails.Layouts.SharepointEmails
 {
     public partial class ChooseItemPage : LayoutsPageBase
     {
-        SPWeb Web { get { return SPContext.Current.Web; } }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             TreeViewDataSource1.DataBinding += new EventHandler(TreeViewDataSource1_DataBinding);
@@ -20,7 +18,6 @@ namespace SharepointEmails.Layouts.SharepointEmails
 
         void TreeViewDataSource1_DataBinding(object sender, EventArgs e)
         {
-            
         }
 
         protected override void OnPreRender(EventArgs e)

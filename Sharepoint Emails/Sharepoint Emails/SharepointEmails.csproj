@@ -65,13 +65,7 @@
     <Reference Include="Microsoft.SharePoint" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlTemplates\SPAssociationControl.ascx.cs">
-      <DependentUpon>SPAssociationControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ControlTemplates\SPAssociationControl.ascx.designer.cs">
-      <DependentUpon>SPAssociationControl.ascx.cs</DependentUpon>
-    </Compile>
+    <Compile Include="AlertHandler.cs" />
     <Compile Include="Layouts\SharepointEmails\AddAssociation.aspx.cs">
       <DependentUpon>AddAssociation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -148,12 +142,17 @@
     </Content>
     <Content Include="WebSettingsPageLink\Elements.xml" />
     <Content Include="XML\fldtypes_SPAssociation.xml" />
+    <Content Include="XML\SEAlertReceiver.xml" />
     <Content Include="XSL\fldtypes_SEAssociation.xsl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">
       <Project>{E73985B3-3C00-4C7C-92D3-70186DBC3D93}</Project>
       <Name>SharePointEmails.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharePointEmails.Logging\SharePointEmails.Logging.csproj">
+      <Project>{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}</Project>
+      <Name>SharePointEmails.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

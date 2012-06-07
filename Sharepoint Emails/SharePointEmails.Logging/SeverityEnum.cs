@@ -11,6 +11,7 @@ namespace SharePointEmails.Logging
         Warning,
         Information,
         Error,
-        CriticalError
+        CriticalError,
+        Verbose
     }
 }

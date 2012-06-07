@@ -33,7 +33,7 @@ namespace SharePointEmails.Core
             }
             else
             {
-                this.EventTypes = (int)TemplateTypeEnum.All;
+                this.EventTypes = (int)TemplateTypeEnum.AllItemEvents;
             }
             this.State = EnumConverter.ToState(m_Item[SEMailTemplateCT.TemplateState] as string);
         }

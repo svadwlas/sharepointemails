@@ -80,7 +80,9 @@
     <Compile Include="Interfaces\ISubstitutionContext.cs" />
     <Compile Include="Interfaces\ITemplate.cs" />
     <Compile Include="Interfaces\ISearchContext.cs" />
+    <Compile Include="Interfaces\ITemplateConfigurationHolder.cs" />
     <Compile Include="Interfaces\ITemplatesResolver.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\SEMailTemplateCT.cs" />
     <Compile Include="Substitutions\SubstitutionWorker.cs" />
