@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core.Associations
 {
@@ -20,7 +21,7 @@ namespace SharePointEmails.Core.Associations
             ID = Guid.NewGuid().ToString();
             Name = "Ass" + ID;
         }
-        public abstract bool IsMatch(object obj);
+        public abstract int IsMatch(SPList list, SPContentTypeId ctId, int ItemId);
         public abstract AssType Type { get; }
     }
 

@@ -16,34 +16,36 @@ namespace SharePointEmails.Core.Associations
             get { return AssType.Group; }
         }
 
-        public override bool IsMatch(object obj)
+        public override int IsMatch(SPList list, SPContentTypeId ctId, int ItemId)
         {
-            if (obj == null) return false;
+            if (ctId == null) return SearchMatchLevel.NONE;
             switch (ItemType)
             {
-                case GroupType.None:
-                    {
-                        return false;
-                    }
                 case GroupType.AllList:
                     {
-                        return ((obj is SPWeb) || (obj is SPListItem));
+                        if (!(list is SPDocumentLibrary)) return SearchMatchLevel.LIST_BY_GROUP;
+                        break;
                     }
                 case GroupType.AllDocumentLibrary:
                     {
-                        return ((obj is SPDocumentLibrary) || ((obj is SPListItem) && (((SPListItem)obj).ParentList.BaseType == SPBaseType.DocumentLibrary)));
+                        if (list is SPDocumentLibrary) return SearchMatchLevel.LIST_BY_GROUP;
+                        break;
                     }
                 case GroupType.AllDiscusionBoard:
                     {
-                        return (((obj is SPList) && (((SPList)obj).BaseType == SPBaseType.DiscussionBoard)) || ((obj is SPListItem) && (((SPListItem)obj).ParentList.BaseType == SPBaseType.DiscussionBoard)));
+                        if (ctId.IsChildOf(SPBuiltInContentTypeId.Discussion) || ctId.IsChildOf(SPBuiltInContentTypeId.Message))
+                            return SearchMatchLevel.PARENT_BY_GROUP;
+                        break;
                     }
                 case GroupType.AllBlogs:
                     {
-                        return ((obj is SPListItem) && ((SPListItem)obj).ContentType.Id.IsChildOf((SPBuiltInContentTypeId.BlogPost)));
+                        if (ctId.IsChildOf(SPBuiltInContentTypeId.BlogPost) || (ctId.IsChildOf(SPBuiltInContentTypeId.BlogComment)))
+                            return SearchMatchLevel.ITEM_BY_GROUP;
+                        break;
                     }
-                //case Core.ItemType.MyTask: return ((obj is SPListItem) && ((SPListItem)obj).ContentType.Id.IsChildOf((SPBuiltInContentTypeId.Task))&&(((SPListItem)obj)[]));
-                default: return false;
             }
+            //case Core.ItemType.MyTask: return ((obj is SPListItem) && ((SPListItem)obj).ContentType.Id.IsChildOf((SPBuiltInContentTypeId.Task))&&(((SPListItem)obj)[]));
+            return SearchMatchLevel.NONE;
         }
     }
 

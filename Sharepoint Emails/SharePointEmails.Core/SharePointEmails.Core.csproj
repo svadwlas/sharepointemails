@@ -89,7 +89,6 @@
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\SEMailTemplateCT.cs" />
-    <Compile Include="SearchContextBase.cs" />
     <Compile Include="Substitutions\SubstitutionWorker.cs" />
     <Compile Include="Substitutions\Substitution.cs" />
     <Compile Include="Substitutions\SubstitutionContext.cs" />

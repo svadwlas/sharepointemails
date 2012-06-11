@@ -281,7 +281,7 @@ namespace SharepointEmails
                         return new IDAssociation
                         {
                             Name = name,
-                            ItemID = new Guid(Create_ById_tb_ItemId.Text),
+                            ItemID = Create_ById_tb_ItemId.Text,
                             Description = Create_tb_Desc.Text
                         };
                     }

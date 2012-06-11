@@ -31,9 +31,10 @@ namespace SharepointEmails
                                 return false;
                             }
 
+                            var list = web.Lists[ahp.a.ListID];
                             foreach (var ed in ahp.eventData)
                             {
-                                message = Application.Current.GetMessage(null, ahp.a.EventType,ed.eventXml);
+                                message = Application.Current.GetMessageForItem(list,ed.itemId, ahp.a.EventType,ed.eventXml);
                             }
                         }
                     }

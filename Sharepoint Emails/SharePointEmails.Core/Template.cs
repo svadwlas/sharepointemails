@@ -119,7 +119,7 @@ namespace SharePointEmails.Core
         }
 
     
-        public AssociationConfiguration Config
+        public AssociationConfiguration Asses
         {
             get
             {

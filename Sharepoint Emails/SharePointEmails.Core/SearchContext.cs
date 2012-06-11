@@ -9,31 +9,27 @@ namespace SharePointEmails.Core
     public  class SearchContext:ISearchContext
     {
 
-        public static ISearchContext Create(Guid siteId, Guid webId, Guid listId, int itemId, string eventData, TemplateTypeEnum type)
+        public static ISearchContext Create(SPList list, int itemId, string eventData, TemplateTypeEnum type)
         {
-            return new SearchContext(siteId,webId,listId,itemId,eventData,type);
+            return new SearchContext(list,itemId,eventData,type);
         }
 
-        SearchContext(Guid siteId, Guid webId, Guid listId, int itemId, string eventData, TemplateTypeEnum type)
+        SearchContext(SPList list, int itemId, string eventData, TemplateTypeEnum type)
         {
-            SiteId = siteId;
-            WebId = webId;
+            List = list;
             Type = type;
             ItemId = itemId;
-            using (var site = new SPSite(siteId))
+            try
             {
-                using (var web = site.OpenWeb(webId))
-                {
-                    SPList list = null;
-                    list = web.Lists[listId];
-                    ListType = list.BaseType;
-                }
+                var item = list.GetItemById(itemId);
+                ItemContentTypeId = item.ContentTypeId;
+            }
+            catch
+            {
             }
         }
 
-        public Guid SiteId {get;set;}
-
-        public Guid WebId{get;set;}
+        SPList List { set; get; }
 
         public SPContentTypeId ItemContentTypeId { set; get; }
 
@@ -41,11 +37,15 @@ namespace SharePointEmails.Core
 
         public TemplateTypeEnum Type { set; get; }
 
-        public SPBaseType ListType { set; get; }
-
         int CheckAsses(ITemplate template)
         {
-            return SearchMatchLevel.MAX;
+            int res = SearchMatchLevel.NONE;
+            foreach (var ass in template.Asses)
+            {
+                var m = ass.IsMatch(List, ItemContentTypeId, ItemId);
+                if (m > res) res = m;
+            }
+            return res;
         }
 
         public int Match(ITemplate template)
@@ -74,6 +74,30 @@ namespace SharePointEmails.Core
         public bool Contains(TemplateTypeEnum parent, TemplateTypeEnum type)
         {
             return Contains((int)parent,(int)type);
+        }
+
+        public Guid SiteId
+        {
+            get
+            {
+                return List.ParentWeb.Site.ID;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Guid WebId
+        {
+            get
+            {
+                return List.ParentWeb.ID;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

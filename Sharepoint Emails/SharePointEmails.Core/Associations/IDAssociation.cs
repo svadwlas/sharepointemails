@@ -9,7 +9,12 @@ namespace SharePointEmails.Core.Associations
     [Serializable]
     public class IDAssociation : Association
     {
-        public Guid ItemID { set; get; }
+        public static string GetId(Guid listGuid, int itemId)
+        {
+            return listGuid.ToString().ToLower()+":" + itemId;
+        }
+
+        public string ItemID { set; get; }
         public string ItemName { set; get; }
         public string ItemType { set; get; }
 
@@ -19,13 +24,55 @@ namespace SharePointEmails.Core.Associations
         }
 
         public string RelativeItemUrl { set; get; }
-        public override bool IsMatch(object obj)
+
+        private SPListItem GetParent(SPList list, int itemId)
         {
-            if ((ItemID == Guid.Empty) || (obj == null)) return false;
-            if (obj is SPList) return ((SPList)obj).ID.Equals(ID);
-            if (obj is SPListItem) return ((SPListItem)obj).ID.Equals(ID);
-            if (obj is SPWeb) return ((SPWeb)obj).ID.Equals(ID);
-            return false;
+            try
+            {
+                var item = list.GetItemById(itemId);
+                return item.Folder.ParentFolder.Item;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        bool Compare(string id)
+        {
+            return this.ItemID.ToLower() == id.ToLower();
+        }
+
+        public override int IsMatch(SPList list, SPContentTypeId ctId, int itemId)
+        {
+            var itemID = GetId(list.ID, itemId);
+            if (Compare(itemID))
+                return SearchMatchLevel.ITEM_BY_ID;
+            else
+            {
+                var parent = GetParent(list, itemId);
+                while (parent != null)
+                {
+                    var id = GetId(list.ID, parent.ID);
+                    if (Compare(id))
+                    {
+                        return SearchMatchLevel.FOLDER_DISC_BY_ID;
+                    }
+                }
+                if (Compare(list.ID.ToString()))
+                    return SearchMatchLevel.LIST_LIB_BY_ID;
+                else
+                {
+                    var web = list.ParentWeb;
+                    while (web != null)
+                    {
+                        if (Compare(list.ParentWeb.ID.ToString()))
+                            return SearchMatchLevel.Web_BY_ID;
+                    }
+                }
+            }
+
+            return SearchMatchLevel.NONE;
         }
     }
 }

@@ -106,17 +106,11 @@ namespace SharePointEmails.Core
             return TemplateTypeEnum.AllItemEvents;
         }
 
-        public Message GetMessage(SPListItem item,SPEventType type,string eventXML)
+        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML)
         {
             var manager = GetTemplateManager();
-            ISearchContext search=null;
-            if (item != null)
-            {
-                search = SearchContext.Create(item, get(type));
-            }
-            else
-            {
-            }
+            ISearchContext search = null;
+            search = SearchContext.Create(list, ItemID, eventXML, get(type));
             if (search != null)
             {
                 var res = manager.GetTemplate(search);

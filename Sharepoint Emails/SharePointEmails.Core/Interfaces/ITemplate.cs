@@ -44,7 +44,7 @@ namespace SharePointEmails.Core
             set;
         }
 
-        AssociationConfiguration Config { get; set; }
+        AssociationConfiguration Asses { get; set; }
 
         void Update();
         void SaveTo(SPListItem item);
