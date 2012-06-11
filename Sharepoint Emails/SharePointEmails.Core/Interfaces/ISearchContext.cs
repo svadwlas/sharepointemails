@@ -20,7 +20,6 @@ namespace SharePointEmails.Core
         }
 
         int Match(ITemplate template);
-
     }
 
     public class SearchMatchLevel

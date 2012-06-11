@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharePointEmails.Core
 {
-    public class Substitution : ISubstitution
+    public class FieldSubstitution : ISubstitution
     {
         public string Pattern
         {
@@ -45,7 +45,17 @@ namespace SharePointEmails.Core
 
         public string Process(string text, ISubstitutionContext context)
         {
-            return text + "first substitution|";
+            foreach (var m in new List<string> { "field1", "field2" })
+            {
+                text += context.GetField(m);
+            }
+            return text;
+        }
+
+        public List<string> GetAvailableKeys(ISubstitutionContext context)
+        {
+            var res = new List<string>() { "field1", "field2" };
+            return res;
         }
     }
 }

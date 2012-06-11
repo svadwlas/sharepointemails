@@ -14,25 +14,26 @@ namespace SharepointEmails
         {
             System.Diagnostics.Debugger.Launch();
 
+            if (Application.Current.IsDisabledForFarm()) return false;
+
             if (ahp.a != null)
             {
                 var item = ahp.a.Item;
                 Message message = null;
-                if (item != null)
-                {
-                    message = Application.Current.GetMessage(item,ahp.a.EventType);
-                }
                 if (ahp.eventData.Length > 0)
                 {
                     using (SPSite site = new SPSite(ahp.siteId))
                     {
                         using (SPWeb web = site.OpenWeb(ahp.webId))
                         {
-                            var list = web.Lists[ahp.a.ListID];
-                            var listItem=list.GetItemById(ahp.eventData[0].itemId);
-                            if (listItem != null)
+                            if (Application.Current.IsDisabledForWeb(web))
                             {
-                                message = Application.Current.GetMessage(listItem, ahp.a.EventType);
+                                return false;
+                            }
+
+                            foreach (var ed in ahp.eventData)
+                            {
+                                message = Application.Current.GetMessage(null, ahp.a.EventType,ed.eventXml);
                             }
                         }
                     }

@@ -9,49 +9,71 @@ namespace SharePointEmails.Core
     public  class SearchContext:ISearchContext
     {
 
-        public static ISearchContext Create(SPListItem item,TemplateTypeEnum type)
+        public static ISearchContext Create(Guid siteId, Guid webId, Guid listId, int itemId, string eventData, TemplateTypeEnum type)
         {
-            return new SearchContext(item,type);
+            return new SearchContext(siteId,webId,listId,itemId,eventData,type);
         }
 
-        SPListItem m_item;
-
-        SearchContext(TemplateTypeEnum type)
+        SearchContext(Guid siteId, Guid webId, Guid listId, int itemId, string eventData, TemplateTypeEnum type)
         {
+            SiteId = siteId;
+            WebId = webId;
             Type = type;
-        }
-        SearchContext(SPListItem item,TemplateTypeEnum type):this(type)
-        {
-            m_item = item;
-            SiteId=item.Web.Site.ID;
-            WebId = item.Web.ID;
+            ItemId = itemId;
+            using (var site = new SPSite(siteId))
+            {
+                using (var web = site.OpenWeb(webId))
+                {
+                    SPList list = null;
+                    list = web.Lists[listId];
+                    ListType = list.BaseType;
+                }
+            }
         }
 
         public Guid SiteId {get;set;}
 
         public Guid WebId{get;set;}
 
+        public SPContentTypeId ItemContentTypeId { set; get; }
+
+        public int ItemId { set; get; }
+
         public TemplateTypeEnum Type { set; get; }
+
+        public SPBaseType ListType { set; get; }
+
+        int CheckAsses(ITemplate template)
+        {
+            return SearchMatchLevel.MAX;
+        }
 
         public int Match(ITemplate template)
         {
-            if((template.EventTypes&(int)TemplateTypeEnum.AllItemEvents)!=0)
-                return SearchMatchLevel.LOWERMAX;
-            if ((Type == TemplateTypeEnum.AllItemEvents)
-                && (Contains(TemplateTypeEnum.ItemAdded) || Contains(TemplateTypeEnum.ItemRemoved) || Contains(TemplateTypeEnum.ItemUpdated)))
-                return SearchMatchLevel.LOWERMAX;
-            if (Contains(template.EventTypes))
-                return SearchMatchLevel.MAX;
-            return SearchMatchLevel.NONE;
+            if (template.State == TemplateStateEnum.Draft) return SearchMatchLevel.NONE;
+            if ((Type == TemplateTypeEnum.AllItemEvents) && (Contains(template.EventTypes, TemplateTypeEnum.ItemAdded)
+                                                            || Contains(template.EventTypes, TemplateTypeEnum.ItemRemoved)
+                                                            || Contains(template.EventTypes, TemplateTypeEnum.ItemUpdated)))
+            {
+                return CheckAsses(template);
+            }
+            else
+            {
+                return SearchMatchLevel.NONE;
+            }
         }
 
-        public bool Contains(int type)
+        public bool Contains(int parent,int type)
         {
-            return (((int)Type & type) != 0);
+            return (((int)parent & type) != 0);
         }
-        public bool Contains(TemplateTypeEnum type)
+        public bool Contains(int parent, TemplateTypeEnum type)
         {
-            return Contains((int)type);
+            return (((int)parent & (int)type) != 0);
+        }
+        public bool Contains(TemplateTypeEnum parent, TemplateTypeEnum type)
+        {
+            return Contains((int)parent,(int)type);
         }
     }
 }

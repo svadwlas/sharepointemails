@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SharePointEmails.Logging;
 using Microsoft.Practices.Unity;
+using SharePointEmails.Core.Configuration;
 
 namespace SharePointEmails.Core
 {
@@ -39,6 +40,7 @@ namespace SharePointEmails.Core
             container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger()));
             container.RegisterInstance<ISiteManager>(new SiteManager());
             container.RegisterInstance<SubstitutionManager>(new SubstitutionManager());
+            container.RegisterInstance<ConfigurationManager>(new ConfigurationManager());
         }
 
         private UnityContainer Container

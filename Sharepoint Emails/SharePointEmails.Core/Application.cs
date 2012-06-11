@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Configuration;
+using Microsoft.SharePoint.Administration;
 
 namespace SharePointEmails.Core
 {
@@ -28,6 +30,47 @@ namespace SharePointEmails.Core
                 }
                 return _Curent;
             }
+        }
+
+        private FarmConfiguration FarmConfig
+        {
+            get
+            {
+                var configManager=ClassContainer.Instance.Resolve<ConfigurationManager>();
+                var res=configManager.GetConfigOrdefault(SPFarm.Local);
+                return res;
+            }
+        }
+
+        private WebConfiguration WebConfig(SPWeb web)
+        {
+            var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
+            var res = configManager.GetConfigOrdefault(web);
+            return res;
+        }
+
+        public bool IsDisabledForFarm()
+        {
+            return false;
+            return FarmConfig.Disabled;
+        }
+
+        public bool IsDisabledForWeb(SPWeb web)
+        {
+            return false;
+            var temp = web;
+            while (temp != null)
+            {
+                var config = WebConfig(temp);
+                if (config != null)
+                {
+                    if (temp.Equals(web) && ((config.Disabled)))
+                        return true;
+                    else if (config.Disabled && config.DisableIncludeChilds)
+                        return true;
+                }
+            }
+            return false;
         }
 
         public ILogger Logger
@@ -63,23 +106,30 @@ namespace SharePointEmails.Core
             return TemplateTypeEnum.AllItemEvents;
         }
 
-        public Message GetMessage(SPListItem item,SPEventType type)
+        public Message GetMessage(SPListItem item,SPEventType type,string eventXML)
         {
             var manager = GetTemplateManager();
-            var search = SearchContext.Create(item,get(type));
-            var res = manager.GetTemplate(search);
-            if (res != null)
+            ISearchContext search=null;
+            if (item != null)
             {
-                return new Message
-                    {
-                        Body = res.GetProcessedText(null),
-                        Subject = "generated message " + DateTime.Now.ToLongTimeString()
-                    };
+                search = SearchContext.Create(item, get(type));
             }
             else
             {
-                return null;
             }
+            if (search != null)
+            {
+                var res = manager.GetTemplate(search);
+                if (res != null)
+                {
+                    return new Message
+                        {
+                            Body = res.GetProcessedText(new SubstitutionContext(eventXML)),
+                            Subject = "generated message " + DateTime.Now.ToLongTimeString()
+                        };
+                }
+            }
+            return null;
         }
     }
 }
