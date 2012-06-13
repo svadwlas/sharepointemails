@@ -32,12 +32,23 @@ namespace SharepointEmails
         {
             try
             {
-                int count = 0;
-                if (value != null)
+                var config=AssociationConfiguration.ParseOrDefault(SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1));
+                int count = config.Count;
+                if (count > 0)
                 {
-                    count = AssociationConfiguration.ParseOrDefault(SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1)).Count;
+                    var sb = new StringBuilder();
+                    sb.Append("<table>");
+                    foreach (var a in config)
+                    {
+                        sb.Append(string.Format("<tr><td>{0}) </td><td>{1}</td><td>{2}</td></tr>",config.IndexOf(a)+1,a.Name,a.Type));
+                    }
+                    sb.Append("<table>");
+                    return sb.ToString();
                 }
-                return count+" associations";
+                else
+                {
+                    return "no associations";
+                }
             }
             catch(Exception ex)
             {

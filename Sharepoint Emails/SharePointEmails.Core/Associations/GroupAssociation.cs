@@ -47,6 +47,12 @@ namespace SharePointEmails.Core.Associations
             //case Core.ItemType.MyTask: return ((obj is SPListItem) && ((SPListItem)obj).ContentType.Id.IsChildOf((SPBuiltInContentTypeId.Task))&&(((SPListItem)obj)[]));
             return SearchMatchLevel.NONE;
         }
+
+        public override void Validate()
+        {
+            base.Validate();
+            if (ItemType == GroupType.None) throw new Exception("Choose group type");
+        }
     }
 
     [Serializable]

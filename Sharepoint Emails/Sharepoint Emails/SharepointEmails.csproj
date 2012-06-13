@@ -80,6 +80,13 @@
     <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.designer.cs">
       <DependentUpon>ChooseItemPage.aspx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.cs">
+      <DependentUpon>WebSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.designer.cs">
+      <DependentUpon>WebSettings.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SPAssociationControl.cs" />
     <Compile Include="SPAssociationFieldType.cs" />
@@ -131,6 +138,9 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\SharepointEmails\Scripts\SEAssociationFieldControl.js" />
+    <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="SEMailTemplateCT\Elements.xml">
       <SubType>Designer</SubType>
     </Content>

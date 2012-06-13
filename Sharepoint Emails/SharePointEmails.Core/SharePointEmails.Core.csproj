@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="Associations\Association.cs" />
+    <Compile Include="Associations\ContentTypeAssociation.cs" />
     <Compile Include="Associations\GroupAssociation.cs" />
     <Compile Include="Associations\IDAssociation.cs" />
     <Compile Include="ClassContainer.cs" />

@@ -2,7 +2,7 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <CustomAction
         Id="SharepointEmails.WebSettings"
-        GroupId="SiteCollectionAdmin"
+        GroupId="SiteAdministration"
         Location="Microsoft.SharePoint.SiteSettings"
         Sequence="1000"
         Title="SharePoint Emails Web Settings">

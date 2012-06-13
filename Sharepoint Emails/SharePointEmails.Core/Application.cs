@@ -32,6 +32,20 @@ namespace SharePointEmails.Core
             }
         }
 
+        public SPList GetHiddenList(SPWeb web, bool create=false)
+        {
+            var list = web.Lists.TryGetList(Constants.TemplateListName);
+            if (list == null && create)
+            {
+                var manager = ClassContainer.Instance.Resolve<ISiteManager>();
+                return manager.CreateHiddenTemplatesList(web);
+            }
+            else
+            {
+                return list;
+            }
+        }
+
         private FarmConfiguration FarmConfig
         {
             get
@@ -42,7 +56,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        private WebConfiguration WebConfig(SPWeb web)
+        public WebConfiguration WebConfig(SPWeb web)
         {
             var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
             var res = configManager.GetConfigOrdefault(web);

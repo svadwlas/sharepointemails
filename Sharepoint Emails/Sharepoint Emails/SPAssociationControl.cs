@@ -16,16 +16,41 @@ namespace SharepointEmails
         const int NAME_COLUMN_INDEX = 2;
         const int ID_COLUMN_INDEX = 1;
 
+        List<string> GroupTypes = Enum.GetNames(typeof(GroupType)).ToList();
+
         public string TempID = "{CEF7AB10-00B0-4739-8C6E-34A5F781B21C}";
 
         #region Controls
 
         GridView grd_Asses;
 
+        Panel p_Buttons;
         Button btn_Create;
         Button btn_Create_Hide;
         Button btn_Add;
         Button btn_Delete;
+
+        MultiView v_Editing_mv_Types;
+        MultiView v_Displaing_mv_Types;
+        View v_Displaying_v_ById;
+        View v_Displaying_v_ByGroup;
+        View v_Displaying_v_ByCT;
+        View v_Editing_v_ById;
+        View v_Editing_v_ByGroup;
+        View v_Editing_v_ByCT;
+        TextBox v_Editing_tb_Name;
+        Label v_Displaing_lbl_Name;
+        Label v_Displaying_lbl_Type;
+        Label v_Editing_lbl_Type;
+        Label v_Displaying_v_ById_lbl_Id;
+        Label v_Displaying_v_ByGroup_lbl_Group;
+        Label v_Displaying_v_ByCT_lbl_CTId;
+        CheckBox v_Displaying_v_ByCT_cb_IncludeChildren;
+
+        TextBox v_Editing_v_ById_tb_Id;
+        DropDownList v_Editing_v_ByGroup_cb_Group;
+        TextBox v_Editing_v_ByCT_tb_CTId;
+        CheckBox v_Editing_v_ByCT_cb_IncludeChildren;
 
         Panel p_Create;
         TextBox Create_tb_Name;
@@ -34,6 +59,8 @@ namespace SharepointEmails
 
         TextBox Create_ById_tb_ItemId;
         DropDownList Create_ByGroup_cb_GroupType;
+        TextBox Create_ByCT_tb_CTId;
+        CheckBox Create_ByCT_cb_IncludingChildren;
 
         CustomValidator cv_Create;
         ValidationSummary vs_Create;
@@ -174,13 +201,54 @@ namespace SharepointEmails
                 Type = p.Type.ToString()
             });
             grd_Asses.DataBind();
+          //  v_Editing_v_ByGroup_cb_Group.DataBind();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             if (!this.Page.IsPostBack)
+            {
                 Temp = FromItem;
+            }
+            else
+            {
+                UpdateActiveAss();
+            }
+        }
+
+        public override void Validate()
+        {
+            if (Edit&&Page.IsValid)
+            {
+                base.Validate();
+                var temp = Temp;
+                Dictionary<string,Exception> errors=new Dictionary<string,Exception>();
+                foreach (var ass in temp)
+                {
+                    try
+                    {
+                        ass.Validate();
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add(ass.Name,ex);
+                    }
+                }
+                if (errors.Count > 0)
+                {
+                    int i=1;
+                    this.IsValid = false;
+                    var sb = new StringBuilder();
+                    foreach (var kv in errors)
+                    {
+                        sb.Append(string.Format("{0}) {1} : {2}"+Environment.NewLine,i++, kv.Key, kv.Value.Message));
+                    }
+                    this.ErrorMessage = sb.ToString();
+                }
+               
+            }
+           
         }
 
         #endregion
@@ -226,6 +294,7 @@ namespace SharepointEmails
                 {
                     case AssType.ID: mv_CreateMain.SetActiveView(mv_CreateMain.Views[0]); break;
                     case AssType.Group: mv_CreateMain.SetActiveView(mv_CreateMain.Views[1]); break;
+                    case AssType.ContentType: mv_CreateMain.SetActiveView(mv_CreateMain.Views[2]); break;
                 }
             }
         }
@@ -234,17 +303,51 @@ namespace SharepointEmails
         {
             if (grd_Asses.SelectedRow != null)
             {
+                UpdateRightPanelVisible(true);
                 string id = string.Empty;
                 id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
                 if (!string.IsNullOrEmpty(id))
                 {
-                    var view = (Edit) ? v_Editing : v_Displaying;
-                    foreach (Panel c in view.Controls.OfType<Panel>())
+                    var config = Temp;
+                    var ass = config.Where(p => p.ID == id).FirstOrDefault();
+                    if (ass != null)
                     {
-                        c.Visible = c.ID.ToLower().Contains(id.ToLower().Trim('{', '}'));
+                        Display(ass);
+                    }
+                    Update(config);
+                }
+            }
+            else
+            {
+                UpdateRightPanelVisible(false);
+            }
+        }
+
+        void UpdateActiveAss()
+        {
+            if (grd_Asses.SelectedRow != null)
+            {
+                string id = string.Empty;
+                id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    var ass = Temp.Where(p => p.ID == id).FirstOrDefault();
+                    if (ass != null)
+                    {
+                        Update(ass);
                     }
                 }
             }
+        }
+
+        void UpdateRightPanelVisible(bool visible)
+        {
+            mv_Main.Visible = visible;
+        }
+
+        void grd_Asses_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            
         }
 
         #endregion
@@ -296,6 +399,15 @@ namespace SharepointEmails
                             Description = Create_tb_Desc.Text
                         };
                     }
+                case AssType.ContentType:
+                    {
+                        return new ContentTypeAssociation
+                        {
+                            Name = name,
+                            ContentTypeID = Create_ByCT_tb_CTId.Text,
+                            IncludingChilds = Create_ByCT_cb_IncludingChildren.Checked
+                        };
+                    }
             }
             return null;
         }
@@ -308,17 +420,48 @@ namespace SharepointEmails
             v_Displaying = (View)TemplateContainer.FindControl("v_Displaying");
             v_Editing = (View)TemplateContainer.FindControl("v_Editing");
             mv_CreateMain = (MultiView)TemplateContainer.FindControl("mv_CreateMain");
+
+            p_Buttons = (Panel)TemplateContainer.FindControl("p_Buttons");
             btn_Create = (Button)TemplateContainer.FindControl("btn_Create");
             btn_Create_Hide = (Button)TemplateContainer.FindControl("btn_Create_Hide");
+
             btn_Delete = (Button)TemplateContainer.FindControl("btn_Delete");
             btn_Add = (Button)TemplateContainer.FindControl("btn_Add");
             p_Create = (Panel)TemplateContainer.FindControl("p_Create");
+
+            v_Editing_mv_Types = (MultiView)TemplateContainer.FindControl("v_Editing_mv_Types");
+            v_Editing_v_ById = (View)TemplateContainer.FindControl("v_Editing_v_ById");
+            v_Editing_v_ByGroup = (View)TemplateContainer.FindControl("v_Editing_v_ByGroup");
+            v_Editing_v_ByCT = (View)TemplateContainer.FindControl("v_Editing_v_ByCT");
+            v_Displaing_mv_Types = (MultiView)TemplateContainer.FindControl("v_Displaing_mv_Types");
+
+            v_Displaying_v_ById = (View)TemplateContainer.FindControl("v_Displaying_v_ById");
+            v_Displaying_v_ByGroup = (View)TemplateContainer.FindControl("v_Displaying_v_ByGroup");
+            v_Displaying_v_ByCT = (View)TemplateContainer.FindControl("v_Displaying_v_ByCT");
+
+            v_Editing_tb_Name = (TextBox)TemplateContainer.FindControl("v_Editing_tb_Name");
+            v_Displaing_lbl_Name = (Label)TemplateContainer.FindControl("v_Displaing_lbl_Name");
+            v_Displaying_lbl_Type = (Label)TemplateContainer.FindControl("v_Displaying_lbl_Type");
+            v_Editing_lbl_Type = (Label)TemplateContainer.FindControl("v_Editing_lbl_Type");
+
+            v_Displaying_v_ById_lbl_Id = (Label)TemplateContainer.FindControl("v_Displaying_v_ById_lbl_Id");
+            v_Displaying_v_ByGroup_lbl_Group = (Label)TemplateContainer.FindControl("v_Displaying_v_ByGroup_lbl_Group");
+            v_Displaying_v_ByCT_lbl_CTId = (Label)TemplateContainer.FindControl("v_Displaying_v_ByCT_lbl_CTId");
+            v_Displaying_v_ByCT_cb_IncludeChildren = (CheckBox)TemplateContainer.FindControl("v_Displaying_v_ByCT_cb_IncludeChildren");
+
+            v_Editing_v_ById_tb_Id = (TextBox)TemplateContainer.FindControl("v_Editing_v_ById_tb_Id");
+            v_Editing_v_ByGroup_cb_Group = (DropDownList)TemplateContainer.FindControl("v_Editing_v_ByGroup_cb_Group");
+            v_Editing_v_ByCT_tb_CTId = (TextBox)TemplateContainer.FindControl("v_Editing_v_ByCT_tb_CTId");
+            v_Editing_v_ByCT_cb_IncludeChildren = (CheckBox)TemplateContainer.FindControl("v_Editing_v_ByCT_cb_IncludeChildren");
+
             Create_tb_Name = (TextBox)TemplateContainer.FindControl("Create_tb_Name");
             Create_tb_Desc = (TextBox)TemplateContainer.FindControl("Create_tb_Desc");
             Create_cb_AssType = (DropDownList)TemplateContainer.FindControl("Create_cb_AssType");
 
             Create_ById_tb_ItemId = (TextBox)TemplateContainer.FindControl("Create_ById_tb_ItemId");
             Create_ByGroup_cb_GroupType = (DropDownList)TemplateContainer.FindControl("Create_ByGroup_cb_GroupType");
+            Create_ByCT_tb_CTId = (TextBox)TemplateContainer.FindControl("Create_ByCT_tb_CTId");
+            Create_ByCT_cb_IncludingChildren = (CheckBox)TemplateContainer.FindControl("Create_ByCT_cb_IncludingChildren");
 
             cv_Create = (CustomValidator)TemplateContainer.FindControl("cv_Create");
             vs_Create = (ValidationSummary)TemplateContainer.FindControl("vs_Create");
@@ -329,13 +472,14 @@ namespace SharepointEmails
 
         void InitControlEvents()
         {
+            grd_Asses.SelectedIndexChanging += new GridViewSelectEventHandler(grd_Asses_SelectedIndexChanging);
             grd_Asses.SelectedIndexChanged += new EventHandler(grd_Asses_SelectedIndexChanged);
             Create_cb_AssType.SelectedIndexChanged += new EventHandler(cb_AssType_SelectedIndexChanged);
             btn_Add.Click += new EventHandler(btn_Add_Click);
             btn_Delete.Click += new EventHandler(btn_Delete_Click);
             btn_Create.Click += new EventHandler(btn_Create_Click);
             btn_Create_Hide.Click += new EventHandler(btn_Create_Hide_Click);
-        }
+        }       
 
         void ShowCreatePanel(bool visible)
         {
@@ -347,45 +491,125 @@ namespace SharepointEmails
         void InitView()
         {
             mv_CreateMain.Visible = Edit;
-
+            p_Buttons.Visible = Edit;
             if (Edit)
             {
+                v_Editing_v_ByGroup_cb_Group.DataSource = GroupTypes;
+                v_Editing_v_ByGroup_cb_Group.DataBind();
                 mv_Main.SetActiveView(v_Editing);
             }
             else
             {
                 mv_Main.SetActiveView(v_Displaying);
             }
+        }
 
-            foreach (var association in Temp)
+        private void Display(Association association)
+        {
+            if (Edit)
             {
-                var sufix = association.ID.ToString();
-                var panel = new Panel()
-                {
-                    ID = "panel_" + sufix,
-                    Visible = false
-                };
-
-                if (Edit)
-                {
-                    var tb = new TextBox()
-                    {
-                        ID = "tbName_" + sufix,
-                        Text = association.Name
-                    };
-                    panel.Controls.Add(tb);
-                    v_Editing.Controls.Add(panel);
-                }
-                else
-                {
-                    var tb = new Label()
-                    {
-                        ID = "lblName_" + sufix,
-                        Text = association.Name
-                    };
-                    v_Displaying.Controls.Add(panel);
-                }
+                v_Editing_tb_Name.Text = association.Name;
+                v_Editing_lbl_Type.Text = association.Type.ToString();
             }
+            else
+            {
+                v_Displaing_lbl_Name.Text = association.Name;
+                v_Displaying_lbl_Type.Text = association.Type.ToString();
+            }
+
+            if (association is IDAssociation)
+            {
+                DisplaySpecial(association as IDAssociation);
+            }
+            else if (association is ContentTypeAssociation)
+            {
+                DisplaySpecial(association as ContentTypeAssociation);
+            }
+            else if (association is GroupAssociation)
+            {
+                DisplaySpecial(association as GroupAssociation);
+            }
+        }
+        private void DisplaySpecial(IDAssociation association)
+        {
+            if (Edit)
+            {
+                v_Editing_mv_Types.SetActiveView(v_Editing_v_ById);
+                v_Editing_v_ById_tb_Id.Text = association.ItemID;
+            }
+            else
+            {
+                v_Displaing_mv_Types.SetActiveView(v_Displaying_v_ById);
+                v_Displaying_v_ById_lbl_Id.Text = association.ItemID;
+            }
+        }
+        private void DisplaySpecial(GroupAssociation association)
+        {
+            if (Edit)
+            {
+                v_Editing_mv_Types.SetActiveView(v_Editing_v_ByGroup);
+                v_Editing_v_ByGroup_cb_Group.SelectedIndex = GroupTypes.IndexOf(association.ItemType.ToString());
+            }
+            else
+            {
+                v_Displaing_mv_Types.SetActiveView(v_Displaying_v_ByGroup);
+                v_Displaying_v_ByGroup_lbl_Group.Text = association.ItemType.ToString();
+            }
+        }
+        private void DisplaySpecial(ContentTypeAssociation association)
+        {
+            if (Edit)
+            {
+                v_Editing_mv_Types.SetActiveView(v_Editing_v_ByCT);
+                v_Editing_v_ByCT_tb_CTId.Text = association.ContentTypeID;
+                v_Editing_v_ByCT_cb_IncludeChildren.Checked = association.IncludingChilds;
+            }
+            else
+            {
+                v_Displaing_mv_Types.SetActiveView(v_Displaying_v_ByCT);
+                v_Displaying_v_ByCT_lbl_CTId.Text = association.ContentTypeID;
+                v_Displaying_v_ByCT_cb_IncludeChildren.Checked = association.IncludingChilds;
+            }
+        }
+
+        private void Update(Association association)
+        {
+            if (!Edit)return;
+            association.Name=v_Editing_tb_Name.Text;
+
+            if (association is IDAssociation)
+            {
+                UpdateSpecial(association as IDAssociation);
+            }
+            else if (association is ContentTypeAssociation)
+            {
+                UpdateSpecial(association as ContentTypeAssociation);
+            }
+            else if (association is GroupAssociation)
+            {
+                UpdateSpecial(association as GroupAssociation);
+            }
+        }
+        private void UpdateSpecial(IDAssociation association)
+        {
+            association.ItemID = v_Editing_v_ById_tb_Id.Text;
+        }
+        private void UpdateSpecial(GroupAssociation association)
+        {
+            if (!string.IsNullOrEmpty(v_Editing_v_ByGroup_cb_Group.Text))
+            {
+                association.ItemType = (GroupType)Enum.Parse(typeof(GroupType), v_Editing_v_ByGroup_cb_Group.Text);
+            }
+        }
+        private void UpdateSpecial(ContentTypeAssociation association)
+        {
+            association.ContentTypeID = v_Editing_v_ByCT_tb_CTId.Text;
+            association.IncludingChilds = v_Editing_v_ByCT_cb_IncludeChildren.Checked;
+        }
+
+        void Update(AssociationConfiguration config)
+        {
+            Temp = config;
         }
 
         void AddAss(Association ass)
@@ -416,7 +640,6 @@ namespace SharepointEmails
         }
 
         #endregion
-
 
         public string[] Data
         {
