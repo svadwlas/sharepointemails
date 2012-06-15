@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using SharePointEmails.Core;
 using SharePointEmails.Core.Associations;
 using SharePointEmails.Core.Interfaces;
+using System.IO;
 
 namespace SharepointEmails
 {
@@ -48,6 +49,9 @@ namespace SharepointEmails
         CheckBox v_Displaying_v_ByCT_cb_IncludeChildren;
 
         TextBox v_Editing_v_ById_tb_Id;
+        Button v_Editing_v_ById_btn_Resolve;
+        Label v_Editing_v_ById_lbl_Message;
+        TextBox v_Editing_v_ById_tb_Url;
         DropDownList v_Editing_v_ByGroup_cb_Group;
         TextBox v_Editing_v_ByCT_tb_CTId;
         CheckBox v_Editing_v_ByCT_cb_IncludeChildren;
@@ -267,11 +271,8 @@ namespace SharepointEmails
         void btn_Add_Click(object sender, EventArgs e)
         {
             Page.Validate("CreateGroup");
-            if (Page.IsValid)
-            {
-                var ass = FromCreatePanel();
-                AddAss(ass);
-            }
+            var ass = FromCreatePanel();
+            AddAss(ass);
             ShowCreatePanel(false);
         }
 
@@ -348,6 +349,62 @@ namespace SharepointEmails
         void grd_Asses_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
             
+        }
+
+        void v_Editing_v_ById_btn_Resolve_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var url = v_Editing_v_ById_tb_Url.Text;
+                if (string.IsNullOrEmpty(url))
+                {
+                    v_Editing_v_ById_lbl_Message.Text = "No url";
+                    return;
+                }
+
+                string id = null;
+                Type type;
+                SPListItem item = null;
+                try
+                {
+                    SPContext.Current.Web.GetListItem(url);
+                }
+                catch (FileNotFoundException)
+                {
+
+                }
+                if (item != null)
+                {
+                    id = item.UniqueId.ToString();
+                    type = item.GetType();
+                }
+                else
+                {
+                    var list = SPContext.Current.Web.GetListFromWebPartPageUrl(url);
+                    if (list != null)
+                    {
+                        id = list.ID.ToString();
+                        type = list.GetType();
+                    }
+                    else
+                    {
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    v_Editing_v_ById_tb_Id.Text = id;
+                    v_Editing_v_ById_lbl_Message.Text = "Found";
+                }
+                else
+                {
+                    v_Editing_v_ById_lbl_Message.Text = "Not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                v_Editing_v_ById_lbl_Message.Text = ex.Message;
+            }
         }
 
         #endregion
@@ -450,6 +507,9 @@ namespace SharepointEmails
             v_Displaying_v_ByCT_cb_IncludeChildren = (CheckBox)TemplateContainer.FindControl("v_Displaying_v_ByCT_cb_IncludeChildren");
 
             v_Editing_v_ById_tb_Id = (TextBox)TemplateContainer.FindControl("v_Editing_v_ById_tb_Id");
+            v_Editing_v_ById_btn_Resolve = (Button)TemplateContainer.FindControl("v_Editing_v_ById_btn_Resolve");
+            v_Editing_v_ById_lbl_Message = (Label)TemplateContainer.FindControl("v_Editing_v_ById_lbl_Message");
+            v_Editing_v_ById_tb_Url = (TextBox)TemplateContainer.FindControl("v_Editing_v_ById_tb_Url");
             v_Editing_v_ByGroup_cb_Group = (DropDownList)TemplateContainer.FindControl("v_Editing_v_ByGroup_cb_Group");
             v_Editing_v_ByCT_tb_CTId = (TextBox)TemplateContainer.FindControl("v_Editing_v_ByCT_tb_CTId");
             v_Editing_v_ByCT_cb_IncludeChildren = (CheckBox)TemplateContainer.FindControl("v_Editing_v_ByCT_cb_IncludeChildren");
@@ -479,7 +539,10 @@ namespace SharepointEmails
             btn_Delete.Click += new EventHandler(btn_Delete_Click);
             btn_Create.Click += new EventHandler(btn_Create_Click);
             btn_Create_Hide.Click += new EventHandler(btn_Create_Hide_Click);
-        }       
+            v_Editing_v_ById_btn_Resolve.Click += new EventHandler(v_Editing_v_ById_btn_Resolve_Click);
+        }
+
+        
 
         void ShowCreatePanel(bool visible)
         {

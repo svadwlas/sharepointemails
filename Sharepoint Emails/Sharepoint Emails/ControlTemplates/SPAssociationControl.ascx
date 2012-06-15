@@ -64,9 +64,13 @@
                             </dl>
                              <asp:MultiView ID="v_Editing_mv_Types" runat="server">
                                 <asp:View ID="v_Editing_v_ById" runat="server">
-                                 <dl>
+                                      <dl>
                                         <dt>Id</dt><dd><asp:TextBox ID="v_Editing_v_ById_tb_Id" runat="server"/></dd>
-                                    </dl>
+                                        <dt>Relative Url</dt><dd><asp:TextBox ID="v_Editing_v_ById_tb_Url" Text="/Lists/Shared Documents/" runat="server"/></dd>
+                                        <dt>Item Type</dt><dd><asp:TextBox ID="v_Editing_v_ById_lbl_Type" runat="server"/></dd>
+                                       </dl>
+                                       <asp:Button ID="v_Editing_v_ById_btn_Resolve" runat="server" Text="Resolve"></asp:Button>
+                                       <asp:Label ID="v_Editing_v_ById_lbl_Message" runat="server" EnableViewState="false"></asp:Label>
                                 </asp:View>
                                 <asp:View ID="v_Editing_v_ByGroup" runat="server">
                                     <dl>

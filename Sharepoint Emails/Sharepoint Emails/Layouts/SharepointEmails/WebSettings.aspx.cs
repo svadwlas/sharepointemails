@@ -4,6 +4,7 @@ using Microsoft.SharePoint.WebControls;
 using SharePointEmails.Core.Configuration;
 using SharePointEmails.Core;
 using Microsoft.SharePoint.WebPartPages;
+using System.Web.UI.WebControls.WebParts;
 
 namespace SharepointEmails.Layouts.SharepointEmails
 {
@@ -67,13 +68,10 @@ namespace SharepointEmails.Layouts.SharepointEmails
             {
                 Web.AllowUnsafeUpdates = false;
             }
+
             btn_Save.Click += new EventHandler(btn_Save_Click);
             btn_Exit.Click += new EventHandler(btn_Exit_Click);
             lv.ListId = list.ID.ToString();
-            var wp=new XsltListFormWebPart();
-            wp.ListId = list.ID;
-            wp.ViewGuid = list.DefaultView.ID.ToString();
-            pnl.Controls.Add(wp);
 
 
         }
