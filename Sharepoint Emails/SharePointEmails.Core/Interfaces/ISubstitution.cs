@@ -15,19 +15,11 @@ namespace SharePointEmails.Core
         string Pattern
         {
             get;
-            set;
         }
 
         string Description
         {
             get;
-            set;
-        }
-
-        string TestValue
-        {
-            get;
-            set;
         }
 
         string Process(string text, ISubstitutionContext context);

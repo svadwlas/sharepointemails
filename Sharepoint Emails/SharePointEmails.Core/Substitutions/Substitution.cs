@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SharePointEmails.Core
 {
@@ -11,11 +12,7 @@ namespace SharePointEmails.Core
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return "[FieldName]";
             }
         }
 
@@ -23,33 +20,26 @@ namespace SharePointEmails.Core
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string TestValue
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return "Field substitution";
             }
         }
 
         public string Process(string text, ISubstitutionContext context)
         {
-            foreach (var m in new List<string> { "field1", "field2" })
+            string res = text;
+            var mc = Regex.Matches(res, @"\[(.+?)\]");
+            foreach (Match m in mc)
             {
-                text += context.GetField(m);
+
+                var fieldName = m.Value.Trim(']', '[');
+                string fieldTextValue = context.GetField(fieldName);
+                if (fieldTextValue == null)
+                {
+                    fieldTextValue = "no \"" + fieldName + "\"";
+                }
+                res = res.Replace(m.Value, fieldTextValue);
             }
-            return text;
+            return res;
         }
 
         public List<string> GetAvailableKeys(ISubstitutionContext context)

@@ -11,6 +11,15 @@ namespace SharePointEmails.Core.Configuration
     {
         public static T ParseOrDefault<T>(string str)
         {
+            T res = Parse<T>(str);
+            if (res == null)
+                return Activator.CreateInstance<T>();
+            else
+                return res;
+        }
+
+        public static T Parse<T>(string str)
+        {
             try
             {
                 var s = new XmlSerializer(typeof(T));
@@ -21,7 +30,7 @@ namespace SharePointEmails.Core.Configuration
             }
             catch (Exception ex)
             {
-                return Activator.CreateInstance<T>();
+                return default(T);
             }
         }
 

@@ -22,6 +22,12 @@ namespace SharePointEmails.Core.Configuration
             return SerializeHelper.ParseOrDefault<WebConfiguration>(str);
         }
 
+        public WebConfiguration GetConfig(SPWeb web)
+        {
+            var str = web.Properties[s];
+            return SerializeHelper.Parse<WebConfiguration>(str);
+        }
+
         public void SetConfig(FarmConfiguration config, SPFarm farm)
         {
             farm.Properties[s] = SerializeHelper.ToXmlString<FarmConfiguration>(config);

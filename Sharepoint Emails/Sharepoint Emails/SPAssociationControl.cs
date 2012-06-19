@@ -52,6 +52,7 @@ namespace SharepointEmails
         Button v_Editing_v_ById_btn_Resolve;
         Label v_Editing_v_ById_lbl_Message;
         TextBox v_Editing_v_ById_tb_Url;
+        Label v_Editing_v_ById_lbl_Type;
         DropDownList v_Editing_v_ByGroup_cb_Group;
         TextBox v_Editing_v_ByCT_tb_CTId;
         CheckBox v_Editing_v_ByCT_cb_IncludeChildren;
@@ -363,7 +364,7 @@ namespace SharepointEmails
                 }
 
                 string id = null;
-                Type type;
+                Type type=null;
                 SPListItem item = null;
                 try
                 {
@@ -380,7 +381,7 @@ namespace SharepointEmails
                 }
                 else
                 {
-                    var list = SPContext.Current.Web.GetListFromWebPartPageUrl(url);
+                    var list = SPContext.Current.Web.Lists.TryGetList(url);
                     if (list != null)
                     {
                         id = list.ID.ToString();
@@ -394,6 +395,7 @@ namespace SharepointEmails
                 if (!string.IsNullOrEmpty(id))
                 {
                     v_Editing_v_ById_tb_Id.Text = id;
+                    v_Editing_v_ById_lbl_Type.Text = type.Name;
                     v_Editing_v_ById_lbl_Message.Text = "Found";
                 }
                 else
@@ -510,6 +512,7 @@ namespace SharepointEmails
             v_Editing_v_ById_btn_Resolve = (Button)TemplateContainer.FindControl("v_Editing_v_ById_btn_Resolve");
             v_Editing_v_ById_lbl_Message = (Label)TemplateContainer.FindControl("v_Editing_v_ById_lbl_Message");
             v_Editing_v_ById_tb_Url = (TextBox)TemplateContainer.FindControl("v_Editing_v_ById_tb_Url");
+            v_Editing_v_ById_lbl_Type = (Label)TemplateContainer.FindControl("v_Editing_v_ById_lbl_Type ");
             v_Editing_v_ByGroup_cb_Group = (DropDownList)TemplateContainer.FindControl("v_Editing_v_ByGroup_cb_Group");
             v_Editing_v_ByCT_tb_CTId = (TextBox)TemplateContainer.FindControl("v_Editing_v_ByCT_tb_CTId");
             v_Editing_v_ByCT_cb_IncludeChildren = (CheckBox)TemplateContainer.FindControl("v_Editing_v_ByCT_cb_IncludeChildren");
@@ -541,8 +544,6 @@ namespace SharepointEmails
             btn_Create_Hide.Click += new EventHandler(btn_Create_Hide_Click);
             v_Editing_v_ById_btn_Resolve.Click += new EventHandler(v_Editing_v_ById_btn_Resolve_Click);
         }
-
-        
 
         void ShowCreatePanel(bool visible)
         {

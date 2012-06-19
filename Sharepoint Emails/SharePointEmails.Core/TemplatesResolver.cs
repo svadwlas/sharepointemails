@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.SharePoint;
 using SharePointEmails.Logging;
 using SharePointEmails.Core.Exceptions;
+using SharePointEmails.Core.Configuration;
 
 namespace SharePointEmails.Core
 {
@@ -18,7 +19,7 @@ namespace SharePointEmails.Core
             Logger = logger;
         }
 
-        private ITemplate FindTemplateRec(ISearchContext context, SPWeb web,Dictionary<ITemplate,int> matched,int deep=0)
+        private ITemplate FindTemplateRec(ISearchContext context, SPWeb web, Dictionary<ITemplate, int> matched, int deep = 0)
         {
             if (web == null)
             {
@@ -31,29 +32,46 @@ namespace SharePointEmails.Core
                     return matched.OrderBy(p => p.Value).Last().Key;
                 }
             }
-            var list = web.Lists.TryGetList(Constants.TemplateListName);
-            if (list != null)
+            if (EnabledAndfeatureActivated(web))
             {
-                foreach (var item in new TemplatesList(list))
+                var list = web.Lists.TryGetList(Constants.TemplateListName);
+                if (list != null)
                 {
-                    var res=context.Match(item);
-                    if (res != SearchMatchLevel.NONE)
+                    foreach (var item in new TemplatesList(list))
                     {
-                        matched[item] = res+deep;
+                        var res = context.Match(item);
+                        if (res != SearchMatchLevel.NONE)
+                        {
+                            matched[item] = res + deep;
+                        }
                     }
                 }
             }
-           return FindTemplateRec(context, web.ParentWeb,matched,++deep);
+
+            return FindTemplateRec(context, web.ParentWeb, matched, ++deep);
+        }
+
+        bool EnabledAndfeatureActivated(SPWeb web)
+        {
+            var manager = ClassContainer.Instance.Resolve<ConfigurationManager>();
+            var config = manager.GetConfig(web);
+            if (config == null)
+                return false;
+
+            if (config.Disabled) return false;
+            return true;
         }
 
         public ITemplate GetTemplate(ISearchContext context)
         {
             using (var site = new SPSite(context.SiteId))
             {
-                using (var web = site.AllWebs[context.WebId])
-                {
-                    return FindTemplateRec(context, web, new Dictionary<ITemplate, int>());
-                }
+                return FindTemplateRec(context,site.RootWeb,new Dictionary<ITemplate,int>());
+                //currently only on the root web
+                //using (var web = site.AllWebs[context.WebId])
+                //{
+                //    return FindTemplateRec(context, web, new Dictionary<ITemplate, int>());
+                //}
             }
         }
     }

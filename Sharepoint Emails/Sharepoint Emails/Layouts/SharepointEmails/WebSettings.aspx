@@ -35,6 +35,7 @@
     <asp:Panel ID="pnl" runat="server">
     <SharePoint:ListView ID="lv" runat="server"/>
     </asp:Panel>
+    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/Lists/HiddenTemplatesList">HyperLink</asp:HyperLink>
 </asp:Content>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PlaceHolderPageTitle" runat="server">
