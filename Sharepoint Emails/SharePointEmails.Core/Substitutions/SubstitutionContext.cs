@@ -46,15 +46,15 @@ namespace SharePointEmails.Core
                     var type = element.Attribute("Type").Value;
                     switch (type)
                     {
-                        case "User":
+                        case "user":
                             {
                                 if (HasModifier(modifiers, OLD_VALUE))
                                 {
-                                    val = (element.Attribute("Old") != null) ? element.Attribute("Old").Value : (string)null;
+                                    val = (element.Attribute("Old") != null) ? element.Attribute("LookupOldF").Value : (string)null;
                                 }
                                 else
                                 {
-                                    val = (element.Attribute("New") != null) ? element.Attribute("New").Value : (string)null;
+                                    val = (element.Attribute("New") != null) ? element.Attribute("LookupNewF").Value : (string)null;
                                 }
                                 break;
                             }

@@ -43,6 +43,13 @@ namespace SharePointEmails.Core.Associations
                             return SearchMatchLevel.ITEM_BY_GROUP;
                         break;
                     }
+                case GroupType.AllTasks:
+                    {
+                        if (ctId.IsChildOf(SPBuiltInContentTypeId.Task))
+                            return SearchMatchLevel.ITEM_BY_GROUP;
+                        break;
+                    }
+
             }
             //case Core.ItemType.MyTask: return ((obj is SPListItem) && ((SPListItem)obj).ContentType.Id.IsChildOf((SPBuiltInContentTypeId.Task))&&(((SPListItem)obj)[]));
             return SearchMatchLevel.NONE;
@@ -52,6 +59,14 @@ namespace SharePointEmails.Core.Associations
         {
             base.Validate();
             if (ItemType == GroupType.None) throw new Exception("Choose group type");
+        }
+
+        public override string ToString()
+        {
+            var s = "Type:" + Type + Environment.NewLine +
+                "Name: " + Name + Environment.NewLine +
+                "ItemType: " + ItemType + Environment.NewLine;
+            return s;
         }
     }
 

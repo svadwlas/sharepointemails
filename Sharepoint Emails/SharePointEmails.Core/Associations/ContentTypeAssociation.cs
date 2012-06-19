@@ -64,5 +64,14 @@ namespace SharePointEmails.Core.Associations
             if (notexists)
                 throw new Exception("Content type doesn't exist");
         }
+
+        public override string ToString()
+        {
+            var s = "Type:" + Type + Environment.NewLine +
+                "Name: " + Name + Environment.NewLine +
+                "ContentTypeID: " + ContentTypeID + Environment.NewLine +
+                "IncludingChilds: " + IncludingChilds + Environment.NewLine;
+            return s;
+        }
     }
 }

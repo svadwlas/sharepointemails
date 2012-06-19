@@ -16,7 +16,7 @@ namespace SharePointEmails.Core
             this.EventTypes = (int)TemplateTypeEnum.Unknown;
             this.State = TemplateStateEnum.Unknown;
         }
-        public Template(SPListItem item) 
+        public Template(SPListItem item)
         {
             m_Item = item;
             Refresh();
@@ -36,6 +36,7 @@ namespace SharePointEmails.Core
                 this.EventTypes = (int)TemplateTypeEnum.AllItemEvents;
             }
             this.State = EnumConverter.ToState(m_Item[SEMailTemplateCT.TemplateState] as string);
+            this.Asses = AssociationConfiguration.ParseOrDefault(m_Item[SEMailTemplateCT.Associations] as string);
         }
 
         public void SaveTo(SPListItem item)
@@ -50,6 +51,7 @@ namespace SharePointEmails.Core
             m_Item[SEMailTemplateCT.TemplateBody] = this.Pattern;
             m_Item[SEMailTemplateCT.TemplateType] = EnumConverter.TypeToValue(this.EventTypes);
             m_Item[SEMailTemplateCT.TemplateState] = EnumConverter.StateToValue(this.State);
+            m_Item[SEMailTemplateCT.Associations] = Asses.ToString();
             m_Item.Update();
             Refresh();
         }
@@ -118,7 +120,7 @@ namespace SharePointEmails.Core
             set;
         }
 
-    
+
         public AssociationConfiguration Asses
         {
             get
@@ -131,5 +133,18 @@ namespace SharePointEmails.Core
             }
         }
         string _Config = null;
+
+        public override string ToString()
+        {
+            var s = "Name: " + Name + Environment.NewLine +
+                "EventTypes: " + EventTypes + Environment.NewLine +
+                 "State: " + State + Environment.NewLine +
+                  "Pattern: " + Pattern + Environment.NewLine;
+            foreach (var ass in Asses)
+            {
+                s += s + "Ass: " + Environment.NewLine + ass.ToString() + Environment.NewLine;
+            }
+            return s;
+        }
     }
 }

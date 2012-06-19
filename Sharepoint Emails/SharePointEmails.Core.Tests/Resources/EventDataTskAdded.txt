@@ -1,0 +1,21 @@
+<Fields>
+ <Field Name="ID" Type="null" New="" />
+ <Field Name="ContentTypeId" Type="string" Hidden="true" DisplayName="Content Type ID" New="0x0108009DD1F6898AFC084CB7DE58BC502A3E3D" />
+ <Field Name="Title" Type="string" New="title3" />
+ <Field Name="Author" Type="user" DisplayName="Created By" New="1" LookupNewF="TEST\administrator" />
+ <Field Name="Editor" Type="user" DisplayName="Modified By" New="1" LookupNewF="TEST\administrator" />
+ <Field Name="GUID" Type="string" Hidden="true" New="7C7277D4-B312-4A3C-BC94-51F48FBA1C0D" />
+ <Field Name="_Level" Type="null" Hidden="true" DisplayName="Level" New="1" />
+ <Field Name="Predecessors" Type="lookup" New="4" LookupNewF="Title2" AclNew="0xF3FE000001000000000000000300000003000000FFFFFFFFFFFFFF7F0400000061104308B000000005000000EF12433CB0010000" />
+ <Field Name="Priority" Type="string" New="(2) Normal" />
+ <Field Name="Status" Type="string" New="Not Started" />
+ <Field Name="PercentComplete" Type="null" DisplayName="% Complete" New="" />
+ <Field Name="AssignedTo" Type="user" DisplayName="Assigned To" New="1" LookupNewF="TEST\administrator" />
+ <Field Name="TaskGroup" Type="user" DisplayName="Task Group" New="" />
+ <Field Name="Body" Type="string" RTM="compatible" DisplayName="Description" New="&lt;div&gt;desc&lt;/div&gt;" />
+ <Field Name="StartDate" Type="datetime" DisplayName="Start Date" New="2012-06-19T00:00:00Z" NewF="6/19/2012" />
+ <Field Name="DueDate" Type="datetime" DisplayName="Due Date" New="2012-06-23T00:00:00Z" NewF="6/23/2012" />
+ <Field Name="FileRef" Type="string" Hidden="true" Old="Lists/Tasks/" />
+ <Field Name="FileDirRef" Type="string" Hidden="true" Old="Lists/Tasks" />
+ <Field Name="_DraftVisibility" Type="integer" Hidden="true" New="0" />
+</Fields>

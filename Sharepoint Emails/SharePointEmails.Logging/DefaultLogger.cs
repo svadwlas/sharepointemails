@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.IO;
 
 namespace SharePointEmails.Logging
 {
@@ -18,7 +19,12 @@ namespace SharePointEmails.Logging
 
         public void Write(string text, SeverityEnum severety, AreasEnum area)
         {
-            Debug.Write(string.Format("{0,24}: {1,20} {2} {3}", CurTime, severety, area, text));
+            var line=string.Format("{0,24}: {1,20} {2} {3}"+Environment.NewLine, CurTime, severety, area, text);
+            Debug.Write(text);
+            var desktop=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var log=Path.Combine(desktop, "log.txt");
+            if(!File.Exists(log))File.WriteAllText(log,"");
+            File.AppendAllText(log, line);
         }
 
         public void Write(Exception ex, SeverityEnum severety, AreasEnum area)

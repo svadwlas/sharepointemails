@@ -74,5 +74,15 @@ namespace SharePointEmails.Core.Associations
 
             return SearchMatchLevel.NONE;
         }
+
+        public override string ToString()
+        {
+            var s = "Type:" + Type + Environment.NewLine +
+              "Name: " + Name + Environment.NewLine +
+              "ItemName: " + ItemName + Environment.NewLine +
+              "ItemType: " + ItemType + Environment.NewLine +
+              "ItemID: " + ItemID + Environment.NewLine;
+            return s;
+        }
     }
 }

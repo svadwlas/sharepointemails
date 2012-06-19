@@ -123,19 +123,23 @@ namespace SharePointEmails.Core
         public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML)
         {
             var manager = GetTemplateManager();
-            ISearchContext search = null;
-            search = SearchContext.Create(list, ItemID, eventXML, get(type));
-            if (search != null)
+
+            ISearchContext search = SearchContext.Create(list, ItemID, eventXML, get(type));
+
+            var res = manager.GetTemplate(search);
+            if (res != null)
             {
-                var res = manager.GetTemplate(search);
-                if (res != null)
-                {
-                    return new Message
-                        {
-                            Body = res.GetProcessedText(new SubstitutionContext(eventXML)),
-                            Subject = "generated message " + DateTime.Now.ToLongTimeString()
-                        };
-                }
+                Logger.Write("Found template:", SeverityEnum.Verbose);
+                Logger.Write(res.ToString(), SeverityEnum.Verbose);
+                return new Message
+                    {
+                        Body = res.GetProcessedText(new SubstitutionContext(eventXML)),
+                        Subject = "generated message " + DateTime.Now.ToLongTimeString()
+                    };
+            }
+            else
+            {
+                Logger.Write("Found template is null", SeverityEnum.Error);
             }
             return null;
         }

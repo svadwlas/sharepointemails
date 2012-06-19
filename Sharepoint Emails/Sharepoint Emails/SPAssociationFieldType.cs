@@ -42,7 +42,7 @@ namespace SharepointEmails
                     {
                         sb.Append(string.Format("<tr><td>{0}) </td><td>{1}</td><td>{2}</td></tr>",config.IndexOf(a)+1,a.Name,a.Type));
                     }
-                    sb.Append("<table>");
+                    sb.Append("</table>");
                     return sb.ToString();
                 }
                 else

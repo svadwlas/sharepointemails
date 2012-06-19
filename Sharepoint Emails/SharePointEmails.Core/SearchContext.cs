@@ -51,7 +51,8 @@ namespace SharePointEmails.Core
         public int Match(ITemplate template)
         {
             if (template.State == TemplateStateEnum.Draft) return SearchMatchLevel.NONE;
-            if ((Type == TemplateTypeEnum.AllItemEvents) && (Contains(template.EventTypes, TemplateTypeEnum.ItemAdded)
+            if ((Type == TemplateTypeEnum.AllItemEvents) && (Contains(template.EventTypes, TemplateTypeEnum.AllItemEvents)
+                                                            ||Contains(template.EventTypes, TemplateTypeEnum.ItemAdded)
                                                             || Contains(template.EventTypes, TemplateTypeEnum.ItemRemoved)
                                                             || Contains(template.EventTypes, TemplateTypeEnum.ItemUpdated)))
             {

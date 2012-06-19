@@ -82,8 +82,12 @@ namespace SharePointEmails.Core.Tests
         {
             string eventData = Properties.Resources.EventDataFileAdded;
             SubstitutionContext target = new SubstitutionContext(eventData);
-            Assert.AreEqual(target.GetField("Document Created By", ":N"), @"TEST\administrator");
-            Assert.AreEqual(target.GetField("Document Created By", ":O"), null);
+            Assert.AreEqual(@"TEST\administrator",target.GetField("Document Created By", ":N")) ;
+            Assert.AreEqual(null,target.GetField("Document Created By", ":O"));
+            Assert.AreEqual(null,target.GetField("Author", ":O"));
+            Assert.AreEqual(@"TEST\administrator",target.GetField("Author", ":N"));
+            Assert.AreEqual(@"TEST\administrator",target.GetField("Editor", ":N"));
+            Assert.AreEqual(null,target.GetField("Editor", ":O"));
         }
     }
 }
