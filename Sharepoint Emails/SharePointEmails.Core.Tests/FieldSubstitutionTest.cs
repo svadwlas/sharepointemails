@@ -77,17 +77,28 @@ namespace SharePointEmails.Core.Tests
         ///A test for Process
         ///</summary>
         [TestMethod()]
-        public void ProcessTest()
+        public void ProcessTest_SomeText_Substituted()
         {
             FieldSubstitution target = new FieldSubstitution();
             var context = MockRepository.GenerateMock<ISubstitutionContext>();
-            context.Expect(p => p.GetField("field1")).Return("field1text");
-            context.Expect(p => p.GetField("field2")).Return("field2text");
-            var text = "text1 [field1] text2 [field2] text3 [field1]";
-            var expected = "text1 field1text text2 field2text text3 field1text";
+            context.Expect(p => p.GetField("field1", ":O")).Return("field1Oldtext");
+            context.Expect(p => p.GetField("field1", ":N")).Return("field1Newtext");
+            context.Expect(p => p.GetField("field2", ":N")).Return("field2Newtext");
+            var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
+            var expected = "text1 field1Oldtext text2 field2Newtext text3 field1Newtext";
             var actual = target.Process(text, context);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void ProcessTest_NotExistedFields_Substituted()
+        {
+            FieldSubstitution target = new FieldSubstitution();
+            var context = MockRepository.GenerateMock<ISubstitutionContext>();
+            var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
+            target.Process(text, context);
+        }
+
 
         /// <summary>
         ///A test for Pattern

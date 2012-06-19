@@ -16,6 +16,7 @@ namespace SharePointEmails.Core
             }
         }
 
+        //[Title:O:]
         public string Description
         {
             get
@@ -28,14 +29,21 @@ namespace SharePointEmails.Core
         {
             string res = text;
             var mc = Regex.Matches(res, @"\[(.+?)\]");
+
             foreach (Match m in mc)
             {
-
-                var fieldName = m.Value.Trim(']', '[');
-                string fieldTextValue = context.GetField(fieldName);
+                var modifiers="";
+                var fieldNameWithModifiers = m.Value.Trim(']', '[');
+                var mod = Regex.Match(fieldNameWithModifiers, @"\:.+");
+                if (mod != null && mod.Value != null)
+                {
+                    modifiers = mod.Value;
+                }
+                
+                string fieldTextValue = context.GetField(fieldNameWithModifiers.Replace(modifiers,""),modifiers);
                 if (fieldTextValue == null)
                 {
-                    fieldTextValue = "no \"" + fieldName + "\"";
+                    fieldTextValue = "no \"" + fieldNameWithModifiers + "\"";
                 }
                 res = res.Replace(m.Value, fieldTextValue);
             }

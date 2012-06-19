@@ -8,7 +8,7 @@ namespace SharePointEmails.Core
 {
     public interface ISubstitutionContext
     {
-        string GetField(string fieldName);
+        string GetField(string fieldName,string modifiers);
         List<string> GetAvailableFields();
     }
 }

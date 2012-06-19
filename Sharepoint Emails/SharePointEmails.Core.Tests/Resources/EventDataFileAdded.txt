@@ -1,0 +1,13 @@
+<Fields>
+ <Field Name="ContentTypeId" Type="string" Hidden="true" DisplayName="Content Type ID" New="0x010100ACE5C8B4725EF143A968E58355698311" />
+ <Field Name="Author" Type="user" DisplayName="Created By" New="1" LookupNewF="TEST\administrator" />
+ <Field Name="Editor" Type="user" DisplayName="Modified By" New="1" LookupNewF="TEST\administrator" />
+ <Field Name="Modified_x0020_By" Type="string" Hidden="true" DisplayName="Document Modified By" New="TEST\administrator" />
+ <Field Name="Created_x0020_By" Type="string" Hidden="true" DisplayName="Document Created By" New="TEST\administrator" />
+ <Field Name="File_x0020_Type" Type="string" Hidden="true" DisplayName="File Type" New="txt" />
+ <Field Name="_Level" Type="null" Hidden="true" DisplayName="Level" New="1" />
+ <Field Name="FileLeafRef" Type="string" Hidden="true" Old="TestDoc7.txt" />
+ <Field Name="FileRef" Type="string" Hidden="true" Old="Shared Documents/TestDoc7.txt" />
+ <Field Name="FileDirRef" Type="string" Hidden="true" Old="Shared Documents" />
+ <Field Name="_DraftVisibility" Type="integer" Hidden="true" New="0" />
+</Fields>
