@@ -1,0 +1,27 @@
+<Fields>
+ <Field Name="ID" Type="integer" Old="5" />
+ <Field Name="ContentTypeId" Type="unknown" Hidden="true" DisplayName="Content Type ID" Old="0x0108009DD1F6898AFC084CB7DE58BC502A3E3D" />
+ <Field Name="Title" Type="string" Old="title1111" New="title2" />
+ <Field Name="Author" Type="user" DisplayName="Created By" Old="1" LookupOldF="TEST\administrator" />
+ <Field Name="Editor" Type="user" DisplayName="Modified By" Old="1" LookupOldF="TEST\administrator" />
+ <Field Name="owshiddenversion" Type="integer" Hidden="true" Old="15" />
+ <Field Name="_UIVersion" Type="integer" Hidden="true" DisplayName="UI Version" Old="512" />
+ <Field Name="_UIVersionString" Type="string" DisplayName="Version" Old="1.0" />
+ <Field Name="Order" Type="float" Hidden="true" Old="500" />
+ <Field Name="GUID" Type="string" Hidden="true" Old="{7C7277D4-B312-4A3C-BC94-51F48FBA1C0D}" />
+ <Field Name="_Level" Type="integer" Hidden="true" DisplayName="Level" Old="1" />
+ <Field Name="_IsCurrentVersion" Type="boolean" Hidden="true" DisplayName="Is Current Version" Old="-1" />
+ <Field Name="Predecessors" Type="lookup" Old="4" LookupOldF="Title2" AclOld="0xF3FE000001000000000000000300000003000000FFFFFFFFFFFFFF7F0400000061104308B000000005000000EF12433CB0010000" />
+ <Field Name="Priority" Type="string" Old="(2) Normal" />
+ <Field Name="Status" Type="string" Old="Not Started" />
+ <Field Name="PercentComplete" Type="null" DisplayName="% Complete" New="" />
+ <Field Name="AssignedTo" Type="user" DisplayName="Assigned To" Old="1" LookupOldF="TEST\administrator" />
+ <Field Name="TaskGroup" Type="user" DisplayName="Task Group" Old="" />
+ <Field Name="Body" Type="string" RTM="compatible" DisplayName="Description" Old="&lt;div&gt;desc&lt;/div&gt;" />
+ <Field Name="StartDate" Type="datetime" DisplayName="Start Date" Old="2012-06-19T00:00:00Z" OldF="6/19/2012" />
+ <Field Name="DueDate" Type="datetime" DisplayName="Due Date" Old="2012-06-23T00:00:00Z" OldF="6/23/2012" />
+ <Field Name="FileLeafRef" Type="string" Hidden="true" Old="5_.000" />
+ <Field Name="FileRef" Type="string" Hidden="true" Old="Lists/Tasks/5_.000" />
+ <Field Name="FileDirRef" Type="string" Hidden="true" Old="Lists/Tasks" />
+ <Field Name="_DraftVisibility" Type="integer" Hidden="true" New="0" />
+</Fields>

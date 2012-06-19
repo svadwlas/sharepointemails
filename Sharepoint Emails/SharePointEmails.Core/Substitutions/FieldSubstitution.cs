@@ -40,12 +40,16 @@ namespace SharePointEmails.Core
                     modifiers = mod.Value;
                 }
                 
-                string fieldTextValue = context.GetField(fieldNameWithModifiers.Replace(modifiers,""),modifiers);
+                var withoutModifiers=(!string.IsNullOrEmpty(modifiers))?fieldNameWithModifiers.Replace(modifiers,""):fieldNameWithModifiers;
+                string fieldTextValue = context.GetField(withoutModifiers, modifiers);
                 if (fieldTextValue == null)
                 {
                     fieldTextValue = "no \"" + fieldNameWithModifiers + "\"";
                 }
-                res = res.Replace(m.Value, fieldTextValue);
+                if (!string.IsNullOrEmpty(m.Value))
+                {
+                    res = res.Replace(m.Value, fieldTextValue);
+                }
             }
             return res;
         }

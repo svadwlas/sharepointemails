@@ -76,6 +76,21 @@ namespace SharePointEmails.Core.Tests.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;Fields&gt;
+        /// &lt;Field Name=&quot;ID&quot; Type=&quot;integer&quot; Old=&quot;5&quot; /&gt;
+        /// &lt;Field Name=&quot;ContentTypeId&quot; Type=&quot;unknown&quot; Hidden=&quot;true&quot; DisplayName=&quot;Content Type ID&quot; Old=&quot;0x0108009DD1F6898AFC084CB7DE58BC502A3E3D&quot; /&gt;
+        /// &lt;Field Name=&quot;Title&quot; Type=&quot;string&quot; Old=&quot;title1111&quot; New=&quot;title2&quot; /&gt;
+        /// &lt;Field Name=&quot;Author&quot; Type=&quot;user&quot; DisplayName=&quot;Created By&quot; Old=&quot;1&quot; LookupOldF=&quot;TEST\administrator&quot; /&gt;
+        /// &lt;Field Name=&quot;Editor&quot; Type=&quot;user&quot; DisplayName=&quot;Modified By&quot; Old=&quot;1&quot; LookupOldF=&quot;TEST\administrator&quot; /&gt;
+        /// &lt;Field Name=&quot;owshiddenversion&quot; Type=&quot;integer&quot; Hi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EventDataTaskEdited_OnlyTitle {
+            get {
+                return ResourceManager.GetString("EventDataTaskEdited_OnlyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Fields&gt;
         /// &lt;Field Name=&quot;ID&quot; Type=&quot;null&quot; New=&quot;&quot; /&gt;
         /// &lt;Field Name=&quot;ContentTypeId&quot; Type=&quot;string&quot; Hidden=&quot;true&quot; DisplayName=&quot;Content Type ID&quot; New=&quot;0x0108009DD1F6898AFC084CB7DE58BC502A3E3D&quot; /&gt;
         /// &lt;Field Name=&quot;Title&quot; Type=&quot;string&quot; New=&quot;title3&quot; /&gt;

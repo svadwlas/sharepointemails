@@ -142,7 +142,7 @@ namespace SharePointEmails.Core
                   "Pattern: " + Pattern + Environment.NewLine;
             foreach (var ass in Asses)
             {
-                s += s + "Ass: " + Environment.NewLine + ass.ToString() + Environment.NewLine;
+                s += "Ass: " + Environment.NewLine + ass.ToString() + Environment.NewLine;
             }
             return s;
         }

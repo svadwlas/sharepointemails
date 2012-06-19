@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using System.Xml.Linq;
+using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core
 {
@@ -14,12 +15,17 @@ namespace SharePointEmails.Core
 
         string m_eventData = string.Empty;
         SPListItem m_item = null;
-        XDocument m_data = null;
+
+        List<FieldChange> Changes;
 
         public SubstitutionContext(string eventData)
         {
-            m_eventData = eventData;
-            m_data = XDocument.Parse(eventData);
+            Changes = XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList();
+        }
+
+        string GetAttValue(XElement el, string name)
+        {
+            return (el.Attribute(name) == null) ? null : el.Attribute(name).Value;
         }
 
         bool HasModifier(string all, string test)
@@ -30,51 +36,15 @@ namespace SharePointEmails.Core
 
         public string GetField(string fieldName, string modifiers)
         {
-            string val = null;
-            if (m_data != null)
+            var change=Changes.Where(p => p.FieldDisplayName == fieldName || p.FieldName == fieldName).FirstOrDefault();
+            if (change != null)
             {
-             
-                var element = m_data.Root.Elements().Where(p => p.Name == "Field"
-                    && p.Attribute("DisplayName") != null && p.Attribute("Name").Value == fieldName).FirstOrDefault();
-                if (element == null)
-                {
-                    element = m_data.Root.Elements().Where(p => p.Name == "Field"
-                    && p.Attribute("DisplayName") != null && p.Attribute("DisplayName").Value == fieldName).FirstOrDefault();
-                }
-                if (element != null)
-                {
-                    var type = element.Attribute("Type").Value;
-                    switch (type)
-                    {
-                        case "user":
-                            {
-                                if (HasModifier(modifiers, OLD_VALUE))
-                                {
-                                    val = (element.Attribute("Old") != null) ? element.Attribute("LookupOldF").Value : (string)null;
-                                }
-                                else
-                                {
-                                    val = (element.Attribute("New") != null) ? element.Attribute("LookupNewF").Value : (string)null;
-                                }
-                                break;
-                            }
 
-                        default:
-                            {
-                                if (HasModifier(modifiers, OLD_VALUE))
-                                {
-                                    val = (element.Attribute("Old") != null) ? element.Attribute("Old").Value : (string)null;
-                                }
-                                else
-                                {
-                                    val = (element.Attribute("New") != null) ? element.Attribute("New").Value : (string)null;
-                                }
-                                break;
-                            }
-                    }
-                }
             }
-            return val;
+            else
+            {
+                return null;
+            }
         }
 
         public List<string> GetAvailableFields()
