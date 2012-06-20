@@ -34,12 +34,12 @@ namespace SharePointEmails.Core
             return all.Split(':').Contains(test.Trim(':'));
         }
 
-        public string GetField(string fieldName, string modifiers)
+        public string GetField(string fieldName, ModifiersCollection modifiers)
         {
             var change=Changes.Where(p => p.FieldDisplayName == fieldName || p.FieldName == fieldName).FirstOrDefault();
             if (change != null)
             {
-
+                return change.GetText(modifiers);
             }
             else
             {

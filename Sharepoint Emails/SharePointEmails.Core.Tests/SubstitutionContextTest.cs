@@ -1,6 +1,7 @@
 ﻿using SharePointEmails.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core.Tests
 {
@@ -82,12 +83,12 @@ namespace SharePointEmails.Core.Tests
         {
             string eventData = Properties.Resources.EventDataFileAdded;
             SubstitutionContext target = new SubstitutionContext(eventData);
-            Assert.AreEqual(@"TEST\administrator",target.GetField("Document Created By", ":N")) ;
-            Assert.AreEqual(null,target.GetField("Document Created By", ":O"));
-            Assert.AreEqual(null,target.GetField("Author", ":O"));
-            Assert.AreEqual(@"TEST\administrator",target.GetField("Author", ":N"));
-            Assert.AreEqual(@"TEST\administrator",target.GetField("Editor", ":N"));
-            Assert.AreEqual(null,target.GetField("Editor", ":O"));
+            Assert.AreEqual(@"TEST\administrator", target.GetField("Document Created By", new ModifiersCollection { Modifier.New }));
+            Assert.AreEqual(null, target.GetField("Document Created By", new ModifiersCollection { Modifier.Old }));
+            Assert.AreEqual(null, target.GetField("Author", new ModifiersCollection { Modifier.Old }));
+            Assert.AreEqual(@"TEST\administrator", target.GetField("Author", new ModifiersCollection { Modifier.New }));
+            Assert.AreEqual(@"TEST\administrator", target.GetField("Editor", new ModifiersCollection { Modifier.New }));
+            Assert.AreEqual(null, target.GetField("Editor", new ModifiersCollection { Modifier.Old }));
         }
     }
 }

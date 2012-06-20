@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Rhino.Mocks;
+using SharePointEmails.Core.Substitutions;
 namespace SharePointEmails.Core.Tests
 {
     
@@ -81,9 +82,9 @@ namespace SharePointEmails.Core.Tests
         {
             FieldSubstitution target = new FieldSubstitution();
             var context = MockRepository.GenerateMock<ISubstitutionContext>();
-            context.Expect(p => p.GetField("field1", ":O")).Return("field1Oldtext");
-            context.Expect(p => p.GetField("field1", ":N")).Return("field1Newtext");
-            context.Expect(p => p.GetField("field2", ":N")).Return("field2Newtext");
+            context.Expect(p => p.GetField("field1",new ModifiersCollection{Modifier.Old})).Return("field1Oldtext");
+            context.Expect(p => p.GetField("field1", new ModifiersCollection { Modifier.New })).Return("field1Newtext");
+            context.Expect(p => p.GetField("field2", new ModifiersCollection { Modifier.New })).Return("field2Newtext");
             var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
             var expected = "text1 field1Oldtext text2 field2Newtext text3 field1Newtext";
             var actual = target.Process(text, context);

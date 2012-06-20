@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core
 {
@@ -32,15 +33,15 @@ namespace SharePointEmails.Core
 
             foreach (Match m in mc)
             {
-                var modifiers="";
+                ModifiersCollection modifiers =new ModifiersCollection();
                 var fieldNameWithModifiers = m.Value.Trim(']', '[');
                 var mod = Regex.Match(fieldNameWithModifiers, @"\:.+");
                 if (mod != null && mod.Value != null)
                 {
-                    modifiers = mod.Value;
+                    modifiers = ModifiersCollection.Parse(mod.Value);
                 }
                 
-                var withoutModifiers=(!string.IsNullOrEmpty(modifiers))?fieldNameWithModifiers.Replace(modifiers,""):fieldNameWithModifiers;
+                var withoutModifiers=(mod!=null&&!string.IsNullOrEmpty(mod.Value))?fieldNameWithModifiers.Replace(mod.Value,""):fieldNameWithModifiers;
                 string fieldTextValue = context.GetField(withoutModifiers, modifiers);
                 if (fieldTextValue == null)
                 {

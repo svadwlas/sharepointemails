@@ -17,32 +17,61 @@ namespace SharePointEmails.Core.Substitutions
                 default: return new FieldChange(field);
             }
         }
+
+        protected XElement m_field;
         public static string GetAttValue(XElement el, string name)
         {
             return (el.Attribute(name) == null) ? null : el.Attribute(name).Value;
         }
         protected FieldChange(XElement field)
         {
+            m_field = field;
             FieldDisplayName = GetAttValue(field, "DisplayName");
             FieldName = GetAttValue(field, "Name");
             IsChanged = GetAttValue(field, "New") != GetAttValue(field, "Old");
-            NewValue = GetAttValue(field, "New");
-            OldValue = GetAttValue(field, "Old");
         }
         public bool IsChanged { set; get; }
-        public string NewValue { set; get; }
-        public string OldValue { set; get; }
         public string FieldName { set; get; }
         public string FieldDisplayName { set; get; }
+
+        public virtual string GetText(ModifiersCollection modifiers)
+        {
+            if (modifiers.Contains(Modifier.Old))
+            {
+                return GetAttValue(m_field, "Old");
+            }
+            else if (modifiers.Contains(Modifier.New))
+            {
+                return GetAttValue(m_field, "New");
+            }
+            else
+            {
+                return GetAttValue(m_field, "New") ?? GetAttValue(m_field, "Old");
+            }
+        }
     }
 
-    class UserFieldChange:FieldChange
+    class UserFieldChange : FieldChange
     {
         public UserFieldChange(XElement field)
             : base(field)
         {
-            NewValue = FieldChange.GetAttValue(field, "LookupNewF");
-            OldValue = FieldChange.GetAttValue(field, "LookupOldF");
+        }
+
+        public override string GetText(ModifiersCollection modifiers)
+        {
+            if (modifiers.Contains(Modifier.Old))
+            {
+                return GetAttValue(m_field, "LookupOldF");
+            }
+            else if (modifiers.Contains(Modifier.New))
+            {
+                return GetAttValue(m_field, "LookupNewF");
+            }
+            else
+            {
+                return GetAttValue(m_field, "LookupNewF") ?? GetAttValue(m_field, "LookupOldF");
+            }
         }
     }
 }
