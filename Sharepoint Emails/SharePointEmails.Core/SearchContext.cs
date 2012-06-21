@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
+using System.Xml.Linq;
 
 namespace SharePointEmails.Core
 {
@@ -19,6 +20,9 @@ namespace SharePointEmails.Core
             switch (type)
             {
                 case SPEventType.All: return TemplateTypeEnum.AllItemEvents;
+                case SPEventType.Add: return TemplateTypeEnum.ItemAdded;
+                case SPEventType.Delete: return TemplateTypeEnum.ItemRemoved;
+                case SPEventType.Modify: return TemplateTypeEnum.ItemUpdated;
             }
             return TemplateTypeEnum.AllItemEvents;
         }
@@ -35,6 +39,9 @@ namespace SharePointEmails.Core
             }
             catch
             {
+                ItemContentTypeId = new SPContentTypeId(XDocument.Parse(eventData).Root.Elements()
+                    .Where(p =>p.Attributes("Name")!=null&& p.Attribute("Name").Value == "ContentTypeId").First().Attributes()
+                    .Where(p=>p.Name=="Old"||p.Name=="New").First().Value);
             }
         }
 
@@ -60,10 +67,7 @@ namespace SharePointEmails.Core
         public int Match(ITemplate template)
         {
             if (template.State == TemplateStateEnum.Draft) return SearchMatchLevel.NONE;
-            if ((Type == TemplateTypeEnum.AllItemEvents) && (Contains(template.EventTypes, TemplateTypeEnum.AllItemEvents)
-                                                            ||Contains(template.EventTypes, TemplateTypeEnum.ItemAdded)
-                                                            || Contains(template.EventTypes, TemplateTypeEnum.ItemRemoved)
-                                                            || Contains(template.EventTypes, TemplateTypeEnum.ItemUpdated)))
+            if ((Contains((int)Type, template.EventTypes)) || (Contains(template.EventTypes, Type)))
             {
                 return CheckAsses(template);
             }

@@ -74,6 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SearchContextTest.cs" />
     <Compile Include="SubstitutionContextTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ namespace SharePointEmails.Core
 {
     public enum TemplateTypeEnum
     {
-        Unknown=1, AllItemEvents=2, ItemAdded=4, ItemRemoved=8, ItemUpdated=16
+        Unknown=1, AllItemEvents=28, ItemAdded=4, ItemRemoved=8, ItemUpdated=16
     }
     public enum TemplateStateEnum
     {

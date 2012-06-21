@@ -23,23 +23,35 @@ namespace SharePointEmails.Core.Associations
             {
                 case GroupType.AllList:
                     {
-                        if (!(list is SPDocumentLibrary)) return SearchMatchLevel.LIST_BY_GROUP;
+                        if (!ctId.IsChildOf(SPBuiltInContentTypeId.Document)) return SearchMatchLevel.LIST_BY_GROUP;
                         break;
                     }
                 case GroupType.AllDocumentLibrary:
                     {
-                        if (list is SPDocumentLibrary) return SearchMatchLevel.LIST_BY_GROUP;
+                        if (ctId.IsChildOf(SPBuiltInContentTypeId.Document)) return SearchMatchLevel.LIST_BY_GROUP;
                         break;
                     }
-                case GroupType.AllDiscusionBoard:
+                case GroupType.AllDiscusions:
                     {
-                        if (ctId.IsChildOf(SPBuiltInContentTypeId.Discussion) || ctId.IsChildOf(SPBuiltInContentTypeId.Message))
-                            return SearchMatchLevel.PARENT_BY_GROUP;
+                        if (ctId.IsChildOf(SPBuiltInContentTypeId.Discussion))
+                            return SearchMatchLevel.ITEM_BY_GROUP;
                         break;
                     }
-                case GroupType.AllBlogs:
+                case GroupType.AllMessages:
                     {
-                        if (ctId.IsChildOf(SPBuiltInContentTypeId.BlogPost) || (ctId.IsChildOf(SPBuiltInContentTypeId.BlogComment)))
+                        if (ctId.IsChildOf(SPBuiltInContentTypeId.Message))
+                            return SearchMatchLevel.ITEM_BY_GROUP;
+                        break;
+                    }
+                case GroupType.AllBlogComments:
+                    {
+                        if ((ctId.IsChildOf(SPBuiltInContentTypeId.BlogComment)))
+                            return SearchMatchLevel.ITEM_BY_GROUP;
+                        break;
+                    }
+                case GroupType.AllBlogPosts:
+                    {
+                          if (ctId.IsChildOf(SPBuiltInContentTypeId.BlogPost))
                             return SearchMatchLevel.ITEM_BY_GROUP;
                         break;
                     }
@@ -75,10 +87,12 @@ namespace SharePointEmails.Core.Associations
     {
         None = -1,
         AllList = 1,
-        AllDiscusionBoard = 2,
+        AllDiscusions = 2,
         AllDocumentLibrary = 3,
-        AllBlogs = 4,
+        AllBlogPosts = 4,
         AllTasks = 5,
-        AllMyTasks = 6
+        AllMyTasks = 6,
+        AllMessages = 7,
+        AllBlogComments=8
     }
 }

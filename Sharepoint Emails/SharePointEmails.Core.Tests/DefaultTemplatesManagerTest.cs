@@ -13,14 +13,11 @@ using SharePointEmails.Core.Exceptions;
 
 namespace SharePointEmails.Core.Tests
 {
-
-
     /// <summary>
-    ///This is a test class for DefaultTemplatesManagerTest and is intended
-    ///to contain all DefaultTemplatesManagerTest Unit Tests
+    ///The simplest test for GetTemplate. Exist only one template with one ass and in the root web
     ///</summary>
     [TestClass()]
-    public class DefaultTemplatesManagerTest
+    public class DefaultTemplatesManagerSimpleTest
     {
         List<ITemplate> TemplateList;
         Mock<IConfigurationManager> configManager;
@@ -42,6 +39,7 @@ namespace SharePointEmails.Core.Tests
 
             MSPListItem item = new MSPListItem();
             item.ContentTypeIdGet = () => new SPContentTypeId(itemCTId);
+
             moleSourceList = new MSPList();
             moleSourceList.GetItemByIdInt32 = (id) =>
             {
@@ -64,6 +62,18 @@ namespace SharePointEmails.Core.Tests
 
         }
 
+        ITemplate CreateTemplate(int eventTypes, TemplateStateEnum templateState, AssociationConfiguration asses)
+        {
+            var res = new Mock<ITemplate>() { DefaultValue = DefaultValue.Mock };
+            res.Setup(p => p.Name).Returns(Guid.NewGuid().ToString());
+            res.Setup(p => p.IsValid).Returns(true);
+            res.Setup(p => p.Id).Returns(Guid.NewGuid());
+            res.Setup(p => p.EventTypes).Returns(eventTypes);
+            res.Setup(p => p.State).Returns(templateState);
+            res.Setup(p => p.Asses).Returns(asses);
+            return res.Object;
+        }
+
         [TestInitialize()]
         public void MyTestInitialize()
         {
@@ -84,33 +94,19 @@ namespace SharePointEmails.Core.Tests
             TemplatesList.mock = null;
         }
 
-        public ITemplate CreateTemplate(int eventTypes, TemplateStateEnum templateState, AssociationConfiguration asses)
-        {
-            var res = new Mock<ITemplate>() { DefaultValue = DefaultValue.Mock };
-            res.Setup(p => p.Name).Returns(Guid.NewGuid().ToString());
-            res.Setup(p => p.IsValid).Returns(true);
-            res.Setup(p => p.Id).Returns(Guid.NewGuid());
-            res.Setup(p => p.EventTypes).Returns(eventTypes);
-            res.Setup(p => p.State).Returns(templateState);
-            res.Setup(p => p.Asses).Returns(asses);
-            return res.Object;
-        }
+        #region ByCTId
 
-        private void Test_ByContentTypeAss(int TemplateEvents, TemplateStateEnum templateState, string AssCTId, bool IncludeChild, string ItemCTId, SPEventType eventType, bool shouldFound)
+        private void Test_WithOneAssAndOneTemplateTypeAss(int TemplateEvents, TemplateStateEnum templateState, Association ass, string ItemCTId, SPEventType eventType, bool shouldFound)
         {
             CreateSourceListAllOnTheRootSite(ItemCTId, 1);
             var expected = CreateTemplate(TemplateEvents, templateState,
                                                 new AssociationConfiguration
                                                 {
-                                                    new ContentTypeAssociation()
-                                                    {
-                                                        ContentTypeID=AssCTId,
-                                                        IncludingChilds=IncludeChild
-                                                    }
+                                                   ass
                                                 });
             TemplateList.Add(expected);
             DefaultTemplatesManager target = new DefaultTemplatesManager(logger.Object, configManager.Object);
-            ISearchContext context = SearchContext.Create(moleSourceList, 1, Properties.Resources.EventDataTskAdded, SPEventType.Add);
+            ISearchContext context = SearchContext.Create(moleSourceList, 1, Properties.Resources.EventDataTskAdded, eventType);
             if (shouldFound)
             {
                 var actual = target.GetTemplate(context);
@@ -133,11 +129,10 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetTemplate_AssByCTId1()
         {
-            Test_ByContentTypeAss(
+            Test_WithOneAssAndOneTemplateTypeAss(
                 (int)TemplateTypeEnum.AllItemEvents,
                 TemplateStateEnum.Published,
-                "0x0100429BDB95B7C9334BBABA404B60E119C3",
-                false,
+                new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = false },
                 "0x0100429BDB95B7C9334BBABA404B60E119C3",
                 SPEventType.Add,
                 true);
@@ -147,11 +142,10 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetTemplate_AssByCTId2()
         {
-            Test_ByContentTypeAss(
+            Test_WithOneAssAndOneTemplateTypeAss(
                 (int)TemplateTypeEnum.ItemAdded,
                 TemplateStateEnum.Published,
-                "0x0100429BDB95B7C9334BBABA404B60E119C3",
-                false,
+                 new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = false },
                 "0x0100429BDB95B7C9334BBABA404B60E119C3",
                 SPEventType.Add,
                 true);
@@ -161,11 +155,10 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetTemplate_AssByCTId3()
         {
-            Test_ByContentTypeAss(
+            Test_WithOneAssAndOneTemplateTypeAss(
                 (int)TemplateTypeEnum.ItemRemoved,
                 TemplateStateEnum.Published,
-                "0x0100429BDB95B7C9334BBABA404B60E119C3",
-                false,
+                 new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = false },
                 "0x0100429BDB95B7C9334BBABA404B60E119C3",
                 SPEventType.Add,
                 false);
@@ -175,11 +168,10 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetTemplate_AssByCTId4()
         {
-            Test_ByContentTypeAss(
+            Test_WithOneAssAndOneTemplateTypeAss(
              (int)TemplateTypeEnum.ItemAdded,
              TemplateStateEnum.Published,
-             "0x0100429BDB95B7C9334BBABA404B60E119C3",
-             false,
+             new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = false },
              "0x01",
              SPEventType.Add,
              false);
@@ -189,14 +181,162 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetTemplate_AssByCTId5()
         {
-            Test_ByContentTypeAss(
+            Test_WithOneAssAndOneTemplateTypeAss(
            (int)TemplateTypeEnum.ItemAdded,
            TemplateStateEnum.Published,
-           "0x0100429BDB95B7C9334BBABA404B60E119C3",
-           true,
+            new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = true },
            "0x01",
            SPEventType.Add,
            true);
         }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByCTId6()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemRemoved | (int)TemplateTypeEnum.ItemAdded,
+                TemplateStateEnum.Published,
+                new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = false },
+                "0x0100429BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Add,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByCTId7()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemRemoved | (int)TemplateTypeEnum.ItemAdded,
+                TemplateStateEnum.Draft,
+                new ContentTypeAssociation { ContentTypeID = "0x0100429BDB95B7C9334BBABA404B60E119C3", IncludingChilds = false },
+                "0x0100429BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Add,
+                false);
+        }
+
+        #endregion
+
+        #region ByGroup
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup1()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemRemoved,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllList },
+                "0x0100429BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Delete,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup2()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllDocumentLibrary },
+                "0x0100429BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                false);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup3()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllDocumentLibrary },
+                "0x0100429BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                false);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup4()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllTasks },
+                "0x0108429BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup5()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllDiscusions },
+                "0x0120029BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup6()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllMessages },
+                "0x0107029BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup7()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllBlogPosts },
+                "0x0110029BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup8()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllBlogComments },
+                "0x0111029BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                true);
+        }
+
+        [TestMethod()]
+        [HostType("Moles")]
+        public void GetTemplate_AssByGroup9()
+        {
+            Test_WithOneAssAndOneTemplateTypeAss(
+                (int)TemplateTypeEnum.ItemUpdated,
+                TemplateStateEnum.Published,
+                new GroupAssociation { ItemType = GroupType.AllDocumentLibrary },
+                "0x0101029BDB95B7C9334BBABA404B60E119C3",
+                SPEventType.Modify,
+                true);
+        }
+
+        #endregion
     }
 }
