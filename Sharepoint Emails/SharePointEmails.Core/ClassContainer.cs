@@ -37,10 +37,10 @@ namespace SharePointEmails.Core
         private void Register(UnityContainer container)
         {
             container.RegisterInstance<ILogger>(new DefaultLogger());
-            container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger()));
+            container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger(), new ConfigurationManager()));
             container.RegisterInstance<ISiteManager>(new SiteManager());
             container.RegisterInstance<SubstitutionManager>(new SubstitutionManager());
-            container.RegisterInstance<ConfigurationManager>(new ConfigurationManager());
+            container.RegisterInstance<IConfigurationManager>(new ConfigurationManager());
         }
 
         private UnityContainer Container

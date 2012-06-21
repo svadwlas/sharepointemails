@@ -57,7 +57,7 @@ namespace SharepointEmails
                                 {
                                     try
                                     {
-                                        System.Diagnostics.Debugger.Launch();
+                                      //  System.Diagnostics.Debugger.Launch();
                                         message = Application.Current.GetMessageForItem(list, ed.itemId, ahp.a.EventType, ed.eventXml);
                                     }
                                     catch (Exception ex)

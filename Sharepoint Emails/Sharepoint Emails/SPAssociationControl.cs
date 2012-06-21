@@ -211,7 +211,6 @@ namespace SharepointEmails
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
             if (!this.Page.IsPostBack)
             {
                 Temp = FromItem;
@@ -220,6 +219,7 @@ namespace SharepointEmails
             {
                 UpdateActiveAss();
             }
+            base.OnLoad(e);//it important that after other action for Value
         }
 
         public override void Validate()
@@ -333,11 +333,13 @@ namespace SharepointEmails
                 id = grd_Asses.SelectedRow.Cells[ID_COLUMN_INDEX].Text;
                 if (!string.IsNullOrEmpty(id))
                 {
-                    var ass = Temp.Where(p => p.ID == id).FirstOrDefault();
+                    var temp = Temp;
+                    var ass = temp.Where(p => p.ID == id).FirstOrDefault();
                     if (ass != null)
                     {
                         Update(ass);
                     }
+                    Temp = temp;
                 }
             }
         }

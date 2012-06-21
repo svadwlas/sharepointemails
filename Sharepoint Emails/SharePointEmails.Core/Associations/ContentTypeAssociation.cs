@@ -23,7 +23,7 @@ namespace SharePointEmails.Core.Associations
                     {
                         return SearchMatchLevel.ITEM_BY_CT_ID_EXACTLY;
                     }
-                    if ((IncludingChilds) && (ctId.IsChildOf(ct) || (ct.CompareTo(ctId) == 0)))
+                    if ((IncludingChilds) && (ct.IsChildOf(ctId) || (ct.CompareTo(ctId) == 0)))
                     {
                         return SearchMatchLevel.ITEM_BY_CT_ID_INHERITED;
                     }
@@ -56,11 +56,33 @@ namespace SharePointEmails.Core.Associations
                 throw new Exception("wrong content type id");
             }
             var notexists = true;
-            foreach (SPContentType c in SPContext.Current.Site.RootWeb.ContentTypes)
+            if (notexists)
             {
-                if (c.Id == ct)
-                    notexists = false;
+                foreach (SPWeb web in SPContext.Current.Site.AllWebs)
+                {
+                    foreach(SPContentType c in web.ContentTypes)
+                    {
+                        if(c.Id==ct)
+                        {
+                            notexists=false;
+                            break;
+                        }
+                    }
+                    foreach (SPList list in web.Lists)
+                    {
+                        foreach (SPContentType c in list.ContentTypes)
+                        {
+                            if (c.Id == ct)
+                            {
+                                notexists = false;
+                                break;
+                            }
+                        }
+                    }
+                    web.Dispose();
+                }
             }
+
             if (notexists)
                 throw new Exception("Content type doesn't exist");
         }

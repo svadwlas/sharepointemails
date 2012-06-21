@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core
 {
@@ -11,6 +12,11 @@ namespace SharePointEmails.Core
         {
             get;
             set;
+        }
+
+        SPSite Site
+        {
+            get;
         }
 
         Guid WebId

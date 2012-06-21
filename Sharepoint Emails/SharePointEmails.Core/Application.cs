@@ -111,20 +111,13 @@ namespace SharePointEmails.Core
             return ClassContainer.Instance.Resolve<ITemplatesManager>();
         }
 
-        TemplateTypeEnum get(SPEventType type)
-        {
-            switch (type)
-            {
-                case SPEventType.All: return TemplateTypeEnum.AllItemEvents;
-            }
-            return TemplateTypeEnum.AllItemEvents;
-        }
+       
 
         public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML)
         {
             var manager = GetTemplateManager();
 
-            ISearchContext search = SearchContext.Create(list, ItemID, eventXML, get(type));
+            ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type);
 
             var res = manager.GetTemplate(search);
             if (res != null)

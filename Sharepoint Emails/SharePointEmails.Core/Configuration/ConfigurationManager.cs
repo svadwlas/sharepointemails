@@ -7,7 +7,7 @@ using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core.Configuration
 {
-    public class ConfigurationManager
+    public class ConfigurationManager : SharePointEmails.Core.Configuration.IConfigurationManager
     {
         const string s = "asdfasdfsdafsdf";
 

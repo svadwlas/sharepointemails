@@ -20,7 +20,6 @@ namespace SharePointEmails.Core
             m_context = context;
             m_substitutions = new List<ISubstitution>
             {
-                new FieldSubstitution(),
                 new FieldSubstitution()
             };
         }

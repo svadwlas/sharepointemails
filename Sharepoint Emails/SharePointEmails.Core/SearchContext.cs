@@ -9,15 +9,24 @@ namespace SharePointEmails.Core
     public  class SearchContext:ISearchContext
     {
 
-        public static ISearchContext Create(SPList list, int itemId, string eventData, TemplateTypeEnum type)
+        public static ISearchContext Create(SPList list, int itemId, string eventData, SPEventType type)
         {
             return new SearchContext(list,itemId,eventData,type);
         }
 
-        SearchContext(SPList list, int itemId, string eventData, TemplateTypeEnum type)
+        TemplateTypeEnum get(SPEventType type)
+        {
+            switch (type)
+            {
+                case SPEventType.All: return TemplateTypeEnum.AllItemEvents;
+            }
+            return TemplateTypeEnum.AllItemEvents;
+        }
+
+        SearchContext(SPList list, int itemId, string eventData, SPEventType type)
         {
             List = list;
-            Type = type;
+            Type = get(type);
             ItemId = itemId;
             try
             {
@@ -99,6 +108,12 @@ namespace SharePointEmails.Core
             {
                 throw new NotImplementedException();
             }
+        }
+
+
+        public SPSite Site
+        {
+            get { return List.ParentWeb.Site; }
         }
     }
 }

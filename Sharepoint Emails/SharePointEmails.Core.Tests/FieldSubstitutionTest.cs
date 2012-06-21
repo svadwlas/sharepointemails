@@ -1,8 +1,8 @@
 ﻿using SharePointEmails.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Rhino.Mocks;
 using SharePointEmails.Core.Substitutions;
+using Moq;
 namespace SharePointEmails.Core.Tests
 {
     
@@ -81,13 +81,13 @@ namespace SharePointEmails.Core.Tests
         public void ProcessTest_SomeText_Substituted()
         {
             FieldSubstitution target = new FieldSubstitution();
-            var context = MockRepository.GenerateMock<ISubstitutionContext>();
-            context.Expect(p => p.GetField("field1",new ModifiersCollection{Modifier.Old})).Return("field1Oldtext");
-            context.Expect(p => p.GetField("field1", new ModifiersCollection { Modifier.New })).Return("field1Newtext");
-            context.Expect(p => p.GetField("field2", new ModifiersCollection { Modifier.New })).Return("field2Newtext");
+            var context = new Mock<ISubstitutionContext>();
+            context.Setup(p => p.GetField("field1",new ModifiersCollection{Modifier.Old})).Returns("field1Oldtext");
+            context.Setup(p => p.GetField("field1", new ModifiersCollection { Modifier.New })).Returns("field1Newtext");
+            context.Setup(p => p.GetField("field2", new ModifiersCollection { Modifier.New })).Returns("field2Newtext");
             var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
             var expected = "text1 field1Oldtext text2 field2Newtext text3 field1Newtext";
-            var actual = target.Process(text, context);
+            var actual = target.Process(text, context.Object);
             Assert.AreEqual(expected, actual);
         }
 
@@ -95,9 +95,9 @@ namespace SharePointEmails.Core.Tests
         public void ProcessTest_NotExistedFields_Substituted()
         {
             FieldSubstitution target = new FieldSubstitution();
-            var context = MockRepository.GenerateMock<ISubstitutionContext>();
+            var context = new Mock<ISubstitutionContext>();
             var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
-            target.Process(text, context);
+            target.Process(text, context.Object);
         }
 
 

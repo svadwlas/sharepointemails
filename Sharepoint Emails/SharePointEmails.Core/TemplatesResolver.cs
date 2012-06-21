@@ -13,10 +13,14 @@ namespace SharePointEmails.Core
     {
         ILogger Logger { set; get; }
 
-        public DefaultTemplatesManager(ILogger logger)
+        IConfigurationManager ConfigManager { set; get; }
+
+        public DefaultTemplatesManager(ILogger logger, IConfigurationManager configManager)
         {
             if (logger == null) throw new ArgumentNullException("logger");
+            if (configManager == null) throw new ArgumentNullException("configManager");
             Logger = logger;
+            ConfigManager = configManager;
         }
 
         private ITemplate FindTemplateRec(ISearchContext context, SPWeb web, Dictionary<ITemplate, int> matched, int deep = 0)
@@ -25,7 +29,7 @@ namespace SharePointEmails.Core
             {
                 if (matched.Count == 0)
                 {
-                    throw new SeBaseException("Template is not found");
+                    throw new SeTemplateNotFound("Template is not found");
                 }
                 else
                 {
@@ -37,7 +41,7 @@ namespace SharePointEmails.Core
                 var list = web.Lists.TryGetList(Constants.TemplateListName);
                 if (list != null)
                 {
-                    foreach (var item in new TemplatesList(list))
+                    foreach (var item in TemplatesList.Create(list))
                     {
                         var res = context.Match(item);
                         if (res != SearchMatchLevel.NONE)
@@ -53,8 +57,7 @@ namespace SharePointEmails.Core
 
         bool EnabledAndfeatureActivated(SPWeb web)
         {
-            var manager = ClassContainer.Instance.Resolve<ConfigurationManager>();
-            var config = manager.GetConfig(web);
+            var config = ConfigManager.GetConfig(web);
             if (config == null)
                 return false;
 
@@ -64,22 +67,25 @@ namespace SharePointEmails.Core
 
         public ITemplate GetTemplate(ISearchContext context)
         {
-            using (var site = new SPSite(context.SiteId))
-            {
-                return FindTemplateRec(context,site.RootWeb,new Dictionary<ITemplate,int>());
+                return FindTemplateRec(context,context.Site.RootWeb,new Dictionary<ITemplate,int>());
                 //currently only on the root web
                 //using (var web = site.AllWebs[context.WebId])
                 //{
                 //    return FindTemplateRec(context, web, new Dictionary<ITemplate, int>());
                 //}
-            }
         }
     }
 
-    class TemplatesList:IEnumerable<ITemplate>
+    public class TemplatesList:IEnumerable<ITemplate>
     {
+        public static IEnumerable<ITemplate> mock = null;
+        public static IEnumerable<ITemplate> Create(SPList list)
+        {
+            return mock??new TemplatesList(list);
+        }
         SPList _list;
-        public TemplatesList(SPList list)
+        internal TemplatesList() { }
+        internal TemplatesList(SPList list)
         {
             _list=list;
         }

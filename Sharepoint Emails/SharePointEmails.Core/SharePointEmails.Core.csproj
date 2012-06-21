@@ -71,6 +71,7 @@
     <Compile Include="Associations\GroupAssociation.cs" />
     <Compile Include="Associations\IDAssociation.cs" />
     <Compile Include="ClassContainer.cs" />
+    <Compile Include="Configuration\IConfigurationManager.cs" />
     <Compile Include="Configuration\SerializeHelper.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Configuration\FarmConfiguration.cs" />

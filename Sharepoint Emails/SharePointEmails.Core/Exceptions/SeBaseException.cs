@@ -14,4 +14,15 @@ namespace SharePointEmails.Core.Exceptions
         {
         }
     }
+
+    public class SeTemplateNotFound : SeBaseException
+    {
+         public SeTemplateNotFound(string message):base(message)
+        {
+        }
+         public SeTemplateNotFound(string message, Exception inner)
+             : base(message, inner)
+        {
+        }
+    }
 }
