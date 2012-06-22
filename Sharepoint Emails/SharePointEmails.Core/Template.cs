@@ -12,7 +12,7 @@ namespace SharePointEmails.Core
         public Template()
         {
             this.Name = "Noname";
-            this.Pattern = "No body";
+            this.Body = "No body";
             this.EventTypes = (int)TemplateTypeEnum.Unknown;
             this.State = TemplateStateEnum.Unknown;
         }
@@ -25,7 +25,8 @@ namespace SharePointEmails.Core
         void Refresh()
         {
             this.Name = m_Item[SEMailTemplateCT.TemplateName] as string;
-            this.Pattern = m_Item[SEMailTemplateCT.TemplateBody] as string;
+            this.Subject = m_Item[SEMailTemplateCT.TemplateSubject] as string;
+            this.Body = m_Item[SEMailTemplateCT.TemplateBody] as string;
             if (m_Item[SEMailTemplateCT.TemplateType] != null)
             {
                 var val = new SPFieldMultiChoiceValue(m_Item[SEMailTemplateCT.TemplateType].ToString());
@@ -48,7 +49,8 @@ namespace SharePointEmails.Core
         public void Update()
         {
             m_Item[SEMailTemplateCT.TemplateName] = this.Name;
-            m_Item[SEMailTemplateCT.TemplateBody] = this.Pattern;
+            m_Item[SEMailTemplateCT.TemplateSubject] = this.Subject;
+            m_Item[SEMailTemplateCT.TemplateBody] = this.Body;
             m_Item[SEMailTemplateCT.TemplateType] = EnumConverter.TypeToValue(this.EventTypes);
             m_Item[SEMailTemplateCT.TemplateState] = EnumConverter.StateToValue(this.State);
             m_Item[SEMailTemplateCT.Associations] = Asses.ToString();
@@ -59,26 +61,22 @@ namespace SharePointEmails.Core
         public string GetProcessedText(ISubstitutionContext context)
         {
             var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
-            if (manager != null)
-            {
-                var worker = manager.GetWorker(context);
-                if (worker != null)
-                {
-                    var res = worker.Process(Pattern);
-                    return res;
-                }
-                else
-                {
-                    return "no worker";
-                }
-            }
-            else
-            {
-                return "no manager";
-            }
+            var worker = manager.GetWorker(context);
+            var res = worker.Process(Body);
+            return res;
         }
 
-        public string Pattern
+        public string GetProcessedSubj(ISubstitutionContext context)
+        {
+            var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
+            var worker = manager.GetWorker(context);
+            var res = worker.Process(Subject);
+            return res;
+        }
+
+        public string Subject { set; get; }
+
+        public string Body
         {
             get;
             set;
@@ -136,10 +134,11 @@ namespace SharePointEmails.Core
 
         public override string ToString()
         {
-            var s = "Name: " + Name + Environment.NewLine +
+            var s = 
+                "Name: " + Name + Environment.NewLine +
                 "EventTypes: " + EventTypes + Environment.NewLine +
-                 "State: " + State + Environment.NewLine +
-                  "Pattern: " + Pattern + Environment.NewLine;
+                "State: " + State + Environment.NewLine +
+                "Pattern: " + Body + Environment.NewLine;
             foreach (var ass in Asses)
             {
                 s += "Ass: " + Environment.NewLine + ass.ToString() + Environment.NewLine;

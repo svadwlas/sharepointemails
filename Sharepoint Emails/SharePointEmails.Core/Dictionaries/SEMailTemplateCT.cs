@@ -8,6 +8,7 @@ public static class SEMailTemplateCT
     public const string TemplateType = "TemplateType";
     public const string TemplateState = "TemplateState";
     public const string Associations = "Associations";
+    public const string TemplateSubject = "TemplateSubject";
 
     public static class StateChoices
     {

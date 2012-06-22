@@ -21,6 +21,7 @@ namespace SharePointEmails.Core
             m_context = context;
             m_substitutions = new List<ISubstitution>
             {
+                new ResourceSubstitution(),
                 new FieldSubstitution(),
                 new ContextSubstitution()
             };

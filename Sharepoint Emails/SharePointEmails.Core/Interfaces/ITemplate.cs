@@ -9,12 +9,15 @@ namespace SharePointEmails.Core
     public interface ITemplate
     {
         string GetProcessedText(ISubstitutionContext context);
+        string GetProcessedSubj(ISubstitutionContext context);
 
         TemplateStateEnum State { set; get; }
 
         int EventTypes { set; get; }
 
-        string Pattern
+        string Subject { set; get; }
+
+        string Body
         {
             get;
             set;

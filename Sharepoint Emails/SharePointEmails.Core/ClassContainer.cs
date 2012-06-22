@@ -14,6 +14,8 @@ namespace SharePointEmails.Core
 
         static object lockObj=new object();
 
+        public static ILogger mockLogger;
+
         public static ClassContainer Instance
         {
             get
@@ -36,7 +38,7 @@ namespace SharePointEmails.Core
 
         private void Register(UnityContainer container)
         {
-            container.RegisterInstance<ILogger>(new DefaultLogger());
+            container.RegisterInstance<ILogger>(mockLogger??new DefaultLogger());
             container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger(), new ConfigurationManager()));
             container.RegisterInstance<ISiteManager>(new SiteManager());
             container.RegisterInstance<SubstitutionManager>(new SubstitutionManager());

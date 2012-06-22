@@ -17,7 +17,7 @@ namespace SharepointEmails
         public bool OnNotification(SPAlertHandlerParams ahp)
         {
             try
-            {
+            {                
                 System.Diagnostics.Debugger.Launch();
                 Application.Current.Logger.Write("Start OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
 
@@ -59,10 +59,9 @@ namespace SharepointEmails
                                 {
                                     try
                                     {
-
                                         var to = ahp.headers["to"];
                                         //  System.Diagnostics.Debugger.Launch();
-                                        message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, to);
+                                        message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, to,ahp.a.UserId);
                                     }
                                     catch (SeTemplateNotFound ex)
                                     {

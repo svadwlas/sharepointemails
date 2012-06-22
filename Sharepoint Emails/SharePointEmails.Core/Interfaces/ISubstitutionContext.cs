@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using SharePointEmails.Core.Substitutions;
+using System.Globalization;
 
 namespace SharePointEmails.Core
 {
@@ -12,5 +13,6 @@ namespace SharePointEmails.Core
         string GetField(string fieldName, ModifiersCollection modifiers);
         List<string> GetAvailableFields();
         string GetContextValue(string value, ModifiersCollection modifiers);
+        CultureInfo getDestinationCulture();
     }
 }

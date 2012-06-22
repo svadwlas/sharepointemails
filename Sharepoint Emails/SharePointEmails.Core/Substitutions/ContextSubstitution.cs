@@ -36,11 +36,9 @@ namespace SharePointEmails.Core.Substitutions
                 try
                 {
                     var val = context.GetContextValue(m.Value.Trim('}', '{'), new ModifiersCollection());
-                    if (val == null)
-                        val = "no" + m.Value;
                     if (!string.IsNullOrEmpty(m.Value))
                     {
-                        res = res.Replace(m.Value, val);
+                        res = res.Replace(m.Value, val??"no value");
                     }
                 }
                 catch (Exception ex)

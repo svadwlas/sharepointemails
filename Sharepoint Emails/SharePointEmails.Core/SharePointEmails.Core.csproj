@@ -93,8 +93,8 @@
     <Compile Include="Dictionaries\SEMailTemplateCT.cs" />
     <Compile Include="Substitutions\Change.cs" />
     <Compile Include="Substitutions\ContextSubstitution.cs" />
-    <Compile Include="Substitutions\ILoogger.cs" />
     <Compile Include="Substitutions\Modifier.cs" />
+    <Compile Include="Substitutions\ResourceSubstitution.cs" />
     <Compile Include="Substitutions\SubstitutionWorker.cs" />
     <Compile Include="Substitutions\FieldSubstitution.cs" />
     <Compile Include="Substitutions\SubstitutionContext.cs" />

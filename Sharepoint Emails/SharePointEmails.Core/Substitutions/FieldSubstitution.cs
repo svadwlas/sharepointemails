@@ -13,7 +13,7 @@ namespace SharePointEmails.Core
         ILogger Logger { set; get; }
         public FieldSubstitution()
         {
-            Logger = ClassContainer.Instance.Resolve<ILoogger>();
+            Logger = ClassContainer.Instance.Resolve<ILogger>();
         }
 
         public string Pattern
@@ -52,13 +52,9 @@ namespace SharePointEmails.Core
 
                     var withoutModifiers = (mod != null && !string.IsNullOrEmpty(mod.Value)) ? fieldNameWithModifiers.Replace(mod.Value, "") : fieldNameWithModifiers;
                     string fieldTextValue = context.GetField(withoutModifiers, modifiers);
-                    if (fieldTextValue == null)
-                    {
-                        fieldTextValue = "no \"" + fieldNameWithModifiers + "\"";
-                    }
                     if (!string.IsNullOrEmpty(m.Value))
                     {
-                        res = res.Replace(m.Value, fieldTextValue);
+                        res = res.Replace(m.Value, fieldTextValue??"no value");
                     }
                 }
                 catch (Exception ex)

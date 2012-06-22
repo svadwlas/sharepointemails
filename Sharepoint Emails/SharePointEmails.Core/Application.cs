@@ -111,28 +111,27 @@ namespace SharePointEmails.Core
         }
         ILogger _Logger;
 
-        ITemplatesManager GetTemplateManager()
+        ITemplatesManager Manager
         {
-            return ClassContainer.Instance.Resolve<ITemplatesManager>();
+            get
+            {
+                return ClassContainer.Instance.Resolve<ITemplatesManager>();
+            }
         }
 
-       
-
-        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML,string modifierName,string toEmail)
+        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML,string modifierName,string toEmail,int createUserId)
         {
-            var manager = GetTemplateManager();
-
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type);
-
-            var res = manager.GetTemplate(search);
+            var res = Manager.GetTemplate(search);
             if (res != null)
             {
                 Logger.Write("Found template:", SeverityEnum.Verbose);
                 Logger.Write(res.ToString(), SeverityEnum.Verbose);
+                var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, toEmail, createUserId);
                 return new Message
                     {
-                        Body = res.GetProcessedText(new SubstitutionContext(eventXML,list,ItemID,modifierName,toEmail)),
-                        Subject = "generated message " + DateTime.Now.ToLongTimeString()
+                        Body = res.GetProcessedText(substitutionContext),
+                        Subject = res.GetProcessedSubj(substitutionContext)
                     };
             }
             else

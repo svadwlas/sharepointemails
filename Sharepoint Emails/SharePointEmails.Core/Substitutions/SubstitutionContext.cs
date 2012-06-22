@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using SharePointEmails.Core.Substitutions;
 using System.Reflection;
 using SharePointEmails.Logging;
+using System.Globalization;
 
 namespace SharePointEmails.Core
 {
@@ -17,7 +18,6 @@ namespace SharePointEmails.Core
         const string NEW_VALUE = ":N";
 
         string m_eventData = string.Empty;
-        SPListItem m_sourceItem = null;
         SPList m_sourceList=null;
         ILogger Logger;
 
@@ -25,13 +25,13 @@ namespace SharePointEmails.Core
 
         public SubstitutionContext(string eventData):this(eventData,null){}
 
-        public SubstitutionContext(string eventData, SPList sourceList):this(eventData,sourceList,-1,null,null){}
+        public SubstitutionContext(string eventData, SPList sourceList):this(eventData,sourceList,-1,null,null,-1){}
 
-        public SubstitutionContext(string eventData, SPList sourceList, int ItemID, string modifierName, string toemail)
+        public SubstitutionContext(string eventData, SPList sourceList, int ItemID, string modifierName, string toemail,int CreateUserId)
         {
             Logger = ClassContainer.Instance.Resolve<ILogger>();
             m_sourceList = sourceList;
-            Vars = new ContextVars(sourceList, ItemID, modifierName, toemail);
+            Vars = new ContextVars(sourceList, ItemID, modifierName, toemail,CreateUserId);
             Changes = XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList();
         }
 
@@ -72,7 +72,7 @@ namespace SharePointEmails.Core
             foreach (var m in path.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 if ((temp = temp.GetType().InvokeMember(m, BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty, null, temp, new object[0])) == null)
-                    return null;
+                    return "";
             }
             return (temp == null) ? "" : temp.ToString();
         }
@@ -85,7 +85,7 @@ namespace SharePointEmails.Core
         class ContextVars
         {
             ILogger Logger;
-            public ContextVars(SPList sourceList, int ItemID, string modifierName, string toemail)
+            public ContextVars(SPList sourceList, int ItemID, string modifierName, string toemail, int CUserID)
             {
                 Logger = ClassContainer.Instance.Resolve<ILogger>();
                 SList = sourceList;
@@ -95,6 +95,17 @@ namespace SharePointEmails.Core
                     if (SWeb != null)
                     {
                         SSite = SWeb.Site;
+                    }
+                }
+                if (CUserID != -1&&SWeb != null)
+                {
+                    try
+                    {
+                        CUser = SWeb.SiteUsers[CUserID];
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Write(ex, SeverityEnum.Error);
                     }
                 }
                 if (sourceList != null && ItemID != -1)
@@ -147,9 +158,11 @@ namespace SharePointEmails.Core
                 set;
             }
 
-            public SPUser SUser { set; get; }
+            public SPUser SUser { set; get; }//force alert
 
-            public SPUser DUser { set; get; }
+            public SPUser DUser { set; get; }//alert destination
+
+            public SPUser CUser { set; get; }//create alert
 
             public SPList SList
             {
@@ -162,6 +175,12 @@ namespace SharePointEmails.Core
                 get;
                 set;
             }
+        }
+
+
+        public System.Globalization.CultureInfo getDestinationCulture()
+        {
+            return CultureInfo.CurrentCulture;
         }
     }
 }
