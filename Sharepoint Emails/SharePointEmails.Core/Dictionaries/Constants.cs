@@ -14,5 +14,13 @@ namespace SharePointEmails.Core
                 return "HiddenTemplatesList";
             }
         }
+
+        static public Guid FeatureId
+        {
+            get
+            {
+                return new Guid("{50e13f0b-69b1-43cf-8627-d782e7efa4cc}");
+            }
+        }
     }
 }

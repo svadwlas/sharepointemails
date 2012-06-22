@@ -69,6 +69,11 @@ namespace SharePointEmails.Core
             return FarmConfig.Disabled;
         }
 
+        public bool IsDisabledForSite(SPSite site)
+        {
+            return !site.Features.Any(p => p.DefinitionId == Constants.FeatureId);
+        }
+
         public bool IsDisabledForWeb(SPWeb web)
         {
             return false;
@@ -113,7 +118,7 @@ namespace SharePointEmails.Core
 
        
 
-        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML)
+        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML,string modifierName,string toEmail)
         {
             var manager = GetTemplateManager();
 
@@ -126,7 +131,7 @@ namespace SharePointEmails.Core
                 Logger.Write(res.ToString(), SeverityEnum.Verbose);
                 return new Message
                     {
-                        Body = res.GetProcessedText(new SubstitutionContext(eventXML)),
+                        Body = res.GetProcessedText(new SubstitutionContext(eventXML,list,ItemID,modifierName,toEmail)),
                         Subject = "generated message " + DateTime.Now.ToLongTimeString()
                     };
             }

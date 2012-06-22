@@ -4,11 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using SharePointEmails.Core.Substitutions;
+using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core
 {
     public class FieldSubstitution : ISubstitution
     {
+        ILogger Logger { set; get; }
+        public FieldSubstitution()
+        {
+            Logger = ClassContainer.Instance.Resolve<ILoogger>();
+        }
+
         public string Pattern
         {
             get
@@ -33,23 +40,30 @@ namespace SharePointEmails.Core
 
             foreach (Match m in mc)
             {
-                ModifiersCollection modifiers =new ModifiersCollection();
-                var fieldNameWithModifiers = m.Value.Trim(']', '[');
-                var mod = Regex.Match(fieldNameWithModifiers, @"\:.+");
-                if (mod != null && mod.Value != null)
+                try
                 {
-                    modifiers = ModifiersCollection.Parse(mod.Value);
+                    ModifiersCollection modifiers = new ModifiersCollection();
+                    var fieldNameWithModifiers = m.Value.Trim(']', '[');
+                    var mod = Regex.Match(fieldNameWithModifiers, @"\:.+");
+                    if (mod != null && mod.Value != null)
+                    {
+                        modifiers = ModifiersCollection.Parse(mod.Value);
+                    }
+
+                    var withoutModifiers = (mod != null && !string.IsNullOrEmpty(mod.Value)) ? fieldNameWithModifiers.Replace(mod.Value, "") : fieldNameWithModifiers;
+                    string fieldTextValue = context.GetField(withoutModifiers, modifiers);
+                    if (fieldTextValue == null)
+                    {
+                        fieldTextValue = "no \"" + fieldNameWithModifiers + "\"";
+                    }
+                    if (!string.IsNullOrEmpty(m.Value))
+                    {
+                        res = res.Replace(m.Value, fieldTextValue);
+                    }
                 }
-                
-                var withoutModifiers=(mod!=null&&!string.IsNullOrEmpty(mod.Value))?fieldNameWithModifiers.Replace(mod.Value,""):fieldNameWithModifiers;
-                string fieldTextValue = context.GetField(withoutModifiers, modifiers);
-                if (fieldTextValue == null)
+                catch (Exception ex)
                 {
-                    fieldTextValue = "no \"" + fieldNameWithModifiers + "\"";
-                }
-                if (!string.IsNullOrEmpty(m.Value))
-                {
-                    res = res.Replace(m.Value, fieldTextValue);
+                    Logger.Write(ex, SeverityEnum.Error);
                 }
             }
             return res;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core
 {
@@ -20,7 +21,8 @@ namespace SharePointEmails.Core
             m_context = context;
             m_substitutions = new List<ISubstitution>
             {
-                new FieldSubstitution()
+                new FieldSubstitution(),
+                new ContextSubstitution()
             };
         }
 

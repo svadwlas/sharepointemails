@@ -11,5 +11,6 @@ namespace SharePointEmails.Core
     {
         string GetField(string fieldName, ModifiersCollection modifiers);
         List<string> GetAvailableFields();
+        string GetContextValue(string value, ModifiersCollection modifiers);
     }
 }
