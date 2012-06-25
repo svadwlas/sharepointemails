@@ -29,14 +29,14 @@ namespace SharePointEmails.Core
 
         public string Process(string data)
         {
-            var res = string.Empty;
+            var res = data;
             if (m_substitutions != null)
             {
                 foreach (var substitution in m_substitutions)
                 {
                     try
                     {
-                        res = substitution.Process(data, m_context);
+                        res = substitution.Process(res, m_context);
                     }
                     catch (Exception ex)
                     {
