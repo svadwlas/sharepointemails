@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<helpTopic>
+  <!--The Help article's title-->
+  <name>SharePoint Emails Help Article</name>
+  <!--The help article'unique ID.-->
+  <id>SharePointEmailsHelpArticle</id>
+  <!--Fields used when the article is created-->
+  <createdDate>2010-03-08 07:03:23Z</createdDate>
+  <changedDate>2010-03-08 07:03:23Z</changedDate>
+  <author>Blog Post Author</author>
+  <!--Version is used to support upgrade scenarios-->
+  <version>14.1</version>
+  <!--This item has to have a corresponding file under the "content" folder called MyHelpArticle.htm-->
+  <contentFileExtension>htm</contentFileExtension>
+  <!--Defines the context keys - if any - to be used with context-sensitive help-->
+  <contextKeys>
+    <contextKey>TestKey</contextKey>
+    <contextKey>TestKey</contextKey>
+  </contextKeys>
+</helpTopic>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpCategory>
+  <!--The category's title-->
+  <name>SharePointEmails Help category</name>
+  <!--Unique ID for this cateogry-->
+  <id>MyFirstSubCategory</id>
+  <createdDate>2010-03-08 07:03:23Z</createdDate>
+  <changedDate>2010-03-08 07:03:23Z</changedDate>
+  <author>Blog Post Author</author>
+  <version>14.1</version>
+</helpCategory>

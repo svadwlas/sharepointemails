@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpCollection>
+  <name>SharePointEmailsHelpCollection1033</name>
+  <id>MyManifest</id>
+  <changedDate>2010-03-08 07:03:23Z</changedDate>
+  <createdDate>2010-03-08 07:03:23Z</createdDate>
+  <author>Blog Post Author</author>
+  <version>14.1</version>
+  <lcids>
+    <lcid>1033</lcid>
+  </lcids>
+  <product>SharePointEmails</product>
+  <hosting officeOnline="false" />
+  <enabled onByDefault="true" />
+  <onlineBrowseUrl>http://myonlinehelp.com/default.aspx?ck={CONTEXTKEY}&amp;lcid={LCID}</onlineBrowseUrl>
+  <onlineSearchUrl>http://myonlinehelp.com/search.aspx?q={QUERYTEXT}&amp;lcid={LCID}</onlineSearchUrl>
+  <brandingImage />
+  <rootCategory>MyFirstSubCategory</rootCategory>
+  <helpItems>
+    <helpItem>
+      <id>MyRootCategory</id>
+    </helpItem>
+    <helpItem>
+      <id>MyFirstSubCategory</id>
+      <parents>
+        <parent sortOrder="4" primary="true">MyRootCategory</parent>
+      </parents>
+    </helpItem>
+    <helpItem>
+      <id>SharePointEmailsHelpArticle</id>
+      <parents>
+        <parent sortOrder="1" primary="true">MyFirstSubCategory</parent>
+      </parents>
+    </helpItem>
+  </helpItems>
+</helpCollection>

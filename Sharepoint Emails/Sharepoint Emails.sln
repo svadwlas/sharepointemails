@@ -21,9 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegisterAlertHandler", "RegisterAlertHandler\RegisterAlertHandler.csproj", "{B45670DE-D2E2-4612-AC33-1BCD69E9C83E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePoiintEmailsHelpProject", "SharePoiintEmailsHelpProject\SharePoiintEmailsHelpProject.csproj", "{1FA4EC42-A80C-4E39-9224-81001787F358}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs27
 		SccLocalPath0 = .
@@ -42,6 +44,9 @@ Global
 		SccProjectUniqueName5 = RegisterAlertHandler\\RegisterAlertHandler.csproj
 		SccProjectName5 = RegisterAlertHandler
 		SccLocalPath5 = RegisterAlertHandler
+		SccProjectUniqueName6 = SharePoiintEmailsHelpProject\\SharePoiintEmailsHelpProject.csproj
+		SccProjectName6 = SharePoiintEmailsHelpProject
+		SccLocalPath6 = SharePoiintEmailsHelpProject
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Sharepoint Emails.vsmdi
@@ -109,6 +114,16 @@ Global
 		{B45670DE-D2E2-4612-AC33-1BCD69E9C83E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B45670DE-D2E2-4612-AC33-1BCD69E9C83E}.Release|x86.ActiveCfg = Release|x86
 		{B45670DE-D2E2-4612-AC33-1BCD69E9C83E}.Release|x86.Build.0 = Release|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Debug|x86.ActiveCfg = Debug|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Debug|x86.Build.0 = Debug|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|Any CPU.ActiveCfg = Release|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|Mixed Platforms.Build.0 = Release|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|x86.ActiveCfg = Release|x86
+		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
