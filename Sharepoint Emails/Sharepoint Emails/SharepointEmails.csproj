@@ -99,6 +99,7 @@
     <Compile Include="SPAssociationControl.cs" />
     <Compile Include="SPAssociationFieldType.cs" />
     <Compile Include="SPXsltField.cs" />
+    <Compile Include="XsltHandler\XsltHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ControlTemplates\SharePointProjectItem.spdata">
@@ -134,6 +135,9 @@
     </None>
     <None Include="XML\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{eb59aa06-c7ba-434f-90f9-bdc29eb33e86}</SharePointProjectItemId>
+    </None>
+    <None Include="XsltHandler\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{d01d0a42-559e-4cf4-b419-d7c2945004c7}</SharePointProjectItemId>
     </None>
     <None Include="XSL\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{6a26e373-851b-4317-af24-f6f722dc918e}</SharePointProjectItemId>
@@ -179,6 +183,7 @@
     <Content Include="WebSettingsPageLink\Elements.xml" />
     <Content Include="XML\fldtypes_SPAssociation.xml" />
     <Content Include="XML\SEAlertReceiver.xml" />
+    <Content Include="XsltHandler\Elements.xml" />
     <Content Include="XSL\fldtypes_SEAssociation.xsl" />
   </ItemGroup>
   <ItemGroup>

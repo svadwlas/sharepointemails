@@ -13,7 +13,8 @@ namespace SharepointEmails.Layouts.SharepointEmails
             var templatelist = Web.Lists[Constants.TemplateListName];
             var item = templatelist.GetItemById(id);
             var template = new Template(item);
-            Response.Write(template.Body);
+            div_Body.InnerHtml = template.Body;
+            div_Subj.InnerHtml = template.Subject;
         }
     }
 }

@@ -12,10 +12,12 @@
 </asp:Content>
 
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-    <asp:Panel ID="pnl_Subject" runat="server">
-    </asp:Panel>
-    <asp:Panel ID="pnl_Body" runat="server">
-    </asp:Panel>
+Subject :<br/>
+    <div id="div_Subj" runat="server">
+    </div>
+Body:<br/>
+    <div id="div_Body" runat="server">
+    </div>
 </asp:Content>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PlaceHolderPageTitle" runat="server">

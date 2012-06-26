@@ -35,7 +35,7 @@ namespace SharePointEmails.Core
         {
             try
             {
-                var lookupValue = item[fieldName] as SPFieldLookupValue;
+                var lookupValue = new SPFieldLookupValue(item[fieldName].ToString());
                 var listId = new Guid(((SPFieldLookup)item.Fields.GetFieldByInternalName(fieldName)).LookupList);
                 var list = item.Web.Lists[listId];
                 var litem = list.GetItemById(lookupValue.LookupId);
