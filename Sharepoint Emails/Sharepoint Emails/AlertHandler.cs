@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Reflection;
 using SharePointEmails.Core.Exceptions;
+using System.Web;
 
 namespace SharepointEmails
 {
@@ -17,10 +18,11 @@ namespace SharepointEmails
         public bool OnNotification(SPAlertHandlerParams ahp)
         {
             try
-            {                
-                System.Diagnostics.Debugger.Launch();
+            {
+                
+           //     System.Diagnostics.Debugger.Launch();
                 Application.Current.Logger.Write("Start OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
-
+                
                 if (Application.Current.IsDisabledForFarm())
                 {
                     Application.Current.Logger.Write("OnNotification - Application disabled on farm", SharePointEmails.Logging.SeverityEnum.Verbose);
@@ -31,11 +33,14 @@ namespace SharepointEmails
                     if (Application.Current.IsDisabledForSite(site)) return false;
                     using (SPWeb web = site.OpenWeb(ahp.webId))
                     {
+                        SPUtility.SendEmail(web, ahp.headers, ahp.body);
                         if (ahp.a != null)
                         {
+                            var to = ahp.headers["to"];
                             var item = ahp.a.Item;
                             Message message = null;
 
+                            Application.Current.Logger.Write("RECEIVER:"+to, SharePointEmails.Logging.SeverityEnum.Verbose);
                             foreach (SPAlertEventData ed in ahp.eventData)
                             {
                                 Application.Current.Logger.Write("EventData:", SharePointEmails.Logging.SeverityEnum.Verbose);
@@ -59,7 +64,7 @@ namespace SharepointEmails
                                 {
                                     try
                                     {
-                                        var to = ahp.headers["to"];
+                                       
                                         //  System.Diagnostics.Debugger.Launch();
                                         message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, to,ahp.a.UserId);
                                     }
@@ -88,11 +93,16 @@ namespace SharepointEmails
                                 File.WriteAllText(Path.Combine(folder, "data.txt"),
                                     "Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
                                     "Body:" + Environment.NewLine + message.Body);
-                                return true;
+                                var headers = ahp.headers;
+                                headers["subject"] = message.Subject??"SharePoint Emails notification";
+                                HttpContext.Current = null;
+                                var res = SPUtility.SendEmail(web, ahp.headers, message.Body);
+                                return false;
                             }
                             else
                             {
                                 Application.Current.Logger.Write("Message not found", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                
                                 return false;
                             }
                         }

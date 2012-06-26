@@ -66,19 +66,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertHandler.cs" />
-    <Compile Include="Layouts\SharepointEmails\AddAssociation.aspx.cs">
-      <DependentUpon>AddAssociation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Layouts\SharepointEmails\AddAssociation.aspx.designer.cs">
-      <DependentUpon>AddAssociation.aspx.cs</DependentUpon>
-    </Compile>
+    <Compile Include="EmailReceiver.cs" />
     <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.cs">
       <DependentUpon>ChooseItemPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.designer.cs">
       <DependentUpon>ChooseItemPage.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\ListSettings.aspx.cs">
+      <DependentUpon>ListSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\ListSettings.aspx.designer.cs">
+      <DependentUpon>ListSettings.aspx.cs</DependentUpon>
     </Compile>
     <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.cs">
       <DependentUpon>WebSettings.aspx</DependentUpon>
@@ -90,10 +91,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SPAssociationControl.cs" />
     <Compile Include="SPAssociationFieldType.cs" />
+    <Compile Include="SPXsltField.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ControlTemplates\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{4b9e2ef8-bf09-480d-91da-5e4a2a5400cd}</SharePointProjectItemId>
+    </None>
+    <None Include="ListSettingsPageLink\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{15d9dba3-a2fa-4f79-ad31-6e529dc37994}</SharePointProjectItemId>
+    </None>
+    <None Include="Features\Feature1\Feature1.feature">
+      <FeatureId>{4ece423f-71c9-4917-8d00-57451d1cfbaa}</FeatureId>
     </None>
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
@@ -128,13 +136,17 @@
     <Content Include="ControlTemplates\SPAssociationControl.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="ListSettingsPageLink\Elements.xml" />
+    <Content Include="Features\Feature1\Feature1.Template.xml">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </Content>
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
-    <Content Include="Layouts\SharepointEmails\AddAssociation.aspx">
+    <Content Include="Layouts\SharepointEmails\ChooseItemPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Layouts\SharepointEmails\ChooseItemPage.aspx">
+    <Content Include="Layouts\SharepointEmails\ListSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\SharepointEmails\Scripts\SEAssociationFieldControl.js" />

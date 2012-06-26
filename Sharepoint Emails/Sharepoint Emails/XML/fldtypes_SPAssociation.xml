@@ -13,4 +13,17 @@
       SharepointEmails.SPAssociationFieldType,SharepointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b
     </Field>
   </FieldType>
+  <FieldType>
+    <Field Name="TypeName">SPXslt</Field>
+    <Field Name="ParentType">Note</Field>
+    <Field Name="TypeDisplayName">Xslt field</Field>
+    <Field Name="TypeShortDescription">Xslt field</Field>
+    <Field Name="UserCreatable">TRUE</Field>
+    <Field Name='Sortable'>FALSE</Field>
+    <Field Name="AllowBaseTypeRendering">TRUE</Field>
+    <Field Name="Filterable">TRUE</Field>
+    <Field Name="FieldTypeClass">
+      SharepointEmails.SPXsltField,SharepointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b
+    </Field>
+  </FieldType>
 </FieldTypes>

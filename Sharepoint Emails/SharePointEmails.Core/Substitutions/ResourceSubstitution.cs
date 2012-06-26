@@ -10,7 +10,7 @@ using System.Collections;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    public class ResourceSubstitution:ISubstitution
+    public class ResourceSubstitution : ISubstitution
     {
         ILogger Logger;
         public ResourceSubstitution()
@@ -31,31 +31,17 @@ namespace SharePointEmails.Core.Substitutions
         public string Process(string text, ISubstitutionContext context)
         {
             string res = text;
-            var mc = Regex.Matches(res, @"\{\$.+?\}");
-
-            foreach (Match m in mc)
+            foreach (Match m in Regex.Matches(res, @"\{\$Resources:(.+?)\,(.+?)\}"))
             {
                 try
                 {
-                    Logger.Write("Processing resorce " + m.Value, SeverityEnum.Verbose);
-                    var resource = m.Value.Trim('{', '}');
-                    //$Resources:core,Alert_icon_margin_right
-                    var source = resource.Substring(resource.IndexOf(':') + 1, resource.IndexOf(',') - resource.IndexOf(':') - 1);
-                    var name = resource.Substring(resource.IndexOf(',') + 1);
                     var lcid = (uint)context.getDestinationCulture().LCID;
-                    var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + name, source, lcid);
+                    var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
                     if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
                     {
-                        Logger.Write(string.Format("{0} - is not localized for LCID={1}", resource, lcid), SeverityEnum.Warning);
+                        Logger.Write(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
                     }
-                    if (!string.IsNullOrEmpty(m.Value))
-                    {
-                        res = res.Replace(m.Value, fieldTextValue ?? "no value");
-                    }
-                    else
-                    {
-                        throw new Exception("Wrong Resource farmat");
-                    }
+                    res = res.Replace(m.Value, fieldTextValue ?? "no value");
                 }
                 catch (Exception ex)
                 {

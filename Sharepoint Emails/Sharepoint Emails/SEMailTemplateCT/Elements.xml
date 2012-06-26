@@ -2,9 +2,9 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <!-- Parent ContentType: Item (0x01) -->
   <Field ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails"/>
-  <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="Text" Group="SharePointEmails"/>
-  <Field ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" Type="Note" Group="SharePointEmails" RichText="TRUE" RichTextMode="FullHtml" />
-  <Field ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" Type="Choice" Group="SharePointEmails">
+  <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="SPXslt" Group="SharePointEmails" RichText="FALSE"/>
+  <Field ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" Type="SPXslt" Group="SharePointEmails" RichText="False" />
+  <Field ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" Type="Choice" Group="SharePointEmails" >
     <CHOICES>
       <CHOICE>All</CHOICE>
       <CHOICE>Item added</CHOICE>
@@ -28,7 +28,7 @@
     <FieldRefs>
       <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Required="True" DefaultValue="Noname"/>
       <FieldRef ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject"/>
-      <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" DefaultValue="Default body of message"/>
+      <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" DefaultValue="Default body of message" Required="TRUE"/>
       <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" DefaultValue="All" Required="True"/>
       <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" DefaultValue="Draft" Required="True"/>
       <FieldRef ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations"/>

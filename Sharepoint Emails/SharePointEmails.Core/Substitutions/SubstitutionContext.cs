@@ -21,7 +21,7 @@ namespace SharePointEmails.Core
         SPList m_sourceList=null;
         ILogger Logger;
 
-        List<FieldChange> Changes;
+        public List<FieldChange> Changes {private set; get; }
 
         public SubstitutionContext(string eventData):this(eventData,null){}
 
@@ -46,12 +46,12 @@ namespace SharePointEmails.Core
             return all.Split(':').Contains(test.Trim(':'));
         }
 
-        public string GetField(string fieldName, ModifiersCollection modifiers)
+        public string GetField(string fieldName, ModifiersCollection modifiers=null)
         {
             var change=Changes.Where(p => p.FieldDisplayName == fieldName || p.FieldName == fieldName).FirstOrDefault();
             if (change != null)
             {
-                return change.GetText(modifiers);
+                return change.GetText(modifiers??new ModifiersCollection());
             }
             else
             {
@@ -80,6 +80,28 @@ namespace SharePointEmails.Core
         public string GetContextValue(string value, ModifiersCollection modifiers)
         {
             return GetFromObj(Vars, value);
+        }
+
+        public string GetXML()
+        {
+            XDocument res = new XDocument();
+            res.Add(new XElement("Data"));
+            var eventData = new XElement("EventData");
+            res.Root.Add(eventData);
+            foreach (var change in Changes)
+            {
+                var el = new XElement("Field");
+                el.SetAttributeValue("DisplayName", change.FieldDisplayName);
+                el.SetAttributeValue("Name", change.FieldName);
+                el.SetAttributeValue("Changed", change.IsChanged);
+                el.SetAttributeValue("New", change.GetText(new ModifiersCollection { Modifier.New }));
+                el.SetAttributeValue("Old", change.GetText(new ModifiersCollection { Modifier.Old }));
+                el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty));
+                eventData.Add(el);
+            }
+
+
+            return res.ToString();
         }
 
         class ContextVars

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    class FieldChange
+   public class FieldChange
     {
         public static FieldChange Create(XElement field)
         {
@@ -28,7 +28,7 @@ namespace SharePointEmails.Core.Substitutions
             m_field = field;
             FieldDisplayName = GetAttValue(field, "DisplayName");
             FieldName = GetAttValue(field, "Name");
-            IsChanged = GetAttValue(field, "New") != GetAttValue(field, "Old");
+            IsChanged = GetAttValue(field, "New") != null && GetAttValue(field, "New") != GetAttValue(field, "Old");
         }
         public bool IsChanged { set; get; }
         public string FieldName { set; get; }

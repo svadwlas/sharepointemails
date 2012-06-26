@@ -15,7 +15,6 @@ namespace SharePointEmails.Core.Substitutions
         {
             Logger = ClassContainer.Instance.Resolve<ILogger>();
         }
-        public const string SourceList = "SList";
         public string Pattern
         {
             get { return "{VarName}"; }
@@ -29,17 +28,11 @@ namespace SharePointEmails.Core.Substitutions
         public string Process(string text, ISubstitutionContext context)
         {
             var res = text;
-            var mc = Regex.Matches(text, @"\{.+?\}");
-
-            foreach (Match m in mc)
+            foreach (Match m in Regex.Matches(text, @"\{([^\$]+?)\}"))
             {
                 try
                 {
-                    var val = context.GetContextValue(m.Value.Trim('}', '{'), new ModifiersCollection());
-                    if (!string.IsNullOrEmpty(m.Value))
-                    {
-                        res = res.Replace(m.Value, val??"no value");
-                    }
+                    res = res.Replace(m.Value, context.GetContextValue(m.Groups[1].Value) ?? "no value");
                 }
                 catch (Exception ex)
                 {

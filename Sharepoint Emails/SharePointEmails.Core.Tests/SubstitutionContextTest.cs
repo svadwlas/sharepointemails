@@ -61,5 +61,7 @@ namespace SharePointEmails.Core.Tests
             Assert.AreEqual("siteurl",target.GetContextValue("SSite.Url",new ModifiersCollection()));
             Assert.AreEqual("webtitle", target.GetContextValue("SWeb.Title", new ModifiersCollection()));
         }
+
+      
     }
 }

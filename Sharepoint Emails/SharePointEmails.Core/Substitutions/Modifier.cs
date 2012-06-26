@@ -34,9 +34,11 @@ namespace SharePointEmails.Core.Substitutions
 
     public class ModifiersCollection:List<Modifier>
     {
+        public static ModifiersCollection Empty { get { return new ModifiersCollection(); } }
         public static ModifiersCollection Parse(string modifiers)
         {
             var res = new ModifiersCollection();
+            if (string.IsNullOrEmpty(modifiers)) return res;
             foreach (var s in modifiers.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var m = Modifier.AllModifiers.Where(p => p.Pattern != null && p.Pattern.Trim(':') == s).FirstOrDefault();

@@ -23,13 +23,14 @@ namespace SharePointEmails.Core
             {
                 new ResourceSubstitution(),
                 new FieldSubstitution(),
-                new ContextSubstitution()
+                new ComplexSubstitution(),
+                new ContextSubstitution(),
             };
         }
 
         public string Process(string data)
         {
-            var res = data;
+            var res = data ?? "";
             if (m_substitutions != null)
             {
                 foreach (var substitution in m_substitutions)

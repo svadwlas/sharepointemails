@@ -23,7 +23,7 @@ namespace SharePointEmails.Core.Tests
             ClassContainer.mockLogger = new Mock<ILogger>().Object;
         }
 
-        [TestMethod()]
+        [TestMethod(),Ignore]
         public void ProcessTest()
         {
             ResourceSubstitution target = new ResourceSubstitution();

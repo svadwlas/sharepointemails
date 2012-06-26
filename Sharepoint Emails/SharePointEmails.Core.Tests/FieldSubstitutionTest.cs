@@ -85,8 +85,11 @@ namespace SharePointEmails.Core.Tests
             context.Setup(p => p.GetField("field1",new ModifiersCollection{Modifier.Old})).Returns("field1Oldtext");
             context.Setup(p => p.GetField("field1", new ModifiersCollection { Modifier.New })).Returns("field1Newtext");
             context.Setup(p => p.GetField("field2", new ModifiersCollection { Modifier.New })).Returns("field2Newtext");
-            var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
-            var expected = "text1 field1Oldtext text2 field2Newtext text3 field1Newtext";
+            context.Setup(p => p.GetField("field1", new ModifiersCollection ())).Returns("field1Newtext");
+            context.Setup(p => p.GetField("field3", new ModifiersCollection{Modifier.Old})).Returns("field3Oldtext");
+            context.Setup(p => p.GetField("field3", new ModifiersCollection())).Returns("field3Oldtext");
+            var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N] text4 [field1] [field3]";
+            var expected = "text1 field1Oldtext text2 field2Newtext text3 field1Newtext text4 field1Newtext field3Oldtext";
             var actual = target.Process(text, context.Object);
             Assert.AreEqual(expected, actual);
         }
