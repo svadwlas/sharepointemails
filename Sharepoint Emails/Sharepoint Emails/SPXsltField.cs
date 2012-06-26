@@ -6,7 +6,8 @@ using Microsoft.SharePoint;
 using System.Xml.Xsl;
 using System.Xml;
 using System.IO;
-
+using SharePointEmails.Core;
+using Microsoft.SharePoint.WebControls;
 namespace SharepointEmails
 {
     public class SPXsltField : SPFieldMultiLineText
@@ -26,13 +27,46 @@ namespace SharepointEmails
              }
              try
              {
-                 var compiler = new XslCompiledTransform(true);
-
-                 using (var xsltReader = XmlReader.Create(new StringReader(value.ToString())))
+                 var shouldbevalidated = true;
+                 if (SPContext.Current.FormContext != null)
                  {
-                     compiler.Load(xsltReader);
+                     foreach (BaseFieldControl field in SPContext.Current.FormContext.FieldControlCollection)
+                     {
+                         if (this.StaticName == SEMailTemplateCT.TemplateBody)
+                         {
+                             if (field.FieldName == SEMailTemplateCT.TemplateBodyUseFile && (bool)field.Value)
+                             {
+                                 shouldbevalidated = false;
+                             }
+                         }
+                         else if (this.StaticName == SEMailTemplateCT.TemplateSubject)
+                         {
+                             if (field.FieldName == SEMailTemplateCT.TemplateSubjectUseFile && (bool)field.Value)
+                             {
+                                 shouldbevalidated = false;
+                             }
+                         }
+                     }
                  }
+                 else
+                 {
+                     shouldbevalidated = false;
+                 }
+                 if (shouldbevalidated)
+                 {
+                     string val = value.ToString();
+                     var content = SPContext.Current.ListItem.GetAttachmentContent(val);
+                     if (content != null)
+                     {
+                         val = content;
+                     }
+                     var compiler = new XslCompiledTransform(true);
 
+                     using (var xsltReader = XmlReader.Create(new StringReader(val.ToString())))
+                     {
+                         compiler.Load(xsltReader);
+                     }
+                 }
              }
              catch (XsltCompileException ex)
              {

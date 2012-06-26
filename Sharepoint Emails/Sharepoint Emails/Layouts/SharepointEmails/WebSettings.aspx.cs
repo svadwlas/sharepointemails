@@ -62,6 +62,7 @@ namespace SharepointEmails.Layouts.SharepointEmails
             try
             {
                 Web.AllowUnsafeUpdates = true;
+                SharePointEmails.Core.Application.Current.CreateHiddenTemplateLibrary(Web);
                 list = SharePointEmails.Core.Application.Current.GetHiddenList(Web, true);
             }
             finally

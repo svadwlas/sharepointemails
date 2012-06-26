@@ -9,6 +9,10 @@ public static class SEMailTemplateCT
     public const string TemplateState = "TemplateState";
     public const string Associations = "Associations";
     public const string TemplateSubject = "TemplateSubject";
+    public const string TemplateBodyFile = "TemplateBodyFile";
+    public const string TemplateSubjectFile = "TemplateSubjectFile";
+    public const string TemplateSubjectUseFile = "TemplateSubjectUseFile";
+    public const string TemplateBodyUseFile = "TemplateBodyUseFile";
 
     public static class StateChoices
     {

@@ -9,6 +9,7 @@ namespace SharePointEmails.Core
     public interface ISiteManager
     {
         SPList CreateHiddenTemplatesList(SPWeb web);
+        SPList CreateXsltTemplatesList(SPWeb web);
 
         void DeleteHiddenTemplateList(SPWeb web);
     }

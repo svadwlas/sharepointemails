@@ -15,6 +15,14 @@ namespace SharePointEmails.Core
             }
         }
 
+        static public string XsltLibrary
+        {
+            get
+            {
+                return "HiddenXsltTemplates";
+            }
+        }
+
         static public Guid FeatureId
         {
             get

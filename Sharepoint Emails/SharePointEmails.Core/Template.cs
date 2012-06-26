@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
+using System.IO;
 
 namespace SharePointEmails.Core
 {
@@ -22,11 +23,40 @@ namespace SharePointEmails.Core
             Refresh();
         }
 
+        public bool BodyAttached { set; get; }
+        public bool UseFileForSubject { set; get; }
+        public bool UseFileForBody { set; get; }
+
         void Refresh()
         {
             this.Name = m_Item[SEMailTemplateCT.TemplateName] as string;
-            this.Subject = m_Item[SEMailTemplateCT.TemplateSubject] as string;
-            this.Body = m_Item[SEMailTemplateCT.TemplateBody] as string;
+           
+            
+            this.UseFileForSubject = (bool)m_Item[SEMailTemplateCT.TemplateSubjectUseFile];
+            this.UseFileForBody= (bool)m_Item[SEMailTemplateCT.TemplateBodyUseFile] ;
+            var content = m_Item.GetAttachmentContent(this.Body);
+            if (!this.UseFileForBody)
+            {
+                this.Body = m_Item[SEMailTemplateCT.TemplateBody] as string;
+                if (content != null)
+                {
+                    BodyAttached = true;
+                    this.Body = content;
+                }
+            }
+            else
+            {
+                this.Body = m_Item.GetLookupFileContent(SEMailTemplateCT.TemplateBodyFile) ?? "";
+            }
+
+            if (!this.UseFileForSubject)
+            {
+                this.Subject = m_Item[SEMailTemplateCT.TemplateSubject] as string;
+            }
+            else
+            {
+                this.Subject = m_Item.GetLookupFileContent(SEMailTemplateCT.TemplateSubjectFile) ?? "";
+            }
             if (m_Item[SEMailTemplateCT.TemplateType] != null)
             {
                 var val = new SPFieldMultiChoiceValue(m_Item[SEMailTemplateCT.TemplateType].ToString());

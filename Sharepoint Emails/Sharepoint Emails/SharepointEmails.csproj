@@ -97,6 +97,9 @@
     <None Include="ControlTemplates\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{4b9e2ef8-bf09-480d-91da-5e4a2a5400cd}</SharePointProjectItemId>
     </None>
+    <None Include="HiddenXsltTemplates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{3e9bb342-1972-4b59-872c-d1a1c8728e4c}</SharePointProjectItemId>
+    </None>
     <None Include="ListSettingsPageLink\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{15d9dba3-a2fa-4f79-ad31-6e529dc37994}</SharePointProjectItemId>
     </None>
@@ -136,6 +139,12 @@
     <Content Include="ControlTemplates\SPAssociationControl.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="HiddenXsltTemplates\EditDlg.htm" />
+    <Content Include="HiddenXsltTemplates\Elements.xml" />
+    <Content Include="HiddenXsltTemplates\FileDlg.htm" />
+    <Content Include="HiddenXsltTemplates\Repair.aspx" />
+    <Content Include="HiddenXsltTemplates\Schema.xml" />
+    <Content Include="HiddenXsltTemplates\Upload.aspx" />
     <Content Include="ListSettingsPageLink\Elements.xml" />
     <Content Include="Features\Feature1\Feature1.Template.xml">
       <DependentUpon>Feature1.feature</DependentUpon>

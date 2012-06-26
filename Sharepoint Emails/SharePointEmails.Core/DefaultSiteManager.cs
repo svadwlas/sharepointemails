@@ -13,13 +13,37 @@ namespace SharePointEmails.Core
             var list = web.Lists.TryGetList(Constants.TemplateListName);
             if (list == null)
             {
-                var guid = web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, "Lists/" + Constants.TemplateListName, SEMailTemplateCT.FeatureId, 10000,"100");
+                var guid = web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, "Lists/" + Constants.TemplateListName, SEMailTemplateCT.FeatureId, 10000, "100");
                 web.Update();
-                list = web.Lists.TryGetList(Constants.TemplateListName);
+
+                foreach (var s in new string[] { SEMailTemplateCT.TemplateBodyFile, SEMailTemplateCT.TemplateSubjectFile })
+                {
+                    list = web.Lists.TryGetList(Constants.TemplateListName);
+                    var lookup = web.Lists.TryGetList(Constants.XsltLibrary);
+                    list.Fields.Delete(s);
+
+                    list.Fields.AddLookup(s, lookup.ID, false);
+                    list.Update();
+                }
             }
             else
             {
                 AddNeededContentTypes(list);
+            }
+            return list;
+        }
+
+        public SPList CreateXsltTemplatesList(SPWeb web)
+        {
+            var list = web.Lists.TryGetList(Constants.XsltLibrary);
+            if (list == null)
+            {
+                var guid = web.Lists.Add(Constants.XsltLibrary, Constants.XsltLibrary, SPListTemplateType.DocumentLibrary);
+                web.Update();
+                list = web.Lists.TryGetList(Constants.XsltLibrary);
+            }
+            else
+            {
             }
             return list;
         }

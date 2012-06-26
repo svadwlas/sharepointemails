@@ -46,6 +46,20 @@ namespace SharePointEmails.Core
             }
         }
 
+        public SPList CreateHiddenTemplateLibrary(SPWeb web, bool create = true)
+        {
+            var list = web.Lists.TryGetList(Constants.XsltLibrary);
+            if (list == null && create)
+            {
+                var manager = ClassContainer.Instance.Resolve<ISiteManager>();
+                return manager.CreateXsltTemplatesList(web);
+            }
+            else
+            {
+                return list;
+            }
+        }
+
         private FarmConfiguration FarmConfig
         {
             get

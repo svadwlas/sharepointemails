@@ -4,6 +4,10 @@
   <Field ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails"/>
   <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="SPXslt" Group="SharePointEmails" RichText="FALSE"/>
   <Field ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" Type="SPXslt" Group="SharePointEmails" RichText="False" />
+  <Field ID="{B7F88C49-6E15-4F02-B0EB-3F998593C7E9}" Name="TemplateBodyFile" DisplayName="Template Body From File" Type="Lookup" Group="SharePointEmails" List="HiddenTemplatesList"  />
+  <Field ID="{D70442F7-B6A8-4FEE-A7CD-AAB79FAF790B}" Name="TemplateSubjectFile" DisplayName="Template subject From File" Type="Lookup" Group="SharePointEmails" List="HiddenTemplatesList"  />
+  <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="Boolean" Group="SharePointEmails" />
+  <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="Boolean" Group="SharePointEmails" />
   <Field ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" Type="Choice" Group="SharePointEmails" >
     <CHOICES>
       <CHOICE>All</CHOICE>
@@ -28,10 +32,14 @@
     <FieldRefs>
       <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Required="True" DefaultValue="Noname"/>
       <FieldRef ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject"/>
-      <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" DefaultValue="Default body of message" Required="TRUE"/>
+      <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" DefaultValue="Default body of message"/>
       <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" DefaultValue="All" Required="True"/>
       <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" DefaultValue="Draft" Required="True"/>
       <FieldRef ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations"/>
+      <FieldRef ID="{B7F88C49-6E15-4F02-B0EB-3F998593C7E9}" Name="TemplateBodyFile" DisplayName="Template Body From File" />
+      <FieldRef ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" />
+      <FieldRef ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" />
+      <FieldRef ID="{D70442F7-B6A8-4FEE-A7CD-AAB79FAF790B}" Name="TemplateSubjectFile" DisplayName="Template subject From File" />
     </FieldRefs>
   </ContentType>
 </Elements>

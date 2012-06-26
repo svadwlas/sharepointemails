@@ -91,6 +91,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\SEMailTemplateCT.cs" />
+    <Compile Include="SPListItemHelper.cs" />
     <Compile Include="Substitutions\Change.cs" />
     <Compile Include="Substitutions\ComplexSubstitution.cs" />
     <Compile Include="Substitutions\ContextSubstitution.cs" />
