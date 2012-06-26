@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
 using System.IO;
+using Microsoft.SharePoint.WebControls;
 
 namespace SharePointEmails.Core
 {
@@ -32,14 +33,41 @@ namespace SharePointEmails.Core
         }
         public static string GetLookupFileContent(this SPListItem item,string fieldName)
         {
-            var lookupValue = item[fieldName]as SPFieldLookupValue;
-            var listId = ((SPFieldLookup)item.Fields.GetFieldByInternalName(fieldName)).LookupList;
-            var list = item.Web.Lists[listId];
-            var litem = list.GetItemById(lookupValue.LookupId);
-            using (var reader = new StreamReader(litem.File.OpenBinaryStream()))
+            try
             {
-                return reader.ReadToEnd();
+                var lookupValue = item[fieldName] as SPFieldLookupValue;
+                var listId = new Guid(((SPFieldLookup)item.Fields.GetFieldByInternalName(fieldName)).LookupList);
+                var list = item.Web.Lists[listId];
+                var litem = list.GetItemById(lookupValue.LookupId);
+                using (var reader = new StreamReader(litem.File.OpenBinaryStream()))
+                {
+                    return reader.ReadToEnd();
+                }
             }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static bool ShoulBeValidated(this SPField item, string dependentField, bool shouldOnDisabled=true)
+        {
+            if (SPContext.Current.FormContext != null)
+            {
+                foreach (BaseFieldControl field in SPContext.Current.FormContext.FieldControlCollection)
+                {
+                    if (field.FieldName == dependentField && ((bool)field.Value&&shouldOnDisabled||(!((bool)field.Value)&&!shouldOnDisabled)))
+                    {
+                        return  false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

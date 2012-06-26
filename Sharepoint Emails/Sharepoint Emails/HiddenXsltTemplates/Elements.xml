@@ -10,6 +10,7 @@
         Sequence="110"
         DisplayName="HiddenXsltTemplates"
         Description="My List Definition"
+        VersioningEnabled="TRUE"
         Image="/_layouts/images/itdl.png"
         DocumentTemplate="121"/>
 </Elements>

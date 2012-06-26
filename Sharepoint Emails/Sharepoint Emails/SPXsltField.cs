@@ -20,40 +20,24 @@ namespace SharepointEmails
 
          public override string GetValidatedString(object value)
          {
-             if ((this.Required == true) && (value.ToString() == ""))
-             {
-                 throw new SPFieldValidationException(this.Title
-                     + " must have a value.");
-             }
              try
              {
-                 var shouldbevalidated = true;
-                 if (SPContext.Current.FormContext != null)
+                 var shouldbevalidated = false;
+                 if (this.StaticName == SEMailTemplateCT.TemplateBody)
                  {
-                     foreach (BaseFieldControl field in SPContext.Current.FormContext.FieldControlCollection)
-                     {
-                         if (this.StaticName == SEMailTemplateCT.TemplateBody)
-                         {
-                             if (field.FieldName == SEMailTemplateCT.TemplateBodyUseFile && (bool)field.Value)
-                             {
-                                 shouldbevalidated = false;
-                             }
-                         }
-                         else if (this.StaticName == SEMailTemplateCT.TemplateSubject)
-                         {
-                             if (field.FieldName == SEMailTemplateCT.TemplateSubjectUseFile && (bool)field.Value)
-                             {
-                                 shouldbevalidated = false;
-                             }
-                         }
-                     }
+                     shouldbevalidated = this.ShoulBeValidated(SEMailTemplateCT.TemplateBodyUseFile);
                  }
-                 else
+                 else if (this.StaticName == SEMailTemplateCT.TemplateSubject)
                  {
-                     shouldbevalidated = false;
+                     shouldbevalidated = this.ShoulBeValidated(SEMailTemplateCT.TemplateSubjectUseFile);
                  }
                  if (shouldbevalidated)
                  {
+                     if ((this.Required == true) && (value.ToString() == ""))
+                     {
+                         throw new SPFieldValidationException(this.Title
+                             + " must have a value.");
+                     }
                      string val = value.ToString();
                      var content = SPContext.Current.ListItem.GetAttachmentContent(val);
                      if (content != null)
@@ -66,6 +50,7 @@ namespace SharepointEmails
                      {
                          compiler.Load(xsltReader);
                      }
+                     return base.GetValidatedString(value);
                  }
              }
              catch (XsltCompileException ex)
@@ -80,7 +65,7 @@ namespace SharepointEmails
              {
                  throw new SPFieldValidationException(ex.Message);
              }
-             return base.GetValidatedString(value);
+             return null;
          }
     }
 }

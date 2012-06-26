@@ -81,6 +81,13 @@
     <Compile Include="Layouts\SharepointEmails\ListSettings.aspx.designer.cs">
       <DependentUpon>ListSettings.aspx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\SharepointEmails\PreviewPage.aspx.cs">
+      <DependentUpon>PreviewPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\PreviewPage.aspx.designer.cs">
+      <DependentUpon>PreviewPage.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\SharepointEmails\WebSettings.aspx.cs">
       <DependentUpon>WebSettings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -100,14 +107,11 @@
     <None Include="HiddenXsltTemplates\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{3e9bb342-1972-4b59-872c-d1a1c8728e4c}</SharePointProjectItemId>
     </None>
-    <None Include="ListSettingsPageLink\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{15d9dba3-a2fa-4f79-ad31-6e529dc37994}</SharePointProjectItemId>
-    </None>
-    <None Include="Features\Feature1\Feature1.feature">
-      <FeatureId>{4ece423f-71c9-4917-8d00-57451d1cfbaa}</FeatureId>
-    </None>
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
+    </None>
+    <None Include="Images\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7824520f-8e84-4abc-a1d7-fd41ff8d0e65}</SharePointProjectItemId>
     </None>
     <None Include="key.snk" />
     <None Include="Layouts\SharePointProjectItem.spdata">
@@ -145,20 +149,21 @@
     <Content Include="HiddenXsltTemplates\Repair.aspx" />
     <Content Include="HiddenXsltTemplates\Schema.xml" />
     <Content Include="HiddenXsltTemplates\Upload.aspx" />
-    <Content Include="ListSettingsPageLink\Elements.xml" />
-    <Content Include="Features\Feature1\Feature1.Template.xml">
-      <DependentUpon>Feature1.feature</DependentUpon>
-    </Content>
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
+    <Content Include="Images\SharepointEmails\Service.png" />
+    <Content Include="Images\SharepointEmails\Service16.png" />
     <Content Include="Layouts\SharepointEmails\ChooseItemPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\SharepointEmails\ListSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Layouts\SharepointEmails\Scripts\SEAssociationFieldControl.js" />
+    <Content Include="Layouts\SharepointEmails\PreviewPage.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Layouts\SharepointEmails\Scripts\SE.js" />
     <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>

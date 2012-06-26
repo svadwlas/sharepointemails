@@ -21,8 +21,9 @@ namespace SharePointEmails.Core
                     list = web.Lists.TryGetList(Constants.TemplateListName);
                     var lookup = web.Lists.TryGetList(Constants.XsltLibrary);
                     list.Fields.Delete(s);
-
+                    list.Update();
                     list.Fields.AddLookup(s, lookup.ID, false);
+                    list.Fields[s].Update();
                     list.Update();
                 }
             }

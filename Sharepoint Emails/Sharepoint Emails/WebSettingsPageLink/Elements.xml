@@ -8,4 +8,43 @@
         Title="SharePoint Emails Web Settings">
         <UrlAction Url="_Layouts/SharePointEmails/WebSettings.aspx"/>
   </CustomAction>
+  <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.Script" Location="ScriptLink" ScriptSrc ="/_layouts/SharepointEmails/Scripts/SE.js"/>
+  <CustomAction
+  Description="Search Title on Bing"
+  Title="View template"
+  Id="{E538E8C7-65DA-454E-AD87-4A603B6CC569}"
+  Location="CommandUI.Ribbon.DisplayForm"
+  RegistrationId="10000"
+  RegistrationType="List"
+  Sequence="0"
+  Rights="ViewListItems"
+  xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CommandUIExtension xmlns="http://schemas.microsoft.com/sharepoint/">
+      <!-- Define the (UI) button to be used for this custom action -->
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.ListForm.Display.Manage.Controls._children">
+          <Button Id="{B511A716-54FF-4EAE-9CBE-EA02B51B626E}"
+          Command="{4E2F5DC0-FE2C-4466-BB2D-3ED0D1917763}"
+          Image32by32="~site/_layouts/Images/SharepointEmails/Service.png"
+          Image16by16="~site/_layouts/Images/SharepointEmails/Service16.png"
+          Sequence="0"
+          LabelText="View template"
+          Description="Preview template"
+          TemplateAlias="o1"/>
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <!-- Define the action expected on the button click -->
+        <CommandUIHandler Command="{4E2F5DC0-FE2C-4466-BB2D-3ED0D1917763}" CommandAction="javascript:OpenPreviewDialog();" />
+      </CommandUIHandlers>
+    </CommandUIExtension>
+  </CustomAction>
+  <CustomAction
+      Id="SharepointEmails.ListSettings"
+      GroupId="GeneralSettings"
+      Location="Microsoft.SharePoint.ListEdit"
+      Sequence="1000"
+      Title="SharePoint Emails List Settings">
+    <UrlAction Url="_Layouts/SharePointEmails/ListSettings.aspx"/>
+  </CustomAction>
 </Elements>
