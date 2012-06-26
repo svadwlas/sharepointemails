@@ -91,12 +91,12 @@ namespace SharePointEmails.Core
             foreach (var change in Changes)
             {
                 var el = new XElement("Field");
-                el.SetAttributeValue("DisplayName", change.FieldDisplayName);
-                el.SetAttributeValue("Name", change.FieldName);
+                el.SetAttributeValue("DisplayName", change.FieldDisplayName??string.Empty);
+                el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
                 el.SetAttributeValue("Changed", change.IsChanged);
-                el.SetAttributeValue("New", change.GetText(new ModifiersCollection { Modifier.New }));
-                el.SetAttributeValue("Old", change.GetText(new ModifiersCollection { Modifier.Old }));
-                el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty));
+                el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
+                el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
+                el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
                 eventData.Add(el);
             }
 
