@@ -14,6 +14,9 @@
 
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
     <asp:Label ID="lbl_Message" runat="server" EnableViewState="false" />
+    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/Lists/HiddenTemplatesList">Alert templates</asp:HyperLink><br/>
+    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/HiddenXsltTemplates">Xslt templates library</asp:HyperLink>
+    Settings:
     <asp:Table ID="Table1" runat="server">
         <asp:TableHeaderRow></asp:TableHeaderRow>
         <asp:TableRow>
@@ -23,7 +26,7 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableCell>Disable laso in child webs : </asp:TableCell>
+            <asp:TableCell>Disable also in child webs : </asp:TableCell>
             <asp:TableCell>
                 <asp:CheckBox ID="cb_IncludeChilds" runat="server" />
             </asp:TableCell>
@@ -31,11 +34,7 @@
     </asp:Table>
      <asp:Button ID="btn_Save" runat="server" Text="Save"/>
     <asp:Button ID="btn_Exit" runat="server" Text="Exit" /><br/>
-    <asp:Panel ID="pnl_AssesHeader" runat="server">Associations:</asp:Panel>
-    <asp:Panel ID="pnl" runat="server">
-    <SharePoint:ListView ID="lv" runat="server"/>
-    </asp:Panel>
-    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/Lists/HiddenTemplatesList">HyperLink</asp:HyperLink>
+  
 </asp:Content>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PlaceHolderPageTitle" runat="server">

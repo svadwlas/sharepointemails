@@ -25,10 +25,11 @@ namespace SharePointEmails.Core
                 new FieldSubstitution(),
                 new ComplexSubstitution(),
                 new ContextSubstitution(),
+                new XlstSubstitution()
             };
         }
 
-        public string Process(string data)
+        public string Process(string data,ProcessMode mode)
         {
             var res = data ?? "";
             if (m_substitutions != null)
@@ -37,7 +38,7 @@ namespace SharePointEmails.Core
                 {
                     try
                     {
-                        res = substitution.Process(res, m_context);
+                        res = substitution.Process(res, m_context,mode);
                     }
                     catch (Exception ex)
                     {

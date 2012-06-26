@@ -144,8 +144,8 @@ namespace SharePointEmails.Core
                 var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, toEmail, createUserId);
                 return new Message
                     {
-                        Body = res.GetProcessedText(substitutionContext),
-                        Subject = res.GetProcessedSubj(substitutionContext)
+                        Body = res.GetProcessedText(substitutionContext,Substitutions.ProcessMode.Work),
+                        Subject = res.GetProcessedSubj(substitutionContext,Substitutions.ProcessMode.Work)
                     };
             }
             else

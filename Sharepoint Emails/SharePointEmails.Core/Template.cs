@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using System.IO;
+using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core
 {
@@ -88,19 +89,19 @@ namespace SharePointEmails.Core
             Refresh();
         }
 
-        public string GetProcessedText(ISubstitutionContext context)
+        public string GetProcessedText(ISubstitutionContext context,ProcessMode mode)
         {
             var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
             var worker = manager.GetWorker(context);
-            var res = worker.Process(Body);
+            var res = worker.Process(Body,mode);
             return res;
         }
 
-        public string GetProcessedSubj(ISubstitutionContext context)
+        public string GetProcessedSubj(ISubstitutionContext context,ProcessMode mode)
         {
             var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
             var worker = manager.GetWorker(context);
-            var res = worker.Process(Subject);
+            var res = worker.Process(Subject,mode);
             return res;
         }
 

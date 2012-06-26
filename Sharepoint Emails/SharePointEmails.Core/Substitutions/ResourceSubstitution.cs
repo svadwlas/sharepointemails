@@ -7,6 +7,7 @@ using SharePointEmails.Logging;
 using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint;
 using System.Collections;
+using System.Threading;
 
 namespace SharePointEmails.Core.Substitutions
 {
@@ -28,14 +29,14 @@ namespace SharePointEmails.Core.Substitutions
             get { return "resources"; }
         }
 
-        public string Process(string text, ISubstitutionContext context)
+        public string Process(string text, ISubstitutionContext context,ProcessMode mode)
         {
             string res = text;
             foreach (Match m in Regex.Matches(res, @"\{\$Resources:(.+?)\,(.+?)\}"))
             {
                 try
                 {
-                    var lcid = (uint)context.getDestinationCulture().LCID;
+                    var lcid = (mode == ProcessMode.Test) ? (uint)context.getDestinationCulture().LCID : (uint)Thread.CurrentThread.CurrentCulture.LCID;
                     var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
                     if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
                     {

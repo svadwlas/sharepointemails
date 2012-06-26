@@ -90,7 +90,7 @@ namespace SharePointEmails.Core.Tests
             context.Setup(p => p.GetField("field3", new ModifiersCollection())).Returns("field3Oldtext");
             var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N] text4 [field1] [field3]";
             var expected = "text1 field1Oldtext text2 field2Newtext text3 field1Newtext text4 field1Newtext field3Oldtext";
-            var actual = target.Process(text, context.Object);
+            var actual = target.Process(text, context.Object,ProcessMode.Work);
             Assert.AreEqual(expected, actual);
         }
 
@@ -100,7 +100,7 @@ namespace SharePointEmails.Core.Tests
             FieldSubstitution target = new FieldSubstitution();
             var context = new Mock<ISubstitutionContext>();
             var text = "text1 [field1:O] text2 [field2:N] text3 [field1:N]";
-            target.Process(text, context.Object);
+            target.Process(text, context.Object, ProcessMode.Work);
         }
 
 

@@ -82,6 +82,27 @@ namespace SharePointEmails.Core
             return GetFromObj(Vars, value);
         }
 
+        public static string GetTestXML()
+        {
+            XDocument res = new XDocument();
+            res.Add(new XElement("Data"));
+            var eventData = new XElement("EventData");
+            res.Root.Add(eventData);
+            var b = true;
+            foreach (var change in new string[] { "Title", "FileName", "YesNoField" })
+            {
+                var el = new XElement("Field");
+                el.SetAttributeValue("DisplayName", change);
+                el.SetAttributeValue("Name", "_" + change);
+                el.SetAttributeValue("Changed", b = !b);
+                el.SetAttributeValue("New", "new value of " + change);
+                el.SetAttributeValue("Old", "old value of " + change);
+                el.SetAttributeValue("Value", "some value of " + change);
+                eventData.Add(el);
+            }
+            return res.ToString();
+        }
+
         public string GetXML()
         {
             XDocument res = new XDocument();
@@ -91,7 +112,7 @@ namespace SharePointEmails.Core
             foreach (var change in Changes)
             {
                 var el = new XElement("Field");
-                el.SetAttributeValue("DisplayName", change.FieldDisplayName??string.Empty);
+                el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? string.Empty);
                 el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
                 el.SetAttributeValue("Changed", change.IsChanged);
                 el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
@@ -99,8 +120,6 @@ namespace SharePointEmails.Core
                 el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
                 eventData.Add(el);
             }
-
-
             return res.ToString();
         }
 

@@ -26,18 +26,17 @@ namespace SharePointEmails.Core.Substitutions
             get { return "eXtensible Stylesheet Language Transformations"; }
         }
 
-        public string Process(string text, ISubstitutionContext context)
+        public string Process(string text, ISubstitutionContext context,ProcessMode mode)
         {
             try
             {
                 var res = new StringBuilder();
                 var c = new System.Xml.Xsl.XslCompiledTransform(true);
-                var contextXML = context.GetXML();
+                var contextXML =(mode==ProcessMode.Test)?SubstitutionContext.GetTestXML(): context.GetXML();
                 using (var xsltReader = XmlReader.Create(new StringReader(text)))
                 {
                     c.Load(xsltReader);
                 }
-
 
                 using (var xmlreader = XmlReader.Create(new StringReader(contextXML)))
                 {
