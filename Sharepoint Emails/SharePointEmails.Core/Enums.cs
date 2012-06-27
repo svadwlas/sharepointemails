@@ -20,9 +20,9 @@ namespace SharePointEmails.Core
         public static TemplateStateEnum ToState(string state)
         {
             if (string.IsNullOrEmpty(state)) return TemplateStateEnum.Unknown;
-            if (state.ToLower() == SEMailTemplateCT.StateChoices.Published.ToLower())
+            if (state.ToLower() == TemplateCT.StateChoices.Published.ToLower())
                 return TemplateStateEnum.Published;
-            else if (state.ToLower() == SEMailTemplateCT.StateChoices.Draft.ToLower())
+            else if (state.ToLower() == TemplateCT.StateChoices.Draft.ToLower())
                 return TemplateStateEnum.Draft;
             else
                 return TemplateStateEnum.Unknown;
@@ -31,9 +31,9 @@ namespace SharePointEmails.Core
         public static string StateToValue(TemplateStateEnum value)
         {
             if (value == TemplateStateEnum.Published)
-                return SEMailTemplateCT.StateChoices.Published;
+                return TemplateCT.StateChoices.Published;
             else
-                return SEMailTemplateCT.StateChoices.Draft;
+                return TemplateCT.StateChoices.Draft;
         }
 
         public static int ToType(string[] strs)
@@ -42,13 +42,13 @@ namespace SharePointEmails.Core
             if (strs == null) return (int)TemplateTypeEnum.Unknown;
             foreach (var s in strs)
             {
-                if (s.ToLower() == SEMailTemplateCT.TypeChoices.All.ToLower())
+                if (s.ToLower() == TemplateCT.TypeChoices.All.ToLower())
                     res = res | (int)TemplateTypeEnum.AllItemEvents;
-                else if (s.ToLower() == SEMailTemplateCT.TypeChoices.ItemAdded.ToLower())
+                else if (s.ToLower() == TemplateCT.TypeChoices.ItemAdded.ToLower())
                     res = res | (int)TemplateTypeEnum.ItemAdded;
-                else if (s.ToLower() == SEMailTemplateCT.TypeChoices.ItemRemoved.ToLower())
+                else if (s.ToLower() == TemplateCT.TypeChoices.ItemRemoved.ToLower())
                     res = res | (int)TemplateTypeEnum.ItemRemoved;
-                else if (s.ToLower() == SEMailTemplateCT.TypeChoices.ItemUpdated.ToLower())
+                else if (s.ToLower() == TemplateCT.TypeChoices.ItemUpdated.ToLower())
                     res = res | (int)TemplateTypeEnum.ItemUpdated;
             }
             if (res == 0)
@@ -72,15 +72,15 @@ namespace SharePointEmails.Core
             var res = new SPFieldMultiChoiceValue();
 
             if (((value & (int)TemplateTypeEnum.AllItemEvents) == (int)TemplateTypeEnum.AllItemEvents))
-                res.Add(SEMailTemplateCT.TypeChoices.All);
+                res.Add(TemplateCT.TypeChoices.All);
             else
             {
                 if (((value & (int)TemplateTypeEnum.ItemAdded) == (int)TemplateTypeEnum.ItemAdded))
-                    res.Add(SEMailTemplateCT.TypeChoices.ItemAdded);
+                    res.Add(TemplateCT.TypeChoices.ItemAdded);
                 if (((value & (int)TemplateTypeEnum.ItemRemoved) == (int)TemplateTypeEnum.ItemRemoved))
-                    res.Add(SEMailTemplateCT.TypeChoices.ItemRemoved);
+                    res.Add(TemplateCT.TypeChoices.ItemRemoved);
                 if (((value & (int)TemplateTypeEnum.ItemUpdated) == (int)TemplateTypeEnum.ItemUpdated))
-                    res.Add(SEMailTemplateCT.TypeChoices.ItemUpdated);
+                    res.Add(TemplateCT.TypeChoices.ItemUpdated);
             }
 
             return res;

@@ -11,9 +11,10 @@ namespace SharePointEmails.Core
     public interface ISubstitutionContext
     {
         List<FieldChange> Changes { get; }
+
         string GetField(string fieldName, ModifiersCollection modifiers);
-        List<string> GetAvailableFields();
-        string GetContextValue(string value, ModifiersCollection modifiers=null);
+        string GetContextValue(string value, ModifiersCollection modifiers = null);
+
         CultureInfo getDestinationCulture();
 
         string GetXML();

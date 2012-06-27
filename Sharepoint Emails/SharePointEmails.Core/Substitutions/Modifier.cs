@@ -9,19 +9,21 @@ namespace SharePointEmails.Core.Substitutions
     {
         public readonly static Modifier Old = new Modifier(":O", "Old value");
         public readonly static Modifier New = new Modifier(":N", "New value");
+
         public readonly static ModifiersCollection AllModifiers = new ModifiersCollection()
         {
             Old,New
         };
 
-        public Modifier(string pattern,string description)
+        public Modifier(string pattern, string description)
         {
-            Pattern=pattern;
-            Description=description;
+            Pattern = pattern;
+            Description = description;
         }
-    
+
         public string Pattern { get; set; }
         public string Description { get; set; }
+
         public override bool Equals(object obj)
         {
             if (obj is Modifier)
@@ -30,15 +32,20 @@ namespace SharePointEmails.Core.Substitutions
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
-    public class ModifiersCollection:List<Modifier>
+    public class ModifiersCollection : List<Modifier>
     {
         public static ModifiersCollection Empty { get { return new ModifiersCollection(); } }
         public static ModifiersCollection Parse(string modifiers)
         {
             var res = new ModifiersCollection();
-            if (string.IsNullOrEmpty(modifiers)) return res;
+            if (string.IsNullOrEmpty(modifiers)) return ModifiersCollection.Empty;
             foreach (var s in modifiers.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var m = Modifier.AllModifiers.Where(p => p.Pattern != null && p.Pattern.Trim(':') == s).FirstOrDefault();

@@ -23,13 +23,13 @@ namespace SharepointEmails
              try
              {
                  var shouldbevalidated = false;
-                 if (this.StaticName == SEMailTemplateCT.TemplateBody)
+                 if (this.StaticName == TemplateCT.TemplateBody)
                  {
-                     shouldbevalidated = this.ShoulBeValidated(SEMailTemplateCT.TemplateBodyUseFile);
+                     shouldbevalidated = this.ShoulBeValidated(TemplateCT.TemplateBodyUseFile);
                  }
-                 else if (this.StaticName == SEMailTemplateCT.TemplateSubject)
+                 else if (this.StaticName == TemplateCT.TemplateSubject)
                  {
-                     shouldbevalidated = this.ShoulBeValidated(SEMailTemplateCT.TemplateSubjectUseFile);
+                     shouldbevalidated = this.ShoulBeValidated(TemplateCT.TemplateSubjectUseFile);
                  }
                  if (shouldbevalidated)
                  {
@@ -38,17 +38,21 @@ namespace SharepointEmails
                          throw new SPFieldValidationException(this.Title
                              + " must have a value.");
                      }
+                     
                      string val = value.ToString();
-                     var content = SPContext.Current.ListItem.GetAttachmentContent(val);
-                     if (content != null)
+                     if (!string.IsNullOrEmpty(val))
                      {
-                         val = content;
-                     }
-                     var compiler = new XslCompiledTransform(true);
+                         var content = SPContext.Current.ListItem.GetAttachmentContent(val);
+                         if (content != null)
+                         {
+                             val = content;
+                         }
+                         var compiler = new XslCompiledTransform(true);
 
-                     using (var xsltReader = XmlReader.Create(new StringReader(val.ToString())))
-                     {
-                         compiler.Load(xsltReader);
+                         using (var xsltReader = XmlReader.Create(new StringReader(val.ToString())))
+                         {
+                             compiler.Load(xsltReader);
+                         }
                      }
                      return base.GetValidatedString(value);
                  }

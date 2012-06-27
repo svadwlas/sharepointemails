@@ -19,7 +19,7 @@ namespace SharePointEmails.Core
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ComplexSubstitution(),
-                                                                                                                        new ContextSubstitution(),
+                                                                                                                        new ContextVarsSubstitution(),
                                                                                                                         new XlstSubstitution()
                                                                                                                     });
                 case WorkerType.ForSubject:
@@ -27,7 +27,7 @@ namespace SharePointEmails.Core
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
-                                                                                                                        new ContextSubstitution(),
+                                                                                                                        new ContextVarsSubstitution(),
                                                                                                                         new XlstSubstitution()
                                                                                                                     });
                 case WorkerType.ForFrom:
@@ -36,7 +36,7 @@ namespace SharePointEmails.Core
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
-                                                                                                                        new ContextSubstitution(),
+                                                                                                                        new ContextVarsSubstitution(),
                                                                                                                         new XlstSubstitution()
                                                                                                                     });
                 default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>());

@@ -13,11 +13,11 @@ namespace SharePointEmails.Core
             var list = web.Lists.TryGetList(Constants.TemplateListName);
             if (list == null)
             {
-                var guid = web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, "Lists/" + Constants.TemplateListName, SEMailTemplateCT.FeatureId, 10000, "100");
+                var guid = web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, "Lists/" + Constants.TemplateListName, TemplateCT.FeatureId, 10000, "100");
                 
                 web.Update();
                 list = web.Lists[guid];
-                foreach (var s in new string[] { SEMailTemplateCT.TemplateBodyFile, SEMailTemplateCT.TemplateSubjectFile })
+                foreach (var s in new string[] { TemplateCT.TemplateBodyFile, TemplateCT.TemplateSubjectFile })
                 {
                     list = web.Lists.TryGetList(Constants.TemplateListName);
                     var lookup = web.Lists.TryGetList(Constants.XsltLibrary);
@@ -62,7 +62,7 @@ namespace SharePointEmails.Core
 
         private void AddNeededContentTypes(SPList list)
         {
-            var ct = list.ParentWeb.ContentTypes[new SPContentTypeId(SEMailTemplateCT.CTId)];
+            var ct = list.ParentWeb.ContentTypes[new SPContentTypeId(TemplateCT.CTId)];
             if (ct != null)
             {
                 list.ContentTypes.Add(ct);

@@ -75,20 +75,20 @@ namespace SharePointEmails.Core
 
         void Refresh()
         {
-            this.Name = m_Item[SEMailTemplateCT.TemplateName] as string;
-            this.State = EnumConverter.ToState(m_Item[SEMailTemplateCT.TemplateState] as string);
+            this.Name = m_Item[TemplateCT.TemplateName] as string;
+            this.State = EnumConverter.ToState(m_Item[TemplateCT.TemplateState] as string);
 
-            this.UseFileForSubject = (bool)m_Item[SEMailTemplateCT.TemplateSubjectUseFile];
-            this.UseFileForBody = (bool)m_Item[SEMailTemplateCT.TemplateBodyUseFile];
+            this.UseFileForSubject = (bool)m_Item[TemplateCT.TemplateSubjectUseFile];
+            this.UseFileForBody = (bool)m_Item[TemplateCT.TemplateBodyUseFile];
 
-            this.From = m_Item.GetValueFromTextFieldOrFile(false, SEMailTemplateCT.TemplateFrom, null);
-            this.Replay = m_Item.GetValueFromTextFieldOrFile(false, SEMailTemplateCT.TemplateReplay, null);
-            this.Body = m_Item.GetValueFromTextFieldOrFile(this.UseFileForBody, SEMailTemplateCT.TemplateBody, SEMailTemplateCT.TemplateBodyFile, out this.BodyAttached);
-            this.Subject = m_Item.GetValueFromTextFieldOrFile(this.UseFileForSubject, SEMailTemplateCT.TemplateSubject, SEMailTemplateCT.TemplateSubjectFile, out this.SubjectAttached);
+            this.From = m_Item.GetValueFromTextFieldOrFile(false, TemplateCT.TemplateFrom, null);
+            this.Replay = m_Item.GetValueFromTextFieldOrFile(false, TemplateCT.TemplateReplay, null);
+            this.Body = m_Item.GetValueFromTextFieldOrFile(this.UseFileForBody, TemplateCT.TemplateBody, TemplateCT.TemplateBodyFile, out this.BodyAttached);
+            this.Subject = m_Item.GetValueFromTextFieldOrFile(this.UseFileForSubject, TemplateCT.TemplateSubject, TemplateCT.TemplateSubjectFile, out this.SubjectAttached);
 
-            if (m_Item[SEMailTemplateCT.TemplateType] != null)
+            if (m_Item[TemplateCT.TemplateType] != null)
             {
-                var val = new SPFieldMultiChoiceValue(m_Item[SEMailTemplateCT.TemplateType].ToString());
+                var val = new SPFieldMultiChoiceValue(m_Item[TemplateCT.TemplateType].ToString());
                 this.EventTypes = EnumConverter.ToType(val);
             }
             else
@@ -96,7 +96,7 @@ namespace SharePointEmails.Core
                 this.EventTypes = (int)TemplateTypeEnum.Unknown;
             }
 
-            this.Asses = AssociationConfiguration.ParseOrDefault(m_Item[SEMailTemplateCT.Associations] as string);
+            this.Asses = AssociationConfiguration.ParseOrDefault(m_Item[TemplateCT.Associations] as string);
         }
 
         public void SaveTo(SPListItem item)
@@ -108,12 +108,12 @@ namespace SharePointEmails.Core
         public void SaveChanges()
         {
             //TODO update other fields
-            m_Item[SEMailTemplateCT.TemplateName] = this.Name;
-            m_Item[SEMailTemplateCT.TemplateSubject] = this.Subject;
-            m_Item[SEMailTemplateCT.TemplateBody] = this.Body;
-            m_Item[SEMailTemplateCT.TemplateType] = EnumConverter.TypeToValue(this.EventTypes);
-            m_Item[SEMailTemplateCT.TemplateState] = EnumConverter.StateToValue(this.State);
-            m_Item[SEMailTemplateCT.Associations] = Asses.ToString();
+            m_Item[TemplateCT.TemplateName] = this.Name;
+            m_Item[TemplateCT.TemplateSubject] = this.Subject;
+            m_Item[TemplateCT.TemplateBody] = this.Body;
+            m_Item[TemplateCT.TemplateType] = EnumConverter.TypeToValue(this.EventTypes);
+            m_Item[TemplateCT.TemplateState] = EnumConverter.StateToValue(this.State);
+            m_Item[TemplateCT.Associations] = Asses.ToString();
             m_Item.Update();
             Refresh();
         }

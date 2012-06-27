@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SharePointEmails.Core
 {
-    public static class HiddenTemplesList
+    public static class TemplesListParams
     {
         public const string ListTemplateName = "TemplatesList";
         public const string ListTitle = "HiddenTemplatesList";

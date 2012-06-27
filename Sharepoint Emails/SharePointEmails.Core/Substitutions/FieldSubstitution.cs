@@ -13,14 +13,14 @@ namespace SharePointEmails.Core
         ILogger Logger { set; get; }
         public FieldSubstitution()
         {
-            Logger = ClassContainer.Instance.Resolve<ILogger>();
+            Logger = Application.Current.Logger;
         }
 
         public string Pattern
         {
             get
             {
-                return "[FieldName]";
+                return "[FieldName<Modifiers>]";
             }
         }
 
@@ -49,12 +49,6 @@ namespace SharePointEmails.Core
                     Logger.Write(ex, SeverityEnum.Error);
                 }
             }
-            return res;
-        }
-
-        public List<string> GetAvailableKeys(ISubstitutionContext context)
-        {
-            var res = new List<string>() { "field1", "field2" };
             return res;
         }
     }

@@ -16,5 +16,12 @@
 <Class>SharepointEmails.XsltHandler.XsltHandler</Class>
 <SequenceNumber>1000</SequenceNumber>
 </Receiver>
+<Receiver>
+<Name>XsltHandlerItemAdding</Name>
+<Type>ItemAdding</Type>
+<Assembly>$SharePoint.Project.AssemblyFullName$</Assembly>
+<Class>SharepointEmails.XsltHandler.XsltHandler</Class>
+<SequenceNumber>1000</SequenceNumber>
+</Receiver>
 </Receivers>
 </Elements>

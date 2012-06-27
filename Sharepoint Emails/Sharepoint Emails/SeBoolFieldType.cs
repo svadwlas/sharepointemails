@@ -31,10 +31,10 @@ namespace SharepointEmails
         {
             get
             {
-                if (this.StaticName == SEMailTemplateCT.TemplateSubjectUseFile)
-                    return SEMailTemplateCT.TemplateSubjectFile;
-                else if (this.StaticName == SEMailTemplateCT.TemplateBodyUseFile)
-                    return SEMailTemplateCT.TemplateBodyFile;
+                if (this.StaticName == TemplateCT.TemplateSubjectUseFile)
+                    return TemplateCT.TemplateSubjectFile;
+                else if (this.StaticName == TemplateCT.TemplateBodyUseFile)
+                    return TemplateCT.TemplateBodyFile;
                 else
                     return string.Empty;
             }
@@ -43,10 +43,10 @@ namespace SharepointEmails
         {
             get
             {
-                if (this.StaticName == SEMailTemplateCT.TemplateSubjectUseFile)
-                    return SEMailTemplateCT.TemplateSubject;
-                else if (this.StaticName == SEMailTemplateCT.TemplateBodyUseFile)
-                    return SEMailTemplateCT.TemplateBody;
+                if (this.StaticName == TemplateCT.TemplateSubjectUseFile)
+                    return TemplateCT.TemplateSubject;
+                else if (this.StaticName == TemplateCT.TemplateBodyUseFile)
+                    return TemplateCT.TemplateBody;
                 else
                     return string.Empty;
             }

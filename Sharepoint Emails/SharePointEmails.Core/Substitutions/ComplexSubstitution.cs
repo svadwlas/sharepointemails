@@ -13,7 +13,7 @@ namespace SharePointEmails.Core.Substitutions
 
         public ComplexSubstitution()
         {
-            Logger = ClassContainer.Instance.Resolve<ILogger>();
+            Logger = Application.Current.Logger;
         }
 
         public string Pattern
@@ -23,7 +23,7 @@ namespace SharePointEmails.Core.Substitutions
 
         public string Description
         {
-            get { throw new NotImplementedException(); }
+            get { return "some complex stuctures of data"; }
         }
 
         public string Process(string text, ISubstitutionContext context, ProcessMode mode)
@@ -87,11 +87,6 @@ namespace SharePointEmails.Core.Substitutions
             }
 
             return sb.ToString();
-        }
-
-        public List<string> GetAvailableKeys(ISubstitutionContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

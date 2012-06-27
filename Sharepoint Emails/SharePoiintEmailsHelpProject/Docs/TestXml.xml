@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+  <EventData EventType="2" EventTypeName="Modify">
+    <Field Type="Type1" DisplayName="Title" Name="_Title" Changed="false" New="new value of Title" Old="old value of Title" Value="some value of Title" />
+    <Field Type="Type2" DisplayName="FileName" Name="_FileName" Changed="true" New="new value of FileName" Old="old value of FileName" Value="some value of FileName" />
+    <Field Type="Type3" DisplayName="YesNoField" Name="_YesNoField" Changed="false" New="new value of YesNoField" Old="old value of YesNoField" Value="some value of YesNoField" />
+  </EventData>
+</Data>

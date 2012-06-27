@@ -16,7 +16,7 @@ namespace SharePointEmails.Core.Substitutions
         ILogger Logger;
         public ResourceSubstitution()
         {
-            Logger = ClassContainer.Instance.Resolve<ILogger>();
+            Logger = Application.Current.Logger;
         }
 
         public string Pattern
@@ -50,11 +50,6 @@ namespace SharePointEmails.Core.Substitutions
                 }
             }
             return res;
-        }
-
-        public List<string> GetAvailableKeys(ISubstitutionContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -56,6 +56,7 @@ namespace SharePointEmails.Core.Tests
             sList.TitleGet=()=>"TitleText";
 
             SubstitutionContext target = new SubstitutionContext(Properties.Resources.EventDataFileAdded, sList);
+            var xlm = SubstitutionContext.GetTestXML();
             Assert.AreEqual("TitleText",target.GetContextValue("SList.Title",new ModifiersCollection()));
             Assert.AreEqual("descriptiontext", target.GetContextValue("SList.Description",new ModifiersCollection()));
             Assert.AreEqual("siteurl",target.GetContextValue("SSite.Url",new ModifiersCollection()));

@@ -23,8 +23,6 @@ namespace SharePointEmails.Core
             get;
         }
 
-        string Process(string text, ISubstitutionContext context,ProcessMode mode);
-
-        List<string> GetAvailableKeys(ISubstitutionContext context);
+        string Process(string text, ISubstitutionContext context, ProcessMode mode);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-public static class SEMailTemplateCT
+public static class TemplateCT
 {
     public const string CTId = "0x01006230043d1f824022a80ad3e43a7b6da4";
     public const string FeatureId = "50e13f0b-69b1-43cf-8627-d782e7efa4cc";

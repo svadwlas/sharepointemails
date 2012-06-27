@@ -6,11 +6,11 @@ using System.Xml.Linq;
 
 namespace SharePointEmails.Core.Substitutions
 {
-   public class FieldChange
+    public class FieldChange
     {
         public static FieldChange Create(XElement field)
         {
-            var type = GetAttValue(field, "Type");
+            var type = field.GetAtributeValue("Type");
             switch (type)
             {
                 case "user": return new UserFieldChange(field);
@@ -19,16 +19,14 @@ namespace SharePointEmails.Core.Substitutions
         }
 
         protected XElement m_field;
-        public static string GetAttValue(XElement el, string name)
-        {
-            return (el.Attribute(name) == null) ? null : el.Attribute(name).Value;
-        }
+
         protected FieldChange(XElement field)
         {
             m_field = field;
-            FieldDisplayName = GetAttValue(field, "DisplayName");
-            FieldName = GetAttValue(field, "Name");
-            IsChanged = GetAttValue(field, "New") != null && GetAttValue(field, "New") != GetAttValue(field, "Old");
+            FieldDisplayName = m_field.GetAtributeValue("DisplayName");
+            FieldName = m_field.GetAtributeValue("Name");
+            IsChanged = m_field.GetAtributeValue("New") != null && m_field.GetAtributeValue("New") != m_field.GetAtributeValue("Old");
+            FieldType = m_field.GetAtributeValue("Type");
         }
         public bool IsChanged { set; get; }
         public string FieldName { set; get; }
@@ -38,17 +36,19 @@ namespace SharePointEmails.Core.Substitutions
         {
             if (modifiers.Contains(Modifier.Old))
             {
-                return GetAttValue(m_field, "Old");
+                return m_field.GetAtributeValue("Old");
             }
             else if (modifiers.Contains(Modifier.New))
             {
-                return GetAttValue(m_field, "New");
+                return m_field.GetAtributeValue("New");
             }
             else
             {
-                return GetAttValue(m_field, "New") ?? GetAttValue(m_field, "Old");
+                return m_field.GetAtributeValue("New") ?? m_field.GetAtributeValue("Old");
             }
         }
+
+        public string FieldType { get; set; }
     }
 
     class UserFieldChange : FieldChange
@@ -62,15 +62,15 @@ namespace SharePointEmails.Core.Substitutions
         {
             if (modifiers.Contains(Modifier.Old))
             {
-                return GetAttValue(m_field, "LookupOldF");
+                return m_field.GetAtributeValue("LookupOldF");
             }
             else if (modifiers.Contains(Modifier.New))
             {
-                return GetAttValue(m_field, "LookupNewF");
+                return m_field.GetAtributeValue("LookupNewF");
             }
             else
             {
-                return GetAttValue(m_field, "LookupNewF") ?? GetAttValue(m_field, "LookupOldF");
+                return m_field.GetAtributeValue("LookupNewF") ?? m_field.GetAtributeValue("LookupOldF");
             }
         }
     }

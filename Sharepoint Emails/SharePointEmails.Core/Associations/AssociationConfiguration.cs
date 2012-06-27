@@ -42,9 +42,9 @@ namespace SharePointEmails.Core
             }
             catch (Exception ex)
             {
-                ClassContainer.Instance.Resolve<ILogger>().Write("Cannot parse config. empty will be returned", SeverityEnum.Error);
-                ClassContainer.Instance.Resolve<ILogger>().Write(ex.ToString(), SeverityEnum.Error);
-                return new AssociationConfiguration();
+                Application.Current.Logger.Write("Cannot parse config. empty will be returned", SeverityEnum.Error);
+                Application.Current.Logger.Write(ex.ToString(), SeverityEnum.Error);
+                return AssociationConfiguration.Empty;
             }
         }
 

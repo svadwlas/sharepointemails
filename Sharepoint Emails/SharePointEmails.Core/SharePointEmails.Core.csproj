@@ -80,7 +80,7 @@
     <Compile Include="Dictionaries\Constants.cs" />
     <Compile Include="DefaultSiteManager.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Exceptions\SeBaseException.cs" />
+    <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
     <Compile Include="Interfaces\ISiteManager.cs" />
     <Compile Include="Interfaces\ISubstitution.cs" />
@@ -108,6 +108,7 @@
     <Compile Include="SearchContext.cs" />
     <Compile Include="TemplatesResolver.cs" />
     <Compile Include="Associations\AssociationConfiguration.cs" />
+    <Compile Include="XmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />

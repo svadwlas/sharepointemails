@@ -8,21 +8,21 @@ using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    class ContextSubstitution : ISubstitution
+    class ContextVarsSubstitution : ISubstitution
     {
         ILogger Logger { set; get; }
-        public ContextSubstitution()
+        public ContextVarsSubstitution()
         {
-            Logger = ClassContainer.Instance.Resolve<ILogger>();
+            Logger = Application.Current.Logger;
         }
         public string Pattern
         {
-            get { return "{VarName}"; }
+            get { return "{VarPath}"; }
         }
 
         public string Description
         {
-            get { return Pattern; }
+            get { return "Context variables"; }
         }
 
         public string Process(string text, ISubstitutionContext context, ProcessMode mode)
@@ -40,11 +40,6 @@ namespace SharePointEmails.Core.Substitutions
                 }
             }
             return res;
-        }
-
-        public List<string> GetAvailableKeys(ISubstitutionContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

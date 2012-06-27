@@ -122,7 +122,7 @@ namespace SharepointEmails
                         res = AssociationConfiguration.ParseOrDefault(SPContext.Current.Web.Properties["boo"] as string);
                     }
                 }
-                return res ?? new AssociationConfiguration();
+                return res ?? AssociationConfiguration.Empty;
             }
 
             set
