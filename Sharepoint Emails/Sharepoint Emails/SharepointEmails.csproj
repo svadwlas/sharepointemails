@@ -67,6 +67,9 @@
   <ItemGroup>
     <Compile Include="AlertHandler.cs" />
     <Compile Include="EmailReceiver.cs" />
+    <Compile Include="Features\SharePointEmails\SharePointEmails.EventReceiver.cs">
+      <DependentUpon>SharePointEmails.feature</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.cs">
       <DependentUpon>ChooseItemPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -105,11 +108,17 @@
     <None Include="ControlTemplates\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{4b9e2ef8-bf09-480d-91da-5e4a2a5400cd}</SharePointProjectItemId>
     </None>
-    <None Include="HiddenXsltTemplates\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{3e9bb342-1972-4b59-872c-d1a1c8728e4c}</SharePointProjectItemId>
-    </None>
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
+    </None>
+    <None Include="HiddenTemplatesList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{2a9558cd-a6cb-4708-9a64-f383fe2c9040}</SharePointProjectItemId>
+    </None>
+    <None Include="HiddenXsltTemplatesLibrary\HiddenXsltTemplates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{cf1995f7-092a-426b-8d8a-46e267ec6971}</SharePointProjectItemId>
+    </None>
+    <None Include="HiddenXsltTemplatesLibrary\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{15d5ff0a-1fb0-4471-a8c4-8edeff69c457}</SharePointProjectItemId>
     </None>
     <None Include="Images\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{7824520f-8e84-4abc-a1d7-fd41ff8d0e65}</SharePointProjectItemId>
@@ -147,15 +156,17 @@
     <Content Include="ControlTemplates\SPAssociationControl.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="HiddenXsltTemplates\EditDlg.htm" />
-    <Content Include="HiddenXsltTemplates\Elements.xml" />
-    <Content Include="HiddenXsltTemplates\FileDlg.htm" />
-    <Content Include="HiddenXsltTemplates\Repair.aspx" />
-    <Content Include="HiddenXsltTemplates\Schema.xml" />
-    <Content Include="HiddenXsltTemplates\Upload.aspx" />
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
+    <Content Include="HiddenTemplatesList\Elements.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />
+    <Content Include="HiddenXsltTemplatesLibrary\Elements.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\FileDlg.htm" />
+    <Content Include="HiddenXsltTemplatesLibrary\HiddenXsltTemplates\Elements.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\Repair.aspx" />
+    <Content Include="HiddenXsltTemplatesLibrary\Schema.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\Upload.aspx" />
     <Content Include="Images\SharepointEmails\Service.png" />
     <Content Include="Images\SharepointEmails\Service16.png" />
     <Content Include="Layouts\SharepointEmails\ChooseItemPage.aspx">

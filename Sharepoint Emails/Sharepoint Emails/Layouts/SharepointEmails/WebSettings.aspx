@@ -15,7 +15,7 @@
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
     <asp:Label ID="lbl_Message" runat="server" EnableViewState="false" /><br/>
     <h2><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="/Lists/HiddenTemplatesList">Alert templates</asp:HyperLink></h2><br/>
-    <h2><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/HiddenXsltTemplates">Xslt templates library</asp:HyperLink></h2><br/><br/>
+    <h2><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="/Lists/HiddenXsltTemplates">Xslt templates library</asp:HyperLink></h2><br/><br/>
     <h2>Settings:</h2> <br/><br/>
     <asp:Table ID="Table1" runat="server">
         <asp:TableHeaderRow></asp:TableHeaderRow>

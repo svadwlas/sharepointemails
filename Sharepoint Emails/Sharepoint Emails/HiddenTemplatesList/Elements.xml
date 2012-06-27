@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ListInstance Title="HiddenTemplatesList"
+                OnQuickLaunch="FALSE"
+                TemplateType="10000"
+                FeatureId="50e13f0b-69b1-43cf-8627-d782e7efa4cc"
+                Url="Lists/HiddenTemplatesList"
+                Description="List with templates for email alerts" Hidden="TRUE">
+  </ListInstance>
+</Elements>
