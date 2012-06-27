@@ -25,7 +25,7 @@ namespace SharePointEmails.Core.Associations
         }
         public abstract int IsMatch(SPList list, SPContentTypeId ctId, int ItemId);
         public abstract AssType Type { get; }
-
+        public abstract string ValueToShortDisplay { get; }
         protected ILogger Logger
         {
             get

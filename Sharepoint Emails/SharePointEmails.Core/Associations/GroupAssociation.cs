@@ -80,6 +80,11 @@ namespace SharePointEmails.Core.Associations
                 "ItemType: " + ItemType + Environment.NewLine;
             return s;
         }
+
+        public override string ValueToShortDisplay
+        {
+            get { return ItemType.ToString(); }
+        }
     }
 
     [Serializable]

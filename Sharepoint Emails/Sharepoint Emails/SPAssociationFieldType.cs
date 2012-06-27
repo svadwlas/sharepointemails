@@ -37,10 +37,11 @@ namespace SharepointEmails
                 if (count > 0)
                 {
                     var sb = new StringBuilder();
-                    sb.Append("<table>");
+                    sb.Append("<table border=\"1\">");
+                    sb.Append(string.Format("<tr><th>#</th><th>Name</th><th>Type</th><th>Value</th></tr>"));
                     foreach (var a in config)
                     {
-                        sb.Append(string.Format("<tr><td>{0}) </td><td>{1}</td><td>{2}</td></tr>",config.IndexOf(a)+1,a.Name,a.Type));
+                        sb.Append(string.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>",config.IndexOf(a)+1,a.Name,a.Type,a.ValueToShortDisplay));
                     }
                     sb.Append("</table>");
                     return sb.ToString();

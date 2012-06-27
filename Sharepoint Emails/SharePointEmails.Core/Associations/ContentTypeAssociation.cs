@@ -11,6 +11,7 @@ namespace SharePointEmails.Core.Associations
     {
         public string ContentTypeID { set; get; }
         public bool IncludingChilds { set; get; }
+        public string ContentTypeName { set; get; }
 
         public override int IsMatch(Microsoft.SharePoint.SPList list, SPContentTypeId ctId, int ItemId)
         {
@@ -65,6 +66,7 @@ namespace SharePointEmails.Core.Associations
                         if(c.Id==ct)
                         {
                             notexists=false;
+                            ContentTypeName = c.Name;
                             break;
                         }
                     }
@@ -75,6 +77,7 @@ namespace SharePointEmails.Core.Associations
                             if (c.Id == ct)
                             {
                                 notexists = false;
+                                ContentTypeName = c.Name;
                                 break;
                             }
                         }
@@ -94,6 +97,11 @@ namespace SharePointEmails.Core.Associations
                 "ContentTypeID: " + ContentTypeID + Environment.NewLine +
                 "IncludingChilds: " + IncludingChilds + Environment.NewLine;
             return s;
+        }
+
+        public override string ValueToShortDisplay
+        {
+            get { return ContentTypeName ?? ContentTypeID; }
         }
     }
 }

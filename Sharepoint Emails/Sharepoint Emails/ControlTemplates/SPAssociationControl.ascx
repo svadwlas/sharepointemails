@@ -8,6 +8,9 @@
 <%@ Control Language="C#" AutoEventWireup="true" %>
 <SharePoint:RenderingTemplate ID="SPAssociationEditTemplate" runat="server">
 <Template>
+    <style type="text/css">
+        .hiddencell {display:none;}
+    </style>
   <script src="../_layouts/SharepointEmails/Scripts/SEAssociationFieldControl.js" type="text/javascript"></script>
   <asp:UpdatePanel runat="server" ID="updatePanel">
         <ContentTemplate>
@@ -19,9 +22,10 @@
                     BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" 
                     AutoGenerateSelectButton="True" DataKeyNames="ID" >
                     <Columns>
-                        <asp:BoundField DataField="ID"/>
-                        <asp:BoundField DataField="Name" />
-                        <asp:BoundField DataField="Type" />        
+                        <asp:BoundField DataField="ID"  ItemStyle-CssClass="hiddencell" HeaderStyle-CssClass="hiddencell" />
+                        <asp:BoundField DataField="Name" HeaderText="Association name" />
+                        <asp:BoundField DataField="Type" HeaderText="Association type"/>        
+                        <asp:BoundField DataField="Value" HeaderText="Association value"/>        
                     </Columns>
                     <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
                     <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />

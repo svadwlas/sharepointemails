@@ -203,10 +203,10 @@ namespace SharepointEmails
             {
                 ID = p.ID,
                 Name = p.Name,
-                Type = p.Type.ToString()
+                Type = p.Type.ToString(),
+                Value=p.ValueToShortDisplay
             });
-            grd_Asses.DataBind();
-          //  v_Editing_v_ByGroup_cb_Group.DataBind();
+            grd_Asses.DataBind();            
         }
 
         protected override void OnLoad(EventArgs e)
@@ -537,6 +537,7 @@ namespace SharepointEmails
 
         void InitControlEvents()
         {
+            
             grd_Asses.SelectedIndexChanging += new GridViewSelectEventHandler(grd_Asses_SelectedIndexChanging);
             grd_Asses.SelectedIndexChanged += new EventHandler(grd_Asses_SelectedIndexChanged);
             Create_cb_AssType.SelectedIndexChanged += new EventHandler(cb_AssType_SelectedIndexChanged);
@@ -718,5 +719,6 @@ namespace SharepointEmails
         public string Name { set; get; }
         public string Type { set; get; }
         public string ID { set; get; }
+        public string Value { set; get; }
     }
 }

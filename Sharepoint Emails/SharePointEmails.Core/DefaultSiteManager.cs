@@ -14,8 +14,9 @@ namespace SharePointEmails.Core
             if (list == null)
             {
                 var guid = web.Lists.Add(Constants.TemplateListName, Constants.TemplateListName, "Lists/" + Constants.TemplateListName, SEMailTemplateCT.FeatureId, 10000, "100");
+                
                 web.Update();
-
+                list = web.Lists[guid];
                 foreach (var s in new string[] { SEMailTemplateCT.TemplateBodyFile, SEMailTemplateCT.TemplateSubjectFile })
                 {
                     list = web.Lists.TryGetList(Constants.TemplateListName);

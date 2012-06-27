@@ -72,9 +72,6 @@ namespace SharepointEmails.Layouts.SharepointEmails
 
             btn_Save.Click += new EventHandler(btn_Save_Click);
             btn_Exit.Click += new EventHandler(btn_Exit_Click);
-            lv.ListId = list.ID.ToString();
-
-
         }
 
         void btn_Exit_Click(object sender, EventArgs e)

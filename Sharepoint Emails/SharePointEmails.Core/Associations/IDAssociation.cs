@@ -84,5 +84,10 @@ namespace SharePointEmails.Core.Associations
               "ItemID: " + ItemID + Environment.NewLine;
             return s;
         }
+
+        public override string ValueToShortDisplay
+        {
+            get { return ItemName ?? ItemID; }
+        }
     }
 }
