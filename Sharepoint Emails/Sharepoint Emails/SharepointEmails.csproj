@@ -140,7 +140,7 @@
     <None Include="TemplatesList\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{4163220e-72ae-4fea-ba3e-51c4f76f6ade}</SharePointProjectItemId>
     </None>
-    <None Include="WebSettingsPageLink\SharePointProjectItem.spdata">
+    <None Include="CustomActions\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{50c287a9-a442-4b81-8d5c-441350d2e257}</SharePointProjectItemId>
     </None>
     <None Include="XML\SharePointProjectItem.spdata">
@@ -193,7 +193,7 @@
     <Content Include="TemplatesList\Schema.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="WebSettingsPageLink\Elements.xml" />
+    <Content Include="CustomActions\Elements.xml" />
     <Content Include="XML\fldtypes_SPAssociation.xml" />
     <Content Include="XML\SEAlertReceiver.xml" />
     <Content Include="XsltHandler\Elements.xml" />
