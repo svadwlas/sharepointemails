@@ -10,6 +10,7 @@
   </CustomAction>
   
   <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.Script" Location="ScriptLink" ScriptSrc ="/_layouts/SharepointEmails/Scripts/SE.js"/>
+  <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.jQScript" Location="ScriptLink" ScriptSrc ="/_layouts/SharepointEmails/Scripts/jquery-1.7.2.min.js"/>
   
   <CustomAction
     Description="Preview template"

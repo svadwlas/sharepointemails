@@ -26,4 +26,17 @@
       SharepointEmails.SPXsltField,SharepointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b
     </Field>
   </FieldType>
+  <FieldType>
+    <Field Name="TypeName">SeBool</Field>
+    <Field Name="ParentType">Boolean</Field>
+    <Field Name="TypeDisplayName">Se bool</Field>
+    <Field Name="TypeShortDescription">Se bool</Field>
+    <Field Name="UserCreatable">TRUE</Field>
+    <Field Name='Sortable'>TRUE</Field>
+    <Field Name="AllowBaseTypeRendering">TRUE</Field>
+    <Field Name="Filterable">TRUE</Field>
+    <Field Name="FieldTypeClass">
+      SharepointEmails.SeBoolFieldType,SharepointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b
+    </Field>
+  </FieldType>
 </FieldTypes>

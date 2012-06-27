@@ -99,6 +99,7 @@
       <DependentUpon>WebSettings.aspx.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeBoolFieldType.cs" />
     <Compile Include="SPAssociationControl.cs" />
     <Compile Include="SPAssociationFieldType.cs" />
     <Compile Include="SPXsltField.cs" />
@@ -178,6 +179,7 @@
     <Content Include="Layouts\SharepointEmails\PreviewPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Layouts\SharepointEmails\Scripts\jquery-1.7.2.min.js" />
     <Content Include="Layouts\SharepointEmails\Scripts\SE.js" />
     <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>
