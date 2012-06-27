@@ -15,18 +15,11 @@ namespace SharePointEmails.Core
 
         private ISubstitutionContext m_context;
 
-        public SubstitutionWorker(ILogger logger, ISubstitutionContext context)
+        public SubstitutionWorker(ILogger logger, ISubstitutionContext context, List<ISubstitution> sustitutions)
         {
             m_Logger = logger;
             m_context = context;
-            m_substitutions = new List<ISubstitution>
-            {
-                new ResourceSubstitution(),
-                new FieldSubstitution(),
-                new ComplexSubstitution(),
-                new ContextSubstitution(),
-                new XlstSubstitution()
-            };
+            m_substitutions = sustitutions ?? new List<ISubstitution>(); ;
         }
 
         public string Process(string data,ProcessMode mode)

@@ -58,17 +58,6 @@ namespace SharepointEmails.Layouts.SharepointEmails
             {
                 Config = getExisted();
             }
-            //SPList list;
-            //try
-            //{
-            //    Web.AllowUnsafeUpdates = true;
-            //    SharePointEmails.Core.Application.Current.CreateHiddenTemplateLibrary(Web);
-            //    list = SharePointEmails.Core.Application.Current.GetHiddenList(Web, true);
-            //}
-            //finally
-            //{
-            //    Web.AllowUnsafeUpdates = false;
-            //}
 
             btn_Save.Click += new EventHandler(btn_Save_Click);
             btn_Exit.Click += new EventHandler(btn_Exit_Click);

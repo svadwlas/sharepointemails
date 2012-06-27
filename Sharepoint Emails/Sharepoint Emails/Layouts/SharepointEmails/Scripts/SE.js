@@ -15,7 +15,8 @@
 }
 
 function InitSeBool(id, onchecked, onunchecked) {
-    $("#" + id).bind("change", function () {
+    var obj = $("#" + id);
+    obj.bind("change", function () {
         if ($(this).is(":checked")) {
             updateRow(document.getElementById(onchecked), "");
             updateRow(document.getElementById(onunchecked), "none");
@@ -26,7 +27,7 @@ function InitSeBool(id, onchecked, onunchecked) {
         }
     });
 
-    $("#" + id).change();
+    obj.change();
 }
 
 function updateRow(obj, hide) {

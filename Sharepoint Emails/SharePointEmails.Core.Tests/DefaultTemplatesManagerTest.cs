@@ -66,7 +66,6 @@ namespace SharePointEmails.Core.Tests
         {
             var res = new Mock<ITemplate>() { DefaultValue = DefaultValue.Mock };
             res.Setup(p => p.Name).Returns(Guid.NewGuid().ToString());
-            res.Setup(p => p.IsValid).Returns(true);
             res.Setup(p => p.Id).Returns(Guid.NewGuid());
             res.Setup(p => p.EventTypes).Returns(eventTypes);
             res.Setup(p => p.State).Returns(templateState);

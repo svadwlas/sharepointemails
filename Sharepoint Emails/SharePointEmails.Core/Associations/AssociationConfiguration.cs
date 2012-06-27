@@ -6,6 +6,7 @@ using Microsoft.SharePoint;
 using System.Xml.Serialization;
 using System.IO;
 using SharePointEmails.Core.Associations;
+using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core
 {
@@ -39,8 +40,10 @@ namespace SharePointEmails.Core
             {
                 return Parse(str);
             }
-            catch
+            catch (Exception ex)
             {
+                ClassContainer.Instance.Resolve<ILogger>().Write("Cannot parse config. empty will be returned", SeverityEnum.Error);
+                ClassContainer.Instance.Resolve<ILogger>().Write(ex.ToString(), SeverityEnum.Error);
                 return new AssociationConfiguration();
             }
         }

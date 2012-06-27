@@ -57,6 +57,7 @@ namespace SharepointEmails
             if (field is BaseTextField)
                 return "_ctl00_TextField";
             else if (field is LookupField)
+
                 return "_Lookup";
             else
                 return string.Empty;

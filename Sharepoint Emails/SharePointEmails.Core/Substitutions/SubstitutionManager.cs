@@ -9,9 +9,44 @@ namespace SharePointEmails.Core
 {
     public class SubstitutionManager
     {
-        public ISubstitutionWorker GetWorker(ISubstitutionContext context)
+        public ISubstitutionWorker GetWorker(ISubstitutionContext context, WorkerType type)
         {
-            return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context);
+            switch (type)
+            {
+                case WorkerType.ForBody:
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
+                                                                                                                    {
+                                                                                                                        new ResourceSubstitution(),
+                                                                                                                        new FieldSubstitution(),
+                                                                                                                        new ComplexSubstitution(),
+                                                                                                                        new ContextSubstitution(),
+                                                                                                                        new XlstSubstitution()
+                                                                                                                    });
+                case WorkerType.ForSubject:
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
+                                                                                                                    {
+                                                                                                                        new ResourceSubstitution(),
+                                                                                                                        new FieldSubstitution(),
+                                                                                                                        new ContextSubstitution(),
+                                                                                                                        new XlstSubstitution()
+                                                                                                                    });
+                case WorkerType.ForTo:
+                case WorkerType.ForCC:
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
+                                                                                                                    {
+                                                                                                                        new ResourceSubstitution(),
+                                                                                                                        new FieldSubstitution(),
+                                                                                                                        new ContextSubstitution(),
+                                                                                                                        new XlstSubstitution()
+                                                                                                                    });
+                default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>());
+            }
+        }
+
+        public enum WorkerType
+        {
+            ForBody,ForSubject,ForTo,ForCC
         }
     }
+
 }

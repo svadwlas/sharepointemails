@@ -13,7 +13,7 @@ namespace SharepointEmails.Layouts.SharepointEmails
             var templatelist = Web.Lists[Constants.TemplateListName];
             var item = templatelist.GetItemById(id);
             var template = new Template(item);
-            div_Body.InnerHtml = template.GetProcessedText(null, SharePointEmails.Core.Substitutions.ProcessMode.Test);
+            div_Body.InnerHtml = template.GetProcessedBody(null, SharePointEmails.Core.Substitutions.ProcessMode.Test);
             div_Subj.InnerHtml = template.GetProcessedSubj(null, SharePointEmails.Core.Substitutions.ProcessMode.Test);
         }
     }
