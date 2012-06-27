@@ -37,7 +37,8 @@ namespace SharePointEmails.Core
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ContextVarsSubstitution(),
-                                                                                                                        new XlstSubstitution()
+                                                                                                                        new XlstSubstitution(),
+                                                                                                                        new OneLineSubstitution()
                                                                                                                     });
                 default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>());
             }
@@ -45,7 +46,7 @@ namespace SharePointEmails.Core
 
         public enum WorkerType
         {
-            ForBody,ForSubject,ForFrom,ForReplay
+            ForBody, ForSubject, ForFrom, ForReplay
         }
     }
 

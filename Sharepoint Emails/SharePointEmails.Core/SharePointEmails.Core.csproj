@@ -97,6 +97,7 @@
     <Compile Include="Substitutions\ComplexSubstitution.cs" />
     <Compile Include="Substitutions\ContextSubstitution.cs" />
     <Compile Include="Substitutions\Modifier.cs" />
+    <Compile Include="Substitutions\OneLineSubstitution.cs" />
     <Compile Include="Substitutions\ProcessMode.cs" />
     <Compile Include="Substitutions\ResourceSubstitution.cs" />
     <Compile Include="Substitutions\SubstitutionWorker.cs" />

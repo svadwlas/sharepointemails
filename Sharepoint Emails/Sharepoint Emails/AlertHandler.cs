@@ -113,9 +113,20 @@ namespace SharepointEmails
                                 var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"sentEmails\" + DateTime.Now.ToString("hh_mm_ss"));
                                 if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
                                 File.WriteAllText(Path.Combine(folder, "body.html"), message.Body);
-                                File.WriteAllText(Path.Combine(folder, "data.txt"),
-                                    "Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
-                                    "Body:" + Environment.NewLine + message.Body);
+
+                                string text = string.Empty;
+
+                                foreach (string key in newheaders.Keys)
+                                {
+                                    text += key + ":" + newheaders[key] + Environment.NewLine;
+                                }
+
+                                text+="Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
+                                    "Body:" + Environment.NewLine + message.Body;
+
+
+
+                                File.WriteAllText(Path.Combine(folder, "data.txt"),text);
                                 var headers = ahp.headers;
 
 
