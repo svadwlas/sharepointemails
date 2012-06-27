@@ -30,8 +30,8 @@ namespace SharePointEmails.Core
                                                                                                                         new ContextSubstitution(),
                                                                                                                         new XlstSubstitution()
                                                                                                                     });
-                case WorkerType.ForTo:
-                case WorkerType.ForCC:
+                case WorkerType.ForFrom:
+                case WorkerType.ForReplay:
                     return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
@@ -45,7 +45,7 @@ namespace SharePointEmails.Core
 
         public enum WorkerType
         {
-            ForBody,ForSubject,ForTo,ForCC
+            ForBody,ForSubject,ForFrom,ForReplay
         }
     }
 

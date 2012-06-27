@@ -9,7 +9,7 @@ using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core.Substitutions
 {
-   public class XlstSubstitution:ISubstitution
+    public class XlstSubstitution : ISubstitution
     {
         ILogger Logger;
         public XlstSubstitution()
@@ -26,13 +26,13 @@ namespace SharePointEmails.Core.Substitutions
             get { return "eXtensible Stylesheet Language Transformations"; }
         }
 
-        public string Process(string text, ISubstitutionContext context,ProcessMode mode)
+        public string Process(string text, ISubstitutionContext context, ProcessMode mode)
         {
             try
             {
                 var res = new StringBuilder();
                 var c = new System.Xml.Xsl.XslCompiledTransform(true);
-                var contextXML =(mode==ProcessMode.Test)?SubstitutionContext.GetTestXML(): context.GetXML();
+                var contextXML = (mode == ProcessMode.Test) ? SubstitutionContext.GetTestXML() : context.GetXML();
                 using (var xsltReader = XmlReader.Create(new StringReader(text)))
                 {
                     c.Load(xsltReader);
@@ -47,13 +47,19 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 return res.ToString();
             }
+            catch (XsltException ex)
+            {
+                Logger.Write("Cannot parse or transform template. maybe because it is not xslt template", SeverityEnum.Warning);
+                Logger.Write(ex, SeverityEnum.Warning);
+                return text;
+            }
             catch (Exception ex)
             {
                 Logger.Write("ERROR DURIN|G GEMERATING OUTPUT HTML", SeverityEnum.CriticalError);
                 Logger.Write(ex, SeverityEnum.CriticalError);
                 return text;
             }
-      }
+        }
 
         public List<string> GetAvailableKeys(ISubstitutionContext context)
         {

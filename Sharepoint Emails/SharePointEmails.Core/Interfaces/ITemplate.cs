@@ -13,6 +13,10 @@ namespace SharePointEmails.Core
 
         int EventTypes { set; get; }
 
+        string From { set; get; }
+
+        string Replay { set; get; }
+
         string Subject { set; get; }
 
         string Body { get; set; }
@@ -23,12 +27,14 @@ namespace SharePointEmails.Core
 
         AssociationConfiguration Asses { get; set; }
 
-        void Update();
+        void SaveChanges();
 
         void SaveTo(SPListItem item);
 
         string GetProcessedBody(ISubstitutionContext context, ProcessMode mode);
 
         string GetProcessedSubj(ISubstitutionContext context, ProcessMode mode);
+        string GetProcessedFrom(ISubstitutionContext context, ProcessMode mode);
+        string GetProcessedReplay(ISubstitutionContext context, ProcessMode mode);
     }
 }

@@ -28,7 +28,7 @@ namespace SharePointEmails.Core.Configuration
                     return (T)s.Deserialize(reader);
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 return default(T);
             }

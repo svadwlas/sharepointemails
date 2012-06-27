@@ -24,10 +24,10 @@ namespace SharePointEmails.Core
             Refresh();
         }
 
-        private bool BodyAttached { set; get; }
-        private bool SubjectAttached { set; get; }
-        private bool UseFileForSubject { set; get; }
-        private bool UseFileForBody { set; get; }
+        private bool BodyAttached;
+        private bool SubjectAttached;
+        private bool UseFileForSubject;
+        private bool UseFileForBody;
 
 
         public string Body { get; set; }
@@ -38,24 +38,25 @@ namespace SharePointEmails.Core
             set;
         }
 
-        public string Name
+        public SubstitutionManager SubstitutionManager
         {
-            get;
-            set;
+            get
+            {
+                return ClassContainer.Instance.Resolve<SubstitutionManager>();
+            }
         }
 
-        public TemplateStateEnum State
-        {
-            get;
-            set;
-        }
+        public string Subject { set; get; }
 
-        public int EventTypes
-        {
-            get;
-            set;
-        }
+        public string From { set; get; }
 
+        public string Replay { set; get; }
+
+        public string Name { get; set; }
+
+        public TemplateStateEnum State { get; set; }
+
+        public int EventTypes { get; set; }
 
         public AssociationConfiguration Asses
         {
@@ -70,41 +71,21 @@ namespace SharePointEmails.Core
         }
         string _Config = null;
 
+      
+
         void Refresh()
         {
             this.Name = m_Item[SEMailTemplateCT.TemplateName] as string;
+            this.State = EnumConverter.ToState(m_Item[SEMailTemplateCT.TemplateState] as string);
+
             this.UseFileForSubject = (bool)m_Item[SEMailTemplateCT.TemplateSubjectUseFile];
             this.UseFileForBody = (bool)m_Item[SEMailTemplateCT.TemplateBodyUseFile];
 
-            if (!this.UseFileForBody)
-            {
-                this.Body = m_Item[SEMailTemplateCT.TemplateBody] as string;
-                var content = m_Item.GetAttachmentContent(this.Body);
-                if (content != null)
-                {
-                    BodyAttached = true;
-                    this.Body = content;
-                }
-            }
-            else
-            {
-                this.Body = m_Item.GetLookupFileContent(SEMailTemplateCT.TemplateBodyFile) ?? "";
-            }
+            this.From = m_Item.GetValueFromTextFieldOrFile(false, SEMailTemplateCT.TemplateFrom, null);
+            this.Replay = m_Item.GetValueFromTextFieldOrFile(false, SEMailTemplateCT.TemplateReplay, null);
+            this.Body = m_Item.GetValueFromTextFieldOrFile(this.UseFileForBody, SEMailTemplateCT.TemplateBody, SEMailTemplateCT.TemplateBodyFile, out this.BodyAttached);
+            this.Subject = m_Item.GetValueFromTextFieldOrFile(this.UseFileForSubject, SEMailTemplateCT.TemplateSubject, SEMailTemplateCT.TemplateSubjectFile, out this.SubjectAttached);
 
-            if (!this.UseFileForSubject)
-            {
-                this.Subject = m_Item[SEMailTemplateCT.TemplateSubject] as string;
-                var content = m_Item.GetAttachmentContent(this.Subject);
-                if (content != null)
-                {
-                    SubjectAttached = true;
-                    this.Subject = content;
-                }
-            }
-            else
-            {
-                this.Subject = m_Item.GetLookupFileContent(SEMailTemplateCT.TemplateSubjectFile) ?? "";
-            }
             if (m_Item[SEMailTemplateCT.TemplateType] != null)
             {
                 var val = new SPFieldMultiChoiceValue(m_Item[SEMailTemplateCT.TemplateType].ToString());
@@ -114,17 +95,17 @@ namespace SharePointEmails.Core
             {
                 this.EventTypes = (int)TemplateTypeEnum.Unknown;
             }
-            this.State = EnumConverter.ToState(m_Item[SEMailTemplateCT.TemplateState] as string);
+
             this.Asses = AssociationConfiguration.ParseOrDefault(m_Item[SEMailTemplateCT.Associations] as string);
         }
 
         public void SaveTo(SPListItem item)
         {
             m_Item = item;
-            Update();
+            SaveChanges();
         }
 
-        public void Update()
+        public void SaveChanges()
         {
             //TODO update other fields
             m_Item[SEMailTemplateCT.TemplateName] = this.Name;
@@ -139,19 +120,15 @@ namespace SharePointEmails.Core
 
         public string GetProcessedBody(ISubstitutionContext context, ProcessMode mode)
         {
-            var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
-            var worker = manager.GetWorker(context, SubstitutionManager.WorkerType.ForBody);
+            var worker = SubstitutionManager.GetWorker(context, SubstitutionManager.WorkerType.ForBody);
             return worker.Process(Body, mode); ;
         }
 
         public string GetProcessedSubj(ISubstitutionContext context, ProcessMode mode)
         {
-            var manager = ClassContainer.Instance.Resolve<SubstitutionManager>();
-            var worker = manager.GetWorker(context, SubstitutionManager.WorkerType.ForSubject);
+            var worker = SubstitutionManager.GetWorker(context, SubstitutionManager.WorkerType.ForSubject);
             return worker.Process(Subject, mode);
         }
-
-        public string Subject { set; get; }
 
 
         public override string ToString()
@@ -166,6 +143,20 @@ namespace SharePointEmails.Core
                 s += "Ass: " + Environment.NewLine + ass.ToString() + Environment.NewLine;
             }
             return s;
+        }
+
+        public string GetProcessedFrom(ISubstitutionContext context, ProcessMode mode)
+        {
+            var worker = SubstitutionManager.GetWorker(context, Core.SubstitutionManager.WorkerType.ForFrom);
+            if (string.IsNullOrEmpty(From)) return string.Empty;
+            return worker.Process(this.From, ProcessMode.Work);
+        }
+
+        public string GetProcessedReplay(ISubstitutionContext context, ProcessMode mode)
+        {
+            var worker = SubstitutionManager.GetWorker(context, Core.SubstitutionManager.WorkerType.ForReplay);
+            if (string.IsNullOrEmpty(From)) return string.Empty;
+            return worker.Process(this.Replay, ProcessMode.Work);
         }
     }
 }

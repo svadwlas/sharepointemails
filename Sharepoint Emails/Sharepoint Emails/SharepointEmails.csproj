@@ -112,7 +112,7 @@
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
     </None>
-    <None Include="HiddenTemplatesList\SharePointProjectItem.spdata">
+    <None Include="TemplatesList\HiddenTemplatesList\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{2a9558cd-a6cb-4708-9a64-f383fe2c9040}</SharePointProjectItemId>
     </None>
     <None Include="HiddenXsltTemplatesLibrary\HiddenXsltTemplates\SharePointProjectItem.spdata">
@@ -160,7 +160,7 @@
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
-    <Content Include="HiddenTemplatesList\Elements.xml" />
+    <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
     <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />
     <Content Include="HiddenXsltTemplatesLibrary\Elements.xml" />
     <Content Include="HiddenXsltTemplatesLibrary\FileDlg.htm" />

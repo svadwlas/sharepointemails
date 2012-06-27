@@ -12,8 +12,8 @@ namespace SharePointEmails.Core
     public class Application
     {
         static Application _Curent;
-        static object _CurentLock=new object();
-        static object _LoggerLock=new object();
+        static object _CurentLock = new object();
+        static object _LoggerLock = new object();
         public static Application Current
         {
             get
@@ -32,7 +32,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public SPList GetHiddenList(SPWeb web, bool create=false)
+        public SPList GetHiddenList(SPWeb web, bool create = false)
         {
             var list = web.Lists.TryGetList(Constants.TemplateListName);
             if (list == null && create)
@@ -64,8 +64,8 @@ namespace SharePointEmails.Core
         {
             get
             {
-                var configManager=ClassContainer.Instance.Resolve<ConfigurationManager>();
-                var res=configManager.GetConfigOrdefault(SPFarm.Local);
+                var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
+                var res = configManager.GetConfigOrdefault(SPFarm.Local);
                 return res;
             }
         }
@@ -133,7 +133,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML,string modifierName,string toEmail,int createUserId)
+        public Message GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string toEmail, int createUserId)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type);
             var res = Manager.GetTemplate(search);
@@ -144,8 +144,8 @@ namespace SharePointEmails.Core
                 var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, toEmail, createUserId);
                 return new Message
                     {
-                        Body = res.GetProcessedBody(substitutionContext,Substitutions.ProcessMode.Work),
-                        Subject = res.GetProcessedSubj(substitutionContext,Substitutions.ProcessMode.Work)
+                        Body = res.GetProcessedBody(substitutionContext, Substitutions.ProcessMode.Work),
+                        Subject = res.GetProcessedSubj(substitutionContext, Substitutions.ProcessMode.Work)
                     };
             }
             else

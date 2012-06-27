@@ -2,6 +2,8 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <!-- Parent ContentType: Item (0x01) -->
   <Field ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails"/>
+  <Field ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
+  <Field ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
   <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="SPXslt" Group="SharePointEmails" RichText="FALSE"/>
   <Field ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" Type="SPXslt" Group="SharePointEmails" RichText="False" />
   <Field ID="{B7F88C49-6E15-4F02-B0EB-3F998593C7E9}" Name="TemplateBodyFile" DisplayName="Template Body From File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"   EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE" Overwrite="TRUE"/>
@@ -31,6 +33,8 @@
                Version="0">
     <FieldRefs>
       <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" Required="True" DefaultValue="Noname"/>
+      <FieldRef ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" />
+      <FieldRef ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" />      
       <FieldRef ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject"/>
       <FieldRef ID="{D70442F7-B6A8-4FEE-A7CD-AAB79FAF790B}" Name="TemplateSubjectFile" DisplayName="Template subject From File" />
       <FieldRef ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" />

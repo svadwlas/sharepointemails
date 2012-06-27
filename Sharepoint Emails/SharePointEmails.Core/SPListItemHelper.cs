@@ -13,7 +13,7 @@ namespace SharePointEmails.Core
     {
         public static string GetAttachmentContent(this SPListItem item, string filename)
         {
-            string fileName=null;
+            string fileName = null;
             try
             {
                 fileName = Path.GetFileName(filename);
@@ -31,34 +31,27 @@ namespace SharePointEmails.Core
             }
             return null;
         }
-        public static string GetLookupFileContent(this SPListItem item,string fieldName)
+        public static string GetLookupFileContent(this SPListItem item, string fieldName)
         {
-            try
+            var lookupValue = new SPFieldLookupValue(item[fieldName].ToString());
+            var listId = new Guid(((SPFieldLookup)item.Fields.GetFieldByInternalName(fieldName)).LookupList);
+            var list = item.Web.Lists[listId];
+            var litem = list.GetItemById(lookupValue.LookupId);
+            using (var reader = new StreamReader(litem.File.OpenBinaryStream()))
             {
-                var lookupValue = new SPFieldLookupValue(item[fieldName].ToString());
-                var listId = new Guid(((SPFieldLookup)item.Fields.GetFieldByInternalName(fieldName)).LookupList);
-                var list = item.Web.Lists[listId];
-                var litem = list.GetItemById(lookupValue.LookupId);
-                using (var reader = new StreamReader(litem.File.OpenBinaryStream()))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
+                return reader.ReadToEnd();
             }
         }
 
-        public static bool ShoulBeValidated(this SPField item, string dependentField, bool shouldOnDisabled=true)
+        public static bool ShoulBeValidated(this SPField item, string dependentField, bool shouldOnDisabled = true)
         {
             if (SPContext.Current.FormContext != null)
             {
                 foreach (BaseFieldControl field in SPContext.Current.FormContext.FieldControlCollection)
                 {
-                    if (field.FieldName == dependentField && ((bool)field.Value&&shouldOnDisabled||(!((bool)field.Value)&&!shouldOnDisabled)))
+                    if (field.FieldName == dependentField && ((bool)field.Value && shouldOnDisabled || (!((bool)field.Value) && !shouldOnDisabled)))
                     {
-                        return  false;
+                        return false;
                     }
                 }
                 return true;
@@ -67,7 +60,33 @@ namespace SharePointEmails.Core
             {
                 return false;
             }
-            
+
+        }
+
+        public static string GetValueFromTextFieldOrFile(this SPListItem item, bool getFromFile, string textfield, string fileField, out bool attached)
+        {
+            attached = false;
+            if (getFromFile)
+            {
+                return item.GetLookupFileContent(fileField) ?? "";
+            }
+            else
+            {
+                var res = item[textfield] as string;
+                var content = item.GetAttachmentContent(res);
+                if (content != null)
+                {
+                    attached = true;
+                    res = content;
+                }
+                return res;
+            }
+        }
+
+        public static string GetValueFromTextFieldOrFile(this SPListItem item, bool getFromFile, string textfield, string fileField)
+        {
+            bool a;
+            return item.GetValueFromTextFieldOrFile(getFromFile, textfield, fileField,out a);
         }
     }
 }

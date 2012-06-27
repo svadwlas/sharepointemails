@@ -13,6 +13,8 @@ public static class SEMailTemplateCT
     public const string TemplateSubjectFile = "TemplateSubjectFile";
     public const string TemplateSubjectUseFile = "TemplateSubjectUseFile";
     public const string TemplateBodyUseFile = "TemplateBodyUseFile";
+    public const string TemplateFrom = "TemplateFrom";
+    public const string TemplateReplay = "TemplateReplay";
 
     public static class StateChoices
     {

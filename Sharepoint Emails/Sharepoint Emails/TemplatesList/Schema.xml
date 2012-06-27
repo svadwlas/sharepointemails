@@ -5,6 +5,8 @@
       <ContentType ID="0x01006230043d1f824022a80ad3e43a7b6da4" Name="SEMailTemplateCT" Group="SharePointEmails" Description="Mails template" Inherits="TRUE" Version="0">
         <FieldRefs>
           <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" />
+          <FieldRef ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" />
+          <FieldRef ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" />
           <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" />
           <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State"/>
           <FieldRef ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject"/>
@@ -18,6 +20,8 @@
       </ContentType>
     </ContentTypes>
       <Fields>
+        <Field ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
+        <Field ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
       <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="SeBool" Group="SharePointEmails" />
       <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="SeBool" Group="SharePointEmails" />
       <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" StaticName="Title" DisplayName="Title" Type="Text" FromBaseType="TRUE" Required="FALSE" Hidden="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3"/>
@@ -71,6 +75,8 @@
           <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" />
           <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" />
           <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State"/>
+          <FieldRef ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" />
+          <FieldRef ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" />
           <FieldRef ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations"/>
           <FieldRef ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" />
           <FieldRef ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" />
