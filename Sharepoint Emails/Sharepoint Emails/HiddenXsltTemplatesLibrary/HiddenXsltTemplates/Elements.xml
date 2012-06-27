@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <ListInstance Title="HiddenXsltTemplates"
-                OnQuickLaunch="TRUE"
+                OnQuickLaunch="FALSE"
                 TemplateType="10001"
                 Url="Lists/HiddenXsltTemplates"
                 Description="Library for xslt templates">
