@@ -36,6 +36,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Moles.Framework, Version=0.94.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -44,8 +50,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\ISAPI\Microsoft.SharePoint.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SharePoint.ApplicationPages.Administration">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\CONFIG\ADMINBIN\Microsoft.SharePoint.ApplicationPages.Administration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SharePoint.Behaviors, Version=0.94.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SharePoint.Moles, Version=14.0.0.0, Culture=neutral, PublicKeyToken=0ae41878053f6703, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SharePoint.Security, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>..\ThirdParty\Moq\Moq.dll</HintPath>
@@ -57,6 +67,11 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -74,6 +89,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResourcesTest.cs" />
     <Compile Include="ResourceSubstitutionTest.cs" />
     <Compile Include="SearchContextTest.cs" />
     <Compile Include="SubstitutionContextTest.cs" />
@@ -83,6 +99,10 @@
     <Moles Include="Microsoft.SharePoint.moles" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sharepoint Emails\SharepointEmails.csproj">
+      <Project>{0F3BF939-370A-4A37-B500-66825513EB73}</Project>
+      <Name>SharepointEmails</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">
       <Project>{E73985B3-3C00-4C7C-92D3-70186DBC3D93}</Project>
       <Name>SharePointEmails.Core</Name>
@@ -99,6 +119,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="key.snk" />
     <None Include="Resources\EventDataFileAdded.txt" />
     <Moles Include="SharePointEmails.Core.moles" />
     <Shadow Include="Test References\SharePointEmails.Core.accessor" />

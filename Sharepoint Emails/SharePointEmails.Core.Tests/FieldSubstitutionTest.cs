@@ -103,16 +103,5 @@ namespace SharePointEmails.Core.Tests
             target.Process(text, context.Object, ProcessMode.Work);
         }
 
-
-        /// <summary>
-        ///A test for Pattern
-        ///</summary>
-        [TestMethod()]
-        public void PatternTest()
-        {
-            FieldSubstitution target = new FieldSubstitution(); // TODO: Initialize to an appropriate value
-            var actual = target.Pattern;
-            Assert.AreEqual("[FieldName]", actual);
-        }
     }
 }

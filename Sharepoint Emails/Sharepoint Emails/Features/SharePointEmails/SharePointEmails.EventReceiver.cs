@@ -37,7 +37,7 @@ namespace SharepointEmails.Features.SharePointEmails
            //     System.Diagnostics.Debugger.Launch();
                 var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
                 list.RootFolder.Files.Add("subj.xslt", Encoding.Default.GetBytes(Properties.Resources.subjXslt));
-                list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.bodyXslt));
+                list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.testbody));
 
                 list.Update();
 

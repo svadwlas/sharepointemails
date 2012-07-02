@@ -22,7 +22,7 @@ namespace SharepointEmails.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SharepointEmails.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharepointEmails.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,25 @@ namespace SharepointEmails.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
+        ///  &lt;xsl:template match=&apos;Data&apos;&gt;
+        ///    Subject for alert {SList.Title}
+        ///  &lt;/xsl:template&gt;
+        ///&lt;/xsl:stylesheet&gt;.
+        /// </summary>
+        public static string subjXslt {
+            get {
+                return ResourceManager.GetString("subjXslt", resourceCulture);
             }
         }
         
@@ -81,22 +94,9 @@ namespace SharepointEmails.Properties {
         ///  &lt;/xsl:template&gt;
         /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string bodyXslt {
+        public static string testbody {
             get {
-                return ResourceManager.GetString("bodyXslt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
-        ///  &lt;xsl:template match=&apos;Data&apos;&gt;
-        ///    Subject for alert {SList.Title}
-        ///  &lt;/xsl:template&gt;
-        ///&lt;/xsl:stylesheet&gt;.
-        /// </summary>
-        internal static string subjXslt {
-            get {
-                return ResourceManager.GetString("subjXslt", resourceCulture);
+                return ResourceManager.GetString("testbody", resourceCulture);
             }
         }
         
@@ -108,7 +108,7 @@ namespace SharepointEmails.Properties {
         ///    &lt;Field Type=&quot;Type2&quot; DisplayName=&quot;FileName&quot; Name=&quot;_FileName&quot; Changed=&quot;true&quot; New=&quot;new value of FileName&quot; Old=&quot;old value of FileName&quot; Value=&quot;some value of FileName&quot; /&gt;
         ///    &lt;Field Type=&quot;Type3&quot; DisplayName=&quot;YesNoField&quot; Name=&quot;_YesNoField&quot; Changed=&quot;false&quot; N [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string TestContextXML {
+        public static string TestContextXML {
             get {
                 return ResourceManager.GetString("TestContextXML", resourceCulture);
             }
