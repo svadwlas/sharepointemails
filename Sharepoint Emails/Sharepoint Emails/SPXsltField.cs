@@ -39,7 +39,7 @@ namespace SharepointEmails
                              + " must have a value.");
                      }
                      
-                     string val = value.ToString();
+                     string val = (value??"").ToString();
                      if (!string.IsNullOrEmpty(val))
                      {
                          var content = SPContext.Current.ListItem.GetAttachmentContent(val);
@@ -47,11 +47,9 @@ namespace SharepointEmails
                          {
                              val = content;
                          }
-                         var compiler = new XslCompiledTransform(true);
-
-                         using (var xsltReader = XmlReader.Create(new StringReader(val.ToString())))
+                         if (val.IsXslt())
                          {
-                             compiler.Load(xsltReader);
+                             val.ValidateXslt();
                          }
                      }
                      return base.GetValidatedString(value);
