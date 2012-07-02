@@ -28,7 +28,9 @@ namespace SharePointEmails.Core
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ContextVarsSubstitution(),
-                                                                                                                        new XlstSubstitution()
+                                                                                                                        new XlstSubstitution(),
+                                                                                                                        new RemoveXmlTagsSubstitution(),
+                                                                                                                        new OneLineSubstitution()
                                                                                                                     });
                 case WorkerType.ForFrom:
                 case WorkerType.ForReplay:
@@ -38,6 +40,7 @@ namespace SharePointEmails.Core
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ContextVarsSubstitution(),
                                                                                                                         new XlstSubstitution(),
+                                                                                                                        new RemoveXmlTagsSubstitution(),
                                                                                                                         new OneLineSubstitution()
                                                                                                                     });
                 default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>());

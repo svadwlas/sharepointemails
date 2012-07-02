@@ -30,22 +30,9 @@ namespace SharePointEmails.Core.Substitutions
         {
             try
             {
-                var res = new StringBuilder();
-                var c = new System.Xml.Xsl.XslCompiledTransform(true);
+                if (!text.IsXslt()) return text;
                 var contextXML = (mode == ProcessMode.Test) ? SubstitutionContext.GetTestXML() : context.GetXML();
-                using (var xsltReader = XmlReader.Create(new StringReader(text)))
-                {
-                    c.Load(xsltReader);
-                }
-
-                using (var xmlreader = XmlReader.Create(new StringReader(contextXML)))
-                {
-                    using (var resultWriter = XmlWriter.Create(new StringWriter(res)))
-                    {
-                        c.Transform(xmlreader, resultWriter);
-                    }
-                }
-                return res.ToString();
+                return contextXML.ApplyXslt(text);
             }
             catch (XsltException ex)
             {
@@ -60,6 +47,5 @@ namespace SharePointEmails.Core.Substitutions
                 return text;
             }
         }
-
     }
 }
