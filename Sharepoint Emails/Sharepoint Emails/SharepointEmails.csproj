@@ -166,6 +166,8 @@
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
     <None Include="Resources\TestContextXML.txt" />
+    <None Include="Resources\testsubj.xslt" />
+    <None Include="Resources\test %281%29.xslt" />
     <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
     <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />
     <Content Include="HiddenXsltTemplatesLibrary\Elements.xml" />

@@ -61,6 +61,46 @@ namespace SharepointEmails.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
+        ///  &lt;xsl:template match=&apos;Data&apos;&gt;
+        ///    &lt;HTML&gt;
+        ///      &lt;BODY&gt;
+        ///        &lt;TABLE BORDER=&apos;2&apos;&gt;
+        ///          &lt;TR&gt;
+        ///            &lt;TD&gt;Field Name&lt;/TD&gt;
+        ///            &lt;TD&gt;Old Value&lt;/TD&gt;
+        ///            &lt;TD&gt;New Value&lt;/TD&gt;
+        ///          &lt;/TR&gt;
+        ///          &lt;xsl:apply-templates select=&apos;EventData&apos;/&gt;
+        ///        &lt;/TABLE&gt;
+        ///      &lt;/BODY&gt;
+        ///    &lt;/HTML&gt;
+        ///  &lt;/xsl:template&gt;
+        ///  &lt;xsl:template match=&apos;EventData&apos;&gt;
+        ///    &lt;xsl:apply-templates select=&apos;Field&apos;/&gt;
+        ///  &lt;/xsl:template&gt;
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string bodyXslt {
+            get {
+                return ResourceManager.GetString("bodyXslt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
+        ///  &lt;xsl:template match=&apos;Data&apos;&gt;
+        ///    Subject for alert {SList.Title}
+        ///  &lt;/xsl:template&gt;
+        ///&lt;/xsl:stylesheet&gt;.
+        /// </summary>
+        internal static string subjXslt {
+            get {
+                return ResourceManager.GetString("subjXslt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;Data&gt;
         ///  &lt;EventData EventType=&quot;2&quot; EventTypeName=&quot;Modify&quot;&gt;

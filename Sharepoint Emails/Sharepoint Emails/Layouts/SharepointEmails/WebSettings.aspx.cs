@@ -5,6 +5,7 @@ using SharePointEmails.Core.Configuration;
 using SharePointEmails.Core;
 using Microsoft.SharePoint.WebPartPages;
 using System.Web.UI.WebControls.WebParts;
+using System.IO;
 
 namespace SharepointEmails.Layouts.SharepointEmails
 {
@@ -61,6 +62,16 @@ namespace SharepointEmails.Layouts.SharepointEmails
 
             btn_Save.Click += new EventHandler(btn_Save_Click);
             btn_Exit.Click += new EventHandler(btn_Exit_Click);
+            btn_GetXml.Click += new EventHandler(btn_GetXml_Click);
+        }
+
+        void btn_GetXml_Click(object sender, EventArgs e)
+        {
+            var temp = Path.ChangeExtension(Path.GetTempFileName(), ".xml");
+            File.WriteAllText(temp, Properties.Resources.TestContextXML);
+            Response.AppendHeader("Content-Disposition", "attachment; filename=context.xml");
+            Response.TransmitFile(temp);
+            Response.End();
         }
 
         void btn_Exit_Click(object sender, EventArgs e)

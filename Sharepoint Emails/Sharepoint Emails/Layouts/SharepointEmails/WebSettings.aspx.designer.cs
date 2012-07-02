@@ -67,6 +67,15 @@ namespace SharepointEmails.Layouts.SharepointEmails {
         protected global::System.Web.UI.WebControls.CheckBox cb_IncludeChilds;
         
         /// <summary>
+        /// btn_GetXml control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_GetXml;
+        
+        /// <summary>
         /// btn_Save control.
         /// </summary>
         /// <remarks>

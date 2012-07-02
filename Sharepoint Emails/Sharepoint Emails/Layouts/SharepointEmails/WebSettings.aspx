@@ -31,6 +31,12 @@
                 <asp:CheckBox ID="cb_IncludeChilds" runat="server" />
             </asp:TableCell>
         </asp:TableRow>
+          <asp:TableRow>
+            <asp:TableCell>Test context xml items updates : </asp:TableCell>
+            <asp:TableCell>
+                <asp:Button ID="btn_GetXml" runat="server" Text="Get XML" />
+            </asp:TableCell>
+        </asp:TableRow>
     </asp:Table>
      <asp:Button ID="btn_Save" runat="server" Text="Save"/>
     <asp:Button ID="btn_Exit" runat="server" Text="Exit" /><br/>

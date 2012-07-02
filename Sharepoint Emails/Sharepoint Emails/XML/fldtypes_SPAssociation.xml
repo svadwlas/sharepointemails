@@ -5,7 +5,7 @@
     <Field Name="ParentType">Note</Field>
     <Field Name="TypeDisplayName">SPAssociation</Field>
     <Field Name="TypeShortDescription">Description for association</Field>
-    <Field Name="UserCreatable">TRUE</Field>
+    <Field Name="UserCreatable">FALSE</Field>
     <Field Name='Sortable'>FALSE</Field>
     <Field Name="AllowBaseTypeRendering">TRUE</Field>
     <Field Name="Filterable">TRUE</Field>
@@ -18,7 +18,7 @@
     <Field Name="ParentType">Note</Field>
     <Field Name="TypeDisplayName">Xslt field</Field>
     <Field Name="TypeShortDescription">Xslt field</Field>
-    <Field Name="UserCreatable">TRUE</Field>
+    <Field Name="UserCreatable">FALSE</Field>
     <Field Name='Sortable'>FALSE</Field>
     <Field Name="AllowBaseTypeRendering">TRUE</Field>
     <Field Name="Filterable">TRUE</Field>
@@ -31,7 +31,7 @@
     <Field Name="ParentType">Boolean</Field>
     <Field Name="TypeDisplayName">Se bool</Field>
     <Field Name="TypeShortDescription">Se bool</Field>
-    <Field Name="UserCreatable">TRUE</Field>
+    <Field Name="UserCreatable">FALSE</Field>
     <Field Name='Sortable'>TRUE</Field>
     <Field Name="AllowBaseTypeRendering">TRUE</Field>
     <Field Name="Filterable">TRUE</Field>

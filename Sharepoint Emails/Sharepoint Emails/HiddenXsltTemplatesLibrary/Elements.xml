@@ -13,5 +13,6 @@
         DisplayName="SharepointEmails - HiddenXsltTemplatesLibrary"
         Description="My List Definition"
         Image="/_layouts/images/itdl.png"
+        VersioningEnabled="TRUE"
         DocumentTemplate="121"/>
 </Elements>

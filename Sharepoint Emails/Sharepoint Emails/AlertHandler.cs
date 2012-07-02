@@ -16,6 +16,24 @@ namespace SharepointEmails
 {
     public class AlertHandler : IAlertNotifyHandler
     {
+        private void Trace(SPAlertHandlerParams ahp)
+        {
+            foreach (string s in ahp.headers.Keys)
+            {
+                Application.Current.Logger.Write(s+": "+ahp.headers[s], SharePointEmails.Logging.SeverityEnum.Verbose);
+            }
+            foreach (SPAlertEventData ed in ahp.eventData)
+            {
+                Application.Current.Logger.Write("EventData:", SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.Write("EventType: " + (SPEventType)ed.eventType, SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.Write("EventXml: " + ed.eventXml, SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.Write("formattedEvent: " + ed.formattedEvent, SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.Write("itemFullUrl: " + ed.itemFullUrl, SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.Write("itemId: " + ed.itemId, SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.Write("modifiedBy: " + ed.modifiedBy, SharePointEmails.Logging.SeverityEnum.Verbose);
+            }
+        }
+
         public bool OnNotification(SPAlertHandlerParams ahp)
         {
             try
@@ -34,23 +52,12 @@ namespace SharepointEmails
                     if (Application.Current.IsDisabledForSite(site)) return false;
                     using (SPWeb web = site.OpenWeb(ahp.webId))
                     {
-                        SPUtility.SendEmail(web, ahp.headers, ahp.body);
+                   //     SPUtility.SendEmail(web, ahp.headers, ahp.body);
                         if (ahp.a != null)
                         {
                             var receiverEmail = ahp.headers["to"];
                             GeneratedMessage message = null;
-
-                            Application.Current.Logger.Write("RECEIVER:" + receiverEmail, SharePointEmails.Logging.SeverityEnum.Verbose);
-                            foreach (SPAlertEventData ed in ahp.eventData)
-                            {
-                                Application.Current.Logger.Write("EventData:", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                Application.Current.Logger.Write("EventType: " + (SPEventType)ed.eventType, SharePointEmails.Logging.SeverityEnum.Verbose);
-                                Application.Current.Logger.Write("EventXml: " + ed.eventXml, SharePointEmails.Logging.SeverityEnum.Verbose);
-                                Application.Current.Logger.Write("formattedEvent: " + ed.formattedEvent, SharePointEmails.Logging.SeverityEnum.Verbose);
-                                Application.Current.Logger.Write("itemFullUrl: " + ed.itemFullUrl, SharePointEmails.Logging.SeverityEnum.Verbose);
-                                Application.Current.Logger.Write("itemId: " + ed.itemId, SharePointEmails.Logging.SeverityEnum.Verbose);
-                                Application.Current.Logger.Write("modifiedBy: " + ed.modifiedBy, SharePointEmails.Logging.SeverityEnum.Verbose);
-                            }
+                            Trace(ahp);
                             if (ahp.eventData.Length == 1)
                             {
                                 if (Application.Current.IsDisabledForWeb(web))
@@ -110,25 +117,8 @@ namespace SharepointEmails
                                 }
 
                                 Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"sentEmails\" + DateTime.Now.ToString("hh_mm_ss"));
-                                if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-                                File.WriteAllText(Path.Combine(folder, "body.html"), message.Body);
 
-                                string text = string.Empty;
-
-                                foreach (string key in newheaders.Keys)
-                                {
-                                    text += key + ":" + newheaders[key] + Environment.NewLine;
-                                }
-
-                                text+="Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
-                                    "Body:" + Environment.NewLine + message.Body;
-
-
-
-                                File.WriteAllText(Path.Combine(folder, "data.txt"),text);
-                                var headers = ahp.headers;
-
+                                SaveMessage(message, newheaders);
 
                                 var res = SPUtility.SendEmail(web, newheaders, newBody);
                                 if (res)
@@ -161,6 +151,27 @@ namespace SharepointEmails
             {
                 Application.Current.Logger.Write("End OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
             }
+        }
+
+        private void SaveMessage(GeneratedMessage message, StringDictionary newheaders)
+        {
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"sentEmails\" + DateTime.Now.ToString("hh_mm_ss"));
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            File.WriteAllText(Path.Combine(folder, "body.html"), message.Body);
+
+            string text = string.Empty;
+
+            foreach (string key in newheaders.Keys)
+            {
+                text += key + ":" + newheaders[key] + Environment.NewLine;
+            }
+
+            text += "Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
+                "Body:" + Environment.NewLine + message.Body;
+
+
+
+            File.WriteAllText(Path.Combine(folder, "data.txt"), text);
         }
 
         public static void RegisterForAll(string file)

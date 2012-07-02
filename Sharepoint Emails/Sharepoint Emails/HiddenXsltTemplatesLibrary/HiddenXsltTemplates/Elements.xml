@@ -4,6 +4,7 @@
                 OnQuickLaunch="FALSE"
                 TemplateType="10001"
                 Url="Lists/HiddenXsltTemplates"
+                VersioningEnabled="TRUE"
                 Description="Library for xslt templates">
   </ListInstance>
 </Elements>
