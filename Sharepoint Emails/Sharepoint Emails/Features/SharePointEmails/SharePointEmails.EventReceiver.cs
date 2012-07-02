@@ -4,6 +4,7 @@ using System.Security.Permissions;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Security;
 using SharePointEmails.Core;
+using System.Text;
 
 namespace SharepointEmails.Features.SharePointEmails
 {
@@ -19,9 +20,42 @@ namespace SharepointEmails.Features.SharePointEmails
     {
         // Uncomment the method below to handle the event raised after a feature has been activated.
 
-        //public override void FeatureActivated(SPFeatureReceiverProperties properties)
-        //{
-        //}
+        public override void FeatureActivated(SPFeatureReceiverProperties properties)
+        {
+            if (properties.Feature.Parent is SPSite)
+            {
+                var site = (SPSite)properties.Feature.Parent;
+                UploadBasicFiles(site.RootWeb);
+            }
+        }
+
+        private void UploadBasicFiles(SPWeb sPWeb)
+        {
+            try
+            {
+                System.Diagnostics.Debugger.Launch();
+                var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
+                list.RootFolder.Files.Add("subj.xslt", Encoding.Default.GetBytes(Properties.Resources.subjXslt));
+                list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.bodyXslt));
+
+                list.Update();
+
+                foreach (SPListItem item in list.Items)
+                {
+                    item["Title"] = item.File.Name;
+                    item.Update();
+                }
+
+                var templates = sPWeb.Lists[Constants.TemplateListName];
+                var item=templates.AddItem();
+                item[Se
+                item.Update();
+            }
+            catch (Exception ex)
+            {
+                Application.Current.Logger.Write(ex, global::SharePointEmails.Logging.SeverityEnum.CriticalError);
+            }
+        }
 
 
         // Uncomment the method below to handle the event raised before a feature is deactivated.
