@@ -5,6 +5,7 @@ using Microsoft.SharePoint;
 using Microsoft.SharePoint.Security;
 using SharePointEmails.Core;
 using System.Text;
+using SharePointEmails.Core.Associations;
 
 namespace SharepointEmails.Features.SharePointEmails
 {
@@ -33,7 +34,7 @@ namespace SharepointEmails.Features.SharePointEmails
         {
             try
             {
-                System.Diagnostics.Debugger.Launch();
+           //     System.Diagnostics.Debugger.Launch();
                 var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
                 list.RootFolder.Files.Add("subj.xslt", Encoding.Default.GetBytes(Properties.Resources.subjXslt));
                 list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.bodyXslt));
@@ -47,9 +48,24 @@ namespace SharepointEmails.Features.SharePointEmails
                 }
 
                 var templates = sPWeb.Lists[Constants.TemplateListName];
-                var item=templates.AddItem();
-                item[Se
-                item.Update();
+                var templ=templates.AddItem();
+
+                templ[TemplateCT.TemplateName] = "Default template";
+                templ[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
+                templ[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
+                templ[TemplateCT.TemplateSubjectUseFile] = true;
+                templ[TemplateCT.TemplateBodyUseFile] = true;
+                templ[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
+                templ[TemplateCT.TemplateBodyFile] = new SPFieldLookupValue(2, "body.xslt");
+                templ[TemplateCT.Associations] = new AssociationConfiguration
+                {
+                    new GroupAssociation
+                    {
+                        ItemType=GroupType.AllList,
+                        Name="Defaul association"
+                    }
+                }.ToString();
+                templ.Update();
             }
             catch (Exception ex)
             {
