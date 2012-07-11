@@ -5,50 +5,47 @@ using System.Text;
 using Microsoft.SharePoint;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint.WebControls;
+using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace SharepointEmails
 {
     class SeBoolFieldType : SPFieldBoolean
     {
         public SeBoolFieldType(SPFieldCollection fields, string fieldName)
-            : base(fields, fieldName) { }
+            : base(fields, fieldName) { GetFieldsHoHide(); }
 
         public SeBoolFieldType(SPFieldCollection fields, string typeName, string displayName)
-            : base(fields, typeName, displayName) { }
+            : base(fields, typeName, displayName) { GetFieldsHoHide(); }
 
         public override Microsoft.SharePoint.WebControls.BaseFieldControl FieldRenderingControl
         {
             get
             {
-
-                var control = (BooleanField)base.FieldRenderingControl;
+                var control = (BaseFieldControl)base.FieldRenderingControl;
                 control.PreRender += OnPrerender;
                 return control;
             }
         }
 
-        string OnChecked
+        void GetFieldsHoHide()
         {
-            get
+           
+            var str = GetCustomProperty("FieldsToHide") as string;
+            if (!string.IsNullOrEmpty(str))
             {
-                if (this.StaticName == TemplateCT.TemplateSubjectUseFile)
-                    return TemplateCT.TemplateSubjectFile;
-                else if (this.StaticName == TemplateCT.TemplateBodyUseFile)
-                    return TemplateCT.TemplateBodyFile;
-                else
-                    return string.Empty;
-            }
-        }
-        string OnUnChecked
-        {
-            get
-            {
-                if (this.StaticName == TemplateCT.TemplateSubjectUseFile)
-                    return TemplateCT.TemplateSubject;
-                else if (this.StaticName == TemplateCT.TemplateBodyUseFile)
-                    return TemplateCT.TemplateBody;
-                else
-                    return string.Empty;
+                foreach (Match byVal in Regex.Matches(str, "(.+?):(.+?);"))
+                {
+                    var val=byVal.Groups[1].Value;
+                    if (!fieldsToHide.ContainsKey(val)) fieldsToHide[val] = new List<string>();
+                    foreach (string field in byVal.Groups[2].Value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (!fieldsToHide[val].Contains(field))
+                        {
+                            fieldsToHide[val].Add(field);
+                        }
+                    }
+                }
             }
         }
 
@@ -59,24 +56,50 @@ namespace SharepointEmails
             else if (field is LookupField)
 
                 return "_Lookup";
+            else if (field is BooleanField)
+            {
+                return "_ctl00_BooleanField";
+            }
             else
                 return string.Empty;
         }
 
+        Dictionary<string, List<string>> fieldsToHide = new Dictionary<string, List<string>>();
+
+        string GetForScript(ArrayList controls)
+        {
+            var res = string.Empty;
+
+            foreach (var p in fieldsToHide)
+            {
+                if (p.Value.Count > 0)
+                {
+                    res += p.Key + ":";
+                    foreach (BaseFieldControl c in controls)
+                    {
+                        foreach (var f in p.Value)
+                        {
+                            if (c.FieldName == f)
+                            {
+                                res += c.ClientID + sufix(c) + ",";
+                            }
+                        }
+                    }
+                    res.Trim(',');
+                    res += ";";
+                }
+            }
+            return res;
+        }
+
         public void OnPrerender(object sender, EventArgs e)
         {
+
             if (SPContext.Current.FormContext != null)
             {
-                string oncheckedId = string.Empty;
-                string onUncheckedId = string.Empty;
-                foreach (BaseFieldControl control in SPContext.Current.FormContext.FieldControlCollection)
-                {
-                    if (control.FieldName == OnUnChecked) { onUncheckedId = control.ClientID + sufix(control); }
-                    if (control.FieldName == OnChecked) { oncheckedId = control.ClientID + sufix(control); }
-                }
-                var c = (SPControl)sender;
-                c.Page.ClientScript.RegisterStartupScript(GetType(), "boolChange" + this.StaticName,
-                    @"InitSeBool('" + c.ClientID + "_ctl00_BooleanField" + "','" + oncheckedId + "','" + onUncheckedId + "')", true);
+                var c = (BaseFieldControl)sender;
+                c.Page.ClientScript.RegisterStartupScript(GetType(), "ChangeField" + this.StaticName,
+                    @"InitSeBool('" + c.ClientID + sufix(c) + "','" + GetForScript(SPContext.Current.FormContext.FieldControlCollection) + "')", true);
             }
         }
     }

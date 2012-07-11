@@ -22,8 +22,30 @@
       <Fields>
         <Field ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
         <Field ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
-      <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="SeBool" Group="SharePointEmails" />
-      <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="SeBool" Group="SharePointEmails" />
+        <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="SeBool" Group="SharePointEmails" >
+          <Customization>
+            <ArrayOfProperty>
+              <Property>
+                <Name>FieldsToHide</Name>
+                <Value xmlns:q1="http://www.w3.org/2001/XMLSchema" p4:type="q1:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">
+                  true:TemplateBody;false:TemplateBodyFile;
+                </Value>
+              </Property>
+            </ArrayOfProperty>
+          </Customization>
+        </Field>
+        <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="SeBool" Group="SharePointEmails"  >
+          <Customization>
+            <ArrayOfProperty>
+              <Property>
+                <Name>FieldsToHide</Name>
+                <Value xmlns:q1="http://www.w3.org/2001/XMLSchema" p4:type="q1:string" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance">
+                  true:TemplateSubject;false:TemplateSubjectFile;
+                </Value>
+              </Property>
+            </ArrayOfProperty>
+          </Customization>
+        </Field>
       <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" StaticName="Title" DisplayName="Title" Type="Text" FromBaseType="TRUE" Required="FALSE" Hidden="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3"/>
       <Field ID="{f6f70e6e-3141-41e3-b9ed-880e2af2b8ba}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails" />
       <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="SPXslt" Group="SharePointEmails"/>

@@ -38,5 +38,10 @@
     <Field Name="FieldTypeClass">
       SharepointEmails.SeBoolFieldType,SharepointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b
     </Field>
+    <PropertySchema>
+      <Fields>
+        <Field Name="FieldsToHide" DisplayName="Fields to hide" Type="Text" MaxLength="255" DisplaySize="30" />
+      </Fields>
+    </PropertySchema>
   </FieldType>
 </FieldTypes>

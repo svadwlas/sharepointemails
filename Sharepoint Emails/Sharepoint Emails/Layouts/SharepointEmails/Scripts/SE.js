@@ -14,7 +14,10 @@
     }, "sp.js")
 }
 
-function InitSeBool(id, onchecked, onunchecked) {
+var allFields = "";
+
+function InitSeBool(id, info) {    
+    alert(info);
     var obj = $("#" + id);
     obj.bind("change", function () {
         if ($(this).is(":checked")) {
