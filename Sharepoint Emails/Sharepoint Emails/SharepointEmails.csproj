@@ -104,10 +104,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SeBoolFieldType.cs" />
     <Compile Include="SPAssociationControl.cs" />
     <Compile Include="SPAssociationFieldType.cs" />
     <Compile Include="SPXsltField.cs" />
+    <Compile Include="Switches.cs" />
+    <Compile Include="SwitchWebPart\SwitchWebPart.cs" />
     <Compile Include="XsltHandler\XsltHandler.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +118,10 @@
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
     </None>
+    <None Include="SwitchWebPart\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{95b84d34-e7fa-4022-ae81-baedb1e20733}</SharePointProjectItemId>
+    </None>
+    <None Include="SwitchWebPart\SwitchWebPart.webpart" />
     <None Include="TemplatesList\HiddenTemplatesList\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{2a9558cd-a6cb-4708-9a64-f383fe2c9040}</SharePointProjectItemId>
     </None>
@@ -168,6 +173,8 @@
     <None Include="Resources\TestContextXML.txt" />
     <None Include="Resources\testsubj.xslt" />
     <None Include="Resources\testbody.xslt" />
+    <Content Include="Layouts\Switcher\FieldSwitches.js" />
+    <Content Include="SwitchWebPart\Elements.xml" />
     <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
     <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />
     <Content Include="HiddenXsltTemplatesLibrary\Elements.xml" />
@@ -187,7 +194,7 @@
     <Content Include="Layouts\SharepointEmails\PreviewPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Layouts\SharepointEmails\Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Layouts\Switcher\jquery-1.7.2.min.js" />
     <Content Include="Layouts\SharepointEmails\Scripts\SE.js" />
     <Content Include="Layouts\SharepointEmails\WebSettings.aspx">
       <SubType>ASPXCodeBehind</SubType>

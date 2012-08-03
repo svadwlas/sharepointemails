@@ -22,7 +22,7 @@
       <Fields>
         <Field ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
         <Field ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
-        <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="SeBool" Group="SharePointEmails" >
+        <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="Boolean" Group="SharePointEmails" >
           <Customization>
             <ArrayOfProperty>
               <Property>
@@ -34,7 +34,7 @@
             </ArrayOfProperty>
           </Customization>
         </Field>
-        <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="SeBool" Group="SharePointEmails"  >
+        <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="Boolean" Group="SharePointEmails"  >
           <Customization>
             <ArrayOfProperty>
               <Property>

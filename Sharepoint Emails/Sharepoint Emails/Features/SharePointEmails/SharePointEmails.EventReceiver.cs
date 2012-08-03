@@ -6,6 +6,7 @@ using Microsoft.SharePoint.Security;
 using SharePointEmails.Core;
 using System.Text;
 using SharePointEmails.Core.Associations;
+using Microsoft.SharePoint.WebPartPages;
 
 namespace SharepointEmails.Features.SharePointEmails
 {
@@ -27,6 +28,25 @@ namespace SharepointEmails.Features.SharePointEmails
             {
                 var site = (SPSite)properties.Feature.Parent;
                 UploadBasicFiles(site.RootWeb);
+                RegisterWebParts(site.RootWeb);
+            }
+        }
+
+        private void RegisterWebParts(SPWeb sPWeb)
+        {
+            try
+            {
+                var templates = sPWeb.Lists[Constants.TemplateListName];
+                var wm = sPWeb.GetLimitedWebPartManager(templates.DefaultEditFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
+                wm.AddWebPart(new SharepointEmails.SwitchWebPart.SwitchWebPart(), null, 0);
+                //wm = sPWeb.GetLimitedWebPartManager(templates.DefaultDisplayFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
+                //wm.AddWebPart(new SharepointEmails.SwitchWebPart.SwitchWebPart(), null, 0);
+                wm = sPWeb.GetLimitedWebPartManager(templates.DefaultNewFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
+                wm.AddWebPart(new SharepointEmails.SwitchWebPart.SwitchWebPart(), null, 0);
+            }
+            catch (Exception ex)
+            {
+                Application.Current.Logger.Write(ex, global::SharePointEmails.Logging.SeverityEnum.CriticalError);
             }
         }
 
