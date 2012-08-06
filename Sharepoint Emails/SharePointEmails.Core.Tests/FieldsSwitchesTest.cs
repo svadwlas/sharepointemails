@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace SharePointEmails.Core.Tests
 {
@@ -149,6 +150,21 @@ namespace SharePointEmails.Core.Tests
 
             Assert.IsNotNull(res);
             Assert.IsTrue(res.Length > 0);
+        }
+
+        /// <summary>
+        ///A test for Create
+        ///</summary>
+        [TestMethod()]
+        public void CreateTest()
+        {
+            //string info = "[TemplateBodyUseFile{true:TemplateBody;false:TemplateBodyFile;}]"+"[TemplateSubjectUseFile{true:TemplateSubject;false:TemplateSubjectFile;}]";
+            //ArrayList controls = null; // TODO: Initialize to an appropriate value
+            //FieldsSwitches expected = null; // TODO: Initialize to an appropriate value
+            //FieldsSwitches actual;
+            //actual = FieldsSwitches.Create(info, controls);
+            //Assert.AreEqual(expected, actual);
+            //Assert.Inconclusive("Verify the correctness of this test method.");
         }
     }
 }

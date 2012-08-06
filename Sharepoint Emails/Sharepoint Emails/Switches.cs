@@ -12,34 +12,19 @@ namespace SharepointEmails
 {
     class FieldsSwitches : List<FieldSwitch>
     {
-        const string PROP_NAME = "FieldsToHide";
-
-        public static FieldsSwitches Create(ArrayList controls)
+        public static FieldsSwitches Create(string info, ArrayList controls)
         {
-            if (controls == null) return null;
+            if (string.IsNullOrEmpty(info) || controls == null) return new FieldsSwitches();
             var res = new FieldsSwitches();
             var ids = controls.GetClientIds();
-            foreach (var c in controls.OfType<BaseFieldControl>())
+
+            foreach (Match fieldInfo in Regex.Matches(info, @"\[(.+?)\{(.+?)\}\]"))
             {
-                if (c.Field != null)
+                foreach (var c in controls.OfType<BaseFieldControl>())
                 {
-                    var s = c.Field.GetCustomProperty(PROP_NAME) as string;
-                    if (string.IsNullOrEmpty(s))
+                    if (c.Field != null)
                     {
-                        var prop = XDocument.Parse(c.Field.SchemaXml).Descendants("Property").Where(p => p.Element("Name") != null && p.Element("Name").Value == PROP_NAME).FirstOrDefault();
-                        if (prop != null)
-                        {
-                            var val = prop.Elements("Value").FirstOrDefault();
-                            if (val != null)
-                            {
-                                s = val.Value;
-                            }
-                        }
-                    }
-                    
-                    if (!string.IsNullOrEmpty(s))
-                    {
-                        var sw = FieldSwitch.Parse(s, c.FieldName, ids);
+                        var sw = FieldSwitch.Parse(fieldInfo.Groups[2].Value, fieldInfo.Groups[1].Value, ids);
                         if (sw != null)
                         {
                             res.Add(sw);
@@ -49,6 +34,7 @@ namespace SharepointEmails
             }
             return res;
         }
+
 
         public string ToJson()
         {

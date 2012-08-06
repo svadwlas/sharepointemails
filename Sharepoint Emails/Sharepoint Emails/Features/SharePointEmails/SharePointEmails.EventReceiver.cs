@@ -36,13 +36,16 @@ namespace SharepointEmails.Features.SharePointEmails
         {
             try
             {
+                string info = "[TemplateBodyUseFile{true:TemplateBody;false:TemplateBodyFile;}]"+"[TemplateSubjectUseFile{true:TemplateSubject;false:TemplateSubjectFile;}]";
                 var templates = sPWeb.Lists[Constants.TemplateListName];
                 var wm = sPWeb.GetLimitedWebPartManager(templates.DefaultEditFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                wm.AddWebPart(new SharepointEmails.SwitchWebPart.SwitchWebPart(), null, 0);
-                //wm = sPWeb.GetLimitedWebPartManager(templates.DefaultDisplayFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                //wm.AddWebPart(new SharepointEmails.SwitchWebPart.SwitchWebPart(), null, 0);
+                var wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=info };
+                wm.AddWebPart(wp, null, 0);
+                wm.SaveChanges(wp);
                 wm = sPWeb.GetLimitedWebPartManager(templates.DefaultNewFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                wm.AddWebPart(new SharepointEmails.SwitchWebPart.SwitchWebPart(), null, 0);
+                wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=info };
+                wm.AddWebPart(wp, null, 0);
+                wm.SaveChanges(wp);
             }
             catch (Exception ex)
             {
