@@ -36,14 +36,17 @@ namespace SharepointEmails.Features.SharePointEmails
         {
             try
             {
-                string info = "[TemplateBodyUseFile{true:TemplateBody;false:TemplateBodyFile;}]"+"[TemplateSubjectUseFile{true:TemplateSubject;false:TemplateSubjectFile;}]";
+                string tohide = "[TemplateBodyUseFile{true:TemplateBody;false:TemplateBodyFile;}]"
+                               +"[TemplateSubjectUseFile{true:TemplateSubject;false:TemplateSubjectFile;}]"
+                               +"[TemplateReplayUseFile{true:TemplateReplay;false:TemplateReplayFile;}]"
+                               +"[TemplateFromUseFile{true:TemplateFrom;false:TemplateFromFile;}]";
                 var templates = sPWeb.Lists[Constants.TemplateListName];
                 var wm = sPWeb.GetLimitedWebPartManager(templates.DefaultEditFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                var wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=info };
+                var wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=tohide };
                 wm.AddWebPart(wp, null, 0);
                 wm.SaveChanges(wp);
                 wm = sPWeb.GetLimitedWebPartManager(templates.DefaultNewFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=info };
+                wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=tohide };
                 wm.AddWebPart(wp, null, 0);
                 wm.SaveChanges(wp);
             }

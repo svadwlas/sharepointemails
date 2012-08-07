@@ -29,7 +29,6 @@ namespace SharepointEmails.SwitchWebPart
             if (SPContext.Current != null && SPContext.Current.FormContext != null && !string.IsNullOrEmpty(Info))
             {
                 var controls = SPContext.Current.FormContext.FieldControlCollection;
-                System.Diagnostics.Debugger.Launch();
                 var options = FieldsSwitches.Create(Info, controls);
                 if (options != null)
                 {

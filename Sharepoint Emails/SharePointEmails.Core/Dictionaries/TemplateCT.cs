@@ -13,8 +13,14 @@ public static class TemplateCT
     public const string TemplateSubjectFile = "TemplateSubjectFile";
     public const string TemplateSubjectUseFile = "TemplateSubjectUseFile";
     public const string TemplateBodyUseFile = "TemplateBodyUseFile";
+    
     public const string TemplateFrom = "TemplateFrom";
+    public const string TemplateFromUseFile = "TemplateFromUseFile";
+    public const string TemplateFromFile = "TemplateFromFile";
+
     public const string TemplateReplay = "TemplateReplay";
+    public const string TemplateReplayUseFile = "TemplateReplayUseFile";
+    public const string TemplateReplayFile = "TemplateReplayFile";
 
     public static class StateChoices
     {

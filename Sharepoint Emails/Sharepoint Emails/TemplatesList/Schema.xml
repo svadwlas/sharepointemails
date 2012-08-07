@@ -5,46 +5,64 @@
       <ContentType ID="0x01006230043d1f824022a80ad3e43a7b6da4" Name="SEMailTemplateCT" Group="SharePointEmails" Description="Mails template" Inherits="TRUE" Version="0">
         <FieldRefs>
           <FieldRef ID="{F6F70E6E-3141-41E3-B9ED-880E2AF2B8BA}" Name="TemplateName" DisplayName="Template Name" />
-          <FieldRef ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" />
-          <FieldRef ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" />
+
+          <FieldRef ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFromUseFile" DisplayName="Use File for From address"/>
+          <FieldRef ID="{C5FEF8E3-706D-444A-9292-A2E76F87DEF0}" Name="TemplateFrom" DisplayName="Template From Address" />
+          <FieldRef ID="{C55D7AE9-6AE9-44AD-BB5A-D42E7AD5A6D6}" Name="TemplateFromFile" DisplayName="Template From Address File" />
+
+          <FieldRef ID="{F26ED9E7-70C5-4261-BF02-AAF36C9B4AEB}" Name="TemplateReplayUseFile" DisplayName="Use File for Replay address" />
+          <FieldRef ID="{D198DD0D-FD26-4CD4-9C5A-87383B99373E}" Name="TemplateReplay" DisplayName="Template Replay Address" />
+          <FieldRef ID="{99876A54-2D7F-4208-82B7-D2A9BB7A4523}" Name="TemplateReplayFile" DisplayName="Template From Replay File" />
+          
           <FieldRef ID="{657F00F4-AEA2-48FC-8A4B-866FC1128D13}" Name="TemplateType" DisplayName="Template Type" />
           <FieldRef ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State"/>
+          
           <FieldRef ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject"/>
           <FieldRef ID="{D70442F7-B6A8-4FEE-A7CD-AAB79FAF790B}" Name="TemplateSubjectFile" DisplayName="Template subject From File" />
           <FieldRef ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" />
+          
           <FieldRef ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" />
           <FieldRef ID="{B7F88C49-6E15-4F02-B0EB-3F998593C7E9}" Name="TemplateBodyFile" DisplayName="Template Body From File" />
           <FieldRef ID="{6D84CC10-8162-49B7-A086-2BDC868473B4}" Name="TemplateBody" DisplayName="Template Body" />
+          
           <FieldRef ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations"/>
         </FieldRefs>
       </ContentType>
     </ContentTypes>
       <Fields>
-        <Field ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFrom" DisplayName="Template From Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
-        <Field ID="{FC9288C1-1AE0-4993-AC7D-76B9C8E249E6}" Name="TemplateReplay" DisplayName="Template Replay Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
+        <Field ID="{C1BAF712-36B6-4E0E-ADE5-620D038B340C}" Name="TemplateFromUseFile" DisplayName="Use File for From address" Type="Boolean" Group="SharePointEmails" />
+        <Field ID="{C5FEF8E3-706D-444A-9292-A2E76F87DEF0}" Name="TemplateFrom" DisplayName="Template From Address" Type="Note" Group="SharePointEmails" RichText="FALSE"/>
+        <Field ID="{C55D7AE9-6AE9-44AD-BB5A-D42E7AD5A6D6}" Name="TemplateFromFile" DisplayName="Template From Address File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"   EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE"/>
+
+        <Field ID="{F26ED9E7-70C5-4261-BF02-AAF36C9B4AEB}" Name="TemplateReplayUseFile" DisplayName="Use File for Replay address" Type="Boolean" Group="SharePointEmails" />
+        <Field ID="{D198DD0D-FD26-4CD4-9C5A-87383B99373E}" Name="TemplateReplay" DisplayName="Template Replay Address" Type="Note" Group="SharePointEmails" RichText="FALSE" />
+        <Field ID="{99876A54-2D7F-4208-82B7-D2A9BB7A4523}" Name="TemplateReplayFile" DisplayName="Template From Replay File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"   EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE" />
+        
         <Field ID="{0CA4D3E0-614D-4C47-91B9-4B6785FE8165}" Name="TemplateBodyUseFile" DisplayName="Use file for body" Type="Boolean" Group="SharePointEmails"/>
+        <Field ID="{B7F88C49-6E15-4F02-B0EB-3F998593C7E9}" Name="TemplateBodyFile" DisplayName="Template Body From File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"   EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE" />
+        <Field ID="{6d84cc10-8162-49b7-a086-2bdc868473b4}" Name="TemplateBody" DisplayName="Template Body" Type="SPXslt" Group="SharePointEmails" RichText="FALSE" />
+        
         <Field ID="{F2115084-E989-44D6-95DF-158617D978BB}" Name="TemplateSubjectUseFile" DisplayName="Use file for subject" Type="Boolean" Group="SharePointEmails"  />
+        <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="SPXslt" Group="SharePointEmails"/>
+        <Field ID="{D70442F7-B6A8-4FEE-A7CD-AAB79FAF790B}" Name="TemplateSubjectFile" DisplayName="Template subject From File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"  EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE" />        
+        
         <Field ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" StaticName="Title" DisplayName="Title" Type="Text" FromBaseType="TRUE" Required="FALSE" Hidden="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3"/>
         <Field ID="{f6f70e6e-3141-41e3-b9ed-880e2af2b8ba}" Name="TemplateName" DisplayName="Template Name" Type="Text" Group="SharePointEmails" />
-        <Field ID="{29C91181-889A-430C-8C5A-549D6F43A28F}" Name="TemplateSubject" DisplayName="Template Subject" Type="SPXslt" Group="SharePointEmails"/>
-        <Field ID="{B7F88C49-6E15-4F02-B0EB-3F998593C7E9}" Name="TemplateBodyFile" DisplayName="Template Body From File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"   EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE" />
-        <Field ID="{D70442F7-B6A8-4FEE-A7CD-AAB79FAF790B}" Name="TemplateSubjectFile" DisplayName="Template subject From File" Type="Lookup" Group="SharePointEmails" List="Lists/HiddenXsltTemplates"  EnableLookup="TRUE" PrependId="TRUE" Sealed="TRUE" />
-      <Field ID="{6d84cc10-8162-49b7-a086-2bdc868473b4}" Name="TemplateBody" DisplayName="Template Body" Type="SPXslt" Group="SharePointEmails" RichText="FALSE" />
-      <Field ID="{657f00f4-aea2-48fc-8a4b-866fc1128d13}" Name="TemplateType" DisplayName="Template Type" Type="MultiChoice" Group="SharePointEmails" Required="TRUE" >
-          <CHOICES>
-            <CHOICE>All</CHOICE>
-            <CHOICE>Item added</CHOICE>
-            <CHOICE>Item removed</CHOICE>
-            <CHOICE>Item updated</CHOICE>
-          </CHOICES>
-      </Field>
-      <Field ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" Type="Choice" Group="SharePointEmails" Required="TRUE">
-        <CHOICES>
+        <Field ID="{657f00f4-aea2-48fc-8a4b-866fc1128d13}" Name="TemplateType" DisplayName="Template Type" Type="MultiChoice" Group="SharePointEmails" Required="TRUE" >
+            <CHOICES>
+              <CHOICE>All</CHOICE>
+              <CHOICE>Item added</CHOICE>
+              <CHOICE>Item removed</CHOICE>
+              <CHOICE>Item updated</CHOICE>
+            </CHOICES>
+        </Field>
+        <Field ID="{199366AF-5D4A-45BC-8F2B-E94B660F4DC4}" Name="TemplateState" DisplayName="Template State" Type="Choice" Group="SharePointEmails" Required="TRUE">
+                <CHOICES>
           <CHOICE>Draft</CHOICE>
           <CHOICE>Published</CHOICE>
         </CHOICES>
-      </Field>
-      <Field ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations" Type="SPAssociation" Group="SharePointEmails"/>
+        </Field>
+        <Field ID="{4ACD00AD-F3BC-4F63-9B6A-02B4B42AB57D}" Name="Associations" DisplayName="Associations" Type="SPAssociation" Group="SharePointEmails"/>
     </Fields>
     <Views>
       <View BaseViewID="0" Type="HTML" MobileView="TRUE" TabularView="FALSE">
