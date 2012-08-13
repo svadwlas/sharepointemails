@@ -29,10 +29,11 @@ namespace SharePointEmails.Core.Substitutions
         public string Process(string text, ISubstitutionContext context, ProcessMode mode)
         {
             try
-            {
+            {                
+                var xml=(mode == ProcessMode.Test) ? SubstitutionContext.GetTestXML() : context.GetXML();
+                Logger.Write(xml, SeverityEnum.Trace);
                 if (!text.IsXslt()) return text;
-                var contextXML = (mode == ProcessMode.Test) ? SubstitutionContext.GetTestXML() : context.GetXML();
-                return contextXML.ApplyXslt(text);
+                return xml.ApplyXslt(text);
             }
             catch (XsltException ex)
             {

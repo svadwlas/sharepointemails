@@ -70,6 +70,13 @@
     <Compile Include="Features\SharePointEmails\SharePointEmails.EventReceiver.cs">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\SharepointEmails\ApprovePage.aspx.cs">
+      <DependentUpon>ApprovePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharepointEmails\ApprovePage.aspx.designer.cs">
+      <DependentUpon>ApprovePage.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\SharepointEmails\ChooseItemPage.aspx.cs">
       <DependentUpon>ChooseItemPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -173,7 +180,12 @@
     <None Include="Resources\TestContextXML.txt" />
     <None Include="Resources\testsubj.xslt" />
     <None Include="Resources\testbody.xslt" />
+    <Content Include="Layouts\SharepointEmails\ApprovePage.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Layouts\Switcher\FieldSwitches.js" />
+    <Content Include="Resources\BodyTemplate.html" />
+    <Content Include="Resources\BodyTemplate.xslt" />
     <Content Include="SwitchWebPart\Elements.xml" />
     <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
     <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />

@@ -93,7 +93,7 @@ namespace SharePointEmails.Core
             foreach (var change in Changes)
             {
                 var el = new XElement("Field");
-                el.SetAttributeValue("Type", change.FieldType??string.Empty);
+                el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
                 el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? string.Empty);
                 el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
                 el.SetAttributeValue("Changed", change.IsChanged);
@@ -101,6 +101,22 @@ namespace SharePointEmails.Core
                 el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
                 el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
                 eventData.Add(el);
+            }
+
+
+            if (Vars.SItem != null && Vars.DUser != null)
+            {
+                var approve = new XElement("Approve");
+                approve.SetAttributeValue("RejectUrl", "http://google.com/");
+                approve.SetAttributeValue("ApproveUrl", "http://google.com?search=reject");
+                approve.SetAttributeValue("PageUrl", "http://google.com?search=pageurl");
+                approve.SetAttributeValue("CanApprove", Vars.SItem.DoesUserHavePermissions(Vars.DUser, SPBasePermissions.ApproveItems));
+                approve.SetAttributeValue("Status", (Vars.SItem.ModerationInformation != null) ? Vars.SItem.ModerationInformation.Status.ToString() : "");
+                eventData.Add(approve);
+            }
+            else
+            {
+                Logger.Write("Approve info not generated", SeverityEnum.Trace);
             }
             return res.ToString();
         }
@@ -172,7 +188,12 @@ namespace SharePointEmails.Core
                         Logger.Write(ex, SeverityEnum.Error);
                     }
                 }
+
+
+               
             }
+
+            
 
             public SPWeb SWeb
             {
@@ -203,6 +224,27 @@ namespace SharePointEmails.Core
                 get;
                 set;
             }
+
+            public bool DUserCanApprove { set; get; }
+
+            public ApproveClass Approve { set; get; }
+        }
+
+        struct ApproveClass
+        {
+            public bool CanApprove { set; get; }
+
+            public string ApproveUrl { set; get; }
+
+            public string RejectUrl { set; get; }
+
+            public string PageUrl { set; get; }
+
+            public string ToTrace()
+            {
+                return string.Format("CanApprove={0}, ApproveUrl={1}, RejectUrl={2}, PageUrl={3}", CanApprove, ApproveUrl, RejectUrl, PageUrl);
+            }
         }
     }
+
 }

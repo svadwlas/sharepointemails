@@ -8,13 +8,26 @@
             <TD>Old Value</TD>
             <TD>New Value</TD>
           </TR>
-          <xsl:apply-templates select='EventData'/>
+          <xsl:apply-templates select='EventData/Field'/>
         </TABLE>
+          <xsl:choose>
+            <xsl:when test="EventData/Approve[1]/@Status ='Pending'">
+              <xsl:choose>
+                <xsl:when test="EventData/Approve[1]/@CanApprove ='true'">
+                  <span>You can approve this item using <a href="">Approve</a></span>
+                </xsl:when>
+                <xsl:otherwise>
+                  <span>You cannot approve this item</span>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+              <span>This item does not need approvement</span>
+            </xsl:otherwise>
+          </xsl:choose>
+        
       </BODY>
     </HTML>
-  </xsl:template>
-  <xsl:template match='EventData'>
-    <xsl:apply-templates select='Field'/>
   </xsl:template>
   <xsl:template match='Field'>
     <tr>
