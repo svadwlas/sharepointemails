@@ -61,6 +61,31 @@ namespace SharepointEmails.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
+        ///&gt;
+        ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+        ///
+        ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
+        ///      &lt;Html&gt;
+        ///        &lt;style type=&quot;text/css&quot;&gt;
+        ///          .main table{
+        ///          border: 1px solid black;
+        ///          }
+        ///          .main th{
+        ///          border: 1px solid black;
+        ///          }
+        ///          .main td{
+        ///          [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string BodyTemplate {
+            get {
+                return ResourceManager.GetString("BodyTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
         ///  &lt;xsl:template match=&apos;Data&apos;&gt;
         ///    Subject for alert {SList.Title}
@@ -84,15 +109,12 @@ namespace SharepointEmails.Properties {
         ///            &lt;TD&gt;Old Value&lt;/TD&gt;
         ///            &lt;TD&gt;New Value&lt;/TD&gt;
         ///          &lt;/TR&gt;
-        ///          &lt;xsl:apply-templates select=&apos;EventData&apos;/&gt;
+        ///          &lt;xsl:apply-templates select=&apos;EventData/Field&apos;/&gt;
         ///        &lt;/TABLE&gt;
-        ///      &lt;/BODY&gt;
-        ///    &lt;/HTML&gt;
-        ///  &lt;/xsl:template&gt;
-        ///  &lt;xsl:template match=&apos;EventData&apos;&gt;
-        ///    &lt;xsl:apply-templates select=&apos;Field&apos;/&gt;
-        ///  &lt;/xsl:template&gt;
-        /// [rest of string was truncated]&quot;;.
+        ///          &lt;xsl:choose&gt;
+        ///            &lt;xsl:when test=&quot;EventData/Approve[1]/@Status =&apos;Pending&apos;&quot;&gt;
+        ///              &lt;xsl:choose&gt;
+        ///                 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string testbody {
             get {

@@ -64,6 +64,7 @@ namespace SharepointEmails.Features.SharePointEmails
                 var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
                 list.RootFolder.Files.Add("subj.xslt", Encoding.Default.GetBytes(Properties.Resources.subjXslt));
                 list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.testbody));
+                list.RootFolder.Files.Add("BodyTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplate));
 
                 list.Update();
 
@@ -82,7 +83,7 @@ namespace SharepointEmails.Features.SharePointEmails
                 templ[TemplateCT.TemplateSubjectUseFile] = true;
                 templ[TemplateCT.TemplateBodyUseFile] = true;
                 templ[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
-                templ[TemplateCT.TemplateBodyFile] = new SPFieldLookupValue(2, "body.xslt");
+                templ[TemplateCT.TemplateBodyFile] = new SPFieldLookupValue(3, "BodyTemplate.xslt");
                 templ[TemplateCT.Associations] = new AssociationConfiguration
                 {
                     new GroupAssociation
