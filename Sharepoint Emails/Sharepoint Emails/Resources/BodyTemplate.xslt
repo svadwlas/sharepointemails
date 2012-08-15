@@ -59,16 +59,13 @@
                 <th>Previous Value</th>
                 <th>Next Value</th>
               </tr>
-              <tr>
-                <td>Field1</td>
-                <td>Field1 Old Value</td>
-                <td>Field1 New Value</td>
-              </tr>
-              <tr>
-                <td>Field2</td>
-                <td>Field2 Old Value</td>
-                <td>Field2 New Value</td>
-              </tr>
+              <xsl:for-each select="./EventData[1]/Field[(@Changed = 'true') and (string-length(./@DisplayName) &gt; 0)]">
+                    <tr>
+                      <th><xsl:value-of select="@DisplayName"/></th>
+                      <th><xsl:value-of select="@Old"/></th>
+                      <th><xsl:value-of select="@New"/></th>
+                    </tr>
+              </xsl:for-each>
             </table>
 
             <p>Other fields of <xsl:call-template name="itemType"/>: </p>
@@ -77,14 +74,16 @@
                 <th>FieldName</th>
                 <th>Previous Value</th>
               </tr>
-              <tr>
-                <td>Field1</td>
-                <td>Field1 Old Value</td>
-              </tr>
-              <tr>
-                <td>Field2</td>
-                <td>Field2 Old Value</td>
-              </tr>
+              <xsl:for-each select="./EventData[1]/Field[(@Changed = 'false') and (string-length(./@DisplayName) &gt; 0)]">
+                    <tr>
+                      <th>
+                        <xsl:value-of select="@DisplayName"/>
+                      </th>
+                      <th>
+                        <xsl:value-of select="@Value"/>
+                      </th>
+                    </tr>
+              </xsl:for-each>
             </table>
             <p>You have the prermissions to approve or reject these chanegs</p>
             <table>
@@ -145,5 +144,4 @@
         <xsl:otherwise>item(file)</xsl:otherwise>
       </xsl:choose>
   </xsl:template>
- 
 </xsl:stylesheet>
