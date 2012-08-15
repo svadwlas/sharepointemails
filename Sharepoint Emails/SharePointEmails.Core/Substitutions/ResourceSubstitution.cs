@@ -42,7 +42,10 @@ namespace SharePointEmails.Core.Substitutions
                     {
                         Logger.Write(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
                     }
-                    res = res.Replace(m.Value, fieldTextValue ?? "no value");
+                    if (fieldTextValue != null)
+                    {
+                        res = res.Replace(m.Value, fieldTextValue);
+                    }
                 }
                 catch (Exception ex)
                 {

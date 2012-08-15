@@ -36,13 +36,16 @@ namespace SharePointEmails.Core
         public string Process(string text, ISubstitutionContext context, ProcessMode mode)
         {
             string res = text;
-            foreach (Match m in Regex.Matches(res, @"\[([^\]\:]+)(\:{0,1}.*?)\]"))
+            foreach (Match m in Regex.Matches(res, @"\[([^\]\: ]+)(\:{0,1}.*?)\]"))
             {
                 try
                 {
                     ModifiersCollection modifiers = ModifiersCollection.Parse(m.Groups[2].Value);
                     string fieldTextValue = (mode == ProcessMode.Test) ? "value of " + m.Value : context.GetField(m.Groups[1].Value, modifiers);
-                    res = res.Replace(m.Value, fieldTextValue ?? "no value");
+                    if (fieldTextValue != null)
+                    {
+                        res = res.Replace(m.Value, fieldTextValue);
+                    }
                 }
                 catch (Exception ex)
                 {

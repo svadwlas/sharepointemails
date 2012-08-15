@@ -22,16 +22,18 @@ namespace SharePointEmails.Core
             m_substitutions = sustitutions ?? new List<ISubstitution>(); ;
         }
 
-        public string Process(string data,ProcessMode mode)
+        public string Process(string data, ProcessMode mode)
         {
             var res = data ?? "";
             if (m_substitutions != null)
             {
                 foreach (var substitution in m_substitutions)
                 {
+                    m_Logger.Write("START SUBSTITUTION : " + substitution.GetType().Name + "with template :" + Environment.NewLine + res, SeverityEnum.Verbose);
+                    m_Logger.Write("START SUBSTITUTION : " + substitution.GetType().Name, SeverityEnum.Verbose);
                     try
                     {
-                        res = substitution.Process(res, m_context,mode);
+                        res = substitution.Process(res, m_context, mode);
                     }
                     catch (Exception ex)
                     {

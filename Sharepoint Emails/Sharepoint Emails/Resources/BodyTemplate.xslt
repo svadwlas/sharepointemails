@@ -50,7 +50,7 @@
             <p>Hello {DUser.LoginName}</p>
             <p>Announcmenting you about events on the server</p>
             <p>
-              User <a href="usernameprofile">{SUser.LoginName}</a> <xsl:call-template name="itemType"/> <a href="viewItem">item</a>
+              User <a href="/_layouts/userdisp.aspx?ID={SUser.ID}">{SUser.LoginName}</a> <xsl:call-template name="itemType"/> <a href="viewItem">item</a>
             </p>
             <p>The following fields of <xsl:call-template name="itemType"/> was modified</p>
             <table class="table">

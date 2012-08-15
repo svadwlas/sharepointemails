@@ -6,6 +6,8 @@ using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.IO;
+using System.Xml.Xsl;
+using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core
 {
@@ -32,22 +34,55 @@ namespace SharePointEmails.Core
 
         public static string ApplyXslt(this string xml, string xslt)
         {
+            var temp = Path.GetTempFileName();
             var res = new StringBuilder();
-            var c = new System.Xml.Xsl.XslCompiledTransform();
-
-            using (var xsltReader = XmlReader.Create(new StringReader(xslt)))
+            try
             {
-                c.Load(xsltReader);
-            }
+                var c = new System.Xml.Xsl.XslCompiledTransform();
+                File.WriteAllText(temp, xslt);
+                c.Load(temp, new XsltSettings(true, true), new Resolver());
 
-            using (var xmlreader = XmlReader.Create(new StringReader(xml)))
-            {
-                using (var resultWriter = XmlWriter.Create(new StringWriter(res)))
+                using (var xmlreader = XmlReader.Create(new StringReader(xml), new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
                 {
-                    c.Transform(xmlreader, resultWriter);
+                    using (var resultWriter = XmlWriter.Create(new StringWriter(res)))
+                    {
+                        c.Transform(xmlreader, resultWriter);
+                    }
                 }
             }
+            finally
+            {
+                try { File.Delete(temp); }
+                catch { }
+            }
             return res.ToString();
+        }
+
+        class Resolver : XmlResolver
+        {
+            ILogger Logger { set; get; }
+            public Resolver()
+            {
+                Logger = ClassContainer.Instance.Resolve<ILogger>();
+                if (Logger == null) throw new InvalidProgramException("No logger configured");
+            }
+
+            public override System.Net.ICredentials Credentials
+            {
+                set { }
+            }
+
+            public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
+            {
+                var local = absoluteUri.LocalPath;
+                if (!string.IsNullOrEmpty(local))
+                {
+                    return File.OpenRead(local);
+                }
+
+                Logger.Write("Need resolve type " + ((ofObjectToReturn != null) ? ofObjectToReturn.Name : "no type") + " uri=" + absoluteUri, SeverityEnum.Verbose);
+                return null;
+            }
         }
     }
 }

@@ -28,11 +28,15 @@ namespace SharePointEmails.Core.Substitutions
         public string Process(string text, ISubstitutionContext context, ProcessMode mode)
         {
             var res = text;
-            foreach (Match m in Regex.Matches(text, @"\{([^\$]+?)\}"))
+            foreach (Match m in Regex.Matches(text, @"\{([^\$ ]+?)\}"))
             {
                 try
                 {
-                    res = res.Replace(m.Value, (mode == ProcessMode.Test) ? "value of " + m.Value : context.GetContextValue(m.Groups[1].Value) ?? "no value");
+                    var value=(mode == ProcessMode.Test) ? "value of " + m.Value : context.GetContextValue(m.Groups[1].Value);
+                    if (value != null)
+                    {
+                        res = res.Replace(m.Value, value);
+                    }
                 }
                 catch (Exception ex)
                 {
