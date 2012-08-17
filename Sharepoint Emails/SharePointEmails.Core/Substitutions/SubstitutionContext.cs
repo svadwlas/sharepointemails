@@ -94,7 +94,7 @@ namespace SharePointEmails.Core
             {
                 var el = new XElement("Field");
                 el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
-                el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? string.Empty);
+                el.SetAttributeValue("DisplayName", change.FieldDisplayName??change.FieldName ?? string.Empty);
                 el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
                 el.SetAttributeValue("Changed", change.IsChanged);
                 el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
@@ -112,14 +112,49 @@ namespace SharePointEmails.Core
                 approve.SetAttributeValue("PageUrl", "http://google.com?search=pageurl");
                 approve.SetAttributeValue("CanApprove", Vars.SItem.DoesUserHavePermissions(Vars.DUser, SPBasePermissions.ApproveItems));
                 approve.SetAttributeValue("Status", (Vars.SItem.ModerationInformation != null) ? Vars.SItem.ModerationInformation.Status.ToString() : "");
-                eventData.Add(approve);
+                eventData.Add(approve);               
             }
             else
             {
                 Logger.Write("Approve info not generated", SeverityEnum.Trace);
             }
+
+            var disc = GetDiscussionElement();
+            if (disc != null)
+            {
+                eventData.Add(disc);
+            }
             return res.ToString();
         }
+
+        private XElement GetDiscussionElement()
+        {
+            if (Vars.SItem == null || Vars.SList == null) return null;
+            var element = new XElement("DiscussionBoard");
+            if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
+            {
+                if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
+                {
+                    var descedents = getDescedantsForMessage(Vars.SItem);
+                }
+                else
+                {
+                }
+
+                return element;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private List<SPListItem> getDescedantsForMessage(SPListItem message)
+        {
+            var res = new List<SPListItem>();
+
+            return res;
+                    }
 
         public CultureInfo getDestinationCulture()
         {

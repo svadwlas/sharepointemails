@@ -180,6 +180,7 @@
     <None Include="Resources\TestContextXML.txt" />
     <None Include="Resources\testsubj.xslt" />
     <None Include="Resources\testbody.xslt" />
+    <Content Include="Images\SharepointEmails\logo.jpg" />
     <Content Include="Layouts\SharepointEmails\ApprovePage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
