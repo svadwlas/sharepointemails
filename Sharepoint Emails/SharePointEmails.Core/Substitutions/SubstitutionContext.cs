@@ -100,6 +100,14 @@ namespace SharePointEmails.Core
                 el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
                 el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
                 el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
+                if (Vars.SList != null)
+                {
+                    if (Vars.SList.Fields.ContainsFieldWithStaticName(change.FieldName))
+                    {
+                        var hidden = Vars.SList.Fields.GetFieldByInternalName(change.FieldName).Hidden;
+                        el.SetAttributeValue("Hidden", hidden);
+                    }
+                }
                 eventData.Add(el);
             }
 
@@ -133,12 +141,62 @@ namespace SharePointEmails.Core
             var element = new XElement("DiscussionBoard");
             if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
             {
+                List<SPListItem> chain = new List<SPListItem>();
                 if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                 {
-                    var descedents = getDescedantsForMessage(Vars.SItem);
+                    chain.AddRange(getDescedantsForMessage(Vars.SItem));
                 }
                 else
                 {
+                    chain.Add(Vars.SItem);   
+                }
+
+                XElement parent = null;
+                XElement curent = null;
+                foreach (SPListItem item in chain)
+                {
+                    if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
+                    {
+                        curent = new XElement("Disscussion");
+                        element.Add(curent);
+                        var subjElement = new XElement("Subject");
+                        var bodyElement = new XElement("Body");
+
+                        var subjText = new XElement("Value")
+                        {
+                            Value = (item.Fields.Contains(SPBuiltInFieldId.DiscussionTitle) ? (item[SPBuiltInFieldId.DiscussionTitle] as string) ?? string.Empty : string.Empty)
+                        };
+
+                        var bodyText = new XElement("Value")
+                        {
+                            Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
+                        };
+
+                        subjElement.Add(subjText);
+                        bodyElement.Add(bodyText);
+                        curent.Add(subjElement, bodyElement);
+                    }
+                    else
+                    {
+                        curent = new XElement("Message");
+                        if (item.UniqueId == Vars.SItem.UniqueId)
+                        {
+                            curent.SetAttributeValue("Current",true);
+                        }
+
+                        var bodyElement = new XElement("Body");
+                        var bodyValue=new XElement("Value")
+                        {
+                            Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
+                        };
+                        bodyElement.Add(bodyValue);
+                        curent.Add(bodyElement);
+                    }
+                    if (parent != null)
+                    {
+                        parent.Add(curent);
+                    }
+                    parent = curent;
                 }
 
                 return element;
@@ -152,9 +210,16 @@ namespace SharePointEmails.Core
         private List<SPListItem> getDescedantsForMessage(SPListItem message)
         {
             var res = new List<SPListItem>();
-
+            System.Diagnostics.Debugger.Launch();
+            if (message.Fields.Contains(SPBuiltInFieldId.ParentFolderId))
+            {
+                var parentId = (int)message[SPBuiltInFieldId.ParentFolderId];
+                var parent = message.ParentList.GetItemById(parentId);
+                res.Add(parent);
+                res.Add(message);
+            }
             return res;
-                    }
+        }
 
         public CultureInfo getDestinationCulture()
         {
