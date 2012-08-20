@@ -15,7 +15,7 @@ namespace SharePointEmails.Core
         string GetField(string fieldName, ModifiersCollection modifiers);
         string GetContextValue(string value, ModifiersCollection modifiers = null);
 
-        CultureInfo getDestinationCulture();
+        CultureInfo GetDestinationCulture();
 
         string GetXML();
     }

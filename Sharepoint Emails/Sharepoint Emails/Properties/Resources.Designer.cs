@@ -62,22 +62,18 @@ namespace SharepointEmails.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
-        ///&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; xmlns:user=&quot;urn:my-scripts&quot;&gt;
         ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///
+        ///   
         ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///      &lt;Html&gt;
-        ///        &lt;style type=&quot;text/css&quot;&gt;
-        ///          .main table{
-        ///          border: 1px solid black;
-        ///          }
-        ///          .main th{
-        ///          border: 1px solid black;
-        ///          }
-        ///          .main td{
-        ///          [rest of string was truncated]&quot;;.
+        ///        &lt;head&gt;
+        ///          &lt;base href=&quot;{SSite.Url}&quot;/&gt;
+        ///          &lt;style type=&quot;text/css&quot;&gt;
+        ///            .main table{
+        ///            border: 1px solid black;
+        ///            }
+        ///            .m [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplate {
             get {
@@ -86,9 +82,33 @@ namespace SharepointEmails.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; xmlns:user=&quot;urn:my-scripts&quot;&gt;
+        ///  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;@* | node()&quot;&gt;
+        ///    &lt;Html&gt;
+        ///      &lt;head&gt;
+        ///        &lt;base href=&quot;{SSite.Url}&quot;/&gt;
+        ///        &lt;style type=&quot;text/css&quot;&gt;
+        ///          .main table{
+        ///          border: 1px solid black;
+        ///          }
+        ///          .main th{
+        ///          bord [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string BodyTemplateForDiscussionBoard {
+            get {
+                return ResourceManager.GetString("BodyTemplateForDiscussionBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
         ///  &lt;xsl:template match=&apos;Data&apos;&gt;
-        ///    Subject for alert {SList.Title}
+        ///    &lt;subject&gt;
+        ///      Subject for alert {SList.Title}
+        ///    &lt;/subject&gt;
         ///  &lt;/xsl:template&gt;
         ///&lt;/xsl:stylesheet&gt;.
         /// </summary>
@@ -133,6 +153,19 @@ namespace SharepointEmails.Properties {
         public static string TestContextXML {
             get {
                 return ResourceManager.GetString("TestContextXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;Data&gt;
+        ///  &lt;EventData EventType=&quot;1&quot; EventTypeName=&quot;Add&quot;&gt;
+        ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Content Type ID&quot; Name=&quot;ContentTypeId&quot; Changed=&quot;true&quot; New=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Old=&quot;&quot; Value=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Hidden=&quot;true&quot; /&gt;
+        ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Body&quot; Name=&quot;Body&quot; Changed=&quot;true&quot; New=&quot;&amp;lt;div class=&amp;quot;ExternalClass5FC8A1A2FB79434382BA10619BC9FDDA&amp;quot;&amp;gt;new reply&amp;lt;div&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;hr  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string TEstXMLMessageAdded {
+            get {
+                return ResourceManager.GetString("TEstXMLMessageAdded", resourceCulture);
             }
         }
     }

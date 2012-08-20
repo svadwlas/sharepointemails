@@ -28,7 +28,7 @@ namespace SharePointEmails.Core.Tests
         {
             ResourceSubstitution target = new ResourceSubstitution();
             var c = new Mock<ISubstitutionContext>();
-            c.Setup(p => p.getDestinationCulture()).Returns(CultureInfo.CurrentCulture);
+            c.Setup(p => p.GetDestinationCulture()).Returns(CultureInfo.CurrentCulture);
             var actual = target.Process("aa {$Resources:core, listedit_fieldsdescription_part1}", c.Object, ProcessMode.Work);
             Assert.AreEqual("", actual);
         }

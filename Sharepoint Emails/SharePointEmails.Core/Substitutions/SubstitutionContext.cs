@@ -144,7 +144,7 @@ namespace SharePointEmails.Core
                 List<SPListItem> chain = new List<SPListItem>();
                 if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                 {
-                    chain.AddRange(getDescedantsForMessage(Vars.SItem));
+                    chain.AddRange(GetDescedantsForMessage(Vars.SItem));
                 }
                 else
                 {
@@ -167,13 +167,17 @@ namespace SharePointEmails.Core
                             Value = (item.Fields.Contains(SPBuiltInFieldId.DiscussionTitle) ? (item[SPBuiltInFieldId.DiscussionTitle] as string) ?? string.Empty : string.Empty)
                         };
 
+                        var clearSubjText = new XElement("ClearValue") { Value = GetDiscussionSubjText(subjText.Value) };
+
                         var bodyText = new XElement("Value")
                         {
                             Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
                         };
 
-                        subjElement.Add(subjText);
-                        bodyElement.Add(bodyText);
+                        var clearBodyText = new XElement("ClearValue") { Value = GetDiscussionBodyText(bodyText.Value) };
+
+                        subjElement.Add(subjText,clearSubjText);
+                        bodyElement.Add(bodyText, clearBodyText);
                         curent.Add(subjElement, bodyElement);
                     }
                     else
@@ -181,15 +185,18 @@ namespace SharePointEmails.Core
                         curent = new XElement("Message");
                         if (item.UniqueId == Vars.SItem.UniqueId)
                         {
-                            curent.SetAttributeValue("Current",true);
+                            curent.SetAttributeValue("Current", true);
                         }
 
                         var bodyElement = new XElement("Body");
-                        var bodyValue=new XElement("Value")
+                        var bodyText = new XElement("Value")
                         {
                             Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
                         };
-                        bodyElement.Add(bodyValue);
+
+                        var clearBodyText = new XElement("ClearValue") { Value = GetMessageBodyText(bodyText.Value) };
+
+                        bodyElement.Add(bodyText,clearBodyText);
                         curent.Add(bodyElement);
                     }
                     if (parent != null)
@@ -207,7 +214,22 @@ namespace SharePointEmails.Core
             }
         }
 
-        private List<SPListItem> getDescedantsForMessage(SPListItem message)
+        private string GetMessageBodyText(string p)
+        {
+            return "clear message body text";
+        }
+
+        private string GetDiscussionSubjText(string p)
+        {
+            return "clear discussion subject text";
+        }
+
+        private string GetDiscussionBodyText(string p)
+        {
+            return "clear discussion body text";
+        }
+
+        private List<SPListItem> GetDescedantsForMessage(SPListItem message)
         {
             var res = new List<SPListItem>();
             System.Diagnostics.Debugger.Launch();
@@ -221,7 +243,7 @@ namespace SharePointEmails.Core
             return res;
         }
 
-        public CultureInfo getDestinationCulture()
+        public CultureInfo GetDestinationCulture()
         {
             return CultureInfo.CurrentCulture;
         }

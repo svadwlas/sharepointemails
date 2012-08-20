@@ -36,7 +36,7 @@ namespace SharePointEmails.Core.Substitutions
             {
                 try
                 {
-                    var lcid = (mode == ProcessMode.Test) ? (uint)context.getDestinationCulture().LCID : (uint)Thread.CurrentThread.CurrentCulture.LCID;
+                    var lcid = (mode == ProcessMode.Test) ? (uint)context.GetDestinationCulture().LCID : (uint)Thread.CurrentThread.CurrentCulture.LCID;
                     var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
                     if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
                     {

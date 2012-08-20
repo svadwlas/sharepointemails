@@ -60,11 +60,11 @@ namespace SharepointEmails.Features.SharePointEmails
         {
             try
             {
-           //     System.Diagnostics.Debugger.Launch();
                 var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
                 list.RootFolder.Files.Add("subj.xslt", Encoding.Default.GetBytes(Properties.Resources.subjXslt));
                 list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.testbody));
                 list.RootFolder.Files.Add("BodyTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplate));
+                list.RootFolder.Files.Add("BodyTemplateForDiscussionBoard.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplateForDiscussionBoard));
 
                 list.Update();
 
@@ -75,7 +75,7 @@ namespace SharepointEmails.Features.SharePointEmails
                 }
 
                 var templates = sPWeb.Lists[Constants.TemplateListName];
-                var templ=templates.AddItem();
+                var templ = templates.AddItem();
 
                 templ[TemplateCT.TemplateName] = "Default template";
                 templ[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
@@ -93,6 +93,30 @@ namespace SharepointEmails.Features.SharePointEmails
                     }
                 }.ToString();
                 templ.Update();
+
+                var temp2= templates.AddItem();
+
+                temp2[TemplateCT.TemplateName] = "Default template for discussion board";
+                temp2[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
+                temp2[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
+                temp2[TemplateCT.TemplateSubjectUseFile] = true;
+                temp2[TemplateCT.TemplateBodyUseFile] = true;
+                temp2[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
+                temp2[TemplateCT.TemplateBodyFile] = new SPFieldLookupValue(4, "BodyTemplateForDiscussionBoard.xslt");
+                temp2[TemplateCT.Associations] = new AssociationConfiguration
+                {
+                    new GroupAssociation
+                    {
+                        ItemType=GroupType.AllDiscusions,
+                        Name="Defaul association for all discussions"
+                    },
+                     new GroupAssociation
+                    {
+                        ItemType=GroupType.AllMessages,
+                        Name="Defaul association for all messages"
+                    },
+                }.ToString();
+                temp2.Update();
             }
             catch (Exception ex)
             {
