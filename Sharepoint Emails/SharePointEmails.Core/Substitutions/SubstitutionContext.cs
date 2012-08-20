@@ -127,120 +127,12 @@ namespace SharePointEmails.Core
                 Logger.Write("Approve info not generated", SeverityEnum.Trace);
             }
 
-            var disc = GetDiscussionElement();
+            var disc = DiscussionBoardXml.Create().GetElement(Vars.SItem);
             if (disc != null)
             {
                 eventData.Add(disc);
             }
             return res.ToString();
-        }
-
-        private XElement GetDiscussionElement()
-        {
-            if (Vars.SItem == null || Vars.SList == null) return null;
-            var element = new XElement("DiscussionBoard");
-            if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
-            {
-                List<SPListItem> chain = new List<SPListItem>();
-                if (Vars.SItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
-                {
-                    chain.AddRange(GetDescedantsForMessage(Vars.SItem));
-                }
-                else
-                {
-                    chain.Add(Vars.SItem);   
-                }
-
-                XElement parent = null;
-                XElement curent = null;
-                foreach (SPListItem item in chain)
-                {
-                    if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
-                    {
-                        curent = new XElement("Disscussion");
-                        element.Add(curent);
-                        var subjElement = new XElement("Subject");
-                        var bodyElement = new XElement("Body");
-
-                        var subjText = new XElement("Value")
-                        {
-                            Value = (item.Fields.Contains(SPBuiltInFieldId.DiscussionTitle) ? (item[SPBuiltInFieldId.DiscussionTitle] as string) ?? string.Empty : string.Empty)
-                        };
-
-                        var clearSubjText = new XElement("ClearValue") { Value = GetDiscussionSubjText(subjText.Value) };
-
-                        var bodyText = new XElement("Value")
-                        {
-                            Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
-                        };
-
-                        var clearBodyText = new XElement("ClearValue") { Value = GetDiscussionBodyText(bodyText.Value) };
-
-                        subjElement.Add(subjText,clearSubjText);
-                        bodyElement.Add(bodyText, clearBodyText);
-                        curent.Add(subjElement, bodyElement);
-                    }
-                    else
-                    {
-                        curent = new XElement("Message");
-                        if (item.UniqueId == Vars.SItem.UniqueId)
-                        {
-                            curent.SetAttributeValue("Current", true);
-                        }
-
-                        var bodyElement = new XElement("Body");
-                        var bodyText = new XElement("Value")
-                        {
-                            Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
-                        };
-
-                        var clearBodyText = new XElement("ClearValue") { Value = GetMessageBodyText(bodyText.Value) };
-
-                        bodyElement.Add(bodyText,clearBodyText);
-                        curent.Add(bodyElement);
-                    }
-                    if (parent != null)
-                    {
-                        parent.Add(curent);
-                    }
-                    parent = curent;
-                }
-
-                return element;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        private string GetMessageBodyText(string p)
-        {
-            return "clear message body text";
-        }
-
-        private string GetDiscussionSubjText(string p)
-        {
-            return "clear discussion subject text";
-        }
-
-        private string GetDiscussionBodyText(string p)
-        {
-            return "clear discussion body text";
-        }
-
-        private List<SPListItem> GetDescedantsForMessage(SPListItem message)
-        {
-            var res = new List<SPListItem>();
-            System.Diagnostics.Debugger.Launch();
-            if (message.Fields.Contains(SPBuiltInFieldId.ParentFolderId))
-            {
-                var parentId = (int)message[SPBuiltInFieldId.ParentFolderId];
-                var parent = message.ParentList.GetItemById(parentId);
-                res.Add(parent);
-                res.Add(message);
-            }
-            return res;
         }
 
         public CultureInfo GetDestinationCulture()

@@ -104,6 +104,28 @@ namespace SharepointEmails.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xs:schema id=&quot;DiscussionBoardSchema&quot;
+        ///    targetNamespace=&quot;http://tempuri.org/DiscussionBoardSchema.xsd&quot;
+        ///    elementFormDefault=&quot;qualified&quot;
+        ///    xmlns=&quot;http://tempuri.org/DiscussionBoardSchema.xsd&quot;
+        ///    xmlns:mstns=&quot;http://tempuri.org/DiscussionBoardSchema.xsd&quot;
+        ///    xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
+        ///&gt;
+        ///
+        ///  &lt;xs:element name=&quot;DiscussionBoard&quot;&gt;
+        ///    
+        ///  &lt;/xs:element&gt;
+        ///&lt;/xs:schema&gt;
+        ///.
+        /// </summary>
+        public static string DiscussionBoardSchema {
+            get {
+                return ResourceManager.GetString("DiscussionBoardSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
         ///  &lt;xsl:template match=&apos;Data&apos;&gt;
         ///    &lt;subject&gt;
@@ -161,7 +183,7 @@ namespace SharepointEmails.Properties {
         ///&lt;Data&gt;
         ///  &lt;EventData EventType=&quot;1&quot; EventTypeName=&quot;Add&quot;&gt;
         ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Content Type ID&quot; Name=&quot;ContentTypeId&quot; Changed=&quot;true&quot; New=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Old=&quot;&quot; Value=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Hidden=&quot;true&quot; /&gt;
-        ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Body&quot; Name=&quot;Body&quot; Changed=&quot;true&quot; New=&quot;&amp;lt;div class=&amp;quot;ExternalClass5FC8A1A2FB79434382BA10619BC9FDDA&amp;quot;&amp;gt;new reply&amp;lt;div&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;hr  [rest of string was truncated]&quot;;.
+        ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Body&quot; Name=&quot;Body&quot; Changed=&quot;true&quot; New=&quot;&amp;lt;div class=&amp;quot;ExternalClassEB6A23A52C1D47009E37BB371173E57A&amp;quot;&amp;gt;&amp;lt;div&amp;gt;&amp;lt;br /&amp;gt;Message Text&amp;lt;br /&amp;gt;&amp;lt; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string TEstXMLMessageAdded {
             get {

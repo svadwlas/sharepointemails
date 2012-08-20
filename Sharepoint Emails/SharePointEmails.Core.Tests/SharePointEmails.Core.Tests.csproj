@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultTemplatesManagerTest.cs" />
+    <Compile Include="DiscussionBoardXmlTest.cs" />
     <Compile Include="FieldsSwitchesTest.cs" />
     <Compile Include="FieldSubstitutionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

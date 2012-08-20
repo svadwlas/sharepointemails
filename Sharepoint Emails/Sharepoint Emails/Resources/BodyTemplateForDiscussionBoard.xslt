@@ -59,9 +59,12 @@
         <div class="main">
           <p>Hello {DUser.LoginName}</p>
           <p>{SUser.LoginName} added new message</p>
-          <p>
-            <xsl:value-of select="descendant::Message[0]/Body[@Current='true']/Value"/>
-          </p>
+          <div>
+              Discussion Subject : <xsl:value-of select="descendant::Discussion[1]/Subject/ClearValue"/>
+          </div>
+          <div>
+              Message text : <xsl:value-of select="descendant::Message[@Current='true'][1]/Body/ClearValue"/>
+          </div>
         </div>
       </Body>
     </Html>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DiscussionBoardSchema"
+    targetNamespace="urn:sharepointemail-discussionboard"
+    elementFormDefault="qualified"
+    xmlns="urn:sharepointemail-discussionboard"
+    xmlns:mstns="urn:sharepointemail-discussionboard"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="DiscussionBoard">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Discussion" maxOccurs="1" minOccurs="1">
+          
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

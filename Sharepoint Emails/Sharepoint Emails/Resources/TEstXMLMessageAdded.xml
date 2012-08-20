@@ -17,7 +17,7 @@
     <Field Type="integer" DisplayName="_DraftVisibility" Name="_DraftVisibility" Changed="true" New="0" Old="" Value="0" />
     <Approve RejectUrl="http://google.com/" ApproveUrl="http://google.com?search=reject" PageUrl="http://google.com?search=pageurl" CanApprove="true" Status="" />
     <DiscussionBoard>
-      <Disscussion>
+      <Discussion>
         <Subject>
           <Value></Value>
           <ClearValue>clear discussion subject text</ClearValue>
@@ -35,7 +35,7 @@
             <ClearValue>clear message body text</ClearValue>
           </Body>
         </Message>
-      </Disscussion>
+      </Discussion>
     </DiscussionBoard>
   </EventData>
 </Data>

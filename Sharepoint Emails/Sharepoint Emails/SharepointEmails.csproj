@@ -125,6 +125,9 @@
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
     </None>
+    <None Include="Resources\DiscussionBoardSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="SwitchWebPart\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{95b84d34-e7fa-4022-ae81-baedb1e20733}</SharePointProjectItemId>
     </None>
