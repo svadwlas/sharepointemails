@@ -8,6 +8,9 @@ using SharePointEmails.Core.Substitutions;
 using System.Reflection;
 using SharePointEmails.Logging;
 using System.Globalization;
+using Microsoft.SharePoint.Utilities;
+using Microsoft.SharePoint.Administration;
+using System.Configuration;
 
 namespace SharePointEmails.Core
 {
@@ -82,6 +85,79 @@ namespace SharePointEmails.Core
             return res.ToString();
         }
 
+        string GetListEmail(SPList list)
+        {
+            try
+            {
+                if (list != null)
+                {
+                    var alias = list.EmailAlias;
+                    if (!string.IsNullOrEmpty(alias))
+                    {
+                        var service = SPFarm.Local.GetChild<SPIncomingEmailService>();
+                        if (service != null)
+                        {
+                            var server = service.ServerDisplayAddress;
+                            if (!string.IsNullOrEmpty(server))
+                            {
+                                return string.Format("{0}@{1}", alias, server);
+                            }
+                            else
+                            {
+                                throw new ConfigurationErrorsException("No email server address for list ");
+                            }
+                        }
+                        else
+                        {
+                            throw new ConfigurationErrorsException("Cannot get incoming email service");
+                        }
+                    }
+                    else
+                    {
+                        throw new ConfigurationErrorsException("No email alias for list ");
+                    }
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                Logger.Write(ex, SeverityEnum.Warning);
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex, SeverityEnum.CriticalError);
+            }
+            return string.Empty;
+        }
+
+        string GetAdminEmail(SPList list)
+        {
+            try
+            {
+                if (list != null)
+                {
+                    var web = list.ParentWeb;
+                    var adminEmail = web.SiteAdministrators.OfType<SPUser>().Where(p => !string.IsNullOrEmpty(p.Email)).Select(p => p.Email).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(adminEmail))
+                    {
+                        return adminEmail;
+                    }
+                    else
+                    {
+                        throw new ConfigurationErrorsException("No admins with emails");
+                    }
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                Logger.Write(ex, SeverityEnum.Warning);
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex, SeverityEnum.CriticalError);
+            }
+            return string.Empty;
+        }
+
         public string GetXML()
         {
             XDocument res = new XDocument();
@@ -90,6 +166,8 @@ namespace SharePointEmails.Core
             res.Root.Add(eventData);
             eventData.SetAttributeValue("EventType", (int)m_eventType);
             eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
+            eventData.SetAttributeValue("ListEmail",GetListEmail(Vars.SList));
+            eventData.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList) );
             foreach (var change in Changes)
             {
                 var el = new XElement("Field");

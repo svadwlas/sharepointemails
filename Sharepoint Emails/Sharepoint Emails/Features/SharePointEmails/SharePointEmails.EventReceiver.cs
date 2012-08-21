@@ -65,7 +65,8 @@ namespace SharepointEmails.Features.SharePointEmails
                 list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.testbody));
                 list.RootFolder.Files.Add("BodyTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplate));
                 list.RootFolder.Files.Add("BodyTemplateForDiscussionBoard.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplateForDiscussionBoard));
-
+                list.RootFolder.Files.Add("ListAddressTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.ListAddressTemplate));
+                list.RootFolder.Files.Add("AdminAddressTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.AdminAddressTemplate));
                 list.Update();
 
                 foreach (SPListItem item in list.Items)
@@ -80,6 +81,8 @@ namespace SharepointEmails.Features.SharePointEmails
                 templ[TemplateCT.TemplateName] = "Default template";
                 templ[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
                 templ[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
+                templ[TemplateCT.TemplateFromUseFile] = true;
+                templ[TemplateCT.TemplateFromFile] = new SPFieldLookupValue(6, "AdminAddressTemplate.xslt"); ;
                 templ[TemplateCT.TemplateSubjectUseFile] = true;
                 templ[TemplateCT.TemplateBodyUseFile] = true;
                 templ[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
@@ -89,7 +92,7 @@ namespace SharepointEmails.Features.SharePointEmails
                     new GroupAssociation
                     {
                         ItemType=GroupType.AllList,
-                        Name="Defaul association"
+                        Name="Default association"
                     }
                 }.ToString();
                 templ.Update();
@@ -99,6 +102,8 @@ namespace SharepointEmails.Features.SharePointEmails
                 temp2[TemplateCT.TemplateName] = "Default template for discussion board";
                 temp2[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
                 temp2[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
+                temp2[TemplateCT.TemplateFromUseFile] = true;
+                temp2[TemplateCT.TemplateFromFile] = new SPFieldLookupValue(5, "ListAddressTemplate.xslt"); ;
                 temp2[TemplateCT.TemplateSubjectUseFile] = true;
                 temp2[TemplateCT.TemplateBodyUseFile] = true;
                 temp2[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
@@ -108,12 +113,12 @@ namespace SharepointEmails.Features.SharePointEmails
                     new GroupAssociation
                     {
                         ItemType=GroupType.AllDiscusions,
-                        Name="Defaul association for all discussions"
+                        Name="Default association for all discussions"
                     },
                      new GroupAssociation
                     {
                         ItemType=GroupType.AllMessages,
-                        Name="Defaul association for all messages"
+                        Name="Default association for all messages"
                     },
                 }.ToString();
                 temp2.Update();

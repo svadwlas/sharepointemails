@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 
 namespace SharePointEmails.Core.Substitutions
 {
     public class DiscussionBoardXml
     {
+        const string NameSpace = "urn:sharepointemail-discussionboard";
+
         public bool UseParse=true;
         public static DiscussionBoardXml Create()
         {
@@ -18,31 +21,43 @@ namespace SharePointEmails.Core.Substitutions
 
         public XElement GetElement(SPListItem listItem)
         {
-            
-            if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
+            if (listItem != null)
             {
-                if (!UseParse)
+                if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
                 {
-                    return GetElementUseList(listItem);
-                }
-                else
-                {
-                    return GetElementUseParse(listItem);
+                    if (!UseParse)
+                    {
+                        return GetElementUseList(listItem);
+                    }
+                    else
+                    {
+                        return GetElementUseParse(listItem);
+                    }
                 }
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         private XElement GetElementUseParse(SPListItem listItem)
         {
-            XNamespace nsp = XNamespace.Get("urn:sharepointemail-discussionboard");
+            XNamespace nsp = XNamespace.Get(NameSpace);
             var res = new XElement(nsp+"DiscussionBoard");
             var discussion = new XElement(nsp+"Discussion");
+            var body = new XElement(nsp + "Body");
+            var value=new XElement(nsp+"Value");
+            var clearValue = new XElement(nsp + "ClearValue");
+            value.Value = GetFieldValue<string>(listItem, SPBuiltInFieldId.Body,string.Empty);
+            clearValue.Value = GetFieldValue<string>(listItem, SPBuiltInFieldId.Body, string.Empty);
+
+            body.Add(value, clearValue);
+            discussion.Add(body);
             res.Add(discussion);
             return res;
+        }
+
+        T GetFieldValue<T>(SPListItem item, Guid fieldGuid, T def=default(T))
+        {
+            return item.Fields.Contains(fieldGuid) ? ((T)item[fieldGuid]) : def;
         }
 
         private XElement GetElementUseList(SPListItem listItem)

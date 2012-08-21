@@ -79,6 +79,8 @@ namespace SharePointEmails.Core.Tests
             doc.Validate(shcemas, (s, e) => { throw e.Exception; });
         }
 
+        const string namespa = "urn:sharepointemail-discussionboard";
+
         /// <summary>
         ///A test for GetElement
         ///</summary>
@@ -86,13 +88,20 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetElementTest()
         {
-            Dictionary<Guid,object> fields=new Dictionary<Guid,object>();
-            fields[SPBuiltInFieldId.Body]="&lt;div class=\"ExternalClassDECDB3D2480C445D8F958DFE7B787791\"&gt;&lt;p&gt;Discussion body​&lt;/p&gt;&lt;/div&gt;";
+
+            Dictionary<Guid, object> fields = new Dictionary<Guid, object>();
+            fields[SPBuiltInFieldId.Body] = "&lt;div class=\"ExternalClassDECDB3D2480C445D8F958DFE7B787791\"&gt;&lt;p&gt;Discussion body​&lt;/p&gt;&lt;/div&gt;";
             MSPListItem listItem = new MSPListItem();
             listItem.ContentTypeIdGet = () => SPBuiltInContentTypeId.Discussion;
-            listItem.ItemGetGuid=(g)=>fields[g];
+            listItem.ItemGetGuid = (g) => fields[g];
+            var fieldCol=new MSPFieldCollection();
+            fieldCol.ContainsGuid = (g) => fields.ContainsKey(g);
+            listItem.FieldsGet = () => fieldCol;
             var actual = DiscussionBoardXml.Create().GetElement(listItem);
-            Validate(actual.ToString(), SharepointEmails.Properties.Resources.DiscussionBoardSchema, "urn:sharepointemail-discussionboard");
+            Validate(actual.ToString(), SharepointEmails.Properties.Resources.DiscussionBoardSchema, namespa);
+
+            var clearText = actual.Element(XName.Get("Discussion", namespa)).Element(XName.Get("Body", namespa)).Element(XName.Get("ClearValue", namespa)).Value;
+            Assert.AreEqual("Discussion body", clearText);
         }
     }
 }

@@ -191,6 +191,8 @@
     <Content Include="Resources\BodyTemplate.html" />
     <Content Include="Resources\BodyTemplate.xslt" />
     <Content Include="Resources\BodyTemplateForDiscussionBoard.xslt" />
+    <Content Include="Resources\AdminAddressTemplate.xslt" />
+    <Content Include="Resources\ListAddressTemplate.xslt" />
     <Content Include="Resources\TEstXMLMessageAdded.xml" />
     <Content Include="SwitchWebPart\Elements.xml" />
     <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
