@@ -22,7 +22,7 @@ namespace SharepointEmails
         public EmailReceiver()
         {
             m_Logger = ClassContainer.Instance.Resolve<ILogger>();
-            if (m_Logger == null) throw new ConfigurationException("No logger configured");
+            if (m_Logger == null) throw new ConfigurationErrorsException("No logger configured");
         }
 
         public override void EmailReceived(SPList list, SPEmailMessage emailMessage, string receiverData)

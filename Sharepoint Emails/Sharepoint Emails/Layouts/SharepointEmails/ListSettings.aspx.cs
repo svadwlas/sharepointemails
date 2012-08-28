@@ -8,8 +8,6 @@ namespace SharepointEmails.Layouts.SharepointEmails
 {
     public partial class ListSettings : LayoutsPageBase
     {
-        const string SE_ENABLED = "SharePointEmailsEnabled";
-
         SPList m_list = null;
 
         Type ReceiverType { get { return typeof(EmailReceiver); } }
