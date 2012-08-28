@@ -1,7 +1,7 @@
 <xsl:stylesheet xmlns:xsl='http://www.w3.org/1999/XSL/Transform' version='1.0'>
   <xsl:template match='Data'>
     <subject>
-      Subject for alert {SList.Title}
+      Subject for "{SList.Title}"
     </subject>
   </xsl:template>
 </xsl:stylesheet>

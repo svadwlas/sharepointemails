@@ -36,6 +36,16 @@ namespace SharePointEmails.Core
             m_eventType = eventType;
             m_sourceList = sourceList;
             Vars = new ContextVars(sourceList, ItemID, modifierName, toemail, CreateUserId);
+
+            if (Vars.SItem != null)
+            {
+                Logger.Write("ALL FIELDS",SeverityEnum.Verbose);
+                for (int i = 0; i < Vars.SItem.Fields.Count; i++)
+                {
+                    var f = Vars.SItem.Fields[i];
+                    Logger.Write(string.Format("{0} ({1}) : {2}", f.InternalName, f.Title, (Vars.SItem[f.Id] ?? string.Empty).ToString()), SeverityEnum.Verbose);
+                }
+            }
             Changes = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
         }
 

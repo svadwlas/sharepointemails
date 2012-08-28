@@ -13,6 +13,15 @@ namespace SharepointEmails.Layouts.SharepointEmails {
     public partial class ListSettings {
         
         /// <summary>
+        /// lbl_Message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_Message;
+        
+        /// <summary>
         /// cb_Enabled control.
         /// </summary>
         /// <remarks>
@@ -22,12 +31,30 @@ namespace SharepointEmails.Layouts.SharepointEmails {
         protected global::System.Web.UI.WebControls.CheckBox cb_Enabled;
         
         /// <summary>
-        /// Panel1 control.
+        /// btn_Save control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Button btn_Save;
+        
+        /// <summary>
+        /// btn_Cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Cancel;
+        
+        /// <summary>
+        /// lbl_ListName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal lbl_ListName;
     }
 }

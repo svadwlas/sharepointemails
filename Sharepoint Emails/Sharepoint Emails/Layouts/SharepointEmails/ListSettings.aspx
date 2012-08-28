@@ -12,16 +12,25 @@
 </asp:Content>
 
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-SharePointEmails enabled <asp:CheckBox ID="cb_Enabled" AutoPostBack="true" runat="server" />
-<asp:Panel ID="Panel1" runat="server">
-        Discussion Board Settings
-    </asp:Panel> 
+    <div>
+        <asp:Label ID="lbl_Message"  EnableViewState="false" runat="server"></asp:Label>
+    </div>
+    <table>
+        <tr>
+            <td>SharePointEmails enabled</td> 
+            <td><asp:CheckBox ID="cb_Enabled" runat="server" /></td>
+        </tr>
+        <tr>
+            <td>Save / Cancel</td> 
+            <td><asp:Button ID="btn_Save" runat="server" Text="Save" /><asp:Button ID="btn_Cancel" runat="server" Text="Cancel"/></td>
+        </tr>
+    </table>
 </asp:Content>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PlaceHolderPageTitle" runat="server">
-SharePointEmails List Settings
+    SharePointEmails List Settings 
 </asp:Content>
 
 <asp:Content ID="PageTitleInTitleArea" ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server" >
-    
+    SharePointEmails List Settings   <asp:Literal ID="lbl_ListName" runat="server" />
 </asp:Content>

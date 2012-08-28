@@ -83,6 +83,8 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
+    <Compile Include="MailProcessors\IncomingDiscussionBoardProcessor.cs" />
+    <Compile Include="Interfaces\IIncomingMessageProcessor.cs" />
     <Compile Include="Interfaces\ISiteManager.cs" />
     <Compile Include="Interfaces\ISubstitution.cs" />
     <Compile Include="Interfaces\ISubstitutionContext.cs" />

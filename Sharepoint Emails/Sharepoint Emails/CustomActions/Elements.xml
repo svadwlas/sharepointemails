@@ -49,6 +49,6 @@
       Location="Microsoft.SharePoint.ListEdit"
       Sequence="1000"
       Title="SharePoint Emails List Settings">
-    <UrlAction Url="_Layouts/SharePointEmails/ListSettings.aspx"/>
+    <UrlAction Url="_Layouts/SharePointEmails/ListSettings.aspx?List={ListId}"/>
   </CustomAction>
 </Elements>
