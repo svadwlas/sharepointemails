@@ -28,33 +28,41 @@ namespace SharepointEmails
         public override void EmailReceived(SPList list, SPEmailMessage emailMessage, string receiverData)
         {
             m_Logger.Write("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
-            var processor = CreateIncomingProcessor(list, emailMessage);
-            if (processor != null)
-            {
-                m_Logger.Write(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
-                try
+            try
+            {             
+                var processor = CreateIncomingProcessor(list, emailMessage);
+                if (processor != null)
                 {
-                    processor.Process();
+                    m_Logger.Write(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
+                    try
+                    {
+                        processor.Process();
+                    }
+                    catch (Exception ex)
+                    {
+                        m_Logger.Write("Error during processing of message", SeverityEnum.CriticalError);
+                        m_Logger.Write(ex, SeverityEnum.CriticalError);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    m_Logger.Write("Error during processing of message", SeverityEnum.CriticalError);
-                    m_Logger.Write(ex, SeverityEnum.CriticalError);
+                    m_Logger.Write("No incoming processor found for list " + list.Title, SeverityEnum.Trace, AreasEnum.IncomingMessages);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                m_Logger.Write("No incoming processor found for list " + list.Title, SeverityEnum.Trace, AreasEnum.IncomingMessages);
+                m_Logger.Write("Error in the handler", SeverityEnum.CriticalError);
+                m_Logger.Write(ex, SeverityEnum.CriticalError);
             }
         }
 
-        IIncomingMessageProcessor CreateIncomingProcessor(SPList list,SPEmailMessage message)
+        IIncomingMessageProcessor CreateIncomingProcessor(SPList list, SPEmailMessage message)
         {
             try
             {
-                if (list.BaseType == SPBaseType.DiscussionBoard)
+                if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
                 {
-                    return new IncomingDiscussionBoardProcessor(list, message);
+                    return new IncomingDiscussionBoardProcessor(list, message, m_Logger);
                 }
             }
             catch (Exception ex)

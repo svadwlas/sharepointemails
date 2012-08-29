@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertHandler.cs" />
-    <Compile Include="EmailReceiver.cs" />
     <Compile Include="Features\SharePointEmails\SharePointEmails.EventReceiver.cs">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Compile>

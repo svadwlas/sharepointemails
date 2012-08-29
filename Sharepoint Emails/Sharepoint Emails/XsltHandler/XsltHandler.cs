@@ -38,42 +38,8 @@ namespace SharepointEmails.XsltHandler
             base.ItemAdded(properties);
         }
 
-        string GetErrorMessage(string error)
-        {
-            return "XSLT file must be valid and not empty" + Environment.NewLine + error;
-        }
-
         public override void ItemAdding(SPItemEventProperties properties)
         {
-            //System.Diagnostics.Debugger.Launch();
-            //var context = HttpContext.Current;
-            //if (context != null && context.Request.Files != null)
-            //{
-            //    foreach (string filename in context.Request.Files.AllKeys)
-            //    {
-            //        var file = context.Request.Files[filename];
-            //        if (file.ContentLength <= 0)
-            //        {
-            //            throw new Exception(GetErrorMessage(""));
-            //        }
-            //        try
-            //        {
-            //            using (XmlReader reader = XmlReader.Create(file.InputStream))
-            //            {
-            //                var parser = new XslCompiledTransform();
-            //                parser.Load(reader);
-            //            }
-            //        }
-            //        catch (XsltException ex)
-            //        {
-            //            throw new Exception(GetErrorMessage((ex.InnerException != null) ? ex.InnerException.Message : ex.Message));
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            throw new Exception(GetErrorMessage(ex.Message), ex);
-            //        }
-            //    }
-            //}
             base.ItemAdding(properties);
         }
     }

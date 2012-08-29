@@ -38,11 +38,18 @@ namespace SharePointEmails.Core
 
         private void Register(UnityContainer container)
         {
-            container.RegisterInstance<ILogger>(mockLogger??new DefaultLogger());
-            container.RegisterInstance<ITemplatesManager>(new DefaultTemplatesManager(new DefaultLogger(), new ConfigurationManager()));
-            container.RegisterInstance<ISiteManager>(new SiteManager());
-            container.RegisterInstance<SubstitutionManager>(new SubstitutionManager());
-            container.RegisterInstance<IConfigurationManager>(new ConfigurationManager());
+            if (mockLogger == null)
+            {
+                container.RegisterType<ILogger, DefaultLogger>(new ContainerControlledLifetimeManager());
+            }
+            else
+            {
+                container.RegisterInstance<ILogger>(mockLogger);
+            }
+            container.RegisterType<IConfigurationManager, ConfigurationManager>();
+            container.RegisterType<ITemplatesManager, DefaultTemplatesManager>();
+            container.RegisterType<ISiteManager, SiteManager>();
+            container.RegisterType<SubstitutionManager, SubstitutionManager>();
         }
 
         private UnityContainer Container

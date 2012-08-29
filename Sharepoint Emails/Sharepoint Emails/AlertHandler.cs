@@ -118,6 +118,8 @@ namespace SharepointEmails
 
                                 Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
 
+
+
                                 SaveMessage(message, newheaders);
 
                                 var res = SPUtility.SendEmail(web, newheaders, newBody);

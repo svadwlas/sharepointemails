@@ -83,6 +83,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
+    <Compile Include="MailProcessors\EmailReceiver.cs" />
     <Compile Include="MailProcessors\IncomingDiscussionBoardProcessor.cs" />
     <Compile Include="Interfaces\IIncomingMessageProcessor.cs" />
     <Compile Include="Interfaces\ISiteManager.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="Interfaces\ISearchContext.cs" />
     <Compile Include="Interfaces\ITemplateConfigurationHolder.cs" />
     <Compile Include="Interfaces\ITemplatesResolver.cs" />
+    <Compile Include="MailProcessors\OutcomingDiscussionBoardProcessor.cs" />
+    <Compile Include="MailProcessors\ProcessorsManager.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\TemplateCT.cs" />
