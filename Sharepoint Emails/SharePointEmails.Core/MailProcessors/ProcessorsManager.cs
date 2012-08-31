@@ -3,11 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
+using SharePointEmails.Core.Interfaces;
+using SharePointEmails.MailProcessors;
+using SharePointEmails.Logging;
+using Microsoft.SharePoint.Utilities;
 
 namespace SharePointEmails.Core.MailProcessors
 {
     public class ProcessorsManager
     {
+        static ILogger m_Logger = null;
+
+        private static ILogger Logger
+        {
+            get
+            {
+                if (m_Logger == null)
+                {
+                    m_Logger = ClassContainer.Instance.Resolve<ILogger>();
+                }
+                return m_Logger;
+            }
+        }
+
+
         static ProcessorsManager m_instance = null;
         static object lockObj = new object();
         public static ProcessorsManager Instance
@@ -73,6 +92,47 @@ namespace SharePointEmails.Core.MailProcessors
             def.SequenceNumber = 999;
             def.Synchronization = SPEventReceiverSynchronization.Synchronous;
             def.Update();
+        }
+
+        public IIncomingMessageProcessor CreateIncomingProcessor(SPList list, SPEmailMessage message)
+        {
+            try
+            {
+                if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
+                {
+                    return new IncomingDiscussionBoardProcessor(list, message, Logger);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write("Error during in processor creating", SeverityEnum.CriticalError);
+                Logger.Write(ex, SeverityEnum.CriticalError);
+            }
+            return null;
+        }
+
+        public OutcomingDiscussionBoardProcessor CreateOutcomingProcessor(SPList list)
+        {
+            try
+            {
+                if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
+                {
+                    if (IsDiscussionBoardIntegrationEnabled(list))
+                    {
+                        return new OutcomingDiscussionBoardProcessor(Logger);
+                    }
+                    else
+                    {
+                        Logger.Write("Integratoin for List=" + list.Title + " is disabled", SeverityEnum.Trace);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write("Error during out processor creating", SeverityEnum.CriticalError);
+                Logger.Write(ex, SeverityEnum.CriticalError);
+            }
+            return null;
         }
     }
 }

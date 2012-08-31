@@ -11,6 +11,7 @@ using System.Reflection;
 using SharePointEmails.Core.Exceptions;
 using System.Web;
 using System.Collections.Specialized;
+using SharePointEmails.Core.MailProcessors;
 
 namespace SharepointEmails
 {
@@ -52,7 +53,7 @@ namespace SharepointEmails
                     if (Application.Current.IsDisabledForSite(site)) return false;
                     using (SPWeb web = site.OpenWeb(ahp.webId))
                     {
-                   //     SPUtility.SendEmail(web, ahp.headers, ahp.body);
+                        SPList list = null;
                         if (ahp.a != null)
                         {
                             var receiverEmail = ahp.headers["to"];
@@ -65,78 +66,80 @@ namespace SharepointEmails
                                     Application.Current.Logger.Write("Disabled on site", SharePointEmails.Logging.SeverityEnum.Warning);
                                     return false;
                                 }
-
-                                var list = web.Lists[ahp.a.ListID];
-                                foreach (var ed in ahp.eventData)
+                                var ed = ahp.eventData[0];
+                                list = web.Lists[ahp.a.ListID];
+                                try
                                 {
-                                    try
-                                    {
 
-                                        //  System.Diagnostics.Debugger.Launch();
-                                        message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
-                                    }
-                                    catch (SeTemplateNotFound ex)
+                                    //  System.Diagnostics.Debugger.Launch();
+                                    message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
+                                }
+                                catch (SeTemplateNotFound ex)
+                                {
+                                    Application.Current.Logger.Write("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                    Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.Warning);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Application.Current.Logger.Write("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                    Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                }
+                                if (message != null)
+                                {
+                                    var newheaders = new StringDictionary();
+                                    var newBody = ahp.body;
+                                    foreach (string key in ahp.headers.Keys)
                                     {
-                                        Application.Current.Logger.Write("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                        Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.Warning);
+                                        newheaders[key] = ahp.headers[key];
                                     }
-                                    catch (Exception ex)
+                                    if (message.Subject != null)
                                     {
-                                        Application.Current.Logger.Write("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                        Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                        newheaders["subject"] = message.Subject;
                                     }
+                                    if (message.Body != null)
+                                    {
+                                        newBody = message.Body;
+                                    }
+                                    if (message.Replay != null)
+                                    {
+                                        newheaders["reply-to"] = message.Replay;
+                                    }
+                                    if (message.From != null)
+                                    {
+                                        newheaders["from"] = message.From;
+                                    }
+
+                                    Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+
+                                    var processor = ProcessorsManager.Instance.CreateOutcomingProcessor(list);
+                                    if (processor != null)
+                                    {
+                                        processor.Precess(ref newheaders, ref newBody, ed.itemId);
+                                    }
+
+                                    SaveMessage(message, newheaders);
+
+                                    var res = SPUtility.SendEmail(web, newheaders, newBody);
+                                    if (res)
+                                    {
+                                        Application.Current.Logger.Write("Message has been sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                    }
+                                    else
+                                    {
+                                        Application.Current.Logger.Write("Message has NOT been sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                    }
+                                    return res;
+                                }
+                                else
+                                {
+                                    Application.Current.Logger.Write("Message not generated", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                    return SPUtility.SendEmail(web, ahp.headers, ahp.body);
                                 }
                             }
                             else
                             {
                                 Application.Current.Logger.Write("OnNotification - More then 1 eventdata. currently not supported", SharePointEmails.Logging.SeverityEnum.Warning);
-                            }
-                            if (message != null)
-                            {
-                                var newheaders = new StringDictionary();
-                                var newBody = ahp.body;
-                                foreach (string key in ahp.headers.Keys)
-                                {
-                                    newheaders[key] = ahp.headers[key];
-                                }
-                                if (message.Subject != null)
-                                {
-                                    newheaders["subject"] = message.Subject;
-                                }
-                                if (message.Body != null)
-                                {
-                                    newBody = message.Body;
-                                }
-                                if (message.Replay != null)
-                                {
-                                    newheaders["reply-to"] = message.Replay;
-                                }
-                                if (message.From != null)
-                                {
-                                    newheaders["from"] = message.From;
-                                }
-
-                                Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
-
-
-
-                                SaveMessage(message, newheaders);
-
-                                var res = SPUtility.SendEmail(web, newheaders, newBody);
-                                if (res)
-                                {
-                                    Application.Current.Logger.Write("Message has been sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                }
-                                else
-                                {
-                                    Application.Current.Logger.Write("Message has NOT been sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                }
-                                return res;
-                            }
-                            else
-                            {
-                                Application.Current.Logger.Write("Message not generated", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                return SPUtility.SendEmail(web, ahp.headers, message.Body);
+                                return SPUtility.SendEmail(web, ahp.headers, ahp.body);
                             }
                         }
                     }

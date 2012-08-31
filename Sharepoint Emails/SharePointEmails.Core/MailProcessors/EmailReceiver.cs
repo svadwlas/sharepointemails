@@ -10,6 +10,7 @@ using System.Configuration;
 using SharePointEmails.Core.Interfaces;
 using SharePointEmails.MailProcessors;
 using System.ComponentModel;
+using SharePointEmails.Core.MailProcessors;
 
 namespace SharepointEmails
 {
@@ -30,7 +31,7 @@ namespace SharepointEmails
             m_Logger.Write("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
             try
             {             
-                var processor = CreateIncomingProcessor(list, emailMessage);
+                var processor = ProcessorsManager.Instance.CreateIncomingProcessor(list, emailMessage);
                 if (processor != null)
                 {
                     m_Logger.Write(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
@@ -56,21 +57,6 @@ namespace SharepointEmails
             }
         }
 
-        IIncomingMessageProcessor CreateIncomingProcessor(SPList list, SPEmailMessage message)
-        {
-            try
-            {
-                if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
-                {
-                    return new IncomingDiscussionBoardProcessor(list, message, m_Logger);
-                }
-            }
-            catch (Exception ex)
-            {
-                m_Logger.Write("Error during processor creating", SeverityEnum.CriticalError);
-                m_Logger.Write(ex, SeverityEnum.CriticalError);
-            }
-            return null;
-        }
+        
     }
 }
