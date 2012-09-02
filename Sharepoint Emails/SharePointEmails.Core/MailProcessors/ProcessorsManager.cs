@@ -7,6 +7,7 @@ using SharePointEmails.Core.Interfaces;
 using SharePointEmails.MailProcessors;
 using SharePointEmails.Logging;
 using Microsoft.SharePoint.Utilities;
+using SharePointEmails.Core.MailProcessors.Strategies;
 
 namespace SharePointEmails.Core.MailProcessors
 {
@@ -94,13 +95,13 @@ namespace SharePointEmails.Core.MailProcessors
             def.Update();
         }
 
-        public IIncomingMessageProcessor CreateIncomingProcessor(SPList list, SPEmailMessage message)
+        internal IIncomingMessageProcessor CreateIncomingProcessor(SPList list, SEMessage message)
         {
             try
             {
                 if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
                 {
-                    return new IncomingDiscussionBoardProcessor(list, message, Logger);
+                    return new IncomingDiscussionBoardProcessor(list, message, Logger, new SubjectThreadStrategy(), new TextParserStrategy());
                 }
             }
             catch (Exception ex)
@@ -111,7 +112,7 @@ namespace SharePointEmails.Core.MailProcessors
             return null;
         }
 
-        public OutcomingDiscussionBoardProcessor CreateOutcomingProcessor(SPList list)
+        internal IOutcomingDiscussionBoardProcessor CreateOutcomingProcessor(SPList list)
         {
             try
             {
@@ -119,7 +120,7 @@ namespace SharePointEmails.Core.MailProcessors
                 {
                     if (IsDiscussionBoardIntegrationEnabled(list))
                     {
-                        return new OutcomingDiscussionBoardProcessor(Logger);
+                        return new OutcomingDiscussionBoardProcessor(Logger,new SubjectThreadStrategy());
                     }
                     else
                     {

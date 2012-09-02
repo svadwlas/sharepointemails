@@ -6,7 +6,7 @@ using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core
 {
-    public class SiteManager : ISiteManager
+    internal class SiteManager : ISiteManager
     {
         public SPList CreateHiddenTemplatesList(SPWeb web)
         {

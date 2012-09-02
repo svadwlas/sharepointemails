@@ -8,32 +8,33 @@ using Microsoft.SharePoint.Utilities;
 using System.Text.RegularExpressions;
 using SharePointEmails.Logging;
 using System.IO;
+using SharePointEmails.Core;
+using SharePointEmails.Core.MailProcessors;
+using SharePointEmails.Core.MailProcessors.Strategies;
 
 namespace SharePointEmails.MailProcessors
 {
-    public class IncomingDiscussionBoardProcessor : IIncomingMessageProcessor
+    internal class IncomingDiscussionBoardProcessor : IIncomingMessageProcessor
     {
+        IThreadStrategy m_threadStarategy = null;
+
+        ITextParserStrategy m_TextStartegy = null;
+
         ILogger m_Logger = null;
 
         SPList m_list = null;
-        SPEmailMessage m_message = null;
+        SEMessage m_message = null;
         SPUser m_user = null;
 
-        string m_body = string.Empty;
-        string m_subject = string.Empty;
         bool m_itemIdPresented = false;
 
-        public IncomingDiscussionBoardProcessor(SPList list, SPEmailMessage message, ILogger logger)
+        public IncomingDiscussionBoardProcessor(SPList list, SEMessage message, ILogger logger, IThreadStrategy threadStrategy, ITextParserStrategy textStrategy)
         {
             this.m_list = list;
             this.m_message = message;
             this.m_Logger = logger;
-        }
-
-        private void Parse()
-        {
-            m_subject = m_message.Headers["subject"];
-            m_body = m_message.PlainTextBody;
+            this.m_threadStarategy = threadStrategy;
+            this.m_TextStartegy = textStrategy;
         }
 
         bool GetOption(string option, bool defaultvalue)
@@ -63,25 +64,11 @@ namespace SharePointEmails.MailProcessors
             }
         }
 
-        public static byte[] ReadFully(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
-            }
-        }
-
         void AddEmail(SPListItem item)
         {
             using (var stream = m_message.GetMessageStream())
             {
-                item.Attachments.Add("OriginalMessage.eml", ReadFully(stream));
+                item.Attachments.Add("OriginalMessage.eml",stream.ReadFully());
             }
         }
 
@@ -92,7 +79,6 @@ namespace SharePointEmails.MailProcessors
             {
                 m_Logger.Write("No user with email=" + m_message.Sender, SeverityEnum.Warning);
             }
-            Parse();
             SPListItem relatedItem = GetRelatedListItem();
             SPListItem newItem = null;
             if (relatedItem != null)
@@ -154,46 +140,30 @@ namespace SharePointEmails.MailProcessors
             }
         }
 
-        private void AddAttachments(SPListItem newItem)
+        void AddAttachments(SPListItem newItem)
         {
-            foreach(SPEmailAttachment att in m_message.Attachments )
+            foreach (SPEmailAttachment att in m_message.Attachments)
             {
-                newItem.Attachments.Add(att.FileName ?? Path.GetTempFileName(), ReadFully(att.ContentStream));
+                newItem.Attachments.Add(att.FileName ?? Path.GetTempFileName(),att.ContentStream.ReadFully());
             }
         }
 
-        private SPListItem AddNewDiscussion()
+        SPListItem AddNewDiscussion()
         {
-            var item = SPUtility.CreateNewDiscussion(m_list, m_subject);
-            item[SPBuiltInFieldId.Body] = m_body;      
-            return item;
+            return m_TextStartegy.CreateDiscussion(m_list, m_message);
         }
 
-        private SPListItem AddMessageToDiscussion(SPListItem relatedItem)
+        SPListItem AddMessageToDiscussion(SPListItem relatedItem)
         {
-            var reply = SPUtility.CreateNewDiscussionReply(relatedItem);
-            reply[SPBuiltInFieldId.Body] = m_message.PlainTextBody;
-            reply[SPBuiltInFieldId.Title] = m_message.PlainTextBody;
-            return reply;
+            return m_TextStartegy.CreateReply(relatedItem, m_message);
         }
 
         int GetItemId()
         {
-            m_Logger.Write("try get id from subj=" + m_subject, SeverityEnum.Trace);
-            var matches = Regex.Matches(m_subject, @"\(([0-9]+)\)");
-            if (matches.Count > 0)
-            {
-                var value = matches[0].Groups[1].Value;
-                m_subject = m_subject.Replace(value, "");
-                return int.Parse(value);
-            }
-            else
-            {
-                return -1;
-            }
+            return m_threadStarategy.GetRelatedItemId(m_message);
         }
 
-        private SPListItem GetRelatedListItem()
+        SPListItem GetRelatedListItem()
         {
             var id = GetItemId();
             m_itemIdPresented = id != -1;
@@ -201,9 +171,7 @@ namespace SharePointEmails.MailProcessors
             {
                 try
                 {
-                    var item = m_list.GetItemById(id);
-
-                    return item;
+                    return m_list.GetItemById(id);
                 }
                 catch (ArgumentException ex)
                 {

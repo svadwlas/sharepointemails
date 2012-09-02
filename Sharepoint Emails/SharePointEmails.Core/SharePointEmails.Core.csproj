@@ -84,6 +84,8 @@
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
     <Compile Include="MailProcessors\EmailReceiver.cs" />
+    <Compile Include="MailProcessors\IOutcomingDiscussionBoardProcessor.cs" />
+    <Compile Include="MailProcessors\Strategies\IIThreadStrategy.cs" />
     <Compile Include="MailProcessors\IncomingDiscussionBoardProcessor.cs" />
     <Compile Include="Interfaces\IIncomingMessageProcessor.cs" />
     <Compile Include="Interfaces\ISiteManager.cs" />
@@ -95,10 +97,15 @@
     <Compile Include="Interfaces\ITemplatesResolver.cs" />
     <Compile Include="MailProcessors\OutcomingDiscussionBoardProcessor.cs" />
     <Compile Include="MailProcessors\ProcessorsManager.cs" />
+    <Compile Include="MailProcessors\SEMessage.cs" />
+    <Compile Include="MailProcessors\Strategies\ITextParserStrategy.cs" />
+    <Compile Include="MailProcessors\Strategies\SubjectThreadStrategy.cs" />
+    <Compile Include="MailProcessors\Strategies\TextParserStrategy.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\TemplateCT.cs" />
     <Compile Include="SPListItemHelper.cs" />
+    <Compile Include="StreamHelpers.cs" />
     <Compile Include="Substitutions\Change.cs" />
     <Compile Include="Substitutions\ComplexSubstitution.cs" />
     <Compile Include="Substitutions\ContextSubstitution.cs" />

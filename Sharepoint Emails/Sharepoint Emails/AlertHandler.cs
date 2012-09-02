@@ -17,7 +17,7 @@ namespace SharepointEmails
 {
     public class AlertHandler : IAlertNotifyHandler
     {
-        private void Trace(SPAlertHandlerParams ahp)
+        void Trace(SPAlertHandlerParams ahp)
         {
             foreach (string s in ahp.headers.Keys)
             {
@@ -39,144 +39,72 @@ namespace SharepointEmails
         {
             try
             {
-
-                //     System.Diagnostics.Debugger.Launch();
+                bool handled = false;
+                
                 Application.Current.Logger.Write("Start OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
+                Trace(ahp);
 
-                if (Application.Current.IsDisabledForFarm())
-                {
-                    Application.Current.Logger.Write("OnNotification - Application disabled on farm", SharePointEmails.Logging.SeverityEnum.Verbose);
-                    return false;
-                }
                 using (SPSite site = new SPSite(ahp.siteId))
                 {
-                    if (Application.Current.IsDisabledForSite(site)) return false;
                     using (SPWeb web = site.OpenWeb(ahp.webId))
                     {
-                        SPList list = null;
-                        if (ahp.a != null)
+                        if (!Application.Current.IsDisabledForFarm())
                         {
-                            var receiverEmail = ahp.headers["to"];
-                            GeneratedMessage message = null;
-                            Trace(ahp);
-                            if (ahp.eventData.Length == 1)
+                            if (!Application.Current.IsDisabledForSite(site))
                             {
-                                if (Application.Current.IsDisabledForWeb(web))
+                                if (!Application.Current.IsDisabledForWeb(web))
                                 {
-                                    Application.Current.Logger.Write("Disabled on site", SharePointEmails.Logging.SeverityEnum.Warning);
-                                    return false;
-                                }
-                                var ed = ahp.eventData[0];
-                                list = web.Lists[ahp.a.ListID];
-                                try
-                                {
-
-                                    //  System.Diagnostics.Debugger.Launch();
-                                    message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
-                                }
-                                catch (SeTemplateNotFound ex)
-                                {
-                                    Application.Current.Logger.Write("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                    Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.Warning);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Application.Current.Logger.Write("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
-                                    Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
-                                }
-                                if (message != null)
-                                {
-                                    var newheaders = new StringDictionary();
-                                    var newBody = ahp.body;
-                                    foreach (string key in ahp.headers.Keys)
+                                    var mail = Application.Current.OnNotification(web, ahp);
+                                    if (mail != null)
                                     {
-                                        newheaders[key] = ahp.headers[key];
-                                    }
-                                    if (message.Subject != null)
-                                    {
-                                        newheaders["subject"] = message.Subject;
-                                    }
-                                    if (message.Body != null)
-                                    {
-                                        newBody = message.Body;
-                                    }
-                                    if (message.Replay != null)
-                                    {
-                                        newheaders["reply-to"] = message.Replay;
-                                    }
-                                    if (message.From != null)
-                                    {
-                                        newheaders["from"] = message.From;
-                                    }
-
-                                    Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
-
-                                    var processor = ProcessorsManager.Instance.CreateOutcomingProcessor(list);
-                                    if (processor != null)
-                                    {
-                                        processor.Precess(ref newheaders, ref newBody, ed.itemId);
-                                    }
-
-                                    SaveMessage(message, newheaders);
-
-                                    var res = SPUtility.SendEmail(web, newheaders, newBody);
-                                    if (res)
-                                    {
-                                        Application.Current.Logger.Write("Message has been sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                        try
+                                        {
+                                            SPUtility.SendEmail(web, mail.headers, mail.HtmlBody);
+                                            handled = true;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Application.Current.Logger.Write("Cannot send generated message", SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                            Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                        }
                                     }
                                     else
                                     {
-                                        Application.Current.Logger.Write("Message has NOT been sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                        Application.Current.Logger.Write("Mail is null", SharePointEmails.Logging.SeverityEnum.Warning);
                                     }
-                                    return res;
                                 }
                                 else
                                 {
-                                    Application.Current.Logger.Write("Message not generated", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                    Application.Current.Logger.Write("Disabled on web", SharePointEmails.Logging.SeverityEnum.Warning);
+                                }
+                                if (!handled)
+                                {
+                                    Application.Current.Logger.Write("Not handled. Send default message", SharePointEmails.Logging.SeverityEnum.Trace);
                                     return SPUtility.SendEmail(web, ahp.headers, ahp.body);
                                 }
                             }
                             else
                             {
-                                Application.Current.Logger.Write("OnNotification - More then 1 eventdata. currently not supported", SharePointEmails.Logging.SeverityEnum.Warning);
-                                return SPUtility.SendEmail(web, ahp.headers, ahp.body);
+                                Application.Current.Logger.Write("OnNotification - Application disabled on site collection", SharePointEmails.Logging.SeverityEnum.Verbose);
                             }
+                        }
+                        else
+                        {
+                            Application.Current.Logger.Write("OnNotification - Application disabled on farm", SharePointEmails.Logging.SeverityEnum.Verbose);
                         }
                     }
                 }
-                return false;
             }
             catch (Exception ex)
             {
                 Application.Current.Logger.Write("ERROR OnNotification", SharePointEmails.Logging.SeverityEnum.CriticalError);
                 Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
-                return false;
             }
             finally
             {
                 Application.Current.Logger.Write("End OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
             }
-        }
-
-        private void SaveMessage(GeneratedMessage message, StringDictionary newheaders)
-        {
-            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"sentEmails\" + DateTime.Now.ToString("hh_mm_ss"));
-            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-            File.WriteAllText(Path.Combine(folder, "body.html"), message.Body);
-
-            string text = string.Empty;
-
-            foreach (string key in newheaders.Keys)
-            {
-                text += key + ":" + newheaders[key] + Environment.NewLine;
-            }
-
-            text += "Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
-                "Body:" + Environment.NewLine + message.Body;
-
-
-
-            File.WriteAllText(Path.Combine(folder, "data.txt"), text);
+            return false;
         }
 
         public static void RegisterForAll(string file)

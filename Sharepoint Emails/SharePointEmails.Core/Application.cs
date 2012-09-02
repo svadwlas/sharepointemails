@@ -6,14 +6,18 @@ using Microsoft.SharePoint;
 using SharePointEmails.Logging;
 using SharePointEmails.Core.Configuration;
 using Microsoft.SharePoint.Administration;
+using SharePointEmails.Core.MailProcessors;
+using SharePointEmails.Core.Exceptions;
+using System.IO;
+using System.Collections.Specialized;
 
 namespace SharePointEmails.Core
 {
     public class Application
     {
-        static Application _Curent;
         static object _CurentLock = new object();
         static object _LoggerLock = new object();
+
         public static Application Current
         {
             get
@@ -31,51 +35,36 @@ namespace SharePointEmails.Core
                 return _Curent;
             }
         }
+        static Application _Curent;
 
-        public SPList GetHiddenList(SPWeb web, bool create = false)
-        {
-            var list = web.Lists.TryGetList(Constants.TemplateListName);
-            if (list == null && create)
-            {
-                var manager = ClassContainer.Instance.Resolve<ISiteManager>();
-                return manager.CreateHiddenTemplatesList(web);
-            }
-            else
-            {
-                return list;
-            }
-        }
-
-        public SPList CreateHiddenTemplateLibrary(SPWeb web, bool create = true)
-        {
-            var list = web.Lists.TryGetList(Constants.XsltLibrary);
-            if (list == null && create)
-            {
-                var manager = ClassContainer.Instance.Resolve<ISiteManager>();
-                return manager.CreateXsltTemplatesList(web);
-            }
-            else
-            {
-                return list;
-            }
-        }
-
-        private FarmConfiguration FarmConfig
+        public ILogger Logger
         {
             get
             {
-                var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
-                var res = configManager.GetConfigOrdefault(SPFarm.Local);
-                return res;
+                if (_Logger == null)
+                {
+                    lock (_LoggerLock)
+                    {
+                        if (_Logger == null)
+                        {
+                            _Logger = ClassContainer.Instance.Resolve<ILogger>();
+                        }
+                    }
+                }
+                return _Logger;
+            }
+        }
+        ILogger _Logger;
+
+        ITemplatesManager Manager
+        {
+            get
+            {
+                return ClassContainer.Instance.Resolve<ITemplatesManager>();
             }
         }
 
-        public WebConfiguration WebConfig(SPWeb web)
-        {
-            var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
-            var res = configManager.GetConfigOrdefault(web);
-            return res;
-        }
+        #region public
 
         public bool IsDisabledForFarm()
         {
@@ -106,34 +95,133 @@ namespace SharePointEmails.Core
             return false;
         }
 
-        public ILogger Logger
+        public WebConfiguration WebConfig(SPWeb web)
         {
-            get
+            var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
+            var res = configManager.GetConfigOrdefault(web);
+            return res;
+        }
+
+        public SEMessage OnNotification(SPWeb web, SPAlertHandlerParams ahp)
+        {
+            SPList list = null;
+            if (ahp.a != null)
             {
-                if (_Logger == null)
+                if (ahp.eventData.Length == 1)
                 {
-                    lock (_LoggerLock)
+                    GeneratedMessage message = null;
+                    var receiverEmail = ahp.headers["to"];
+                    var ed = ahp.eventData[0];
+                    list = web.Lists[ahp.a.ListID];
+                    try
                     {
-                        if (_Logger == null)
+                        message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
+                    }
+                    catch (SeTemplateNotFound ex)
+                    {
+                        Application.Current.Logger.Write("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
+                        Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        Application.Current.Logger.Write("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
+                        Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                    }
+                    if (message != null)
+                    {
+                        var mail = SEMessage.Create(message, ahp.headers, ahp.body);
+
+                        Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+
+                        var processor = ProcessorsManager.Instance.CreateOutcomingProcessor(list);
+                        if (processor != null)
                         {
-                            _Logger = ClassContainer.Instance.Resolve<ILogger>();
+                            processor.Precess(mail, ed);
                         }
+
+                        SaveMessage(message, mail.headers);
+                        return mail;
+                    }
+                    else
+                    {
+                        Application.Current.Logger.Write("Message not generated", SharePointEmails.Logging.SeverityEnum.Verbose);
                     }
                 }
-                return _Logger;
+                else
+                {
+                    Application.Current.Logger.Write("OnNotification - More then 1 eventdata. currently not supported", SharePointEmails.Logging.SeverityEnum.Warning);
+                }
+            }
+            return null;
+        }
+
+        public void OnIncomingMail(SPList list, Microsoft.SharePoint.Utilities.SPEmailMessage emailMessage)
+        {
+            Logger.Write("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
+            try
+            {
+                var processor = ProcessorsManager.Instance.CreateIncomingProcessor(list, SEMessage.Create(emailMessage));
+                if (processor != null)
+                {
+                    Logger.Write(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
+                    try
+                    {
+                        processor.Process();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Write("Error during processing of message", SeverityEnum.CriticalError);
+                        Logger.Write(ex, SeverityEnum.CriticalError);
+                    }
+                }
+                else
+                {
+                    Logger.Write("No incoming processor found for list " + list.Title, SeverityEnum.Trace, AreasEnum.IncomingMessages);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write("Error in the handler", SeverityEnum.CriticalError);
+                Logger.Write(ex, SeverityEnum.CriticalError);
             }
         }
-        ILogger _Logger;
 
-        ITemplatesManager Manager
+        #endregion
+
+        #region privates
+
+        FarmConfiguration FarmConfig
         {
             get
             {
-                return ClassContainer.Instance.Resolve<ITemplatesManager>();
+                var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
+                var res = configManager.GetConfigOrdefault(SPFarm.Local);
+                return res;
             }
         }
 
-        public GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string toEmail, int createUserId)
+        void SaveMessage(GeneratedMessage message, StringDictionary newheaders)
+        {
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"sentEmails\" + DateTime.Now.ToString("hh_mm_ss"));
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            File.WriteAllText(Path.Combine(folder, "body.html"), message.Body);
+
+            string text = string.Empty;
+
+            foreach (string key in newheaders.Keys)
+            {
+                text += key + ":" + newheaders[key] + Environment.NewLine;
+            }
+
+            text += "Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
+                "Body:" + Environment.NewLine + message.Body;
+
+
+
+            File.WriteAllText(Path.Combine(folder, "data.txt"), text);
+        }
+
+        GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string toEmail, int createUserId)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type);
             var res = Manager.GetTemplate(search);
@@ -156,5 +244,9 @@ namespace SharePointEmails.Core
             }
             return null;
         }
+
+        #endregion
+
+        
     }
 }

@@ -4,20 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Collections.Specialized;
 using SharePointEmails.Logging;
+using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core.MailProcessors
 {
-    public class OutcomingDiscussionBoardProcessor
+    internal class OutcomingDiscussionBoardProcessor : IOutcomingDiscussionBoardProcessor
     {
         ILogger m_Logger = null;
-        public OutcomingDiscussionBoardProcessor(ILogger logger)
+        IThreadStrategy m_strategy = null;
+        public OutcomingDiscussionBoardProcessor(ILogger logger, IThreadStrategy strategy)
         {
             m_Logger = logger;
+            m_strategy = strategy;
         }
 
-        public void Precess(ref StringDictionary headers, ref string body, int ItemId)
+        public void Precess(SEMessage mail, SPAlertEventData ed)
         {
-            headers["subject"] = headers["subject"] + string.Format("({0})",ItemId);
+            m_strategy.OnMailSending(mail,ed.itemId);
         }
     }
 }
