@@ -37,9 +37,15 @@ namespace SharepointEmails.Layouts.SharepointEmails
         {
             get
             {
-                return ClassContainer.Instance.Resolve<ConfigurationManager>();
+                if (_configManager == null)
+                {
+                    _configManager = SharePointEmails.Core.Application.Current.GetConfigurationManager();
+                }
+                return _configManager;
             }
         }
+
+        ConfigurationManager _configManager = null;
 
         public void UpdateModel(WebConfiguration config)
         {

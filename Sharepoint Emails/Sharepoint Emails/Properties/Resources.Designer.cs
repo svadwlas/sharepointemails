@@ -65,7 +65,7 @@ namespace SharepointEmails.Properties {
         ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;&gt;
         ///    &lt;xsl:output method=&quot;text&quot; indent=&quot;yes&quot;/&gt;
         ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
-        ///      &lt;xsl:value-of select=&quot;EventData[1]/@ListEmail&quot;/&gt;
+        ///      &lt;xsl:value-of select=&quot;EventData[1]/@AdminEmail&quot;/&gt;
         ///    &lt;/xsl:template&gt;
         ///&lt;/xsl:stylesheet&gt;
         ///.
@@ -73,6 +73,24 @@ namespace SharepointEmails.Properties {
         public static string AdminAddressTemplate {
             get {
                 return ResourceManager.GetString("AdminAddressTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;!-- If you are customizing alerttemplates.xml or alerttemplates_sms.xml, please ensure you keep them in synchronization in every parts except the format section. --&gt;
+        ///&lt;AlertTemplates&gt;
+        ///    &lt;AlertTemplate Type=&quot;List&quot;  Name=&quot;SPAlertTemplateType.GenericList&quot;&gt;
+        ///        &lt;EventTypes IsVisible=&quot;True&quot;/&gt;
+        ///        &lt;Format&gt;
+        ///&lt;Digest&gt;
+        ///    &lt;Header&gt;&lt;HTML&gt;&lt;![CDATA[&lt;html dir = $Resources:core,PageDirection;&gt;
+        /// &lt;head&gt;
+        /// &lt;base href=&quot;]]&gt;&lt;/HTML&gt;&lt;GetVar Name=&quot;SiteUrl&quot; URLEncodeAsURL=&quot;TR [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string alerttemplates {
+            get {
+                return ResourceManager.GetString("alerttemplates", resourceCulture);
             }
         }
         
@@ -162,7 +180,7 @@ namespace SharepointEmails.Properties {
         ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
         ///  &lt;xsl:template match=&apos;Data&apos;&gt;
         ///    &lt;subject&gt;
-        ///      Subject for alert {SList.Title}
+        ///      Subject for &quot;{SList.Title}&quot;
         ///    &lt;/subject&gt;
         ///  &lt;/xsl:template&gt;
         ///&lt;/xsl:stylesheet&gt;.

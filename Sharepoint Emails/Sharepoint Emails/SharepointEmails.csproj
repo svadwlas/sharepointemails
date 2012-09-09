@@ -188,6 +188,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\Switcher\FieldSwitches.js" />
+    <None Include="Resources\alerttemplates.xml" />
     <Content Include="Resources\BodyTemplate.html" />
     <Content Include="Resources\BodyTemplate.xslt" />
     <Content Include="Resources\BodyTemplateForDiscussionBoard.xslt" />

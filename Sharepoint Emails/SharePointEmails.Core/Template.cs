@@ -26,8 +26,13 @@ namespace SharePointEmails.Core
 
         private bool BodyAttached;
         private bool SubjectAttached;
+        private bool FromAttached;
+        private bool ReplyAttached;
+
         private bool UseFileForSubject;
         private bool UseFileForBody;
+        private bool UseFileForFrom;
+        private bool UseFileForReply;
 
 
         public string Body { get; set; }
@@ -78,11 +83,13 @@ namespace SharePointEmails.Core
             this.Name = m_Item[TemplateCT.TemplateName] as string;
             this.State = EnumConverter.ToState(m_Item[TemplateCT.TemplateState] as string);
 
-            this.UseFileForSubject = (bool)m_Item[TemplateCT.TemplateSubjectUseFile];
-            this.UseFileForBody = (bool)m_Item[TemplateCT.TemplateBodyUseFile];
+            this.UseFileForSubject = m_Item.GetFieldValue<bool>(TemplateCT.TemplateSubjectUseFile);
+            this.UseFileForBody = m_Item.GetFieldValue<bool>(TemplateCT.TemplateBodyUseFile);
+            this.UseFileForFrom = m_Item.GetFieldValue<bool>(TemplateCT.TemplateFromUseFile);
+            this.UseFileForReply = m_Item.GetFieldValue<bool>(TemplateCT.TemplateReplayUseFile);
 
-            this.From = m_Item.GetValueFromTextFieldOrFile(false, TemplateCT.TemplateFrom, null);
-            this.Replay = m_Item.GetValueFromTextFieldOrFile(false, TemplateCT.TemplateReplay, null);
+            this.From = m_Item.GetValueFromTextFieldOrFile(this.UseFileForFrom, TemplateCT.TemplateFrom,TemplateCT.TemplateFromFile, out FromAttached);
+            this.Replay = m_Item.GetValueFromTextFieldOrFile(this.UseFileForReply, TemplateCT.TemplateReplay, TemplateCT.TemplateReplayFile,out ReplyAttached);
             this.Body = m_Item.GetValueFromTextFieldOrFile(this.UseFileForBody, TemplateCT.TemplateBody, TemplateCT.TemplateBodyFile, out this.BodyAttached);
             this.Subject = m_Item.GetValueFromTextFieldOrFile(this.UseFileForSubject, TemplateCT.TemplateSubject, TemplateCT.TemplateSubjectFile, out this.SubjectAttached);
 
@@ -147,6 +154,7 @@ namespace SharePointEmails.Core
 
         public string GetProcessedFrom(ISubstitutionContext context, ProcessMode mode)
         {
+
             var worker = SubstitutionManager.GetWorker(context, Core.SubstitutionManager.WorkerType.ForFrom);
             if (string.IsNullOrEmpty(From)) return string.Empty;
             return worker.Process(this.From, ProcessMode.Work);

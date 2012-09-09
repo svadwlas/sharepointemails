@@ -85,7 +85,7 @@
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
     <Compile Include="MailProcessors\EmailReceiver.cs" />
     <Compile Include="MailProcessors\IOutcomingDiscussionBoardProcessor.cs" />
-    <Compile Include="MailProcessors\Strategies\IIThreadStrategy.cs" />
+    <Compile Include="MailProcessors\Strategies\IThreadStrategy.cs" />
     <Compile Include="MailProcessors\IncomingDiscussionBoardProcessor.cs" />
     <Compile Include="Interfaces\IIncomingMessageProcessor.cs" />
     <Compile Include="Interfaces\ISiteManager.cs" />
@@ -122,7 +122,7 @@
     <Compile Include="Substitutions\XlstSubstitution.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="SearchContext.cs" />
-    <Compile Include="TemplatesResolver.cs" />
+    <Compile Include="DefaultTemplatesManager.cs" />
     <Compile Include="Associations\AssociationConfiguration.cs" />
     <Compile Include="XmlExtensions.cs" />
   </ItemGroup>

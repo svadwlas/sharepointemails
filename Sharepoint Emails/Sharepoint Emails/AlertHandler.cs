@@ -107,10 +107,11 @@ namespace SharepointEmails
             return false;
         }
 
-        public static void RegisterForAll(string file)
+        public static void RegisterForAll(string sourceFile, out string tmpFile)
         {
-            File.Copy(file, file + "_backup_before_Registering" + DateTime.Now.ToString("mm_dd_hh_mm_ss"));
-            var doc = XDocument.Load(file);
+            tmpFile = Path.Combine(Path.GetDirectoryName(sourceFile), Path.ChangeExtension(Path.GetFileNameWithoutExtension(sourceFile) + DateTime.Now.ToString("_mm_dd_hh_mm_ss"), Path.GetExtension(sourceFile)));
+            File.Copy(sourceFile, tmpFile);
+            var doc = XDocument.Load(tmpFile);
             foreach (var template in doc.Descendants("AlertTemplate"))
             {
                 var props = template.Elements("Properties").FirstOrDefault();
@@ -133,7 +134,7 @@ namespace SharepointEmails
                     NotificationHandlerClassName.Value = typeof(AlertHandler).FullName;
                 }
             }
-            doc.Save(file);
+            doc.Save(tmpFile);
         }
 
         public static void UnRegisterForAll(string file)

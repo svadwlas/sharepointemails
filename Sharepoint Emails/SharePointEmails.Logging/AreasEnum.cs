@@ -7,7 +7,7 @@ namespace SharePointEmails.Logging
 {
     public enum AreasEnum
     {
-        Default,
+        DefaultArea,
         IncomingMessages
     }
 }

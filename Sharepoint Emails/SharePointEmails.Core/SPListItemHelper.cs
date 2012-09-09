@@ -88,5 +88,11 @@ namespace SharePointEmails.Core
             bool a;
             return item.GetValueFromTextFieldOrFile(getFromFile, textfield, fileField,out a);
         }
+
+        public static T GetFieldValue<T>(this SPListItem item, string fieldName, T defaultValue = default(T))
+        {
+            var obj = item[fieldName];
+            return obj == null ? defaultValue : (T)obj;
+        }
     }
 }

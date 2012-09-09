@@ -8,7 +8,7 @@ using SharePointEmails.Core.Configuration;
 
 namespace SharePointEmails.Core
 {
-    public class ClassContainer
+    internal class ClassContainer
     {
         static ClassContainer _Instance = null;
 

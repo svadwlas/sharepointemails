@@ -186,6 +186,11 @@ namespace SharePointEmails.Core
             }
         }
 
+        public ConfigurationManager GetConfigurationManager()
+        {
+            return ClassContainer.Instance.Resolve<ConfigurationManager>();
+        }
+
         #endregion
 
         #region privates

@@ -42,9 +42,9 @@ namespace SharePointEmails.Core
                 File.WriteAllText(temp, xslt);
                 c.Load(temp, new XsltSettings(true, true), new Resolver());
 
-                using (var xmlreader = XmlReader.Create(new StringReader(xml), new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
+                using (var xmlreader = XmlReader.Create(new StringReader(xml)))
                 {
-                    using (var resultWriter = XmlWriter.Create(new StringWriter(res)))
+                    using (var resultWriter = XmlWriter.Create(new StringWriter(res), new XmlWriterSettings() { ConformanceLevel=ConformanceLevel.Fragment}))
                     {
                         c.Transform(xmlreader, resultWriter);
                     }
@@ -63,7 +63,7 @@ namespace SharePointEmails.Core
             ILogger Logger { set; get; }
             public Resolver()
             {
-                Logger = ClassContainer.Instance.Resolve<ILogger>();
+                Logger = Application.Current.Logger;
                 if (Logger == null) throw new InvalidProgramException("No logger configured");
             }
 
