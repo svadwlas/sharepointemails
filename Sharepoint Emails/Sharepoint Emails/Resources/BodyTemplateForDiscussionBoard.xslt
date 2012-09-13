@@ -1,23 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" xmlns:user="urn:my-scripts">
+<xsl:stylesheet version="1.0" 
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" 
+                xmlns:user="urn:my-scripts"
+                xmlns:d="urn:sharepointemail-discussionboard">
   <xsl:output method="xml" indent="yes"/>
 
   <xsl:template match="@* | node()">
     <Html>
       <head>
         <base href="{SSite.Url}"/>
-        <style type="text/css">
-          .main table{
-          border: 1px solid black;
-          }
-          .main th{
-          border: 1px solid black;
-          }
-          .main td{
-          border: 1px solid black;
-          text-align: center;
-          }
-        </style>
       </head>
       <Body>
         <div class="header">
@@ -57,18 +48,55 @@
           </table>
         </div>
         <div class="main">
+          <xsl:variable name="DiscussionAdded" select="descendant::d:Discussion[1]/@Current"/>
           <p>Hello {DUser.LoginName}</p>
-          <p>{SUser.LoginName} added new message</p>
+          <p>
+            {SUser.LoginName} added new 
+            <xsl:choose>
+              <xsl:when test="$DiscussionAdded = 'true'">
+                discussion
+              </xsl:when>
+              <xsl:otherwise>
+                message
+              </xsl:otherwise>
+            </xsl:choose>
+          </p>
           <div>
-              Discussion Subject : <xsl:value-of select="descendant::Discussion[1]/Subject/ClearValue"/>
+            <p>
+              Discussion Subject : <xsl:value-of select="descendant::d:Discussion[1]/d:Subject/d:ClearValue"/>
+            </p>
+            <p>
+              Discussion Text : <xsl:value-of select="descendant::d:Message[@Current='true'][1]/d:Body/d:ClearValue"/>
+            </p>
           </div>
           <div>
-              Message text : <xsl:value-of select="descendant::Message[@Current='true'][1]/Body/ClearValue"/>
+            <xsl:apply-templates select="descendant::d:Discussion/d:Message">
+              <xsl:with-param select="30" name="otstup"/>
+            </xsl:apply-templates>
           </div>
         </div>
       </Body>
     </Html>
   </xsl:template>
+
+  <xsl:template match="d:Message">
+    <xsl:param name="otstup"/>
+    <div >
+      <xsl:attribute name="style">
+        <xsl:value-of select="concat('margin-left:',$otstup,'px')"/>
+      </xsl:attribute>
+      <p>
+        --> User : <xsl:value-of select="@User"/>
+      </p>
+      <p>
+        Message Text : <xsl:value-of select ="d:Body/d:ClearValue"/>
+      </p>
+      <xsl:apply-templates select="/d:Message">
+        <xsl:with-param name="otstup" select="$otstup+20"/>
+      </xsl:apply-templates>
+    </div>
+  </xsl:template>
+  
   <msxsl:script language="C#" implements-prefix="user">
     <msxsl:assembly name="System" />
     <msxsl:using namespace="System" /><![CDATA[public string GetDate(string DateFormat){return DateTime.Now.ToString(DateFormat);}]]>

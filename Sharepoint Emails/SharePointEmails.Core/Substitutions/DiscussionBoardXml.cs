@@ -25,14 +25,7 @@ namespace SharePointEmails.Core.Substitutions
             {
                 if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
                 {
-                    if (!UseParse)
-                    {
-                        return GetElementUseList(listItem);
-                    }
-                    else
-                    {
-                        return GetElementUseParse(listItem);
-                    }
+                    return GetElementUseList(listItem);
                 }
             }
             return null;
@@ -62,7 +55,8 @@ namespace SharePointEmails.Core.Substitutions
 
         private XElement GetElementUseList(SPListItem listItem)
         {
-            var element = new XElement("DiscussionBoard");
+            XNamespace nsp = XNamespace.Get(NameSpace);
+            var element = new XElement(nsp+"DiscussionBoard");
                 List<SPListItem> chain = new List<SPListItem>();
                 if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                 {
@@ -79,25 +73,24 @@ namespace SharePointEmails.Core.Substitutions
                 {
                     if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
                     {
-                        
-                        curent.SetAttributeValue("xmlns", "urn:sharepointemail-discussionboard");
+                        curent = new XElement(nsp + "Discussion");
                         element.Add(curent);
-                        var subjElement = new XElement("Subject");
-                        var bodyElement = new XElement("Body");
+                        var subjElement = new XElement(nsp+"Subject");
+                        var bodyElement = new XElement(nsp+"Body");
 
-                        var subjText = new XElement("Value")
+                        var subjText = new XElement(nsp+"Value")
                         {
                             Value = (item.Fields.Contains(SPBuiltInFieldId.DiscussionTitle) ? (item[SPBuiltInFieldId.DiscussionTitle] as string) ?? string.Empty : string.Empty)
                         };
 
-                        var clearSubjText = new XElement("ClearValue") { Value = GetDiscussionSubjText(subjText.Value) };
+                        var clearSubjText = new XElement(nsp+"ClearValue") { Value = GetDiscussionSubjText(subjText.Value) };
 
-                        var bodyText = new XElement("Value")
+                        var bodyText = new XElement(nsp+"Value")
                         {
                             Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
                         };
 
-                        var clearBodyText = new XElement("ClearValue") { Value = GetDiscussionBodyText(bodyText.Value) };
+                        var clearBodyText = new XElement(nsp+"ClearValue") { Value = GetDiscussionBodyText(bodyText.Value) };
 
                         subjElement.Add(subjText, clearSubjText);
                         bodyElement.Add(bodyText, clearBodyText);
@@ -105,23 +98,24 @@ namespace SharePointEmails.Core.Substitutions
                     }
                     else
                     {
-                        curent = new XElement("Message");
-                        if (item.UniqueId == listItem.UniqueId)
-                        {
-                            curent.SetAttributeValue("Current", true);
-                        }
-
-                        var bodyElement = new XElement("Body");
-                        var bodyText = new XElement("Value")
+                        curent = new XElement(nsp+"Message");
+                        var bodyElement = new XElement(nsp+"Body");
+                        var bodyText = new XElement(nsp+"Value")
                         {
                             Value = (item.Fields.Contains(SPBuiltInFieldId.Body) ? (item[SPBuiltInFieldId.Body] as string) ?? string.Empty : string.Empty)
                         };
 
-                        var clearBodyText = new XElement("ClearValue") { Value = GetMessageBodyText(bodyText.Value) };
+                        var clearBodyText = new XElement(nsp+"ClearValue") { Value = GetMessageBodyText(bodyText.Value) };
 
                         bodyElement.Add(bodyText, clearBodyText);
                         curent.Add(bodyElement);
                     }
+                    if (item.UniqueId == listItem.UniqueId)
+                    {
+                        curent.SetAttributeValue("Current", true);
+                    }
+                    var createdBy = new SPFieldUserValue(item.ParentList.ParentWeb, item[SPBuiltInFieldId.Author].ToString());
+                    curent.SetAttributeValue("User", createdBy.User.LoginName);
                     if (parent != null)
                     {
                         parent.Add(curent);

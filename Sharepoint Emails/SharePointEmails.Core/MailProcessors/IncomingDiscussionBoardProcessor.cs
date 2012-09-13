@@ -75,68 +75,64 @@ namespace SharePointEmails.MailProcessors
         public void Process()
         {
             m_user = m_list.ParentWeb.SiteUsers.GetByEmail(m_message.Sender);
-            if (m_user == null)
+            if (m_user != null)
+            {
+                using (var site = new SPSite(m_list.ParentWeb.Site.ID, m_user.UserToken))
+                {
+                    using (var web = site.OpenWeb(m_list.ParentWeb.ID))
+                    {
+                        m_list = web.Lists.GetList(m_list.ID, false, true);
+                        SPListItem relatedItem = GetRelatedListItem();
+                        SPListItem newItem = null;
+                        if (relatedItem != null)
+                        {
+                            m_Logger.Write("Related item was found", SeverityEnum.Trace);
+                            if (relatedItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion) || relatedItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
+                            {
+                                newItem = AddReplyToItem(relatedItem);
+                            }
+                            else
+                            {
+                                m_Logger.Write("Related item has some wrong content type " + relatedItem.ContentTypeId, SeverityEnum.CriticalError);
+                            }
+                        }
+                        else
+                        {
+                            m_Logger.Write("Related item was not found", SeverityEnum.Trace);
+                            if (m_itemIdPresented)
+                            {
+                                m_Logger.Write("Item id was present", SeverityEnum.Trace);
+
+                            }
+                            else
+                            {
+                                m_Logger.Write("Item id was not present", SeverityEnum.Trace);
+                                newItem = AddNewDiscussion();
+                            }
+                        }
+                        if (newItem != null)
+                        {
+                            if (SaveOriginalMessage)
+                            {
+                                AddEmail(newItem);
+                            }
+                            if (SaveAttachments)
+                            {
+                                AddAttachments(newItem);
+                            }
+                            newItem.Update();
+                            m_Logger.Write("Item SUCCESSFULY added", SeverityEnum.Trace);
+                        }
+                        else
+                        {
+                            m_Logger.Write("No new item", SeverityEnum.Warning);
+                        }
+                    }
+                }
+            }
+            else
             {
                 m_Logger.Write("No user with email=" + m_message.Sender, SeverityEnum.Warning);
-            }
-            SPListItem relatedItem = GetRelatedListItem();
-            SPListItem newItem = null;
-            if (relatedItem != null)
-            {
-                m_Logger.Write("Related item was found", SeverityEnum.Trace);
-                if (relatedItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
-                {
-                    m_Logger.Write("Related item is discussion", SeverityEnum.Trace);
-                    newItem = AddMessageToDiscussion(relatedItem);
-                }
-                else if (relatedItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
-                {
-                    var parentId = (int)relatedItem[SPBuiltInFieldId.ParentFolderId];
-                    var disc = m_list.GetItemById(parentId);
-                    newItem = AddMessageToDiscussion(disc);
-                    m_Logger.Write("Related item is message", SeverityEnum.Trace);
-                }
-                else
-                {
-                    m_Logger.Write("Related item has some wrong content type " + relatedItem.ContentTypeId, SeverityEnum.CriticalError);
-                }
-            }
-            else
-            {
-                m_Logger.Write("Related item was not found", SeverityEnum.Trace);
-                if (m_itemIdPresented)
-                {
-                    m_Logger.Write("Item id was present", SeverityEnum.Trace);
-
-                }
-                else
-                {
-                    m_Logger.Write("Item id was not present", SeverityEnum.Trace);
-                    newItem = AddNewDiscussion();
-                }
-            }
-            if (newItem != null)
-            {
-                if (SaveOriginalMessage)
-                {
-                    AddEmail(newItem);
-                }
-                if (SaveAttachments)
-                {
-                    AddAttachments(newItem);
-                }
-                if (m_user != null)
-                {
-                    var value = new SPFieldUserValue(m_list.ParentWeb, m_user.ID, m_user.LoginName);
-                    newItem[SPBuiltInFieldId.Editor] = value;
-                    newItem[SPBuiltInFieldId.Author] = value;
-                }
-                newItem.Update();
-                m_Logger.Write("Item SUCCESSFULY added", SeverityEnum.Trace);
-            }
-            else
-            {
-                m_Logger.Write("No new item", SeverityEnum.Warning);
             }
         }
 
@@ -153,7 +149,7 @@ namespace SharePointEmails.MailProcessors
             return m_TextStartegy.CreateDiscussion(m_list, m_message);
         }
 
-        SPListItem AddMessageToDiscussion(SPListItem relatedItem)
+        SPListItem AddReplyToItem(SPListItem relatedItem)
         {
             return m_TextStartegy.CreateReply(relatedItem, m_message);
         }
