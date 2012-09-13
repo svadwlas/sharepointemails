@@ -18,7 +18,7 @@ namespace SharePointEmails.Core.Substitutions
             get { return Pattern; }
         }
 
-        public string Process(string text, ISubstitutionContext context, ProcessMode mode)
+        public string Process(string text, ISubstitutionContext context)
         {
             if (!string.IsNullOrEmpty(text))
             {

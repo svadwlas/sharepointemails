@@ -11,6 +11,7 @@ using Microsoft.SharePoint.Utilities;
 using System.IO;
 using System.Diagnostics;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SharepointEmails.Features.SharePointEmails
 {
@@ -143,17 +144,36 @@ namespace SharepointEmails.Features.SharePointEmails
             }
         }
 
+        class DefaultTemplateFile
+        {
+            public string Name;
+            public byte[] Bytes;
+        }
+
         private void UploadBasicFiles(SPWeb sPWeb)
         {
             try
             {
+                var files = new List<DefaultTemplateFile>
+                {
+                    new DefaultTemplateFile {Name="subj.xslt",Bytes=Encoding.Default.GetBytes(Properties.Resources.subjXslt)},
+                    new DefaultTemplateFile{Name="BodyTemplate.xslt",Bytes= Encoding.Default.GetBytes(Properties.Resources.BodyTemplate)},
+                    new DefaultTemplateFile{Name="BodyTemplateForDiscussionBoard.xslt",Bytes= Encoding.Default.GetBytes(Properties.Resources.BodyTemplateForDiscussionBoard)},
+                    new DefaultTemplateFile{Name="ListAddressTemplate.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.ListAddressTemplate)},
+                    new DefaultTemplateFile{Name="AdminAddressTemplate.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.AdminAddressTemplate)},
+                    new DefaultTemplateFile{Name="Utils.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.Utils)}
+                };
+
+                Func<string, SPFieldLookupValue> getId = (s) =>
+                    {
+                        return new SPFieldLookupValue(files.IndexOf(files.Single(p => string.Equals(p.Name, s, StringComparison.CurrentCultureIgnoreCase))) + 1, s);
+                    };
+
                 var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
-                list.RootFolder.Files.Add("subj.xslt", Encoding.Default.GetBytes(Properties.Resources.subjXslt));
-                list.RootFolder.Files.Add("body.xslt", Encoding.Default.GetBytes(Properties.Resources.testbody));
-                list.RootFolder.Files.Add("BodyTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplate));
-                list.RootFolder.Files.Add("BodyTemplateForDiscussionBoard.xslt", Encoding.Default.GetBytes(Properties.Resources.BodyTemplateForDiscussionBoard));
-                list.RootFolder.Files.Add("ListAddressTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.ListAddressTemplate));
-                list.RootFolder.Files.Add("AdminAddressTemplate.xslt", Encoding.Default.GetBytes(Properties.Resources.AdminAddressTemplate));
+                foreach (var p in files)
+                {
+                    list.RootFolder.Files.Add(p.Name, p.Bytes);
+                }
                 list.Update();
 
                 foreach (SPListItem item in list.Items)
@@ -169,11 +189,11 @@ namespace SharepointEmails.Features.SharePointEmails
                 templ[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
                 templ[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
                 templ[TemplateCT.TemplateFromUseFile] = true;
-                templ[TemplateCT.TemplateFromFile] = new SPFieldLookupValue(6, "AdminAddressTemplate.xslt"); ;
+                templ[TemplateCT.TemplateFromFile] = getId("AdminAddressTemplate.xslt");
                 templ[TemplateCT.TemplateSubjectUseFile] = true;
                 templ[TemplateCT.TemplateBodyUseFile] = true;
-                templ[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
-                templ[TemplateCT.TemplateBodyFile] = new SPFieldLookupValue(3, "BodyTemplate.xslt");
+                templ[TemplateCT.TemplateSubjectFile] = getId("subj.xslt");
+                templ[TemplateCT.TemplateBodyFile] = getId("BodyTemplate.xslt");
                 templ[TemplateCT.Associations] = new AssociationConfiguration
                 {
                     new GroupAssociation
@@ -190,13 +210,13 @@ namespace SharepointEmails.Features.SharePointEmails
                 temp2[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
                 temp2[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
                 temp2[TemplateCT.TemplateFromUseFile] = true;
-                temp2[TemplateCT.TemplateFromFile] = new SPFieldLookupValue(5, "ListAddressTemplate.xslt"); 
+                temp2[TemplateCT.TemplateFromFile] = getId("ListAddressTemplate.xslt"); 
                 temp2[TemplateCT.TemplateReplayUseFile] = true;
-                temp2[TemplateCT.TemplateReplayFile] = new SPFieldLookupValue(5, "ListAddressTemplate.xslt"); 
+                temp2[TemplateCT.TemplateReplayFile] = getId("ListAddressTemplate.xslt"); 
                 temp2[TemplateCT.TemplateSubjectUseFile] = true;
                 temp2[TemplateCT.TemplateBodyUseFile] = true;
-                temp2[TemplateCT.TemplateSubjectFile] = new SPFieldLookupValue(1, "subj.xslt");
-                temp2[TemplateCT.TemplateBodyFile] = new SPFieldLookupValue(4, "BodyTemplateForDiscussionBoard.xslt");
+                temp2[TemplateCT.TemplateSubjectFile] = getId( "subj.xslt");
+                temp2[TemplateCT.TemplateBodyFile] = getId("BodyTemplateForDiscussionBoard.xslt");
                 temp2[TemplateCT.Associations] = new AssociationConfiguration
                 {
                     new GroupAssociation

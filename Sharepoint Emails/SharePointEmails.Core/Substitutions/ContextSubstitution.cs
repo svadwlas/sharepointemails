@@ -25,14 +25,14 @@ namespace SharePointEmails.Core.Substitutions
             get { return "Context variables"; }
         }
 
-        public string Process(string text, ISubstitutionContext context, ProcessMode mode)
+        public string Process(string text, ISubstitutionContext context)
         {
             var res = text;
             foreach (Match m in Regex.Matches(text, @"\{([^\$ ]+?)\}"))
             {
                 try
                 {
-                    var value=(mode == ProcessMode.Test) ? "value of " + m.Value : context.GetContextValue(m.Groups[1].Value);
+                    var value = context.GetContextValue(m.Groups[1].Value);
                     if (value != null)
                     {
                         res = res.Replace(m.Value, value);

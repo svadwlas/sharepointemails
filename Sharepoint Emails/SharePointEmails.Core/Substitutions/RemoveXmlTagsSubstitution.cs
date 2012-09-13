@@ -27,7 +27,7 @@ namespace SharePointEmails.Core.Substitutions
             get { return ""; }
         }
 
-        public string Process(string text, ISubstitutionContext context, ProcessMode mode)
+        public string Process(string text, ISubstitutionContext context)
         {
             try
             {

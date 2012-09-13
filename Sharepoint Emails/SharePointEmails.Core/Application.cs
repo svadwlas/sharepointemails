@@ -226,7 +226,7 @@ namespace SharePointEmails.Core
             File.WriteAllText(Path.Combine(folder, "data.txt"), text);
         }
 
-        GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string toEmail, int createUserId)
+        GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type);
             var res = Manager.GetTemplate(search);
@@ -234,13 +234,13 @@ namespace SharePointEmails.Core
             {
                 Logger.Write("Found template:", SeverityEnum.Verbose);
                 Logger.Write(res.ToString(), SeverityEnum.Verbose);
-                var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, toEmail, createUserId,type);
+                var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, receiverEmail, alertCreatorID,type);
                 return new GeneratedMessage
                     {
-                        Body = res.GetProcessedBody(substitutionContext, Substitutions.ProcessMode.Work),
-                        Subject = res.GetProcessedSubj(substitutionContext, Substitutions.ProcessMode.Work),
-                        From = res.GetProcessedFrom(substitutionContext, Substitutions.ProcessMode.Work),
-                        Replay = res.GetProcessedReplay(substitutionContext, Substitutions.ProcessMode.Work)
+                        Body = res.GetProcessedBody(substitutionContext),
+                        Subject = res.GetProcessedSubj(substitutionContext),
+                        From = res.GetProcessedFrom(substitutionContext),
+                        Replay = res.GetProcessedReplay(substitutionContext)
                     };
             }
             else

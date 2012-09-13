@@ -29,14 +29,14 @@ namespace SharePointEmails.Core.Substitutions
             get { return "resources"; }
         }
 
-        public string Process(string text, ISubstitutionContext context,ProcessMode mode)
+        public string Process(string text, ISubstitutionContext context)
         {
             string res = text;
             foreach (Match m in Regex.Matches(res, @"\{\$Resources:(.+?)\,(.+?)\}"))
             {
                 try
                 {
-                    var lcid = (mode == ProcessMode.Test) ? (uint)context.GetDestinationCulture().LCID : (uint)Thread.CurrentThread.CurrentCulture.LCID;
+                    var lcid = (uint)Thread.CurrentThread.CurrentCulture.LCID;
                     var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
                     if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
                     {

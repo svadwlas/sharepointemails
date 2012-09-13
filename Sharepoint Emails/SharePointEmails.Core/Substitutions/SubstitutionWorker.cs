@@ -22,7 +22,7 @@ namespace SharePointEmails.Core
             m_substitutions = sustitutions ?? new List<ISubstitution>(); ;
         }
 
-        public string Process(string data, ProcessMode mode)
+        public string Process(string data)
         {
             var res = data ?? "";
             if (m_substitutions != null)
@@ -33,7 +33,7 @@ namespace SharePointEmails.Core
                     m_Logger.Write("START SUBSTITUTION : " + substitution.GetType().Name, SeverityEnum.Verbose);
                     try
                     {
-                        res = substitution.Process(res, m_context, mode);
+                        res = substitution.Process(res, m_context);
                     }
                     catch (Exception ex)
                     {

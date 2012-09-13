@@ -30,22 +30,13 @@ namespace SharePointEmails.Core
 
         public SubstitutionContext(string eventData, SPList sourceList):this(eventData,sourceList,-1,null,null,-1,SPEventType.All){}
 
-        public SubstitutionContext(string eventData, SPList sourceList, int ItemID, string modifierName, string toemail, int CreateUserId,SPEventType eventType)
+        public SubstitutionContext(string eventData, SPList sourceList, int itemId, string modifierName, string receiverEmail, int alertCreatorId, SPEventType eventType)
         {
             Logger = Application.Current.Logger;
             m_eventType = eventType;
             m_sourceList = sourceList;
-            Vars = new ContextVars(sourceList, ItemID, modifierName, toemail, CreateUserId);
 
-            if (Vars.SItem != null)
-            {
-                Logger.Write("ALL FIELDS",SeverityEnum.Verbose);
-                for (int i = 0; i < Vars.SItem.Fields.Count; i++)
-                {
-                    var f = Vars.SItem.Fields[i];
-                    Logger.Write(string.Format("{0} ({1}) : {2}", f.InternalName, f.Title, (Vars.SItem[f.Id] ?? string.Empty).ToString()), SeverityEnum.Verbose);
-                }
-            }
+            Vars = new ContextVars(sourceList, itemId, modifierName, receiverEmail, alertCreatorId);
             Changes = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
         }
 
@@ -71,30 +62,6 @@ namespace SharePointEmails.Core
             return GetValueFromObjByPath(Vars, value);
         }
 
-        public static string GetTestXML()
-        {
-            XDocument res = new XDocument();
-            res.Add(new XElement("Data"));
-            var eventData = new XElement("EventData");
-            res.Root.Add(eventData);
-            eventData.SetAttributeValue("EventType", (int)SPEventType.Modify);
-            eventData.SetAttributeValue("EventTypeName", SPEventType.Modify.ToString());
-            var b = true;
-            foreach (var change in new string[] { "Title", "FileName", "YesNoField" })
-            {
-                var el = new XElement("Field");
-                el.SetAttributeValue("Type", "TypeOf"+change);
-                el.SetAttributeValue("DisplayName", change);
-                el.SetAttributeValue("Name", "_" + change);
-                el.SetAttributeValue("Changed", b = !b);
-                el.SetAttributeValue("New", "new value of " + change);
-                el.SetAttributeValue("Old", "old value of " + change);
-                el.SetAttributeValue("Value", "some value of " + change);
-                eventData.Add(el);
-            }
-            return res.ToString();
-        }
-
         string GetListEmail(SPList list)
         {
             try
@@ -107,30 +74,26 @@ namespace SharePointEmails.Core
                         var service = SPFarm.Local.GetChild<SPIncomingEmailService>();
                         if (service != null)
                         {
-                            var server = service.ServerDisplayAddress;
-                            if (!string.IsNullOrEmpty(server))
+                            var serverAdress = service.ServerDisplayAddress;
+                            if (!string.IsNullOrEmpty(serverAdress))
                             {
-                                return string.Format("{0}@{1}", alias, server);
+                                return string.Format("{0}@{1}", alias, serverAdress);
                             }
                             else
                             {
-                                throw new ConfigurationErrorsException("No email server address for list ");
+                                Logger.Write("No email server address for list ", SeverityEnum.Warning);
                             }
                         }
                         else
                         {
-                            throw new ConfigurationErrorsException("Cannot get incoming email service");
+                            Logger.Write("Cannot get incoming email service", SeverityEnum.Warning);
                         }
                     }
                     else
                     {
-                        throw new ConfigurationErrorsException("No email alias for list ");
+                        Logger.Write("No email alias for list ", SeverityEnum.Warning);
                     }
                 }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                Logger.Write(ex, SeverityEnum.Warning);
             }
             catch (Exception ex)
             {
@@ -153,13 +116,9 @@ namespace SharePointEmails.Core
                     }
                     else
                     {
-                        throw new ConfigurationErrorsException("No admins with emails");
+                        Logger.Write("No admins with emails", SeverityEnum.Warning);
                     }
                 }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                Logger.Write(ex, SeverityEnum.Warning);
             }
             catch (Exception ex)
             {
@@ -228,124 +187,13 @@ namespace SharePointEmails.Core
             return CultureInfo.CurrentCulture;
         }
 
-        class ContextVars
+        public SPList GetTemplateLibrary()
         {
-            ILogger Logger;
-            public ContextVars(SPList sourceList, int ItemID, string modifierName, string toemail, int CUserID)
+            if (Vars.SSite!= null)
             {
-                Logger = Application.Current.Logger;
-                SList = sourceList;
-                if (SList != null)
-                {
-                    SWeb = SList.ParentWeb;
-                    if (SWeb != null)
-                    {
-                        SSite = SWeb.Site;
-                    }
-                }
-                if (CUserID != -1 && SWeb != null)
-                {
-                    try
-                    {
-                        CUser = SWeb.SiteUsers[CUserID];
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Write(ex, SeverityEnum.Error);
-                    }
-                }
-                if (sourceList != null && ItemID != -1)
-                {
-                    try
-                    {
-                        SItem = sourceList.GetItemById(ItemID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Write(ex, SeverityEnum.Error);
-                    }
-                }
-                if (!string.IsNullOrEmpty(modifierName) && SWeb != null)
-                {
-                    try
-                    {
-                        SUser = SWeb.SiteUsers[modifierName];
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Write("Cannot get SUser", SeverityEnum.Error);
-                        Logger.Write(ex, SeverityEnum.Error);
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(modifierName) && SWeb != null)
-                {
-                    try
-                    {
-                        DUser = SWeb.SiteUsers.GetByEmail(toemail);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Write("Cannot get DUser", SeverityEnum.Error);
-                        Logger.Write(ex, SeverityEnum.Error);
-                    }
-                }
-
-
-               
+                return Vars.SSite.RootWeb.Lists.TryGetList(Constants.XsltLibrary);
             }
-
-            
-
-            public SPWeb SWeb
-            {
-                get;
-                set;
-            }
-
-            public SPSite SSite
-            {
-                get;
-                set;
-            }
-
-            public SPUser SUser { set; get; }//force alert
-
-            public SPUser DUser { set; get; }//alert destination
-
-            public SPUser CUser { set; get; }//create alert
-
-            public SPList SList
-            {
-                get;
-                set;
-            }
-
-            public SPListItem SItem
-            {
-                get;
-                set;
-            }
-
-            public bool DUserCanApprove { set; get; }
-
-            public ApproveClass Approve { set; get; }
-        }
-
-        struct ApproveClass
-        {
-            public bool CanApprove { set; get; }
-
-            public string ApproveUrl { set; get; }
-
-            public string RejectUrl { set; get; }
-
-            public string PageUrl { set; get; }
-
-            public string ToTrace()
-            {
-                return string.Format("CanApprove={0}, ApproveUrl={1}, RejectUrl={2}, PageUrl={3}", CanApprove, ApproveUrl, RejectUrl, PageUrl);
-            }
+            return null;
         }
     }
 

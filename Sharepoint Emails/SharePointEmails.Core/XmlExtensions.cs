@@ -8,6 +8,7 @@ using System.Xml;
 using System.IO;
 using System.Xml.Xsl;
 using SharePointEmails.Logging;
+using Microsoft.SharePoint;
 
 namespace SharePointEmails.Core
 {
@@ -32,7 +33,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public static string ApplyXslt(this string xml, string xslt)
+        public static string ApplyXslt(this string xml, string xslt, SPList library)
         {
             var temp = Path.GetTempFileName();
             var res = new StringBuilder();
@@ -40,11 +41,11 @@ namespace SharePointEmails.Core
             {
                 var c = new System.Xml.Xsl.XslCompiledTransform();
                 File.WriteAllText(temp, xslt);
-                c.Load(temp, new XsltSettings(true, true), new Resolver());
+                c.Load(temp, new XsltSettings(true, true), new Resolver(library as SPDocumentLibrary,temp));
 
                 using (var xmlreader = XmlReader.Create(new StringReader(xml)))
                 {
-                    using (var resultWriter = XmlWriter.Create(new StringWriter(res), new XmlWriterSettings() { ConformanceLevel=ConformanceLevel.Fragment}))
+                    using (var resultWriter = XmlWriter.Create(new StringWriter(res), new XmlWriterSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
                     {
                         c.Transform(xmlreader, resultWriter);
                     }
@@ -61,10 +62,17 @@ namespace SharePointEmails.Core
         class Resolver : XmlResolver
         {
             ILogger Logger { set; get; }
-            public Resolver()
+
+            string tempXslt;
+
+            SPDocumentLibrary lib;
+            public Resolver(SPDocumentLibrary library, string tempXslt)
             {
                 Logger = Application.Current.Logger;
+
                 if (Logger == null) throw new InvalidProgramException("No logger configured");
+                this.tempXslt = tempXslt;
+                lib = library;
             }
 
             public override System.Net.ICredentials Credentials
@@ -74,10 +82,26 @@ namespace SharePointEmails.Core
 
             public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
             {
-                var local = absoluteUri.LocalPath;
-                if (!string.IsNullOrEmpty(local))
+                if (string.Equals(absoluteUri.LocalPath, tempXslt))
                 {
-                    return File.OpenRead(local);
+                    var local = absoluteUri.LocalPath;
+                    if (!string.IsNullOrEmpty(local))
+                    {
+                        return File.OpenRead(local);
+                    }
+                }
+                else
+                {
+                    if (lib != null)
+                    {
+                        foreach (SPListItem item in lib.Items)
+                        {
+                            if (item.File != null && string.Equals(item.File.Name, Path.GetFileName(absoluteUri.LocalPath)))
+                            {
+                                return item.File.OpenBinaryStream();
+                            }
+                        }
+                    }
                 }
 
                 Logger.Write("Need resolve type " + ((ofObjectToReturn != null) ? ofObjectToReturn.Name : "no type") + " uri=" + absoluteUri, SeverityEnum.Verbose);

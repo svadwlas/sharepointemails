@@ -125,16 +125,16 @@ namespace SharePointEmails.Core
             Refresh();
         }
 
-        public string GetProcessedBody(ISubstitutionContext context, ProcessMode mode)
+        public string GetProcessedBody(ISubstitutionContext context)
         {
             var worker = SubstitutionManager.GetWorker(context, SubstitutionManager.WorkerType.ForBody);
-            return worker.Process(Body, mode); ;
+            return worker.Process(Body); ;
         }
 
-        public string GetProcessedSubj(ISubstitutionContext context, ProcessMode mode)
+        public string GetProcessedSubj(ISubstitutionContext context)
         {
             var worker = SubstitutionManager.GetWorker(context, SubstitutionManager.WorkerType.ForSubject);
-            return worker.Process(Subject, mode);
+            return worker.Process(Subject);
         }
 
 
@@ -152,19 +152,19 @@ namespace SharePointEmails.Core
             return s;
         }
 
-        public string GetProcessedFrom(ISubstitutionContext context, ProcessMode mode)
+        public string GetProcessedFrom(ISubstitutionContext context)
         {
 
             var worker = SubstitutionManager.GetWorker(context, Core.SubstitutionManager.WorkerType.ForFrom);
             if (string.IsNullOrEmpty(From)) return string.Empty;
-            return worker.Process(this.From, ProcessMode.Work);
+            return worker.Process(this.From);
         }
 
-        public string GetProcessedReplay(ISubstitutionContext context, ProcessMode mode)
+        public string GetProcessedReplay(ISubstitutionContext context)
         {
             var worker = SubstitutionManager.GetWorker(context, Core.SubstitutionManager.WorkerType.ForReplay);
             if (string.IsNullOrEmpty(From)) return string.Empty;
-            return worker.Process(this.Replay, ProcessMode.Work);
+            return worker.Process(this.Replay);
         }
     }
 }

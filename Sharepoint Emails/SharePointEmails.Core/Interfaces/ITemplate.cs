@@ -31,10 +31,10 @@ namespace SharePointEmails.Core
 
         void SaveTo(SPListItem item);
 
-        string GetProcessedBody(ISubstitutionContext context, ProcessMode mode);
+        string GetProcessedBody(ISubstitutionContext context);
 
-        string GetProcessedSubj(ISubstitutionContext context, ProcessMode mode);
-        string GetProcessedFrom(ISubstitutionContext context, ProcessMode mode);
-        string GetProcessedReplay(ISubstitutionContext context, ProcessMode mode);
+        string GetProcessedSubj(ISubstitutionContext context);
+        string GetProcessedFrom(ISubstitutionContext context);
+        string GetProcessedReplay(ISubstitutionContext context);
     }
 }

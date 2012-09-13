@@ -33,7 +33,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public string Process(string text, ISubstitutionContext context, ProcessMode mode)
+        public string Process(string text, ISubstitutionContext context)
         {
             string res = text;
             foreach (Match m in Regex.Matches(res, @"\[([^\]\: ]+)(\:{0,1}.*?)\]"))
@@ -41,7 +41,7 @@ namespace SharePointEmails.Core
                 try
                 {
                     ModifiersCollection modifiers = ModifiersCollection.Parse(m.Groups[2].Value);
-                    string fieldTextValue = (mode == ProcessMode.Test) ? "value of " + m.Value : context.GetField(m.Groups[1].Value, modifiers);
+                    string fieldTextValue = context.GetField(m.Groups[1].Value, modifiers);
                     if (fieldTextValue != null)
                     {
                         res = res.Replace(m.Value, fieldTextValue);

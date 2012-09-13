@@ -18,5 +18,7 @@ namespace SharePointEmails.Core
         CultureInfo GetDestinationCulture();
 
         string GetXML();
+
+        SPList GetTemplateLibrary();
     }
 }

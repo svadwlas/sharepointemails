@@ -97,7 +97,7 @@ namespace SharePointEmails.Core.Tests
             var context = new SubstitutionContext(Properties.Resources.EventDataFileAdded);
             var xml = context.GetXML();
             var subs = new XlstSubstitution();
-            var res = subs.Process(xlst, context, ProcessMode.Work);
+            var res = subs.Process(xlst, context);
             Assert.IsNotNull(res);
             Assert.IsTrue(res.Contains("TABLE"));
         }
@@ -109,7 +109,7 @@ namespace SharePointEmails.Core.Tests
                 var context = new SubstitutionContext(Properties.Resources.EventDataFileAdded);
                 var xml = context.GetXML();
                 var subs = new XlstSubstitution();
-                var res = subs.Process(xlst, context, ProcessMode.Work);
+                var res = subs.Process(xlst, context);
                 Debug.WriteLine(res);
                 Assert.IsNotNull(res);
               //  Assert.IsTrue(res.Contains("TABLE"));

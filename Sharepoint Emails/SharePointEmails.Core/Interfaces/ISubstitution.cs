@@ -8,7 +8,7 @@ namespace SharePointEmails.Core
 {
     public interface ISubstitutionWorker
     {
-        string Process(string data, ProcessMode mode);
+        string Process(string data);
     }
 
     public interface ISubstitution
@@ -23,6 +23,6 @@ namespace SharePointEmails.Core
             get;
         }
 
-        string Process(string text, ISubstitutionContext context, ProcessMode mode);
+        string Process(string text, ISubstitutionContext context);
     }
 }
