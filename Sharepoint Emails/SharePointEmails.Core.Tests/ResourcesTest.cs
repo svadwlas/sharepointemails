@@ -89,7 +89,10 @@ namespace SharePointEmails.Core.Tests
         [TestMethod()]
         public void testbodyTest()
         {
-            Assert.IsTrue(Resources.testbody.IsXslt());
+            Assert.IsTrue(Resources.BodyTemplate.IsXslt());
+            Assert.IsTrue(Resources.BodyTemplateForDiscussionBoard.IsXslt());
+            Assert.IsTrue(Resources.ListAddressTemplate.IsXslt());
+            Assert.IsTrue(Resources.AdminAddressTemplate.IsXslt());
         }
     }
 }

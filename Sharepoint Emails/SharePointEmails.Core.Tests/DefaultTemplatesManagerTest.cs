@@ -105,7 +105,7 @@ namespace SharePointEmails.Core.Tests
                                                 });
             TemplateList.Add(expected);
             DefaultTemplatesManager target = new DefaultTemplatesManager(logger.Object, configManager.Object);
-            ISearchContext context = SearchContext.Create(moleSourceList, 1, Properties.Resources.EventDataTskAdded, eventType);
+            ISearchContext context = SearchContext.Create(moleSourceList, 1, Properties.Resources.EventDataTskAdded, eventType,"a@a.com");
             if (shouldFound)
             {
                 var actual = target.GetTemplate(context);

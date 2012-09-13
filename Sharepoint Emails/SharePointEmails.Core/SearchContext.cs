@@ -10,9 +10,9 @@ namespace SharePointEmails.Core
     public  class SearchContext:ISearchContext
     {
 
-        public static ISearchContext Create(SPList list, int itemId, string eventData, SPEventType type)
+        public static ISearchContext Create(SPList list, int itemId, string eventData, SPEventType type, string receiverEmail)
         {
-            return new SearchContext(list,itemId,eventData,type);
+            return new SearchContext(list,itemId,eventData,type,receiverEmail);
         }
 
         TemplateTypeEnum get(SPEventType type)
@@ -27,11 +27,12 @@ namespace SharePointEmails.Core
             return TemplateTypeEnum.AllItemEvents;
         }
 
-        SearchContext(SPList list, int itemId, string eventData, SPEventType type)
+        SearchContext(SPList list, int itemId, string eventData, SPEventType type, string receiverEmail)
         {
             List = list;
             Type = get(type);
             ItemId = itemId;
+            m_receiverEmail = receiverEmail;
             try
             {
                 var item = list.GetItemById(itemId);
@@ -50,6 +51,7 @@ namespace SharePointEmails.Core
         public SPContentTypeId ItemContentTypeId { set; get; }
 
         public int ItemId { set; get; }
+        string m_receiverEmail;
 
         public TemplateTypeEnum Type { set; get; }
 
@@ -66,7 +68,13 @@ namespace SharePointEmails.Core
 
         public int Match(ITemplate template)
         {
-            if (template.State == TemplateStateEnum.Draft) return SearchMatchLevel.NONE;
+            if (template.State == TemplateStateEnum.Draft)
+            {
+                if (string.IsNullOrEmpty(m_receiverEmail) || !template.SendDraftToAdresses.Any(p => string.Equals(m_receiverEmail, p, StringComparison.InvariantCultureIgnoreCase)))//check if receiver should receive draft versions
+                {
+                    return SearchMatchLevel.NONE;
+                }
+            }
             if ((Contains((int)Type, template.EventTypes)) || (Contains(template.EventTypes, Type)))
             {
                 return CheckAsses(template);

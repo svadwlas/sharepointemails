@@ -7,6 +7,7 @@ public static class TemplateCT
     public const string TemplateBody = "TemplateBody";
     public const string TemplateType = "TemplateType";
     public const string TemplateState = "TemplateState";
+    public const string SendDraftTo = "SendDraftTo";
     public const string Associations = "Associations";
     public const string TemplateSubject = "TemplateSubject";
     public const string TemplateBodyFile = "TemplateBodyFile";

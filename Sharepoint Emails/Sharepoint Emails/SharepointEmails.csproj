@@ -168,7 +168,6 @@
     </Content>
     <None Include="Resources\TestContextXML.txt" />
     <None Include="Resources\testsubj.xslt" />
-    <None Include="Resources\testbody.xslt" />
     <Content Include="Images\SharepointEmails\logo.jpg" />
     <Content Include="Layouts\SharepointEmails\ApprovePage.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -230,6 +229,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

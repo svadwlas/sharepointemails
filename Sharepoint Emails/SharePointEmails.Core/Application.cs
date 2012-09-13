@@ -228,7 +228,7 @@ namespace SharePointEmails.Core
 
         GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
-            ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type);
+            ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type,receiverEmail);
             var res = Manager.GetTemplate(search);
             if (res != null)
             {

@@ -98,16 +98,14 @@ namespace SharepointEmails.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; xmlns:user=&quot;urn:my-scripts&quot;&gt;
         ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///   
+        ///    &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
         ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///      &lt;Html&gt;
         ///        &lt;head&gt;
         ///          &lt;base href=&quot;{SSite.Url}&quot;/&gt;
         ///          &lt;style type=&quot;text/css&quot;&gt;
         ///            .main table{
-        ///            border: 1px solid black;
-        ///            }
-        ///            .m [rest of string was truncated]&quot;;.
+        ///            border: 1px solid blac [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplate {
             get {
@@ -119,17 +117,17 @@ namespace SharepointEmails.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;1.0&quot; 
         ///                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; 
-        ///                xmlns:user=&quot;urn:my-scripts&quot;
+        ///               
         ///                xmlns:d=&quot;urn:sharepointemail-discussionboard&quot;&gt;
         ///  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///
+        ///  &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
         ///  &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///    &lt;Html&gt;
         ///      &lt;head&gt;
         ///        &lt;base href=&quot;{SSite.Url}&quot;/&gt;
         ///      &lt;/head&gt;
         ///      &lt;Body&gt;
-        ///        &lt;div  [rest of string was truncated]&quot;;.
+        ///        [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplateForDiscussionBoard {
             get {
@@ -192,30 +190,6 @@ namespace SharepointEmails.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
-        ///  &lt;xsl:template match=&apos;Data&apos;&gt;
-        ///    &lt;HTML&gt;
-        ///      &lt;BODY&gt;
-        ///        &lt;TABLE BORDER=&apos;2&apos;&gt;
-        ///          &lt;TR&gt;
-        ///            &lt;TD&gt;Field Name&lt;/TD&gt;
-        ///            &lt;TD&gt;Old Value&lt;/TD&gt;
-        ///            &lt;TD&gt;New Value&lt;/TD&gt;
-        ///          &lt;/TR&gt;
-        ///          &lt;xsl:apply-templates select=&apos;EventData/Field&apos;/&gt;
-        ///        &lt;/TABLE&gt;
-        ///          &lt;xsl:choose&gt;
-        ///            &lt;xsl:when test=&quot;EventData/Approve[1]/@Status =&apos;Pending&apos;&quot;&gt;
-        ///              &lt;xsl:choose&gt;
-        ///                 [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string testbody {
-            get {
-                return ResourceManager.GetString("testbody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;Data&gt;
         ///  &lt;EventData EventType=&quot;2&quot; EventTypeName=&quot;Modify&quot;&gt;
@@ -243,18 +217,14 @@ namespace SharepointEmails.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
-        ///&gt;
-        ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///
-        ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
-        ///        &lt;xsl:copy&gt;
-        ///            &lt;xsl:apply-templates select=&quot;@* | node()&quot;/&gt;
-        ///        &lt;/xsl:copy&gt;
-        ///    &lt;/xsl:template&gt;
-        ///&lt;/xsl:stylesheet&gt;
-        ///.
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; 
+        ///                 xmlns:user=&quot;urn:my-scripts&quot;
+        ///                xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;&gt;
+        ///  &lt;msxsl:script language=&quot;C#&quot; implements-prefix=&quot;user&quot;&gt;
+        ///    &lt;msxsl:assembly name=&quot;System&quot; /&gt;
+        ///    &lt;msxsl:using namespace=&quot;System&quot; /&gt;&lt;![CDATA[public string GetDate(string DateFormat){return DateTime.Now.ToString(DateFormat);}]]&gt;
+        ///  &lt;/msxsl:script&gt;
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Utils {
             get {

@@ -59,6 +59,12 @@ namespace SharePointEmails.Core
 
         public string Name { get; set; }
 
+        public IEnumerable<string> SendDraftToAdresses
+        {
+            get;
+            set;
+        }
+
         public TemplateStateEnum State { get; set; }
 
         public int EventTypes { get; set; }
@@ -82,6 +88,10 @@ namespace SharePointEmails.Core
         {
             this.Name = m_Item[TemplateCT.TemplateName] as string;
             this.State = EnumConverter.ToState(m_Item[TemplateCT.TemplateState] as string);
+
+            SPFieldUserValueCollection v=new SPFieldUserValueCollection(m_Item.Web, m_Item.GetFieldValue<object>(TemplateCT.SendDraftTo,string.Empty).ToString());
+
+            this.SendDraftToAdresses = v.Select(p => p.User.Email).ToList();
 
             this.UseFileForSubject = m_Item.GetFieldValue<bool>(TemplateCT.TemplateSubjectUseFile);
             this.UseFileForBody = m_Item.GetFieldValue<bool>(TemplateCT.TemplateBodyUseFile);
