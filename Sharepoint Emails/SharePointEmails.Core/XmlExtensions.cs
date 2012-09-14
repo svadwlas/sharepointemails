@@ -33,7 +33,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public static string ApplyXslt(this string xml, string xslt, SPList library)
+        public static string ApplyXslt(this string xml, string xslt, SPDocumentLibrary library)
         {
             var temp = Path.GetTempFileName();
             var res = new StringBuilder();
@@ -41,7 +41,7 @@ namespace SharePointEmails.Core
             {
                 var c = new System.Xml.Xsl.XslCompiledTransform();
                 File.WriteAllText(temp, xslt);
-                c.Load(temp, new XsltSettings(true, true), new Resolver(library as SPDocumentLibrary,temp));
+                c.Load(temp, new XsltSettings(true, true), new Resolver(library,temp));
 
                 using (var xmlreader = XmlReader.Create(new StringReader(xml)))
                 {

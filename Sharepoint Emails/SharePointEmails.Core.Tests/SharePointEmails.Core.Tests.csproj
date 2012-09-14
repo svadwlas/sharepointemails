@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\test.xslt" />
+    <None Include="Resources\TestReplyOnReply.txt" />
     <Content Include="Resources\textxslt.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -92,6 +92,9 @@ namespace SharePointEmails.Core.Tests
             Dictionary<Guid, object> fields = new Dictionary<Guid, object>();
             fields[SPBuiltInFieldId.Body] = "&lt;div class=\"ExternalClassDECDB3D2480C445D8F958DFE7B787791\"&gt;&lt;p&gt;Discussion body​&lt;/p&gt;&lt;/div&gt;";
             MSPListItem listItem = new MSPListItem();
+            listItem.BehaveAsDefaultValue();
+            var uniqueId = Guid.NewGuid();
+            listItem.UniqueIdGet = () => uniqueId;
             listItem.ContentTypeIdGet = () => SPBuiltInContentTypeId.Discussion;
             listItem.ItemGetGuid = (g) => fields[g];
             var fieldCol=new MSPFieldCollection();
@@ -101,7 +104,7 @@ namespace SharePointEmails.Core.Tests
             Validate(actual.ToString(), SharepointEmails.Properties.Resources.DiscussionBoardSchema, namespa);
 
             var clearText = actual.Element(XName.Get("Discussion", namespa)).Element(XName.Get("Body", namespa)).Element(XName.Get("ClearValue", namespa)).Value;
-            Assert.AreEqual("Discussion body", clearText);
+            Assert.IsTrue(clearText.StartsWith("Discussion body"));
         }
     }
 }

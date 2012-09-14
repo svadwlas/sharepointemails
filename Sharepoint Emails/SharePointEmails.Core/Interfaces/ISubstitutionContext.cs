@@ -19,6 +19,6 @@ namespace SharePointEmails.Core
 
         string GetXML();
 
-        SPList GetTemplateLibrary();
+        SPDocumentLibrary GetTemplateLibrary();
     }
 }

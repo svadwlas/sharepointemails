@@ -187,11 +187,11 @@ namespace SharePointEmails.Core
             return CultureInfo.CurrentCulture;
         }
 
-        public SPList GetTemplateLibrary()
+        public SPDocumentLibrary GetTemplateLibrary()
         {
             if (Vars.SSite!= null)
             {
-                return Vars.SSite.RootWeb.Lists.TryGetList(Constants.XsltLibrary);
+                return Vars.SSite.RootWeb.Lists.TryGetList(Constants.XsltLibrary) as SPDocumentLibrary;
             }
             return null;
         }

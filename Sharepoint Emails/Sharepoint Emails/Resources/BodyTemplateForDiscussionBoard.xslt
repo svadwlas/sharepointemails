@@ -66,11 +66,11 @@
               Discussion Subject : <xsl:value-of select="descendant::d:Discussion[1]/d:Subject/d:ClearValue"/>
             </p>
             <p>
-              Discussion Text : <xsl:value-of select="descendant::d:Message[@Current='true'][1]/d:Body/d:ClearValue"/>
+              Discussion Text : <xsl:value-of select="descendant::d:Discussion[1]/d:Body/d:ClearValue"/>
             </p>
           </div>
           <div>
-            <xsl:apply-templates select="descendant::d:Discussion/d:Message">
+            <xsl:apply-templates select="descendant::d:Discussion[1]/d:Message">
               <xsl:with-param select="30" name="otstup"/>
             </xsl:apply-templates>
           </div>
@@ -81,23 +81,16 @@
 
   <xsl:template match="d:Message">
     <xsl:param name="otstup"/>
-    <div >
+    <div>
       <xsl:attribute name="style">
-        <xsl:value-of select="concat('margin-left:',$otstup,'px')"/>
+        <xsl:value-of select="concat('margin-left:',$otstup,'px;border:6px inset orange')"/>
       </xsl:attribute>
-      <p>
-        --> User : <xsl:value-of select="@User"/>
-      </p>
-      <p>
-        Message Text : <xsl:value-of select ="d:Body/d:ClearValue"/>
-      </p>
-      <xsl:apply-templates select="/d:Message">
+      <p>User : <xsl:value-of select="@User"/></p>
+      <p>Message Text : <xsl:value-of select ="d:Body/d:ClearValue"/></p>
+      <xsl:apply-templates select="./d:Message">
         <xsl:with-param name="otstup" select="$otstup+20"/>
       </xsl:apply-templates>
     </div>
-  </xsl:template>
-  
- 
-
-</xsl:stylesheet>
+  </xsl:template>  
+ </xsl:stylesheet>
 

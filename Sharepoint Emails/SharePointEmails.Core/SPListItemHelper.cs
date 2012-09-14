@@ -91,7 +91,12 @@ namespace SharePointEmails.Core
 
         public static T GetFieldValue<T>(this SPListItem item, string fieldName, T defaultValue = default(T))
         {
-            var obj = item[fieldName];
+            var obj = (item.Fields.ContainsFieldWithStaticName(fieldName)) ? item[fieldName] : null;
+            return obj == null ? defaultValue : (T)obj;
+        }
+        public static T GetFieldValue<T>(this SPListItem item, Guid fieldGuid , T defaultValue = default(T))
+        {
+            var obj = (item.Fields.Contains(fieldGuid)) ? item[fieldGuid] : null;
             return obj == null ? defaultValue : (T)obj;
         }
     }

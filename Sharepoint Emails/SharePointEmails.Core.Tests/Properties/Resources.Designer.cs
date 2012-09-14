@@ -105,23 +105,40 @@ namespace SharePointEmails.Core.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
-        ///&gt;
-        ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///
-        ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
-        ///        &lt;xsl:copy&gt;
-        ///            &lt;xsl:apply-templates select=&quot;@* | node()&quot;/&gt;
-        ///        &lt;/xsl:copy&gt;
-        ///    &lt;/xsl:template&gt;
-        ///&lt;/xsl:stylesheet&gt;
-        ///.
+        ///   Looks up a localized string similar to &lt;xsl:stylesheet xmlns:xsl=&apos;http://www.w3.org/1999/XSL/Transform&apos; version=&apos;1.0&apos;&gt;
+        ///  &lt;xsl:template match=&apos;Data&apos;&gt;
+        ///    &lt;HTML&gt;
+        ///      &lt;BODY&gt;
+        ///        &lt;TABLE BORDER=&apos;2&apos;&gt;
+        ///          &lt;TR&gt;
+        ///            &lt;TD&gt;Field Name&lt;/TD&gt;
+        ///            &lt;TD&gt;Old Value&lt;/TD&gt;
+        ///            &lt;TD&gt;New Value&lt;/TD&gt;
+        ///          &lt;/TR&gt;
+        ///          &lt;xsl:apply-templates select=&apos;EventData&apos;/&gt;
+        ///        &lt;/TABLE&gt;
+        ///      &lt;/BODY&gt;
+        ///    &lt;/HTML&gt;
+        ///  &lt;/xsl:template&gt;
+        ///  &lt;xsl:template match=&apos;EventData&apos;&gt;
+        ///    &lt;xsl:apply-templates select=&apos;Field&apos;/&gt;
+        ///  &lt;/xsl:template&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string test {
             get {
                 return ResourceManager.GetString("test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;EventData EventType=&quot;1&quot; EventTypeName=&quot;Add&quot; ListEmail=&quot;disc@dev.test.domain.com&quot; AdminEmail=&quot;melnikvitaly@gmail.com&quot;&gt;
+        ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Content Type ID&quot; Name=&quot;ContentTypeId&quot; Changed=&quot;true&quot; New=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Old=&quot;&quot; Value=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Hidden=&quot;true&quot; /&gt;
+        ///    &lt;Field Type=&quot;string&quot; DisplayName=&quot;Body&quot; Name=&quot;Body&quot; Changed=&quot;true&quot; New=&quot;&amp;lt;div class=&amp;quot;ExternalClassC20C33A5C0484920AA2993D824424B27&amp;quot;&amp;gt;reply with reply&amp;lt;div&amp;gt;&amp;l [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestReplyOnReply {
+            get {
+                return ResourceManager.GetString("TestReplyOnReply", resourceCulture);
             }
         }
     }

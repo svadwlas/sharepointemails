@@ -2,6 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Xml.Linq;
+using Microsoft.SharePoint;
+using Microsoft.SharePoint.Moles;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace SharePointEmails.Core.Tests
 {
@@ -93,6 +98,43 @@ namespace SharePointEmails.Core.Tests
             Assert.IsTrue(Resources.BodyTemplateForDiscussionBoard.IsXslt());
             Assert.IsTrue(Resources.ListAddressTemplate.IsXslt());
             Assert.IsTrue(Resources.AdminAddressTemplate.IsXslt());
+        }
+
+        SPDocumentLibrary GetLibrary()
+        {
+            var doc = new MSPDocumentLibrary();
+            var list=new MSPList(doc);
+            var files = new List<SPListItem>();
+
+            foreach (var file in new Dictionary<string, string> { { "Utils.xslt", Resources.Utils } })
+            {
+                var item = new MSPListItem();
+                var f = new MSPFile();
+                f.NameGet = () => file.Key;
+                item.FileGet = () => f;
+                f.OpenBinaryStream = () => new MemoryStream(Encoding.Default.GetBytes(file.Value));
+                files.Add(item);
+            }
+
+            var items = new MSPListItemCollection();
+            items.GetEnumerator = () => files.GetEnumerator();
+            list.ItemsGet = () => items;
+            return (SPDocumentLibrary)list;
+        }
+
+        /// <summary>
+        ///A test for testbody
+        ///</summary>
+        [TestMethod()]
+        [HostType("Moles")]
+        public void testBodyTemplateForDiscussion()
+        {
+            var s = Properties.Resources.TestReplyOnReply.ApplyXslt(Resources.BodyTemplateForDiscussionBoard, GetLibrary());
+            Assert.IsTrue(s.Contains("Disc subj"));
+           // Assert.IsTrue(s.Contains("Disc body"));
+            Assert.IsTrue(s.Contains("first message text"));
+            Assert.IsTrue(s.Contains("second message text"));
+            Assert.IsTrue(s.Contains("third message text"));
         }
     }
 }

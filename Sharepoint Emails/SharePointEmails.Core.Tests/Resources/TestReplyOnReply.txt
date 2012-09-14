@@ -1,0 +1,47 @@
+﻿<EventData EventType="1" EventTypeName="Add" ListEmail="disc@dev.test.domain.com" AdminEmail="melnikvitaly@gmail.com">
+    <Field Type="string" DisplayName="Content Type ID" Name="ContentTypeId" Changed="true" New="0x010700F7F50D2C1749FC45A820B1832F80583D" Old="" Value="0x010700F7F50D2C1749FC45A820B1832F80583D" Hidden="true" />
+    <Field Type="string" DisplayName="Body" Name="Body" Changed="true" New="&lt;div class=&quot;ExternalClassC20C33A5C0484920AA2993D824424B27&quot;&gt;reply with reply&lt;div&gt;&lt;br /&gt;&lt;br /&gt;&lt;hr class=&quot;ms-disc-quotedtext&quot; /&gt; &lt;b&gt;From: &lt;/b&gt;TEST\administrator&lt;br /&gt;&lt;b&gt;Posted: &lt;/b&gt;9/8/2012 1:55 PM&lt;br /&gt;&lt;b&gt;Subject: &lt;/b&gt;with&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C&quot;&gt;with replyu &lt;div&gt;&lt;br /&gt;&lt;br /&gt;&lt;hr class=&quot;ms-disc-quotedtext&quot; /&gt; &lt;b&gt;From: &lt;/b&gt;TEST\administrator&lt;br /&gt;&lt;b&gt;Posted: &lt;/b&gt;9/8/2012 1:45 PM&lt;br /&gt;&lt;b&gt;Subject: &lt;/b&gt;with&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;ExternalClassBF425C96D6A64E919DF578CE83705AD5&quot;&gt;&lt;p&gt;​with&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" Old="" Value="&lt;div class=&quot;ExternalClassC20C33A5C0484920AA2993D824424B27&quot;&gt;reply with reply&lt;div&gt;&lt;br /&gt;&lt;br /&gt;&lt;hr class=&quot;ms-disc-quotedtext&quot; /&gt; &lt;b&gt;From: &lt;/b&gt;TEST\administrator&lt;br /&gt;&lt;b&gt;Posted: &lt;/b&gt;9/8/2012 1:55 PM&lt;br /&gt;&lt;b&gt;Subject: &lt;/b&gt;with&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C&quot;&gt;with replyu &lt;div&gt;&lt;br /&gt;&lt;br /&gt;&lt;hr class=&quot;ms-disc-quotedtext&quot; /&gt; &lt;b&gt;From: &lt;/b&gt;TEST\administrator&lt;br /&gt;&lt;b&gt;Posted: &lt;/b&gt;9/8/2012 1:45 PM&lt;br /&gt;&lt;b&gt;Subject: &lt;/b&gt;with&lt;br /&gt;&lt;br /&gt;&lt;div class=&quot;ExternalClassBF425C96D6A64E919DF578CE83705AD5&quot;&gt;&lt;p&gt;​with&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" Hidden="false" />
+    <Field Type="string" DisplayName="Trimmed Body" Name="TrimmedBody" Changed="true" New="&lt;div class=&quot;ExternalClassDB2DE07AF9104259B8610CA7020EB55D&quot;&gt;reply with reply&lt;div&gt;&lt;br /&gt;&lt;br /&gt;&lt;/div&gt;&lt;/div&gt;" Old="" Value="&lt;div class=&quot;ExternalClassDB2DE07AF9104259B8610CA7020EB55D&quot;&gt;reply with reply&lt;div&gt;&lt;br /&gt;&lt;br /&gt;&lt;/div&gt;&lt;/div&gt;" Hidden="true" />
+    <Field Type="string" DisplayName="Message ID" Name="MessageId" Changed="true" New="&lt;690284c05d5c4553a3135efab684633c@SharePoint&gt;" Old="" Value="&lt;690284c05d5c4553a3135efab684633c@SharePoint&gt;" Hidden="true" />
+    <Field Type="integer" DisplayName="Parent Folder Id" Name="ParentFolderId" Changed="true" New="53" Old="" Value="53" Hidden="true" />
+    <Field Type="null" DisplayName="ID" Name="ID" Changed="true" New="" Old="" Value="" Hidden="false" />
+    <Field Type="user" DisplayName="Created By" Name="Author" Changed="true" New="TEST\administrator" Old="" Value="TEST\administrator" Hidden="false" />
+    <Field Type="user" DisplayName="Modified By" Name="Editor" Changed="true" New="TEST\administrator" Old="" Value="TEST\administrator" Hidden="false" />
+    <Field Type="string" DisplayName="GUID" Name="GUID" Changed="true" New="4948F4B1-A8D0-420A-9596-83DD450B0FA3" Old="" Value="4948F4B1-A8D0-420A-9596-83DD450B0FA3" Hidden="true" />
+    <Field Type="null" DisplayName="Level" Name="_Level" Changed="true" New="1" Old="" Value="1" Hidden="true" />
+    <Field Type="string" DisplayName="Thread Index" Name="ThreadIndex" Changed="true" New="0x01CF5C1A1025E94C4ABFD598485790BF0F2B0AECE8190000553DF700F2FEE671" Old="" Value="0x01CF5C1A1025E94C4ABFD598485790BF0F2B0AECE8190000553DF700F2FEE671" Hidden="true" />
+    <Field Type="string" DisplayName="FileRef" Name="FileRef" Changed="false" New="" Old="Lists/Team Discussion/with 6711/" Value="Lists/Team Discussion/with 6711/" Hidden="true" />
+    <Field Type="string" DisplayName="FileDirRef" Name="FileDirRef" Changed="false" New="" Old="Lists/Team Discussion/with 6711" Value="Lists/Team Discussion/with 6711" Hidden="true" />
+    <Field Type="integer" DisplayName="_DraftVisibility" Name="_DraftVisibility" Changed="true" New="0" Old="" Value="0" />
+    <Approve RejectUrl="http://google.com/" ApproveUrl="http://google.com?search=reject" PageUrl="http://google.com?search=pageurl" CanApprove="false" Status="" />
+    <DiscussionBoard xmlns="urn:sharepointemail-discussionboard">
+      <Discussion User="TEST\administrator">
+        <Subject>
+          <Value>Disc subj</Value>
+          <ClearValue>Disc subj</ClearValue>
+        </Subject>
+        <Body>
+          <Value>Disc body</Value>
+          <ClearValue>Disc body</ClearValue>
+        </Body>
+        <Message User="TEST\administrator">
+          <Body>
+            <Value>first message text</Value>
+            <ClearValue>first message text</ClearValue>
+          </Body>
+          <Message User="TEST\administrator">
+            <Body>
+              <Value>second message text</Value>
+              <ClearValue>second message text</ClearValue>
+            </Body>
+			<Message Current="true" User="TEST\User1">
+				 <Body>
+					<Value>third message text</Value>
+					<ClearValue>third message text</ClearValue>
+				</Body>
+			</Message>
+          </Message>
+        </Message>
+      </Discussion>
+    </DiscussionBoard>
+  </EventData>
