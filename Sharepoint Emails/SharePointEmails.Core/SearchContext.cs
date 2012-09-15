@@ -33,6 +33,7 @@ namespace SharePointEmails.Core
             Type = get(type);
             ItemId = itemId;
             m_receiverEmail = receiverEmail;
+
             try
             {
                 var item = list.GetItemById(itemId);
@@ -40,9 +41,9 @@ namespace SharePointEmails.Core
             }
             catch
             {
-                ItemContentTypeId = new SPContentTypeId(XDocument.Parse(eventData).Root.Elements()
-                    .Where(p =>p.Attributes("Name")!=null&& p.Attribute("Name").Value == "ContentTypeId").First().Attributes()
-                    .Where(p=>p.Name=="Old"||p.Name=="New").First().Value);
+                //ItemContentTypeId = new SPContentTypeId(XDocument.Parse(eventData).Root.Elements()
+                //    .Where(p =>p.Attributes("Name")!=null&& p.Attribute("Name").Value == "ContentTypeId").First().Attributes()
+                //    .Where(p=>p.Name=="Old"||p.Name=="New").First().Value);
             }
         }
 

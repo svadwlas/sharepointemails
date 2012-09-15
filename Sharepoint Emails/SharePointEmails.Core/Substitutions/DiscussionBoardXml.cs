@@ -78,10 +78,9 @@ namespace SharePointEmails.Core.Substitutions
                         element.Add(curent);
                         var subjElement = new XElement(nsp + "Subject");
                         var bodyElement = new XElement(nsp + "Body");
-
                         var subjText = new XElement(nsp + "Value")
                         {
-                            Value =  item.GetFieldValue<string>(SPBuiltInFieldId.DiscussionTitle, string.Empty)
+                            Value =  item.GetFieldValue<string>(SPBuiltInFieldId.Title, string.Empty)
                         };
 
                         var clearSubjText = new XElement(nsp + "ClearValue") { Value = GetClearDiscussionSubjText(subjText.Value) };
@@ -91,7 +90,7 @@ namespace SharePointEmails.Core.Substitutions
                             Value = item.GetFieldValue<string>(SPBuiltInFieldId.Body, string.Empty)
                         };
 
-                        var clearBodyText = new XElement(nsp + "ClearValue") { Value = GetClearDiscussionBodyText(item.GetFieldValue<string>(SPBuiltInFieldId.TrimmedBody, string.Empty)) };
+                        var clearBodyText = new XElement(nsp + "ClearValue") { Value = GetClearDiscussionBodyText(bodyText.Value) };
 
                         subjElement.Add(subjText, clearSubjText);
                         bodyElement.Add(bodyText, clearBodyText);
@@ -152,32 +151,56 @@ namespace SharePointEmails.Core.Substitutions
             return RemoveTags(p);
         }
 
+        SPQuery GetQueryForChain(string threadIndex)
+        {
+            var sb = new StringBuilder();
+            sb.Append("<Where>");
+            sb.Append("<Contains>");
+            sb.Append("<FieldRef Name='ThreadIndex'/>");
+            sb.Append("<Value Type='Text'>");
+            sb.Append(threadIndex);
+            sb.Append("</Value>");
+            sb.Append("</Contains>");
+            sb.Append("</Where>");
+            return new SPQuery()
+            {
+                Query= sb.ToString()
+            };
+        }
+
+        SPQuery GetQueryForDiscussionItems(SPFolder folder)
+        {
+            return new SPQuery()
+            {
+                Folder = folder
+            };
+        }
+
         private List<SPListItem> GetDescedantsForMessage(SPListItem message)
         {
             var res = new List<SPListItem>();
-            var threadIndex=message.GetFieldValue<string>(SPBuiltInFieldId.ThreadIndex,"");
-            var threadTopic=message.GetFieldValue<string>(SPBuiltInFieldId.ThreadTopic);
-            var threading=message.GetFieldValue<string>(SPBuiltInFieldId.Threading);
-            var d = new Dictionary<int, SPListItem>();
-            foreach (SPListItem item in message.ParentList.Items)
+            var discussionItem = message.ParentList.GetItemById(message.GetFieldValue<int>(SPBuiltInFieldId.ParentFolderId));
+            var threadIndex = message.GetFieldValue<string>(SPBuiltInFieldId.ThreadIndex, "");
+            if (!string.IsNullOrEmpty(threadIndex))
             {
-                if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion)) continue;
-                var index = item.GetFieldValue<string>(SPBuiltInFieldId.ThreadIndex);
-                var topic = item.GetFieldValue<string>(SPBuiltInFieldId.ThreadTopic);
-                var thr = item.GetFieldValue<string>(SPBuiltInFieldId.Threading);
-                if (!string.IsNullOrEmpty(threadIndex) && threadIndex.StartsWith(index))
+                var d = new Dictionary<int, SPListItem>();
+                foreach (SPListItem item in message.ParentList.GetItems(GetQueryForDiscussionItems(discussionItem.Folder)))//cannot query only for thread
                 {
-                    d.Add(index.Length, item);
+                    var index = item.GetFieldValue<string>(SPBuiltInFieldId.ThreadIndex);
+                    if (threadIndex.StartsWith(index))
+                    {
+                        d.Add(index.Length, item);
+                    }
                 }
+                res.AddRange(d.OrderBy(p => p.Key)
+                    .Where(p => p.Key <= threadIndex.Length)//to avoid new messages after this
+                    .Select(p => p.Value));
             }
-            res = d.OrderBy(p => p.Key).Select(p=>p.Value).ToList();
-            if (message.Fields.Contains(SPBuiltInFieldId.ParentFolderId))
+            else
             {
-                var parentId = (int)message[SPBuiltInFieldId.ParentFolderId];
-                var parent = message.ParentList.GetItemById(parentId);
-                res.Insert(0, parent);
-                //res.Add(message);
+                res.Add(message);
             }
+            res.Insert(0, discussionItem);
             return res;
         }
     }
