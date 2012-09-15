@@ -6,23 +6,8 @@ using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core
 {
-    public interface ISubstitutionWorker
-    {
-        string Process(string data);
-    }
-
     public interface ISubstitution
     {
-        string Pattern
-        {
-            get;
-        }
-
-        string Description
-        {
-            get;
-        }
-
-        string Process(string text, ISubstitutionContext context);
+        string Process(string text, ISubstitutionContext context, Func<string, string> IncludeResolver=null);
     }
 }

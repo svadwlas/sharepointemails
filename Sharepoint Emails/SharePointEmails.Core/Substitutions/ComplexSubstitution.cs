@@ -26,7 +26,7 @@ namespace SharePointEmails.Core.Substitutions
             get { return "some complex stuctures of data"; }
         }
 
-        public string Process(string text, ISubstitutionContext context)
+        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes)
         {
             var res=text;
             foreach (Match m in Regex.Matches(res, @"\{\$(.+)\}"))

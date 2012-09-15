@@ -33,7 +33,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public string Process(string text, ISubstitutionContext context)
+        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes=null)
         {
             string res = text;
             foreach (Match m in Regex.Matches(res, @"\[([^\]\: ]+)(\:{0,1}.*?)\]"))

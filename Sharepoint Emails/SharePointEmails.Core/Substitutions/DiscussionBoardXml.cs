@@ -11,53 +11,21 @@ namespace SharePointEmails.Core.Substitutions
 {
     public class DiscussionBoardXml
     {
-        const string NameSpace = "urn:sharepointemail-discussionboard";
+        const string DiscussionBoardNameSpace = "urn:sharepointemail-discussionboard";
 
-        public bool UseParse=true;
         public static DiscussionBoardXml Create()
         {
             return new DiscussionBoardXml();
         }
+
         private DiscussionBoardXml() { }
 
         public XElement GetElement(SPListItem listItem)
         {
-            if (listItem != null)
+            if (listItem != null && (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion)))
             {
-                if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
-                {
-                    return GetElementUseList(listItem);
-                }
-            }
-            return null;
-        }
-
-        private XElement GetElementUseParse(SPListItem listItem)
-        {
-            XNamespace nsp = XNamespace.Get(NameSpace);
-            var res = new XElement(nsp+"DiscussionBoard");
-            var discussion = new XElement(nsp+"Discussion");
-            var body = new XElement(nsp + "Body");
-            var value=new XElement(nsp+"Value");
-            var clearValue = new XElement(nsp + "ClearValue");
-            value.Value = GetFieldValue<string>(listItem, SPBuiltInFieldId.Body,string.Empty);
-            clearValue.Value = GetFieldValue<string>(listItem, SPBuiltInFieldId.Body, string.Empty);
-
-            body.Add(value, clearValue);
-            discussion.Add(body);
-            res.Add(discussion);
-            return res;
-        }
-
-        T GetFieldValue<T>(SPListItem item, Guid fieldGuid, T def=default(T))
-        {
-            return item.Fields.Contains(fieldGuid) ? ((T)item[fieldGuid]) : def;
-        }
-
-        private XElement GetElementUseList(SPListItem listItem)
-        {
-            XNamespace nsp = XNamespace.Get(NameSpace);
-            var element = new XElement(nsp+"DiscussionBoard");
+                XNamespace nsp = XNamespace.Get(DiscussionBoardNameSpace);
+                var element = new XElement(nsp + "DiscussionBoard");
                 List<SPListItem> chain = new List<SPListItem>();
                 if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                 {
@@ -70,7 +38,7 @@ namespace SharePointEmails.Core.Substitutions
 
                 XElement parent = null;
                 XElement curent = null;
-                foreach (SPListItem item in chain)
+                foreach (SPListItem item in chain)//first item in chain should be Discussion, last current message
                 {
                     if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
                     {
@@ -80,7 +48,7 @@ namespace SharePointEmails.Core.Substitutions
                         var bodyElement = new XElement(nsp + "Body");
                         var subjText = new XElement(nsp + "Value")
                         {
-                            Value =  item.GetFieldValue<string>(SPBuiltInFieldId.Title, string.Empty)
+                            Value = item.GetFieldValue<string>(SPBuiltInFieldId.Title, string.Empty)
                         };
 
                         var clearSubjText = new XElement(nsp + "ClearValue") { Value = GetClearDiscussionSubjText(subjText.Value) };
@@ -118,6 +86,7 @@ namespace SharePointEmails.Core.Substitutions
                     {
                         var createdBy = new SPFieldUserValue(item.ParentList.ParentWeb, item[SPBuiltInFieldId.Author].ToString());
                         curent.SetAttributeValue("User", createdBy.User.LoginName);
+                        curent.SetAttributeValue("UserName", createdBy.User.Name);
                     }
                     if (parent != null)
                     {
@@ -127,13 +96,13 @@ namespace SharePointEmails.Core.Substitutions
                 }
 
                 return element;
-           
+            }
+            return null;
         }
 
         string RemoveTags(string text)
         {
-            var res = Regex.Replace(text, @"&lt;(.|\n)*?&gt;|<(.|\n)*?>", string.Empty);
-            return res;
+            return Regex.Replace(text, @"&lt;(.|\n)*?&gt;|<(.|\n)*?>", string.Empty);
         }
 
         private string GetClearMessageBodyText(string p)
@@ -176,7 +145,7 @@ namespace SharePointEmails.Core.Substitutions
             };
         }
 
-        private List<SPListItem> GetDescedantsForMessage(SPListItem message)
+        List<SPListItem> GetDescedantsForMessage(SPListItem message)
         {
             var res = new List<SPListItem>();
             var discussionItem = message.ParentList.GetItemById(message.GetFieldValue<int>(SPBuiltInFieldId.ParentFolderId));

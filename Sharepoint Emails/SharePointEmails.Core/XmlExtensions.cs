@@ -33,7 +33,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public static string ApplyXslt(this string xml, string xslt, SPDocumentLibrary library)
+        public static string ApplyXslt(this string xml, string xslt, SPDocumentLibrary library, Func<string, string> processIncludes=null)
         {
             var temp = Path.GetTempFileName();
             var res = new StringBuilder();
@@ -41,7 +41,7 @@ namespace SharePointEmails.Core
             {
                 var c = new System.Xml.Xsl.XslCompiledTransform();
                 File.WriteAllText(temp, xslt);
-                c.Load(temp, new XsltSettings(true, true), new Resolver(library,temp));
+                c.Load(temp, new XsltSettings(true, true), new Resolver(library, temp, processIncludes));
 
                 using (var xmlreader = XmlReader.Create(new StringReader(xml)))
                 {
@@ -66,12 +66,14 @@ namespace SharePointEmails.Core
             string tempXslt;
 
             SPDocumentLibrary lib;
-            public Resolver(SPDocumentLibrary library, string tempXslt)
+            Func<string, string> processIncludes;
+            public Resolver(SPDocumentLibrary library, string tempXslt, Func<string, string> processIncludes)
             {
                 Logger = Application.Current.Logger;
 
                 if (Logger == null) throw new InvalidProgramException("No logger configured");
                 this.tempXslt = tempXslt;
+                this.processIncludes = processIncludes;
                 lib = library;
             }
 
@@ -98,7 +100,15 @@ namespace SharePointEmails.Core
                         {
                             if (item.File != null && string.Equals(item.File.Name, Path.GetFileName(absoluteUri.LocalPath)))
                             {
-                                return item.File.OpenBinaryStream();
+                                using (var reader = new StreamReader(item.File.OpenBinaryStream()))
+                                {
+                                    var include = reader.ReadToEnd();
+                                    if (processIncludes != null)
+                                    {
+                                        include = processIncludes(include);
+                                    }
+                                    return new MemoryStream(Encoding.Default.GetBytes(include));
+                                }
                             }
                         }
                     }

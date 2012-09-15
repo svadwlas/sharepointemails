@@ -26,14 +26,14 @@ namespace SharePointEmails.Core.Substitutions
             get { return "eXtensible Stylesheet Language Transformations"; }
         }
 
-        public string Process(string text, ISubstitutionContext context)
+        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes=null)
         {
             try
             {                
                 var xml=context.GetXML();
                 Logger.Write(xml, SeverityEnum.Trace);
                 if (!text.IsXslt()) return text;
-                return xml.ApplyXslt(text,context.GetTemplateLibrary());
+                return xml.ApplyXslt(text,context.GetTemplateLibrary(),processIncludes);
             }
             catch (XsltException ex)
             {

@@ -9,12 +9,12 @@ namespace SharePointEmails.Core
 {
     public class SubstitutionManager
     {
-        public ISubstitutionWorker GetWorker(ISubstitutionContext context, WorkerType type)
+        public ISubstitution GetWorker(ISubstitutionContext context, WorkerType type)
         {
             switch (type)
             {
                 case WorkerType.ForBody:
-                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(),  new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
@@ -23,7 +23,7 @@ namespace SharePointEmails.Core
                                                                                                                         new XlstSubstitution()
                                                                                                                     });
                 case WorkerType.ForSubject:
-                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
@@ -34,7 +34,7 @@ namespace SharePointEmails.Core
                                                                                                                     });
                 case WorkerType.ForFrom:
                 case WorkerType.ForReplay:
-                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
@@ -43,7 +43,7 @@ namespace SharePointEmails.Core
                                                                                                                         new RemoveXmlTagsSubstitution(),
                                                                                                                         new OneLineSubstitution()
                                                                                                                     });
-                default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), context, new List<ISubstitution>());
+                default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>());
             }
         }
 
