@@ -8,28 +8,13 @@ using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint;
 using System.Collections;
 using System.Threading;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    public class ResourceSubstitution : ISubstitution
+    public class ResourceSubstitution : BaseSubstitution
     {
-        ILogger Logger;
-        public ResourceSubstitution()
-        {
-            Logger = Application.Current.Logger;
-        }
-
-        public string Pattern
-        {
-            get { return "{$Resources:<File name>, <Resource Key>}"; }
-        }
-
-        public string Description
-        {
-            get { return "resources"; }
-        }
-
-        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes=null)
+        public override string Process(string text, ISubstitutionContext context)
         {
             string res = text;
             foreach (Match m in Regex.Matches(res, @"\{\$Resources:(.+?)\,(.+?)\}"))

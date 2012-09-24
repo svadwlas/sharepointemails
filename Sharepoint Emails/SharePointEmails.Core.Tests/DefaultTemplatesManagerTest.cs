@@ -10,6 +10,7 @@ using Moq;
 using System.Collections.Generic;
 using SharePointEmails.Core.Associations;
 using SharePointEmails.Core.Exceptions;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Tests
 {

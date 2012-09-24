@@ -5,18 +5,12 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    class RemoveXmlTagsSubstitution : ISubstitution
+    class RemoveXmlTagsSubstitution : BaseSubstitution
     {
-        ILogger Logger;
-
-        public RemoveXmlTagsSubstitution()
-        {
-            Logger = ClassContainer.Instance.Resolve<ILogger>();
-        }
-
         public string Pattern
         {
             get { return ""; }
@@ -27,7 +21,7 @@ namespace SharePointEmails.Core.Substitutions
             get { return ""; }
         }
 
-        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes)
+        public override string Process(string text, ISubstitutionContext context)
         {
             try
             {

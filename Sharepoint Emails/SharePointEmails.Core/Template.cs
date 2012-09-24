@@ -5,7 +5,9 @@ using System.Text;
 using Microsoft.SharePoint;
 using System.IO;
 using SharePointEmails.Core.Substitutions;
-
+using SharePointEmails.Core.Interfaces;
+using SharePointEmails.Core.Associations;
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.Core
 {
     public class Template : ITemplate

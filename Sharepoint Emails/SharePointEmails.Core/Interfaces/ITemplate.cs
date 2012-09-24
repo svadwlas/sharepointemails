@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using SharePointEmails.Core.Substitutions;
+using SharePointEmails.Core.Associations;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Interfaces
 {
     public interface ITemplate
     {

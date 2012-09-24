@@ -7,7 +7,7 @@ using Microsoft.SharePoint.Utilities;
 using System.IO;
 using Microsoft.SharePoint.WebControls;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Extensions
 {
     public static class SPListItemHelper
     {

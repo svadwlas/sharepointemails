@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Interfaces
 {
     internal interface ISiteManager
     {

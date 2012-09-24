@@ -11,7 +11,7 @@ using System.IO;
 using SharePointEmails.Core;
 using SharePointEmails.Core.MailProcessors;
 using SharePointEmails.Core.MailProcessors.Strategies;
-
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.MailProcessors
 {
     internal class IncomingDiscussionBoardProcessor : IIncomingMessageProcessor

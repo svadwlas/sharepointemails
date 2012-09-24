@@ -8,7 +8,7 @@ using System.IO;
 using SharePointEmails.Core.Associations;
 using SharePointEmails.Logging;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Associations
 {
     [Serializable]
     public class AssociationConfiguration:List<Association>

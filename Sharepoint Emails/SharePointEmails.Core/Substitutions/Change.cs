@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.Core.Substitutions
 {
     public class FieldChange

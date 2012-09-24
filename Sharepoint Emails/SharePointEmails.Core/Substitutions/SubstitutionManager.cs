@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using SharePointEmails.Logging;
 using SharePointEmails.Core.Substitutions;
+using SharePointEmails.Core.Interfaces;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Substitutions
 {
     public class SubstitutionManager
     {

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using SharePointEmails.Core.Substitutions;
 using Moq;
+using SharePointEmails.Core.Interfaces;
 namespace SharePointEmails.Core.Tests
 {
     

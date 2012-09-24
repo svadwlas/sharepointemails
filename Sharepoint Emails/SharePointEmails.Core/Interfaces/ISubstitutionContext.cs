@@ -6,7 +6,7 @@ using Microsoft.SharePoint;
 using SharePointEmails.Core.Substitutions;
 using System.Globalization;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Interfaces
 {
     public interface ISubstitutionContext
     {

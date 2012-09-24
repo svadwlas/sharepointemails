@@ -11,8 +11,9 @@ using System.Globalization;
 using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.Administration;
 using System.Configuration;
+using SharePointEmails.Core.Interfaces;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Substitutions
 {
     public class SubstitutionContext : ISubstitutionContext
     {

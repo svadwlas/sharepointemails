@@ -10,7 +10,7 @@ using System.Xml.Xsl;
 using SharePointEmails.Logging;
 using Microsoft.SharePoint;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Extensions
 {
     public static class XmlExtensions
     {

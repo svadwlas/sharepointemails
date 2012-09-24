@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Extensions
 {
     static public class StreamHelpers
     {

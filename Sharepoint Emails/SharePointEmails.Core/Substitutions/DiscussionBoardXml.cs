@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
 using System.Text.RegularExpressions;
-
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.Core.Substitutions
 {
     public class DiscussionBoardXml

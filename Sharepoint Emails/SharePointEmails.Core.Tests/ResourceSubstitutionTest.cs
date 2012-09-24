@@ -5,6 +5,7 @@ using SharePointEmails.Core;
 using Moq;
 using System.Globalization;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Tests
 {

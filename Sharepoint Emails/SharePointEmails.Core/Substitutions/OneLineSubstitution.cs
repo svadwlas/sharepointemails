@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    public class OneLineSubstitution : ISubstitution
+    public class OneLineSubstitution : BaseSubstitution
     {
 
         public string Pattern
@@ -18,7 +19,7 @@ namespace SharePointEmails.Core.Substitutions
             get { return Pattern; }
         }
 
-        public string Process(string text, ISubstitutionContext context, Func<string,string> processIncludes)
+        public override string Process(string text, ISubstitutionContext context)
         {
             if (!string.IsNullOrEmpty(text))
             {

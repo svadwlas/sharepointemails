@@ -5,17 +5,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SharePointEmails.Core.Substitutions;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Interfaces;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Substitutions
 {
-    public class FieldSubstitution : ISubstitution
+    public class FieldSubstitution : BaseSubstitution
     {
-        ILogger Logger { set; get; }
-        public FieldSubstitution()
-        {
-            Logger = Application.Current.Logger;
-        }
-
         public string Pattern
         {
             get
@@ -33,7 +28,7 @@ namespace SharePointEmails.Core
             }
         }
 
-        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes=null)
+        public override string Process(string text, ISubstitutionContext context)
         {
             string res = text;
             foreach (Match m in Regex.Matches(res, @"\[([^\]\: ]+)(\:{0,1}.*?)\]"))

@@ -5,16 +5,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.SharePoint;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    class ContextVarsSubstitution : ISubstitution
+    class ContextVarsSubstitution : BaseSubstitution
     {
-        ILogger Logger { set; get; }
-        public ContextVarsSubstitution()
-        {
-            Logger = Application.Current.Logger;
-        }
         public string Pattern
         {
             get { return "{VarPath}"; }
@@ -25,7 +21,7 @@ namespace SharePointEmails.Core.Substitutions
             get { return "Context variables"; }
         }
 
-        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes)
+        public override string Process(string text, ISubstitutionContext context)
         {
             var res = text;
             foreach (Match m in Regex.Matches(text, @"\{([^\$ ]+?)\}"))

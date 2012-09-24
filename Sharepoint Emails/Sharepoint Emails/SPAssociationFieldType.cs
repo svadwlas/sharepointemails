@@ -6,6 +6,7 @@ using Microsoft.SharePoint;
 using SharePointEmails.Core;
 using Microsoft.SharePoint.Utilities;
 using System.Runtime.InteropServices;
+using SharePointEmails.Core.Associations;
 
 namespace SharepointEmails
 {

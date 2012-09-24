@@ -4,29 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using SharePointEmails.Logging;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    class ComplexSubstitution:ISubstitution
+    class ComplexSubstitution:BaseSubstitution
     {
-        ILogger Logger;
-
-        public ComplexSubstitution()
-        {
-            Logger = Application.Current.Logger;
-        }
-
-        public string Pattern
-        {
-            get { return "{$<Complex Name>}"; }
-        }
-
-        public string Description
-        {
-            get { return "some complex stuctures of data"; }
-        }
-
-        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes)
+        public override string Process(string text, ISubstitutionContext context)
         {
             var res=text;
             foreach (Match m in Regex.Matches(res, @"\{\$(.+)\}"))

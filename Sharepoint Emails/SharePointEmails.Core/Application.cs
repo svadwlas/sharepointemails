@@ -10,6 +10,8 @@ using SharePointEmails.Core.MailProcessors;
 using SharePointEmails.Core.Exceptions;
 using System.IO;
 using System.Collections.Specialized;
+using SharePointEmails.Core.Interfaces;
+using SharePointEmails.Core.Substitutions;
 
 namespace SharePointEmails.Core
 {

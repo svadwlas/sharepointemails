@@ -7,7 +7,7 @@ using Microsoft.SharePoint.Moles;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.Core.Tests
 {
     

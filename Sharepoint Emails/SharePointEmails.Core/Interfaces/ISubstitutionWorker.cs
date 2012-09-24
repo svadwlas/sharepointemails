@@ -5,8 +5,8 @@ using System.Text;
 
 namespace SharePointEmails.Core.Interfaces
 {
-    public interface ITemplatesManager
+    public interface ISubstitutionWorker
     {
-        ITemplate GetTemplate(ISearchContext owner);
+        string OnPartLoaded(string part);
     }
 }

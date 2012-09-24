@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using SharePointEmails.Logging;
 using SharePointEmails.Core.Substitutions;
+using SharePointEmails.Core.Interfaces;
 
-namespace SharePointEmails.Core
+namespace SharePointEmails.Core.Substitutions
 {
-    public class SubstitutionWorker : ISubstitution
+    public class SubstitutionWorker : ISubstitution, ISubstitutionWorker
     {
-        private List<ISubstitution> m_substitutions;
-        private List<ISubstitution> m_alreadyProcessed;
+        private List<ISubstitution> m_substitutions; //all substitutions
+        private List<ISubstitution> m_alreadyProcessed;//substitutions which have been already used
 
         private ILogger m_Logger;
 
-        private ISubstitutionContext m_context;
+        private ISubstitutionContext m_currentContext;
 
         public SubstitutionWorker(ILogger logger, List<ISubstitution> sustitutions)
         {
@@ -23,12 +24,12 @@ namespace SharePointEmails.Core
             m_alreadyProcessed = new List<ISubstitution>();
         }
 
-        string ProcessIncludes(string includes)
+        public string OnPartLoaded(string part)//some substitutions can include new parts to template so we need process them with already processed substitutions
         {
-            return Process(includes, m_alreadyProcessed, m_context);
+            return Process(part, m_alreadyProcessed, m_currentContext, null);
         }
 
-        string Process(string res, IList<ISubstitution> substitutions, ISubstitutionContext context, Action<ISubstitution> processedCallback=null)
+        string Process(string res, IList<ISubstitution> substitutions, ISubstitutionContext context, Action<ISubstitution> processedCallback)
         {
             if (m_substitutions != null)
             {
@@ -38,7 +39,9 @@ namespace SharePointEmails.Core
                     m_Logger.Write("START SUBSTITUTION : " + substitution.GetType().Name, SeverityEnum.Verbose);
                     try
                     {
-                        res = substitution.Process(res, context, ProcessIncludes);
+                        m_currentContext = context;
+                        substitution.Worker = this;
+                        res = substitution.Process(res, context);
                     }
                     catch (Exception ex)
                     {
@@ -56,13 +59,18 @@ namespace SharePointEmails.Core
             return res;
         }
 
-        public string Process(string data, ISubstitutionContext context, Func<string, string> processIncludes=null)
+        public string Process(string data, ISubstitutionContext context)
         {
             var res = data ?? "";
             m_alreadyProcessed.Clear();
-            m_context = context;
             res = Process(data, m_substitutions, context, (s) => m_alreadyProcessed.Add(s));
             return (string.IsNullOrEmpty(res)) ? "empty" : res;
+        }
+
+
+        public ISubstitutionWorker Worker
+        {
+            get;set;
         }
     }
 }

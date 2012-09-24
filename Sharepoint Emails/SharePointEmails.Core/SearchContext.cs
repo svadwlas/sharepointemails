@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using System.Xml.Linq;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core
 {

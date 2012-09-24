@@ -5,6 +5,8 @@ using System.Text;
 using SharePointEmails.Logging;
 using Microsoft.Practices.Unity;
 using SharePointEmails.Core.Configuration;
+using SharePointEmails.Core.Substitutions;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core
 {

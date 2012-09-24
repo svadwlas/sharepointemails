@@ -8,6 +8,7 @@ using System.Xml;
 using System.IO;
 using SharePointEmails.Core;
 using Microsoft.SharePoint.WebControls;
+using SharePointEmails.Core.Extensions;
 namespace SharepointEmails
 {
     public class SPXsltField : SPFieldMultiLineText

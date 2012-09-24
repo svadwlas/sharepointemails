@@ -6,16 +6,13 @@ using System.Xml.Xsl;
 using System.Xml;
 using System.IO;
 using SharePointEmails.Logging;
-
+using SharePointEmails.Core.Interfaces;
+using SharePointEmails.Core.Exceptions;
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.Core.Substitutions
 {
-    public class XlstSubstitution : ISubstitution
+    public class XlstSubstitution : BaseSubstitution
     {
-        ILogger Logger;
-        public XlstSubstitution()
-        {
-            Logger = Application.Current.Logger;
-        }
         public string Pattern
         {
             get { return "XSLT"; }
@@ -26,14 +23,14 @@ namespace SharePointEmails.Core.Substitutions
             get { return "eXtensible Stylesheet Language Transformations"; }
         }
 
-        public string Process(string text, ISubstitutionContext context, Func<string, string> processIncludes=null)
+        public override  string Process(string text, ISubstitutionContext context)
         {
             try
-            {                
-                var xml=context.GetXML();
+            {
+                var xml = context.GetXML();
                 Logger.Write(xml, SeverityEnum.Trace);
                 if (!text.IsXslt()) return text;
-                return xml.ApplyXslt(text,context.GetTemplateLibrary(),processIncludes);
+                return xml.ApplyXslt(text, context.GetTemplateLibrary(), Worker.OnPartLoaded);
             }
             catch (XsltException ex)
             {

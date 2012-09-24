@@ -6,6 +6,7 @@ using Microsoft.SharePoint;
 using SharePointEmails.Logging;
 using SharePointEmails.Core.Exceptions;
 using SharePointEmails.Core.Configuration;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core
 {
