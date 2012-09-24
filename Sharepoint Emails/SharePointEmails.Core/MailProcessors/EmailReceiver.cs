@@ -12,7 +12,7 @@ using SharePointEmails.MailProcessors;
 using System.ComponentModel;
 using SharePointEmails.Core.MailProcessors;
 
-namespace SharepointEmails
+namespace SharePointEmails
 {
     [Description("Processor of incoming emails")]
     [DisplayName("SharePointEmails email receiver")]

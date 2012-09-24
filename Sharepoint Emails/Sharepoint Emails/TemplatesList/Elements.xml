@@ -8,7 +8,7 @@
         OnQuickLaunch="TRUE"
         SecurityBits="11"
         Sequence="410"
-        DisplayName="SharepointEmails - TemplatesList"
+        DisplayName="SharePointEmails - TemplatesList"
         Description="List Definition for mail templates"
         Image="/_layouts/images/itgen.png"/>
 </Elements>

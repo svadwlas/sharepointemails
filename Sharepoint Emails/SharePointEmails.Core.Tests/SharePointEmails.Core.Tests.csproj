@@ -101,9 +101,9 @@
     <Moles Include="Microsoft.SharePoint.moles" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sharepoint Emails\SharepointEmails.csproj">
+    <ProjectReference Include="..\Sharepoint Emails\SharePointEmails.csproj">
       <Project>{0F3BF939-370A-4A37-B500-66825513EB73}</Project>
-      <Name>SharepointEmails</Name>
+      <Name>SharePointEmails</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">
       <Project>{E73985B3-3C00-4C7C-92D3-70186DBC3D93}</Project>

@@ -12,8 +12,9 @@ using System.IO;
 using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
+using SharePointEmails.SwitchWebPart;
 
-namespace SharepointEmails.Features.SharePointEmails
+namespace SharePointEmails.Features.SharePointEmails
 {
     /// <summary>
     /// This class handles events raised during feature activation, deactivation, installation, uninstallation, and upgrade.
@@ -70,7 +71,7 @@ namespace SharepointEmails.Features.SharePointEmails
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = false;
             process.Start();
-            if (process.WaitForExit(10000))
+            if (process.WaitForExit(30000))
             {
                 if (process.ExitCode != 0&&!ignoreCode.Contains(process.ExitCode))
                 {
@@ -130,11 +131,11 @@ namespace SharepointEmails.Features.SharePointEmails
                                +"[TemplateFromUseFile{true:TemplateFrom;false:TemplateFromFile;}]";
                 var templates = sPWeb.Lists[Constants.TemplateListName];
                 var wm = sPWeb.GetLimitedWebPartManager(templates.DefaultEditFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                var wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=tohide };
+                var wp = new SwitchWebPart.SwitchWebPart() { Info = tohide };
                 wm.AddWebPart(wp, null, 0);
                 wm.SaveChanges(wp);
                 wm = sPWeb.GetLimitedWebPartManager(templates.DefaultNewFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
-                wp=new SharepointEmails.SwitchWebPart.SwitchWebPart() {Info=tohide };
+                wp=new SwitchWebPart.SwitchWebPart() {Info=tohide };
                 wm.AddWebPart(wp, null, 0);
                 wm.SaveChanges(wp);
             }

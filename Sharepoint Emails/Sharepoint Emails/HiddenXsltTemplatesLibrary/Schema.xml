@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<List xmlns:ows="Microsoft SharePoint" Title="SharepointEmails - HiddenXsltTemplatesLibrary" Direction="$Resources:Direction;" Url="SharepointEmails-HiddenXsltTemplatesLibrary" BaseType="1" xmlns="http://schemas.microsoft.com/sharepoint/">
+<List xmlns:ows="Microsoft SharePoint" Title="SharePointEmails - HiddenXsltTemplatesLibrary" Direction="$Resources:Direction;" Url="SharePointEmails-HiddenXsltTemplatesLibrary" BaseType="1" xmlns="http://schemas.microsoft.com/sharepoint/">
   <MetaData>
     <ContentTypes>
       <ContentTypeRef ID="0x0101">

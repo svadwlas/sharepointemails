@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F3BF939-370A-4A37-B500-66825513EB73}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SharePointEmails</RootNamespace>
+    <AssemblyName>SharePointEmails</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BB1F664B-9266-4fd6-B973-E1E44974B511};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SandboxedSolution>False</SandboxedSolution>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <AssemblyDeploymentTarget>GlobalAssemblyCache</AssemblyDeploymentTarget>
+    <IncludeAssemblyInPackage>True</IncludeAssemblyInPackage>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SharePoint.ApplicationPages.Administration, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\CONFIG\ADMINBIN\Microsoft.SharePoint.ApplicationPages.Administration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Security, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.SharePoint" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlertHandler.cs" />
+    <Compile Include="Features\SharePointEmails\SharePointEmails.EventReceiver.cs">
+      <DependentUpon>SharePointEmails.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\SharePointEmails\ApprovePage.aspx.cs">
+      <DependentUpon>ApprovePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharePointEmails\ApprovePage.aspx.designer.cs">
+      <DependentUpon>ApprovePage.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\SharePointEmails\ListSettings.aspx.cs">
+      <DependentUpon>ListSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharePointEmails\ListSettings.aspx.designer.cs">
+      <DependentUpon>ListSettings.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\SharePointEmails\WebSettings.aspx.cs">
+      <DependentUpon>WebSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Layouts\SharePointEmails\WebSettings.aspx.designer.cs">
+      <DependentUpon>WebSettings.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SPAssociationControl.cs" />
+    <Compile Include="SPAssociationFieldType.cs" />
+    <Compile Include="SPXsltField.cs" />
+    <Compile Include="Switches.cs" />
+    <Compile Include="SwitchWebPart\SwitchWebPart.cs" />
+    <Compile Include="XsltHandler\XsltHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ControlTemplates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{4b9e2ef8-bf09-480d-91da-5e4a2a5400cd}</SharePointProjectItemId>
+    </None>
+    <None Include="Features\SharePointEmails\SharePointEmails.feature">
+      <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
+    </None>
+    <None Include="Resources\DiscussionBoardSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SwitchWebPart\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{95b84d34-e7fa-4022-ae81-baedb1e20733}</SharePointProjectItemId>
+    </None>
+    <None Include="SwitchWebPart\SwitchWebPart.webpart" />
+    <None Include="TemplatesList\HiddenTemplatesList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{2a9558cd-a6cb-4708-9a64-f383fe2c9040}</SharePointProjectItemId>
+    </None>
+    <None Include="HiddenXsltTemplatesLibrary\HiddenXsltTemplates\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{cf1995f7-092a-426b-8d8a-46e267ec6971}</SharePointProjectItemId>
+    </None>
+    <None Include="HiddenXsltTemplatesLibrary\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{15d5ff0a-1fb0-4471-a8c4-8edeff69c457}</SharePointProjectItemId>
+    </None>
+    <None Include="Images\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{7824520f-8e84-4abc-a1d7-fd41ff8d0e65}</SharePointProjectItemId>
+    </None>
+    <None Include="key.snk" />
+    <None Include="Layouts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{043c094b-0c59-49f6-bb29-113f4fa00327}</SharePointProjectItemId>
+    </None>
+    <None Include="Package\Package.package">
+      <PackageId>{8c9912e3-636c-4168-b5f3-a90e4c3c1b90}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="SEMailTemplateCT\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{968cb4f4-66a6-4f48-b652-c258ec496b7f}</SharePointProjectItemId>
+    </None>
+    <None Include="TemplatesList\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{4163220e-72ae-4fea-ba3e-51c4f76f6ade}</SharePointProjectItemId>
+    </None>
+    <None Include="CustomActions\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{50c287a9-a442-4b81-8d5c-441350d2e257}</SharePointProjectItemId>
+    </None>
+    <None Include="XML\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{eb59aa06-c7ba-434f-90f9-bdc29eb33e86}</SharePointProjectItemId>
+    </None>
+    <None Include="XsltHandler\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{d01d0a42-559e-4cf4-b419-d7c2945004c7}</SharePointProjectItemId>
+    </None>
+    <None Include="XSL\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{6a26e373-851b-4317-af24-f6f722dc918e}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ControlTemplates\SPAssociationControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
+      <DependentUpon>SharePointEmails.feature</DependentUpon>
+    </Content>
+    <None Include="Resources\TestContextXML.txt" />
+    <None Include="Resources\testsubj.xslt" />
+    <Content Include="Images\SharepointEmails\logo.jpg" />
+    <Content Include="Layouts\SharePointEmails\ApprovePage.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Layouts\Switcher\FieldSwitches.js" />
+    <None Include="Resources\alerttemplates.xml" />
+    <Content Include="Resources\BodyTemplate.html" />
+    <Content Include="Resources\BodyTemplate.xslt" />
+    <Content Include="Resources\BodyTemplateForDiscussionBoard.xslt" />
+    <Content Include="Resources\AdminAddressTemplate.xslt" />
+    <Content Include="Resources\ListAddressTemplate.xslt" />
+    <Content Include="Resources\TEstXMLMessageAdded.xml" />
+    <Content Include="Resources\Utils.xslt" />
+    <Content Include="SwitchWebPart\Elements.xml" />
+    <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />
+    <Content Include="HiddenXsltTemplatesLibrary\Elements.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\FileDlg.htm" />
+    <Content Include="HiddenXsltTemplatesLibrary\HiddenXsltTemplates\Elements.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\Repair.aspx" />
+    <Content Include="HiddenXsltTemplatesLibrary\Schema.xml" />
+    <Content Include="HiddenXsltTemplatesLibrary\Upload.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Images\SharepointEmails\Service.png" />
+    <Content Include="Images\SharepointEmails\Service16.png" />
+    <Content Include="Layouts\SharePointEmails\ListSettings.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Layouts\Switcher\jquery-1.7.2.min.js" />
+    <Content Include="Layouts\SharePointEmails\Scripts\SE.js" />
+    <Content Include="Layouts\SharePointEmails\WebSettings.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="SEMailTemplateCT\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TemplatesList\Elements.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TemplatesList\Schema.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="CustomActions\Elements.xml" />
+    <Content Include="XML\fldtypes_SPAssociation.xml" />
+    <Content Include="XML\SEAlertReceiver.xml" />
+    <Content Include="XsltHandler\Elements.xml" />
+    <Content Include="XSL\fldtypes_SEAssociation.xsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">
+      <Project>{E73985B3-3C00-4C7C-92D3-70186DBC3D93}</Project>
+      <Name>SharePointEmails.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharePointEmails.Logging\SharePointEmails.Logging.csproj">
+      <Project>{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}</Project>
+      <Name>SharePointEmails.Logging</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" />
+</Project>

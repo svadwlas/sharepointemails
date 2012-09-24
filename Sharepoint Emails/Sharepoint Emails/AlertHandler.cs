@@ -13,7 +13,7 @@ using System.Web;
 using System.Collections.Specialized;
 using SharePointEmails.Core.MailProcessors;
 
-namespace SharepointEmails
+namespace SharePointEmails
 {
     public class AlertHandler : IAlertNotifyHandler
     {

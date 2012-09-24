@@ -1,4 +1,4 @@
-﻿using SharepointEmails.Properties;
+﻿using SharePointEmails.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Xml.Linq;

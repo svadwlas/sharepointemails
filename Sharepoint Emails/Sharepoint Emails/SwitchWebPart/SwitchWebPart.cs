@@ -6,8 +6,9 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
+using SharePointEmails;
 
-namespace SharepointEmails.SwitchWebPart
+namespace SharePointEmails.SwitchWebPart
 {
     [ToolboxItemAttribute(false)]
     public class SwitchWebPart : WebPart

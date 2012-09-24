@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml.Xsl;
 using System.Xml;
 
-namespace SharepointEmails.XsltHandler
+namespace SharePointEmails.XsltHandler
 {
     /// <summary>
     /// List Item Events

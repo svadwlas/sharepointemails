@@ -10,7 +10,7 @@
         Sequence="110"
         Hidden="TRUE"
         HiddenList="TRUE"
-        DisplayName="SharepointEmails - HiddenXsltTemplatesLibrary"
+        DisplayName="SharePointEmails - HiddenXsltTemplatesLibrary"
         Description="My List Definition"
         Image="/_layouts/images/itdl.png"
         VersioningEnabled="TRUE"

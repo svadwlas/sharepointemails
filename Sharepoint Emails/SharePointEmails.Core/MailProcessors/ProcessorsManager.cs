@@ -52,7 +52,7 @@ namespace SharePointEmails.Core.MailProcessors
         {
             get
             {
-                return typeof(SharepointEmails.EmailReceiver);
+                return typeof(SharePointEmails.EmailReceiver);
             }
         }
 
@@ -73,7 +73,7 @@ namespace SharePointEmails.Core.MailProcessors
             SPEventReceiverDefinition receiver = null;
             do
             {
-                receiver = list.EventReceivers.OfType<SPEventReceiverDefinition>().Where(p => p.Class == ReceiverType.FullName).FirstOrDefault();
+                receiver = list.EventReceivers.OfType<SPEventReceiverDefinition>().Where(p=>string.Equals(p.Class, ReceiverType.FullName,StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (receiver != null)
                 {
                     receiver.Delete();

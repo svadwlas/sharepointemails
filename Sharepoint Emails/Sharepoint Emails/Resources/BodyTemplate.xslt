@@ -25,7 +25,7 @@
               <tr>
                 <td>
                   <div>
-                    <image src="http://dev/_layouts/images/SharepointEmails/logo.jpg" alt="Logo Inage" width="50" height="50"/>
+                    <image src="http://dev/_layouts/images/SharePointEmails/logo.jpg" alt="Logo Inage" width="50" height="50"/>
                   </div>
                 </td>
                 <td>

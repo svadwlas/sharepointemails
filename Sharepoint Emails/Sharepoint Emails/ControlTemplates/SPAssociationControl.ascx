@@ -11,7 +11,7 @@
     <style type="text/css">
         .hiddencell {display:none;}
     </style>
-  <script src="../_layouts/SharepointEmails/Scripts/SEAssociationFieldControl.js" type="text/javascript"></script>
+  <script src="../_layouts/SharePointEmails/Scripts/SEAssociationFieldControl.js" type="text/javascript"></script>
   <asp:UpdatePanel runat="server" ID="updatePanel">
         <ContentTemplate>
          <table style="width: 100%;">

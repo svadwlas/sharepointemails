@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SharepointEmails.Properties {
+namespace SharePointEmails.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SharepointEmails.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharepointEmails.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharePointEmails.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -149,8 +149,8 @@ namespace SharepointEmails.Properties {
         ///    &lt;xs:complexType&gt;
         ///      &lt;xs:sequence&gt;
         ///        &lt;xs:element name=&quot;Discussion&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
-        ///          
-        ///        &lt;/xs:eleme [rest of string was truncated]&quot;;.
+        ///        &lt;/xs:element&gt;
+        ///      &lt; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DiscussionBoardSchema {
             get {

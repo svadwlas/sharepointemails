@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
   <CustomAction
-        Id="SharepointEmails.WebSettings"
+        Id="SharePointEmails.WebSettings"
         GroupId="SiteCollectionAdmin"
         Location="Microsoft.SharePoint.SiteSettings"
         Sequence="1000"
         Title="SharePoint Emails Web Settings">
         <UrlAction Url="_Layouts/SharePointEmails/WebSettings.aspx"/>
   </CustomAction>
-  <!--<CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.jQScript" Location="ScriptLink" ScriptSrc ="/_layouts/SharepointEmails/Scripts/jquery-1.7.2.min.js"/>
-  <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.Script" Location="ScriptLink" ScriptSrc ="/_layouts/SharepointEmails/Scripts/SE.js"/>
-  <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.SwitchScript" Location="ScriptLink" ScriptSrc ="/_layouts/SharepointEmails/Scripts/FieldSwitches.js"/>-->
+  <!--<CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.jQScript" Location="ScriptLink" ScriptSrc ="/_layouts/SharePointEmails/Scripts/jquery-1.7.2.min.js"/>
+  <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.Script" Location="ScriptLink" ScriptSrc ="/_layouts/SharePointEmails/Scripts/SE.js"/>
+  <CustomAction Id="ITIdea.Ribbon.ListItem.Actions.TaskCompletedButton.SwitchScript" Location="ScriptLink" ScriptSrc ="/_layouts/SharePointEmails/Scripts/FieldSwitches.js"/>-->
   
   
   <CustomAction
@@ -29,8 +29,8 @@
           <CommandUIDefinition Location="Ribbon.ListForm.Display.Manage.Controls._children">
             <Button Id="{B511A716-54FF-4EAE-9CBE-EA02B51B626E}"
             Command="{4E2F5DC0-FE2C-4466-BB2D-3ED0D1917763}"
-            Image32by32="~site/_layouts/Images/SharepointEmails/Service.png"
-            Image16by16="~site/_layouts/Images/SharepointEmails/Service16.png"
+            Image32by32="~site/_layouts/Images/SharePointEmails/Service.png"
+            Image16by16="~site/_layouts/Images/SharePointEmails/Service16.png"
             Sequence="0"
             LabelText="View template"
             Description="Preview template"
@@ -44,7 +44,7 @@
       </CommandUIExtension>
   </CustomAction>
   <CustomAction
-      Id="SharepointEmails.ListSettings"
+      Id="SharePointEmails.ListSettings"
       GroupId="GeneralSettings"
       Location="Microsoft.SharePoint.ListEdit"
       Sequence="1000"

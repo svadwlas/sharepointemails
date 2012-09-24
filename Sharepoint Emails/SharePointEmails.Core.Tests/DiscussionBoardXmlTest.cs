@@ -101,7 +101,7 @@ namespace SharePointEmails.Core.Tests
             fieldCol.ContainsGuid = (g) => fields.ContainsKey(g);
             listItem.FieldsGet = () => fieldCol;
             var actual = DiscussionBoardXml.Create().GetElement(listItem);
-            Validate(actual.ToString(), SharepointEmails.Properties.Resources.DiscussionBoardSchema, namespa);
+            Validate(actual.ToString(), SharePointEmails.Properties.Resources.DiscussionBoardSchema, namespa);
 
             var clearText = actual.Element(XName.Get("Discussion", namespa)).Element(XName.Get("Body", namespa)).Element(XName.Get("ClearValue", namespa)).Value;
             Assert.IsTrue(clearText.StartsWith("Discussion body"));

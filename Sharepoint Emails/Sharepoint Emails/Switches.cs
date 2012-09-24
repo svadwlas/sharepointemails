@@ -8,7 +8,7 @@ using System.Collections;
 using System.Web.Script.Serialization;
 using System.Xml.Linq;
 
-namespace SharepointEmails
+namespace SharePointEmails
 {
     class FieldsSwitches : List<FieldSwitch>
     {

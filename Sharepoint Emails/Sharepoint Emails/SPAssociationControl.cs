@@ -10,7 +10,7 @@ using SharePointEmails.Core.Associations;
 using SharePointEmails.Core.Interfaces;
 using System.IO;
 
-namespace SharepointEmails
+namespace SharePointEmails
 {
     class SPAssociationControl : BaseFieldControl, ITemplateConfigurationHolder
     {
