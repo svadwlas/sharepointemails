@@ -14,7 +14,6 @@ namespace SharePointEmails.Core.MailProcessors
 
         public int GetRelatedItemId(SEMessage mail)
         {
-            m_Logger.Write("try get id from subj=" + mail.Subject, SeverityEnum.Trace);
             var res = -1;
             var subject = mail.Subject ?? string.Empty;
             var matches = Regex.Matches(subject, @"\(([0-9]+)\)");
@@ -25,7 +24,6 @@ namespace SharePointEmails.Core.MailProcessors
                 mail.Subject = subject;
                 res = int.Parse(value);
             }
-            m_Logger.Write("Item id=" + res, SeverityEnum.Trace);
             return res;
         }
 

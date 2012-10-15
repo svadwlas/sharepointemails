@@ -141,7 +141,7 @@ namespace SharePointEmails.Features.SharePointEmails
             }
             catch (Exception ex)
             {
-                Application.Current.Logger.Write(ex, global::SharePointEmails.Logging.SeverityEnum.CriticalError);
+                Application.Current.Logger.WriteTrace(ex, global::SharePointEmails.Logging.SeverityEnum.CriticalError);
             }
         }
 
@@ -235,7 +235,7 @@ namespace SharePointEmails.Features.SharePointEmails
             }
             catch (Exception ex)
             {
-                Application.Current.Logger.Write(ex, global::SharePointEmails.Logging.SeverityEnum.CriticalError);
+                Application.Current.Logger.WriteTrace(ex, global::SharePointEmails.Logging.SeverityEnum.CriticalError);
             }
         }
 

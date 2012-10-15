@@ -42,8 +42,8 @@ namespace SharePointEmails.Core.Associations
             }
             catch (Exception ex)
             {
-                Application.Current.Logger.Write("Cannot parse config. empty will be returned", SeverityEnum.Error);
-                Application.Current.Logger.Write(ex.ToString(), SeverityEnum.Error);
+                Application.Current.Logger.WriteTrace("Cannot parse config. empty will be returned", SeverityEnum.Error);
+                Application.Current.Logger.WriteTrace(ex.ToString(), SeverityEnum.Error);
                 return AssociationConfiguration.Empty;
             }
         }

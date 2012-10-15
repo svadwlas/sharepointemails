@@ -106,8 +106,8 @@ namespace SharePointEmails.Core.MailProcessors
             }
             catch (Exception ex)
             {
-                Logger.Write("Error during in processor creating", SeverityEnum.CriticalError);
-                Logger.Write(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace("Error during in processor creating", SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
             }
             return null;
         }
@@ -124,14 +124,14 @@ namespace SharePointEmails.Core.MailProcessors
                     }
                     else
                     {
-                        Logger.Write("Integratoin for List=" + list.Title + " is disabled", SeverityEnum.Trace);
+                        Logger.WriteTrace("Integratoin for List=" + list.Title + " is disabled", SeverityEnum.Trace);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.Write("Error during out processor creating", SeverityEnum.CriticalError);
-                Logger.Write(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace("Error during out processor creating", SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
             }
             return null;
         }

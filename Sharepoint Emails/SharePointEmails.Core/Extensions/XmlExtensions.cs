@@ -114,7 +114,7 @@ namespace SharePointEmails.Core.Extensions
                     }
                 }
 
-                Logger.Write("Need resolve type " + ((ofObjectToReturn != null) ? ofObjectToReturn.Name : "no type") + " uri=" + absoluteUri, SeverityEnum.Verbose);
+                Logger.WriteTrace("Need resolve type " + ((ofObjectToReturn != null) ? ofObjectToReturn.Name : "no type") + " uri=" + absoluteUri, SeverityEnum.Verbose);
                 return null;
             }
         }

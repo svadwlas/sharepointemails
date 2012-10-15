@@ -32,7 +32,7 @@ namespace SharePointEmails.Core.Associations
             }
             catch (Exception ex)
             {
-                Logger.Write(ex, Logging.SeverityEnum.Error);
+                Logger.WriteTrace(ex, Logging.SeverityEnum.Error);
             }
             return SearchMatchLevel.NONE;
         }
@@ -54,7 +54,7 @@ namespace SharePointEmails.Core.Associations
             }
             catch (Exception ex)
             {
-                Logger.Write(ex, Logging.SeverityEnum.Warning);
+                Logger.WriteTrace(ex, Logging.SeverityEnum.Warning);
                 throw new Exception("wrong content type id");
             }
             var notexists = true;

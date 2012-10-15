@@ -30,9 +30,13 @@ namespace SharePointEmails.Core.Associations
         {
             get
             {
-                return ClassContainer.Instance.Resolve<ILogger>();
+                if (_Logger == null)
+                {
+                    _Logger = ClassContainer.Instance.Resolve<ILogger>();
+                }
+                return _Logger;
             }
-        }
+        }ILogger _Logger;
 
         public virtual void Validate()
         {

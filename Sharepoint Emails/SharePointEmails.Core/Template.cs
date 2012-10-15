@@ -8,6 +8,7 @@ using SharePointEmails.Core.Substitutions;
 using SharePointEmails.Core.Interfaces;
 using SharePointEmails.Core.Associations;
 using SharePointEmails.Core.Extensions;
+using SharePointEmails.Logging;
 namespace SharePointEmails.Core
 {
     public class Template : ITemplate
@@ -143,13 +144,27 @@ namespace SharePointEmails.Core
             return worker.Process(input, context);
         }
 
+        ILogger Logger
+        {
+            get
+            {
+                if (_Logger == null)
+                {
+                    _Logger = Application.Current.Logger;
+                }
+                return _Logger;
+            }
+        }ILogger _Logger;
+
         public string GetProcessedBody(ISubstitutionContext context)
         {
+            Logger.WriteTrace("In GetProcessedBody",SeverityEnum.Verbose);
             return GetProcessedItem(context, Body, SubstitutionManager.WorkerType.ForBody);
         }
 
         public string GetProcessedSubj(ISubstitutionContext context)
         {
+            Logger.WriteTrace("In GetProcessedSubj", SeverityEnum.Verbose);
             return GetProcessedItem(context, Subject, SubstitutionManager.WorkerType.ForSubject);
         }
 
@@ -170,12 +185,14 @@ namespace SharePointEmails.Core
 
         public string GetProcessedFrom(ISubstitutionContext context)
         {
+            Logger.WriteTrace("In GetProcessedFrom", SeverityEnum.Verbose);
             if (string.IsNullOrEmpty(From)) return string.Empty;
             return GetProcessedItem(context, From, SubstitutionManager.WorkerType.ForFrom);
         }
 
         public string GetProcessedReplay(ISubstitutionContext context)
         {
+            Logger.WriteTrace("In GetProcessedReplay", SeverityEnum.Verbose);
             if (string.IsNullOrEmpty(From)) return string.Empty;
             return GetProcessedItem(context, Replay, SubstitutionManager.WorkerType.ForReplay);
         }

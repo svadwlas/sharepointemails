@@ -117,23 +117,23 @@ namespace SharePointEmails.Core
                     list = web.Lists[ahp.a.ListID];
                     try
                     {
-                        message = Application.Current.GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
+                        message = GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
                     }
                     catch (SeTemplateNotFound ex)
                     {
-                        Application.Current.Logger.Write("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
-                        Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.Warning);
+                        Application.Current.Logger.WriteTrace("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
+                        Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.Warning);
                     }
                     catch (Exception ex)
                     {
-                        Application.Current.Logger.Write("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
-                        Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                        Application.Current.Logger.WriteTrace("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
+                        Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
                     }
                     if (message != null)
                     {
                         var mail = SEMessage.Create(message, ahp.headers, ahp.body);
 
-                        Application.Current.Logger.Write("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
+                        Application.Current.Logger.WriteTrace("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
 
                         var processor = ProcessorsManager.Instance.CreateOutcomingProcessor(list);
                         if (processor != null)
@@ -141,17 +141,17 @@ namespace SharePointEmails.Core
                             processor.Precess(mail, ed);
                         }
 
-                        SaveMessage(message, mail.headers);
+                        LogMessage(message, mail.headers);
                         return mail;
                     }
                     else
                     {
-                        Application.Current.Logger.Write("Message not generated", SharePointEmails.Logging.SeverityEnum.Verbose);
+                        Application.Current.Logger.WriteTrace("Message not generated", SharePointEmails.Logging.SeverityEnum.Verbose);
                     }
                 }
                 else
                 {
-                    Application.Current.Logger.Write("OnNotification - More then 1 eventdata. currently not supported", SharePointEmails.Logging.SeverityEnum.Warning);
+                    Application.Current.Logger.WriteTrace("OnNotification - More then 1 eventdata. currently not supported", SharePointEmails.Logging.SeverityEnum.Warning);
                 }
             }
             return null;
@@ -159,32 +159,32 @@ namespace SharePointEmails.Core
 
         public void OnIncomingMail(SPList list, Microsoft.SharePoint.Utilities.SPEmailMessage emailMessage)
         {
-            Logger.Write("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
+            Logger.WriteTrace("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
             try
             {
                 var processor = ProcessorsManager.Instance.CreateIncomingProcessor(list, SEMessage.Create(emailMessage));
                 if (processor != null)
                 {
-                    Logger.Write(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
+                    Logger.WriteTrace(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
                     try
                     {
                         processor.Process();
                     }
                     catch (Exception ex)
                     {
-                        Logger.Write("Error during processing of message", SeverityEnum.CriticalError);
-                        Logger.Write(ex, SeverityEnum.CriticalError);
+                        Logger.WriteTrace("Error during processing of message", SeverityEnum.CriticalError);
+                        Logger.WriteTrace(ex, SeverityEnum.CriticalError);
                     }
                 }
                 else
                 {
-                    Logger.Write("No incoming processor found for list " + list.Title, SeverityEnum.Trace, AreasEnum.IncomingMessages);
+                    Logger.WriteTrace("No incoming processor found for list " + list.Title, SeverityEnum.Trace, Category.IncomingMessages);
                 }
             }
             catch (Exception ex)
             {
-                Logger.Write("Error in the handler", SeverityEnum.CriticalError);
-                Logger.Write(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace("Error in the handler", SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
             }
         }
 
@@ -207,25 +207,19 @@ namespace SharePointEmails.Core
             }
         }
 
-        void SaveMessage(GeneratedMessage message, StringDictionary newheaders)
+        void LogMessage(GeneratedMessage message, StringDictionary newheaders)
         {
-            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), @"sentEmails\" + DateTime.Now.ToString("hh_mm_ss"));
-            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-            File.WriteAllText(Path.Combine(folder, "body.html"), message.Body);
-
-            string text = string.Empty;
+            var text = new StringBuilder();
+            text.AppendLine("GENERATED message\r\n");
 
             foreach (string key in newheaders.Keys)
             {
-                text += key + ":" + newheaders[key] + Environment.NewLine;
+                text.AppendLine(key + ":" + newheaders[key]+"\r\n");
             }
 
-            text += "Subj:" + Environment.NewLine + message.Subject + Environment.NewLine +
-                "Body:" + Environment.NewLine + message.Body;
+            text.AppendLine("Subj:" + Environment.NewLine + message.Subject + Environment.NewLine + "Body:" + Environment.NewLine + message.Body);
 
-
-
-            File.WriteAllText(Path.Combine(folder, "data.txt"), text);
+            Logger.WriteTrace(text.ToString(), SeverityEnum.Verbose);
         }
 
         GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
@@ -234,8 +228,7 @@ namespace SharePointEmails.Core
             var res = Manager.GetTemplate(search);
             if (res != null)
             {
-                Logger.Write("Found template:", SeverityEnum.Verbose);
-                Logger.Write(res.ToString(), SeverityEnum.Verbose);
+                Logger.WriteTrace("Found template:"+Environment.NewLine+res.ToString(), SeverityEnum.Verbose);
                 var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, receiverEmail, alertCreatorID,type);
                 return new GeneratedMessage
                     {
@@ -247,7 +240,7 @@ namespace SharePointEmails.Core
             }
             else
             {
-                Logger.Write("Found template is null", SeverityEnum.Error);
+                Logger.WriteTrace("Found template is null", SeverityEnum.Error);
             }
             return null;
         }

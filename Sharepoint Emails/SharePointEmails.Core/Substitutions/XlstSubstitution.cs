@@ -23,25 +23,44 @@ namespace SharePointEmails.Core.Substitutions
             get { return "eXtensible Stylesheet Language Transformations"; }
         }
 
-        public override  string Process(string text, ISubstitutionContext context)
+        public override string Process(string text, ISubstitutionContext context)
         {
             try
             {
+                string res = string.Empty;
                 var xml = context.GetXML();
-                Logger.Write(xml, SeverityEnum.Trace);
-                if (!text.IsXslt()) return text;
-                return xml.ApplyXslt(text, context.GetTemplateLibrary(), Worker.OnPartLoaded);
+                var log = new StringBuilder();
+                log.AppendLine("Applying XSLT");
+                log.AppendLine("Template");
+                log.AppendLine(text);
+
+                
+                if (!text.IsXslt())
+                {
+                    log.AppendLine("Template is wrong");
+                    res = text;
+                }
+                else
+                {
+                    log.AppendLine("Incoming XML");
+                    log.AppendLine(xml);
+                    res = xml.ApplyXslt(text, context.GetTemplateLibrary(), Worker.OnPartLoaded);
+                    log.AppendLine("Result:");
+                    log.AppendLine(res);
+                }
+                Logger.WriteTrace(log.ToString(), SeverityEnum.Verbose);
+                return res;
             }
             catch (XsltException ex)
             {
-                Logger.Write("Cannot parse or transform template. maybe because it is not xslt template", SeverityEnum.Warning);
-                Logger.Write(ex, SeverityEnum.Warning);
+                Logger.WriteTrace("Cannot parse or transform template. maybe because it is not xslt template", SeverityEnum.Warning);
+                Logger.WriteTrace(ex, SeverityEnum.Warning);
                 return text;
             }
             catch (Exception ex)
             {
-                Logger.Write("ERROR DURIN|G GEMERATING OUTPUT HTML", SeverityEnum.CriticalError);
-                Logger.Write(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace("ERROR DURIN|G GEMERATING OUTPUT HTML", SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
                 return text;
             }
         }

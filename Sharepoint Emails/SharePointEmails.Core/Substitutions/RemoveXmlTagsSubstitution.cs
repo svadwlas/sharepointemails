@@ -11,16 +11,6 @@ namespace SharePointEmails.Core.Substitutions
 {
     class RemoveXmlTagsSubstitution : BaseSubstitution
     {
-        public string Pattern
-        {
-            get { return ""; }
-        }
-
-        public string Description
-        {
-            get { return ""; }
-        }
-
         public override string Process(string text, ISubstitutionContext context)
         {
             try
@@ -30,7 +20,7 @@ namespace SharePointEmails.Core.Substitutions
             }
             catch (Exception ex)
             {
-                Logger.Write("Cannot remove tags. maybe they are not existed" + ex.Message, SeverityEnum.Information);
+                Logger.WriteTrace("Cannot remove tags. maybe they are not existed" + ex.Message, SeverityEnum.Verbose);
                 return text;
             }
         }

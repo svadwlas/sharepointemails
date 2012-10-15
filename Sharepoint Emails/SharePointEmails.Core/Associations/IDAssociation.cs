@@ -35,6 +35,7 @@ namespace SharePointEmails.Core.Associations
             }
             catch (Exception ex)
             {
+                Logger.WriteTrace(ex, Logging.SeverityEnum.Trace);
                 return null;
             }
         }

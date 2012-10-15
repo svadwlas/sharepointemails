@@ -25,7 +25,7 @@ namespace SharePointEmails.Core.Substitutions
                     var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
                     if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
                     {
-                        Logger.Write(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
+                        Logger.WriteTrace(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
                     }
                     if (fieldTextValue != null)
                     {
@@ -34,7 +34,7 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex, SeverityEnum.Error);
+                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
             return res;

@@ -5,9 +5,11 @@ using System.Text;
 
 namespace SharePointEmails.Logging
 {
-    public enum AreasEnum
+    public enum Category
     {
-        DefaultArea,
-        IncomingMessages
+        Default,
+        OutcommingMessages,
+        IncomingMessages,
+        Administration
     }
 }

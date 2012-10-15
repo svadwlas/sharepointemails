@@ -27,7 +27,7 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex, SeverityEnum.Error);
+                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
             return res;

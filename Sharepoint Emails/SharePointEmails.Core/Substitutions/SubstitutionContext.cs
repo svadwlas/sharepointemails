@@ -82,23 +82,23 @@ namespace SharePointEmails.Core.Substitutions
                             }
                             else
                             {
-                                Logger.Write("No email server address for list ", SeverityEnum.Warning);
+                                Logger.WriteTrace("No email server address for list ", SeverityEnum.Warning);
                             }
                         }
                         else
                         {
-                            Logger.Write("Cannot get incoming email service", SeverityEnum.Warning);
+                            Logger.WriteTrace("Cannot get incoming email service", SeverityEnum.Warning);
                         }
                     }
                     else
                     {
-                        Logger.Write("No email alias for list ", SeverityEnum.Warning);
+                        Logger.WriteTrace("No email alias for list ", SeverityEnum.Warning);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.Write(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
             }
             return string.Empty;
         }
@@ -117,13 +117,13 @@ namespace SharePointEmails.Core.Substitutions
                     }
                     else
                     {
-                        Logger.Write("No admins with emails", SeverityEnum.Warning);
+                        Logger.WriteTrace("No admins with emails", SeverityEnum.Warning);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.Write(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
             }
             return string.Empty;
         }
@@ -172,7 +172,7 @@ namespace SharePointEmails.Core.Substitutions
             }
             else
             {
-                Logger.Write("Approve info not generated", SeverityEnum.Trace);
+                Logger.WriteTrace("Approve info not generated", SeverityEnum.Trace);
             }
 
             var disc = DiscussionBoardXml.Create().GetElement(Vars.SItem);

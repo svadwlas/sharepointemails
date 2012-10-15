@@ -26,11 +26,11 @@ namespace SharePointEmails.Core.Substitutions
             {
                 try
                 {
-                    CUser = SWeb.SiteUsers[CUserID];
+                    CUser = SWeb.SiteUsers.GetByID(CUserID);
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex, SeverityEnum.Error);
+                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
             if (sourceList != null && ItemID != -1)
@@ -41,7 +41,7 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex, SeverityEnum.Error);
+                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
             if (!string.IsNullOrEmpty(modifierName) && SWeb != null)
@@ -52,12 +52,12 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Cannot get SUser", SeverityEnum.Error);
-                    Logger.Write(ex, SeverityEnum.Error);
+                    Logger.WriteTrace("Cannot get SUser", SeverityEnum.Error);
+                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
 
-            if (!string.IsNullOrEmpty(modifierName) && SWeb != null)
+            if (!string.IsNullOrEmpty(toemail) && SWeb != null)
             {
                 try
                 {
@@ -65,8 +65,8 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write("Cannot get DUser", SeverityEnum.Error);
-                    Logger.Write(ex, SeverityEnum.Error);
+                    Logger.WriteTrace("Cannot get DUser", SeverityEnum.Error);
+                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
         }

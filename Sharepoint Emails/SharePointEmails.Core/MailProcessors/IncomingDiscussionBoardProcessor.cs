@@ -86,27 +86,27 @@ namespace SharePointEmails.MailProcessors
                         SPListItem newItem = null;
                         if (relatedItem != null)
                         {
-                            m_Logger.Write("Related item was found", SeverityEnum.Trace);
+                            m_Logger.WriteTrace("Related item was found", SeverityEnum.Trace);
                             if (relatedItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion) || relatedItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                             {
                                 newItem = AddReplyToItem(relatedItem);
                             }
                             else
                             {
-                                m_Logger.Write("Related item has some wrong content type " + relatedItem.ContentTypeId, SeverityEnum.CriticalError);
+                                m_Logger.WriteTrace("Related item has some wrong content type " + relatedItem.ContentTypeId, SeverityEnum.CriticalError);
                             }
                         }
                         else
                         {
-                            m_Logger.Write("Related item was not found", SeverityEnum.Trace);
+                            m_Logger.WriteTrace("Related item was not found", SeverityEnum.Trace);
                             if (m_itemIdPresented)
                             {
-                                m_Logger.Write("Item id was present", SeverityEnum.Trace);
+                                m_Logger.WriteTrace("Item id was present", SeverityEnum.Trace);
 
                             }
                             else
                             {
-                                m_Logger.Write("Item id was not present", SeverityEnum.Trace);
+                                m_Logger.WriteTrace("Item id was not present", SeverityEnum.Trace);
                                 newItem = AddNewDiscussion();
                             }
                         }
@@ -121,18 +121,18 @@ namespace SharePointEmails.MailProcessors
                                 AddAttachments(newItem);
                             }
                             newItem.Update();
-                            m_Logger.Write("Item SUCCESSFULY added", SeverityEnum.Trace);
+                            m_Logger.WriteTrace("Item SUCCESSFULY added", SeverityEnum.Trace);
                         }
                         else
                         {
-                            m_Logger.Write("No new item", SeverityEnum.Warning);
+                            m_Logger.WriteTrace("No new item", SeverityEnum.Warning);
                         }
                     }
                 }
             }
             else
             {
-                m_Logger.Write("No user with email=" + m_message.Sender, SeverityEnum.Warning);
+                m_Logger.WriteTrace("No user with email=" + m_message.Sender, SeverityEnum.Warning);
             }
         }
 
@@ -171,8 +171,8 @@ namespace SharePointEmails.MailProcessors
                 }
                 catch (ArgumentException ex)
                 {
-                    m_Logger.Write("Item with ID=" + id + " not found", SeverityEnum.Warning);
-                    m_Logger.Write(ex, SeverityEnum.Warning);
+                    m_Logger.WriteTrace("Item with ID=" + id + " not found", SeverityEnum.Warning);
+                    m_Logger.WriteTrace(ex, SeverityEnum.Warning);
                 }
             }
             return null;

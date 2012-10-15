@@ -46,7 +46,7 @@ namespace SharePointEmails.Core.Configuration
                 }
                 return b.ToString();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return string.Empty;
             }

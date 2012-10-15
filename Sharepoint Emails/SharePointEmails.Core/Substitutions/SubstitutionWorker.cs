@@ -31,12 +31,12 @@ namespace SharePointEmails.Core.Substitutions
 
         string Process(string res, IList<ISubstitution> substitutions, ISubstitutionContext context, Action<ISubstitution> processedCallback)
         {
-            if (m_substitutions != null)
+            m_Logger.WriteTrace("STARTED Processing following data:" + Environment.NewLine + res, SeverityEnum.Verbose);
+            if (substitutions != null)
             {
                 foreach (var substitution in substitutions)
                 {
-                    m_Logger.Write("START SUBSTITUTION : " + substitution.GetType().Name + "with template :" + Environment.NewLine + res, SeverityEnum.Verbose);
-                    m_Logger.Write("START SUBSTITUTION : " + substitution.GetType().Name, SeverityEnum.Verbose);
+                    m_Logger.WriteTrace("STARTED substitution : " + substitution.GetType().Name + "with template :" + Environment.NewLine + res, SeverityEnum.Verbose);
                     try
                     {
                         m_currentContext = context;
@@ -45,7 +45,7 @@ namespace SharePointEmails.Core.Substitutions
                     }
                     catch (Exception ex)
                     {
-                        m_Logger.Write(ex, SeverityEnum.CriticalError);
+                        m_Logger.WriteTrace(ex, SeverityEnum.CriticalError);
                     }
                     finally
                     {
@@ -53,9 +53,12 @@ namespace SharePointEmails.Core.Substitutions
                         {
                             processedCallback(substitution);
                         }
+                        m_Logger.WriteTrace("FINISHED substitution : " + substitution.GetType().Name + "with result template :" + Environment.NewLine + res, SeverityEnum.Verbose);
                     }
                 }
+                
             }
+            m_Logger.WriteTrace("FINISHED Processing following data:" + Environment.NewLine + res, SeverityEnum.Verbose);
             return res;
         }
 

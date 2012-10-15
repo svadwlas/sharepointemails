@@ -17,33 +17,44 @@ namespace SharePointEmails
 {
     public class AlertHandler : IAlertNotifyHandler
     {
-        void Trace(SPAlertHandlerParams ahp)
+        string GetTrace(SPAlertHandlerParams ahp)
         {
+            var text = new StringBuilder();
+            text.AppendLine("INCOMING DATA:");
             foreach (string s in ahp.headers.Keys)
             {
-                Application.Current.Logger.Write(s+": "+ahp.headers[s], SharePointEmails.Logging.SeverityEnum.Verbose);
+                text.AppendLine(s + ": " + ahp.headers[s]);
             }
             foreach (SPAlertEventData ed in ahp.eventData)
             {
-                Application.Current.Logger.Write("EventData:", SharePointEmails.Logging.SeverityEnum.Verbose);
-                Application.Current.Logger.Write("EventType: " + (SPEventType)ed.eventType, SharePointEmails.Logging.SeverityEnum.Verbose);
-                Application.Current.Logger.Write("EventXml: " + ed.eventXml, SharePointEmails.Logging.SeverityEnum.Verbose);
-                Application.Current.Logger.Write("formattedEvent: " + ed.formattedEvent, SharePointEmails.Logging.SeverityEnum.Verbose);
-                Application.Current.Logger.Write("itemFullUrl: " + ed.itemFullUrl, SharePointEmails.Logging.SeverityEnum.Verbose);
-                Application.Current.Logger.Write("itemId: " + ed.itemId, SharePointEmails.Logging.SeverityEnum.Verbose);
-                Application.Current.Logger.Write("modifiedBy: " + ed.modifiedBy, SharePointEmails.Logging.SeverityEnum.Verbose);
+                text.AppendLine("EventData:");
+                text.AppendLine("EventType: " + (SPEventType)ed.eventType);
+                text.AppendLine("EventXml: " + ed.eventXml);
+                text.AppendLine("formattedEvent: " + ed.formattedEvent);
+                text.AppendLine("itemFullUrl: " + ed.itemFullUrl);
+                text.AppendLine("itemId: " + ed.itemId);
+                text.AppendLine("modifiedBy: " + ed.modifiedBy);
             }
+            if (ahp.a != null)
+            {
+                text.AppendLine("ListID:" + ahp.a.ListID);
+                text.AppendLine("ListUrl:" + ahp.a.ListUrl);
+
+            }
+            else
+            {
+                text.AppendLine("ahp.a is null");
+            }
+            return text.ToString();
         }
 
         public bool OnNotification(SPAlertHandlerParams ahp)
         {
             try
             {
+                Application.Current.Logger.WriteTrace("Start OnNotification" + Environment.NewLine + GetTrace(ahp), SharePointEmails.Logging.SeverityEnum.Verbose);
                 bool handled = false;
                 
-                Application.Current.Logger.Write("Start OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
-                Trace(ahp);
-
                 using (SPSite site = new SPSite(ahp.siteId))
                 {
                     using (SPWeb web = site.OpenWeb(ahp.webId))
@@ -64,45 +75,45 @@ namespace SharePointEmails
                                         }
                                         catch (Exception ex)
                                         {
-                                            Application.Current.Logger.Write("Cannot send generated message", SharePointEmails.Logging.SeverityEnum.CriticalError);
-                                            Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                            Application.Current.Logger.WriteTrace("Cannot send generated message", SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                            Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
                                         }
                                     }
                                     else
                                     {
-                                        Application.Current.Logger.Write("Mail is null", SharePointEmails.Logging.SeverityEnum.Warning);
+                                        Application.Current.Logger.WriteTrace("Mail is null", SharePointEmails.Logging.SeverityEnum.Warning);
                                     }
                                 }
                                 else
                                 {
-                                    Application.Current.Logger.Write("Disabled on web", SharePointEmails.Logging.SeverityEnum.Warning);
+                                    Application.Current.Logger.WriteTrace("Disabled on web", SharePointEmails.Logging.SeverityEnum.Warning);
                                 }
                                 if (!handled)
                                 {
-                                    Application.Current.Logger.Write("Not handled. Send default message", SharePointEmails.Logging.SeverityEnum.Trace);
+                                    Application.Current.Logger.WriteTrace("Not handled. Send default message", SharePointEmails.Logging.SeverityEnum.Trace);
                                     return SPUtility.SendEmail(web, ahp.headers, ahp.body);
                                 }
                             }
                             else
                             {
-                                Application.Current.Logger.Write("OnNotification - Application disabled on site collection", SharePointEmails.Logging.SeverityEnum.Verbose);
+                                Application.Current.Logger.WriteTrace("OnNotification - Application disabled on site collection", SharePointEmails.Logging.SeverityEnum.Verbose);
                             }
                         }
                         else
                         {
-                            Application.Current.Logger.Write("OnNotification - Application disabled on farm", SharePointEmails.Logging.SeverityEnum.Verbose);
+                            Application.Current.Logger.WriteTrace("OnNotification - Application disabled on farm", SharePointEmails.Logging.SeverityEnum.Verbose);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Application.Current.Logger.Write("ERROR OnNotification", SharePointEmails.Logging.SeverityEnum.CriticalError);
-                Application.Current.Logger.Write(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                Application.Current.Logger.WriteTrace("ERROR OnNotification", SharePointEmails.Logging.SeverityEnum.CriticalError);
+                Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
             }
             finally
             {
-                Application.Current.Logger.Write("End OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.WriteTrace("End OnNotification", SharePointEmails.Logging.SeverityEnum.Verbose);
             }
             return false;
         }
