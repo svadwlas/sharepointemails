@@ -36,6 +36,11 @@ namespace SharePointEmails.Core
                 }
                 return _Curent;
             }
+
+            internal set
+            {
+                _Curent = null;
+            }
         }
         static Application _Curent;
 
@@ -230,6 +235,7 @@ namespace SharePointEmails.Core
             {
                 Logger.WriteTrace("Found template:"+Environment.NewLine+res.ToString(), SeverityEnum.Verbose);
                 var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, receiverEmail, alertCreatorID,type);
+                Logger.WriteTrace("XML data:" + Environment.NewLine + substitutionContext.GetXML(), SeverityEnum.Verbose);
                 return new GeneratedMessage
                     {
                         Body = res.GetProcessedBody(substitutionContext),

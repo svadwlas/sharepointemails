@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using SharePointEmails.Core.Substitutions;
 using Microsoft.SharePoint;
-using Microsoft.SharePoint.Moles;
+using SPMocksBuilder;
 
 namespace SharePointEmails.Core.Tests
 {
@@ -43,19 +43,24 @@ namespace SharePointEmails.Core.Tests
         [HostType("Moles")]
         public void GetContextValue()
         {
-            MSPList sList = new MSPList();
-            MSPSite sSite = new MSPSite();
-            MSPWeb sWeb=new MSPWeb();
+            var vsite = new VSite()
+            {
+                Url = "siteurl",
+                RootWeb = new VWeb
+                {
+                    Title = "webtitle",
+                    Lists = new[]
+                    {
+                        new VList
+                        {
+                            Title="TitleText",
+                            Description="descriptiontext"
+                        }
+                    }
+                }
+            };
 
-            sList.ParentWebGet = () => sWeb;
-            sWeb.SiteGet = () => sSite;
-
-            sWeb.TitleGet = () => "webtitle";
-            sSite.UrlGet = () => "siteurl";
-            sList.DescriptionGet = () => "descriptiontext";
-            sList.TitleGet=()=>"TitleText";
-
-            SubstitutionContext target = new SubstitutionContext(Properties.Resources.EventDataFileAdded, sList);
+            SubstitutionContext target = new SubstitutionContext(Properties.Resources.EventDataFileAdded, vsite.Site.RootWeb.Lists[0]);
             Assert.AreEqual("TitleText",target.GetContextValue("SList.Title",new ModifiersCollection()));
             Assert.AreEqual("descriptiontext", target.GetContextValue("SList.Description",new ModifiersCollection()));
             Assert.AreEqual("siteurl",target.GetContextValue("SSite.Url",new ModifiersCollection()));

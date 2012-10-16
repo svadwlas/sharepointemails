@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using SharePointEmails.Core;
 using System.Diagnostics;
+using SharePointEmails.Logging;
+using Moq;
 
 namespace SharePointEmails.Core.Tests
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for XlstSubstitutionTest and is intended
     ///to contain all XlstSubstitutionTest Unit Tests
@@ -15,61 +17,21 @@ namespace SharePointEmails.Core.Tests
     [TestClass()]
     public class XlstSubstitutionTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
+        [TestInitialize()]
+        public void MyTestInitialize()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            ClassContainer.Instance = null;
+            Application.Current = null;
+            ClassContainer.mockLogger = new Mock<ILogger>().Object;
         }
 
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
+        [TestCleanup()]
+        public void MyTestCleanup()
+        {
+            ClassContainer.mockLogger = null;
+        }
 
-
-        /// <summary>
-        ///A test for Process
-        ///</summary>
-            [TestMethod]
+        [TestMethod]
         public void Process()
         {
             var xlst = @"<xsl:stylesheet xmlns:xsl='http://www.w3.org/1999/XSL/Transform' version='1.0'>
@@ -102,17 +64,17 @@ namespace SharePointEmails.Core.Tests
             Assert.IsTrue(res.Contains("TABLE"));
         }
 
-            [TestMethod]
-            public void Test()
-            {
-                var xlst = Properties.Resources.test;
-                var context = new SubstitutionContext(Properties.Resources.EventDataFileAdded);
-                var xml = context.GetXML();
-                var subs = new XlstSubstitution();
-                var res = subs.Process(xlst, context);
-                Debug.WriteLine(res);
-                Assert.IsNotNull(res);
-              //  Assert.IsTrue(res.Contains("TABLE"));
-            }
+        [TestMethod]
+        public void Test()
+        {
+            var xlst = Properties.Resources.test;
+            var context = new SubstitutionContext(Properties.Resources.EventDataFileAdded);
+            var xml = context.GetXML();
+            var subs = new XlstSubstitution();
+            var res = subs.Process(xlst, context);
+            Debug.WriteLine(res);
+            Assert.IsNotNull(res);
+            //  Assert.IsTrue(res.Contains("TABLE"));
+        }
     }
 }

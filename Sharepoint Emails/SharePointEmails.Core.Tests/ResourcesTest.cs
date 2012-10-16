@@ -3,11 +3,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Xml.Linq;
 using Microsoft.SharePoint;
-using Microsoft.SharePoint.Moles;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using SharePointEmails.Core.Extensions;
+using SPMocksBuilder;
 namespace SharePointEmails.Core.Tests
 {
     
@@ -19,78 +20,18 @@ namespace SharePointEmails.Core.Tests
     [TestClass()]
     public class ResourcesTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-
-        /// <summary>
-        ///A test for TestContextXML
-        ///</summary>
         [TestMethod()]
         public void ContextXMLTest_IsValidXML()
         {
             XDocument.Parse(Resources.TestContextXML);
         }
 
-        /// <summary>
-        ///A test for subjXslt
-        ///</summary>
         [TestMethod()]
         public void subjXsltTest()
         {
             Assert.IsTrue(Resources.subjXslt.IsXslt());
         }
 
-        /// <summary>
-        ///A test for testbody
-        ///</summary>
         [TestMethod()]
         public void testbodyTest()
         {
@@ -102,29 +43,19 @@ namespace SharePointEmails.Core.Tests
 
         SPDocumentLibrary GetLibrary()
         {
-            var doc = new MSPDocumentLibrary();
-            var list=new MSPList(doc);
-            var files = new List<SPListItem>();
+            var filesinLibrary = new Dictionary<string, string> { { "Utils.xslt", Resources.Utils } };
 
-            foreach (var file in new Dictionary<string, string> { { "Utils.xslt", Resources.Utils } })
+            var vList = new VList(new VDocumentLibrary())
             {
-                var item = new MSPListItem();
-                var f = new MSPFile();
-                f.NameGet = () => file.Key;
-                item.FileGet = () => f;
-                f.OpenBinaryStream = () => new MemoryStream(Encoding.Default.GetBytes(file.Value));
-                files.Add(item);
-            }
+                Items = filesinLibrary.Select(p => new VListItem()
+                {
+                    File = new VFile(Encoding.Default.GetBytes(p.Value), p.Key)
+                }).ToArray()
+            };
 
-            var items = new MSPListItemCollection();
-            items.GetEnumerator = () => files.GetEnumerator();
-            list.ItemsGet = () => items;
-            return (SPDocumentLibrary)list;
+            return (SPDocumentLibrary)vList.List;
         }
 
-        /// <summary>
-        ///A test for testbody
-        ///</summary>
         [TestMethod()]
         [HostType("Moles")]
         public void testBodyTemplateForDiscussion()

@@ -53,14 +53,11 @@
     <Reference Include="Microsoft.SharePoint.ApplicationPages.Administration">
       <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\CONFIG\ADMINBIN\Microsoft.SharePoint.ApplicationPages.Administration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SharePoint.Behaviors, Version=0.94.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SharePoint.Moles, Version=14.0.0.0, Culture=neutral, PublicKeyToken=0ae41878053f6703, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SharePoint.Security, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>..\ThirdParty\Moq\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="SharePointEmails.Core.Moles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0ae41878053f6703, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -98,9 +95,6 @@
     <Compile Include="XlstSubstitutionTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Moles Include="Microsoft.SharePoint.moles" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Sharepoint Emails\SharePointEmails.csproj">
       <Project>{0F3BF939-370A-4A37-B500-66825513EB73}</Project>
       <Name>SharePointEmails</Name>
@@ -113,6 +107,10 @@
       <Project>{F5FAC138-E7B6-4F4E-8B03-B08FCCAA0777}</Project>
       <Name>SharePointEmails.Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SPMocksBuilder\SPMocksBuilder.csproj">
+      <Project>{6452D51A-DF72-443D-AF57-D826D0CB495A}</Project>
+      <Name>SPMocksBuilder</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -123,8 +121,6 @@
   <ItemGroup>
     <None Include="key.snk" />
     <None Include="Resources\EventDataFileAdded.txt" />
-    <Moles Include="SharePointEmails.Core.moles" />
-    <Shadow Include="Test References\SharePointEmails.Core.accessor" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\EventDataTskAdded.txt" />

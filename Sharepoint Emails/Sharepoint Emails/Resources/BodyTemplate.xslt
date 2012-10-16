@@ -104,7 +104,7 @@
             <p>
               You have the prermissions to approve or reject these chanegs 
               <a href="/_layouts/approve.aspx?List={SList.ID}&amp;ID={SItem.ID}" class="approveActionLink">
-                <input type="button" value="Approve"/>
+                <input type="button" value="Approve Page"/>
               </a>
             </p>
             <!--<table>

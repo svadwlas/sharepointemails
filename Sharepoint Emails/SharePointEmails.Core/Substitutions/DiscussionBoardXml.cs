@@ -43,6 +43,7 @@ namespace SharePointEmails.Core.Substitutions
                     if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
                     {
                         curent = new XElement(nsp + "Discussion");
+                        
                         element.Add(curent);
                         var subjElement = new XElement(nsp + "Subject");
                         var bodyElement = new XElement(nsp + "Body");
@@ -73,7 +74,7 @@ namespace SharePointEmails.Core.Substitutions
                             Value = item.GetFieldValue<string>(SPBuiltInFieldId.Body, string.Empty)
                         };
 
-                        var clearBodyText = new XElement(nsp + "ClearValue") { Value = GetClearMessageBodyText(item.GetFieldValue<string>(SPBuiltInFieldId.TrimmedBody, string.Empty)) };
+                        var clearBodyText = new XElement(nsp + "ClearValue") { Value = GetClearMessageBodyText(bodyText.Value) };
 
                         bodyElement.Add(bodyText, clearBodyText);
                         curent.Add(bodyElement);
@@ -82,11 +83,17 @@ namespace SharePointEmails.Core.Substitutions
                     {
                         curent.SetAttributeValue("Current", true);
                     }
+                    if (item.Fields.Contains(SPBuiltInFieldId.Created))
+                    {
+                        curent.SetAttributeValue("Created", item.GetFieldValue<DateTime>(SPBuiltInFieldId.Created).ToUniversalTime());
+                    }
                     if (item.ParentList != null && item.ParentList.ParentWeb != null)
                     {
                         var createdBy = new SPFieldUserValue(item.ParentList.ParentWeb, item[SPBuiltInFieldId.Author].ToString());
                         curent.SetAttributeValue("User", createdBy.User.LoginName);
                         curent.SetAttributeValue("UserName", createdBy.User.Name);
+                        curent.SetAttributeValue("UserProfileUrl", "/_layouts/userdisp.aspx?ID="+createdBy.User.ID);
+                        curent.SetAttributeValue("UserProfileUrl", "a");
                     }
                     if (parent != null)
                     {
@@ -156,7 +163,7 @@ namespace SharePointEmails.Core.Substitutions
                 foreach (SPListItem item in message.ParentList.GetItems(GetQueryForDiscussionItems(discussionItem.Folder)))//cannot query only for thread
                 {
                     var index = item.GetFieldValue<string>(SPBuiltInFieldId.ThreadIndex);
-                    if (threadIndex.StartsWith(index))
+                    if (threadIndex.StartsWith(index) && item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                     {
                         d.Add(index.Length, item);
                     }

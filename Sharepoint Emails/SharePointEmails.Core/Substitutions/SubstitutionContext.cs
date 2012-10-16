@@ -18,11 +18,9 @@ namespace SharePointEmails.Core.Substitutions
     public class SubstitutionContext : ISubstitutionContext
     {
         ContextVars Vars;
-
         string m_eventData = string.Empty;
         SPList m_sourceList=null;
         ILogger Logger;
-
         SPEventType m_eventType = SPEventType.All;
 
         public List<FieldChange> Changes {private set; get; }
@@ -41,17 +39,6 @@ namespace SharePointEmails.Core.Substitutions
             Changes = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
         }
 
-        string GetValueFromObjByPath(object obj, string path)
-        {
-            object temp = obj;
-            foreach (var m in path.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                if ((temp = temp.GetType().InvokeMember(m, BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty, null, temp, new object[0])) == null)
-                    return "";
-            }
-            return (temp == null) ? "" : temp.ToString();
-        }
-
         public string GetField(string fieldName, ModifiersCollection modifiers = null)
         {
             var change = Changes.Where(p => p.FieldDisplayName == fieldName || p.FieldName == fieldName).FirstOrDefault();
@@ -62,6 +49,87 @@ namespace SharePointEmails.Core.Substitutions
         {
             return GetValueFromObjByPath(Vars, value);
         }
+
+        public string GetXML()
+        {
+            XDocument res = new XDocument();
+            res.Add(new XElement("Data"));
+            var eventData = new XElement("EventData");
+            res.Root.Add(eventData);
+            eventData.SetAttributeValue("EventType", (int)m_eventType);
+            eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
+            eventData.SetAttributeValue("ListEmail", GetListEmail(Vars.SList));
+            eventData.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList));
+            foreach (var change in Changes)
+            {
+                var el = new XElement("Field");
+                el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
+                el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? change.FieldName ?? string.Empty);
+                el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
+                el.SetAttributeValue("Changed", change.IsChanged);
+                el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
+                el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
+                el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
+                if (Vars.SList != null)
+                {
+                    if (Vars.SList.Fields.ContainsFieldWithStaticName(change.FieldName))
+                    {
+                        var hidden = Vars.SList.Fields.GetFieldByInternalName(change.FieldName).Hidden;
+                        el.SetAttributeValue("Hidden", hidden);
+                    }
+                }
+                eventData.Add(el);
+            }
+
+            AddApproveElement(eventData);
+            AddDiscussionBoardElement(eventData);
+
+            return res.ToString();
+        }
+
+        private void AddDiscussionBoardElement(XElement eventData)
+        {
+            var disc = DiscussionBoardXml.Create().GetElement(Vars.SItem);
+            if (disc != null)
+            {
+                eventData.Add(disc);
+            }
+        }
+
+        private void AddApproveElement(XElement eventData)
+        {
+            if (Vars.SItem != null && Vars.DUser != null)
+            {
+                var approve = new XElement("Approve");
+                var url = "/_layouts/approve.aspx?List=" + Vars.SList.ID + "&ID=" + Vars.SItem.ID;
+                approve.SetAttributeValue("RejectUrl", url);
+                approve.SetAttributeValue("ApproveUrl", url);
+                approve.SetAttributeValue("PageUrl", url);
+                approve.SetAttributeValue("CanApprove", Vars.SItem.DoesUserHavePermissions(Vars.DUser, SPBasePermissions.ApproveItems));                
+                approve.SetAttributeValue("Status", (Vars.SItem.ModerationInformation != null) ? Vars.SItem.ModerationInformation.Status.ToString() : "");
+                eventData.Add(approve);
+            }
+            else
+            {
+                Logger.WriteTrace("Approve info not generated", SeverityEnum.Trace);
+            }
+        }
+
+        public CultureInfo GetDestinationCulture()
+        {
+            return CultureInfo.CurrentCulture;
+        }
+
+        public SPDocumentLibrary GetTemplateLibrary()
+        {
+            if (Vars.SSite != null)
+            {
+                return Vars.SSite.RootWeb.Lists.TryGetList(Constants.XsltLibrary) as SPDocumentLibrary;
+            }
+            return null;
+        }
+
+        #region privates
 
         string GetListEmail(SPList list)
         {
@@ -128,74 +196,20 @@ namespace SharePointEmails.Core.Substitutions
             return string.Empty;
         }
 
-        public string GetXML()
+        string GetValueFromObjByPath(object obj, string path)
         {
-            XDocument res = new XDocument();
-            res.Add(new XElement("Data"));
-            var eventData = new XElement("EventData");
-            res.Root.Add(eventData);
-            eventData.SetAttributeValue("EventType", (int)m_eventType);
-            eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
-            eventData.SetAttributeValue("ListEmail",GetListEmail(Vars.SList));
-            eventData.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList) );
-            foreach (var change in Changes)
+            object temp = obj;
+            foreach (var m in path.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                var el = new XElement("Field");
-                el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
-                el.SetAttributeValue("DisplayName", change.FieldDisplayName??change.FieldName ?? string.Empty);
-                el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
-                el.SetAttributeValue("Changed", change.IsChanged);
-                el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
-                el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
-                el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
-                if (Vars.SList != null)
-                {
-                    if (Vars.SList.Fields.ContainsFieldWithStaticName(change.FieldName))
-                    {
-                        var hidden = Vars.SList.Fields.GetFieldByInternalName(change.FieldName).Hidden;
-                        el.SetAttributeValue("Hidden", hidden);
-                    }
-                }
-                eventData.Add(el);
+                if ((temp = temp.GetType().InvokeMember(m, BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty, null, temp, new object[0])) == null)
+                    return "";
             }
-
-
-            if (Vars.SItem != null && Vars.DUser != null)
-            {
-                var approve = new XElement("Approve");
-                approve.SetAttributeValue("RejectUrl", "http://google.com/");
-                approve.SetAttributeValue("ApproveUrl", "http://google.com?search=reject");
-                approve.SetAttributeValue("PageUrl", "http://google.com?search=pageurl");
-                approve.SetAttributeValue("CanApprove", Vars.SItem.DoesUserHavePermissions(Vars.DUser, SPBasePermissions.ApproveItems));
-                approve.SetAttributeValue("Status", (Vars.SItem.ModerationInformation != null) ? Vars.SItem.ModerationInformation.Status.ToString() : "");
-                eventData.Add(approve);               
-            }
-            else
-            {
-                Logger.WriteTrace("Approve info not generated", SeverityEnum.Trace);
-            }
-
-            var disc = DiscussionBoardXml.Create().GetElement(Vars.SItem);
-            if (disc != null)
-            {
-                eventData.Add(disc);
-            }
-            return res.ToString();
+            return (temp == null) ? "" : temp.ToString();
         }
 
-        public CultureInfo GetDestinationCulture()
-        {
-            return CultureInfo.CurrentCulture;
-        }
+        #endregion
 
-        public SPDocumentLibrary GetTemplateLibrary()
-        {
-            if (Vars.SSite!= null)
-            {
-                return Vars.SSite.RootWeb.Lists.TryGetList(Constants.XsltLibrary) as SPDocumentLibrary;
-            }
-            return null;
-        }
+        
     }
 
 }

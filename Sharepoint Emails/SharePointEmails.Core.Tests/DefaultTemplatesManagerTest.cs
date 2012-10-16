@@ -3,14 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.SharePoint;
 using SharePointEmails.Logging;
-using Microsoft.SharePoint.Moles;
-using SharePointEmails.Core.Configuration.Moles;
 using SharePointEmails.Core.Configuration;
 using Moq;
 using System.Collections.Generic;
 using SharePointEmails.Core.Associations;
 using SharePointEmails.Core.Exceptions;
 using SharePointEmails.Core.Interfaces;
+using SPMocksBuilder;
 
 namespace SharePointEmails.Core.Tests
 {
@@ -24,43 +23,30 @@ namespace SharePointEmails.Core.Tests
         Mock<IConfigurationManager> configManager;
         Mock<ILogger> logger;
 
-        MSPList moleSourceList;
-
-        void CreateSourceListAllOnTheRootSite(string itemCTId, int itenId)
+        SPList CreateSourceListAllOnTheRootSite(string itemCTId, int itenId)
         {
-            MSPWeb web = new MSPWeb();
-            MSPSite site = new MSPSite();
-
-            web.IDGet = () => new Guid("{C04453C1-848A-4434-AD72-DF09FF6E62ED}");
-            web.SiteGet = () => site;
-            web.ParentWebGet = () => null;
-
-            site.IDGet = () => new Guid("{591F1D25-295F-47B9-AC62-D2414C210B75}");
-            site.RootWebGet = () => web;
-
-            MSPListItem item = new MSPListItem();
-            item.ContentTypeIdGet = () => new SPContentTypeId(itemCTId);
-
-            moleSourceList = new MSPList();
-            moleSourceList.GetItemByIdInt32 = (id) =>
+            var vSite = new VSite
             {
-                if (id == itenId) return item;
-                else return new MSPListItem();
+                RootWeb = new VWeb
+                {
+                    Lists = new[]
+                    {                        
+                        new VList()
+                        {
+                            Title=Constants.TemplateListName,
+                            ContentTypes=new []
+                            {
+                                new VContentType(new SPContentTypeId(itemCTId))
+                            },
+                            Items=new []
+                            {
+                                new VListItem(){}
+                            }
+                        }
+                    }
+                }
             };
-
-            moleSourceList.ParentWebGet = () => web;
-
-            var lists = new MSPListCollection();
-
-            var hiddentList = new MSPList();
-            lists.TryGetListString = (s) =>
-            {
-                if (s == Constants.TemplateListName) return hiddentList;
-                else return new MSPList();
-            };
-
-            web.ListsGet = () => lists;
-
+            return vSite.Site.RootWeb.Lists[0];
         }
 
         ITemplate CreateTemplate(int eventTypes, TemplateStateEnum templateState, AssociationConfiguration asses)
@@ -98,7 +84,7 @@ namespace SharePointEmails.Core.Tests
 
         private void Test_WithOneAssAndOneTemplateTypeAss(int TemplateEvents, TemplateStateEnum templateState, Association ass, string ItemCTId, SPEventType eventType, bool shouldFound)
         {
-            CreateSourceListAllOnTheRootSite(ItemCTId, 1);
+            var moleSourceList=CreateSourceListAllOnTheRootSite(ItemCTId, 1);
             var expected = CreateTemplate(TemplateEvents, templateState,
                                                 new AssociationConfiguration
                                                 {

@@ -18,10 +18,17 @@ namespace SharePointEmails.Core.Tests
     [TestClass()]
     public class ResourceSubstitutionTest
     {
-        [ClassInitialize()]
+        [TestInitialize()]
         public static void MyTestInitialize(TestContext testContext)
         {
+            ClassContainer.Instance = null;
             ClassContainer.mockLogger = new Mock<ILogger>().Object;
+        }
+
+        [TestCleanup()]
+        public static void MyTestCleanUp(TestContext testContext)
+        {
+            ClassContainer.mockLogger = null;
         }
 
         [TestMethod(),Ignore]

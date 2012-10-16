@@ -23,9 +23,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegisterAlertHandler", "Reg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePoiintEmailsHelpProject", "SharePoiintEmailsHelpProject\SharePoiintEmailsHelpProject.csproj", "{1FA4EC42-A80C-4E39-9224-81001787F358}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPMocksBuilder", "SPMocksBuilder\SPMocksBuilder.csproj", "{6452D51A-DF72-443D-AF57-D826D0CB495A}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
+		SccNumberOfProjects = 8
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs27
 		SccLocalPath0 = .
@@ -35,7 +37,7 @@ Global
 		SccProjectUniqueName2 = SharePointEmails.Logging\\SharePointEmails.Logging.csproj
 		SccProjectName2 = SharePointEmails.Logging
 		SccLocalPath2 = SharePointEmails.Logging
-		SccProjectUniqueName3 = Sharepoint\u0020Emails\\SharepointEmails.csproj
+		SccProjectUniqueName3 = Sharepoint\u0020Emails\\SharePointEmails.csproj
 		SccProjectName3 = Sharepoint\u0020Emails
 		SccLocalPath3 = Sharepoint\u0020Emails
 		SccProjectUniqueName4 = SharePointEmails.Core.Tests\\SharePointEmails.Core.Tests.csproj
@@ -47,6 +49,9 @@ Global
 		SccProjectUniqueName6 = SharePoiintEmailsHelpProject\\SharePoiintEmailsHelpProject.csproj
 		SccProjectName6 = SharePoiintEmailsHelpProject
 		SccLocalPath6 = SharePoiintEmailsHelpProject
+		SccProjectUniqueName7 = SPMocksBuilder\\SPMocksBuilder.csproj
+		SccProjectName7 = SPMocksBuilder
+		SccLocalPath7 = SPMocksBuilder
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Sharepoint Emails.vsmdi
@@ -124,6 +129,16 @@ Global
 		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|Mixed Platforms.Build.0 = Release|x86
 		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|x86.ActiveCfg = Release|x86
 		{1FA4EC42-A80C-4E39-9224-81001787F358}.Release|x86.Build.0 = Release|x86
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6452D51A-DF72-443D-AF57-D826D0CB495A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,6 +34,11 @@ namespace SharePointEmails.Core
                 }
                 return _Instance;
             }
+
+            internal set
+            {
+                _Instance = value;
+            }
         }
 
         private UnityContainer m_Container = null;
