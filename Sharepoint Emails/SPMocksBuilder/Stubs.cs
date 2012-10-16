@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.SharePoint.Moles;
 using Microsoft.SharePoint;
 using System.IO;
+using Microsoft.SharePoint.Utilities.Moles;
 
 namespace SPMocksBuilder
 {
@@ -25,8 +26,11 @@ namespace SPMocksBuilder
             }
         }ICollection<VWeb> _Webs = new List<VWeb>();
 
+        MSPPropertyBag properties = new MSPPropertyBag();
+
         public VWeb()
         {
+            properties.BehaveAsDefaultValue();
             web.ListsGet = () => mockLists;
             mockLists.GetListByIdGuidBoolean = (g, b) => _Lists.FirstOrThrow(p => p.ID == g, new MoleNotFound()).list;
             mockLists.GetListByNameStringBoolean = (g, b) => _Lists.FirstOrThrow(p => p.Title == g, new MoleNotFound()).list;
@@ -34,6 +38,8 @@ namespace SPMocksBuilder
             web.SiteUsersGet = () => ParentSite.usersMocks;
             web.SiteGet = () => ParentSite.site;
             web.ParentWebGet = () => (ParentWeb == null) ? null : ParentWeb.web;
+            web.PropertiesGet = () => null;
+            
 
             websMock.CountGet = () => _Webs.Count;
             websMock.ItemGetGuid = (g) => _Webs.FirstOrThrow(w => w.ID == g).web;
@@ -203,11 +209,11 @@ namespace SPMocksBuilder
         MSPFieldCollection fieldsMocks = new MSPFieldCollection();
         MSPListItemCollection itemsMocks = new MSPListItemCollection();
 
-        ICollection<SPFieldBuilder> _Fields
+        ICollection<VField> _Fields
         {
             get
             {
-                var res = new List<SPFieldBuilder>();
+                var res = new List<VField>();
                 foreach (var ct in _ContentTypes)
                 {
                     foreach (var field in ct.Fields)
@@ -331,7 +337,7 @@ namespace SPMocksBuilder
 
     public class VContentType
     {
-        ICollection<SPFieldBuilder> _Fields = new List<SPFieldBuilder>();
+        ICollection<VField> _Fields = new List<VField>();
 
         MSPFieldCollection fieldsMocks = new MSPFieldCollection();
 
@@ -361,7 +367,7 @@ namespace SPMocksBuilder
 
         internal VList ParentList { set; get; }
 
-        public ICollection<SPFieldBuilder> Fields
+        public ICollection<VField> Fields
         {
             set
             {
@@ -376,7 +382,7 @@ namespace SPMocksBuilder
             }
         }
 
-        private void AddField(SPFieldBuilder field)
+        private void AddField(VField field)
         {
             _Fields.Add(field);
         }
@@ -388,10 +394,10 @@ namespace SPMocksBuilder
                                         {
                                             Fields = new[]
                                             {
-                                                new SPFieldBuilder("Body",SPBuiltInFieldId.Body,SPFieldType.Text),
-                                                new SPFieldBuilder("Author",SPBuiltInFieldId.Author,SPFieldType.User),
-                                                new SPFieldBuilder("Created",SPBuiltInFieldId.Created,SPFieldType.DateTime),
-                                                new SPFieldBuilder("ThreadIndex",SPBuiltInFieldId.ThreadIndex,SPFieldType.Text)
+                                                new VField("Body",SPBuiltInFieldId.Body,SPFieldType.Text),
+                                                new VField("Author",SPBuiltInFieldId.Author,SPFieldType.User),
+                                                new VField("Created",SPBuiltInFieldId.Created,SPFieldType.DateTime),
+                                                new VField("ThreadIndex",SPBuiltInFieldId.ThreadIndex,SPFieldType.Text)
                                             }
                                         };
         }
@@ -402,25 +408,25 @@ namespace SPMocksBuilder
             {
                 Fields = new[]
                                             {
-                                                new SPFieldBuilder("Body",SPBuiltInFieldId.Body,SPFieldType.Text),
-                                                new SPFieldBuilder("Author",SPBuiltInFieldId.Author,SPFieldType.User),
-                                                new SPFieldBuilder("Created",SPBuiltInFieldId.Created,SPFieldType.DateTime),
-                                                new SPFieldBuilder("ParentFolderId",SPBuiltInFieldId.ParentFolderId,SPFieldType.Integer),
-                                                new SPFieldBuilder("ThreadIndex",SPBuiltInFieldId.ThreadIndex,SPFieldType.Text)
+                                                new VField("Body",SPBuiltInFieldId.Body,SPFieldType.Text),
+                                                new VField("Author",SPBuiltInFieldId.Author,SPFieldType.User),
+                                                new VField("Created",SPBuiltInFieldId.Created,SPFieldType.DateTime),
+                                                new VField("ParentFolderId",SPBuiltInFieldId.ParentFolderId,SPFieldType.Integer),
+                                                new VField("ThreadIndex",SPBuiltInFieldId.ThreadIndex,SPFieldType.Text)
                                             }
             };
         }
 
     }
 
-    public class SPFieldBuilder
+    public class VField
     {
         internal MSPField field = new MSPField();
 
         public Guid ID { get; private set; }
         public string Name { get; private set; }
 
-        public SPFieldBuilder(string name, Guid? id = null, SPFieldType type = SPFieldType.Text, bool Requeried = false, bool Hidden = false)
+        public VField(string name, Guid? id = null, SPFieldType type = SPFieldType.Text, bool Requeried = false, bool Hidden = false)
         {
             if (id == Guid.Empty || !id.HasValue)
             {
@@ -454,9 +460,56 @@ namespace SPMocksBuilder
             item.FieldsGet = () => ContentType.Fields.Mock();
             item.ContentTypeGet = () => ContentType.ct;
             item.ContentTypeIdGet = () => ContentType.Id;
-            item.ItemGetGuid = (g) => _Values.FirstOrThrow(p => p.Key == g).Value;
+            item.ItemGetGuid = (g) =>
+                {
+                    if (_Values.Any(p => p.Key == g))
+                    {
+                        return _Values.FirstOrThrow(p => p.Key == g).Value;
+                    }
+                    else
+                    {
+                        return _ValuesByName.FirstOrThrow(p => p.Key == ContentType.Fields.FirstOrThrow(f => f.ID == g).Name).Value;
+                    }
+                };
             item.ItemGetInt32 = (g) => _Values.ToArray()[g].Value;
-            item.ItemGetString = item.GetFieldValueString = (g) => _Values.FirstOrThrow(p => p.Key == ContentType.Fields.FirstOrThrow(f => f.Name == g).ID).Value;
+            item.ItemGetString = item.GetFieldValueString = (g) =>
+                {
+                    if (_ValuesByName.Any(p => p.Key == g))
+                    {
+                        return _ValuesByName.FirstOrThrow(p => p.Key == g).Value;
+                    }
+                    else
+                    {
+                        return _Values.FirstOrThrow(p => p.Key == ContentType.Fields.FirstOrThrow(f => f.Name == g).ID).Value;
+                    }
+                };
+
+            item.Update = () => { };
+            item.ItemSetStringObject = (s, v) =>
+            {
+                if (ContentType.Fields.Any(p => p.Name == s))
+                {
+                    AddValue(new KeyValuePair<Guid, object>(ContentType.Fields.First(p => p.Name == s).ID, v));
+                }
+                else
+                {
+                    throw new MoleNotFound();
+                }
+            };
+
+            item.ItemSetGuidObject = (g, v) =>
+            {
+                if (ContentType.Fields.Any(p => p.ID == g))
+                {
+                    AddValue(new KeyValuePair<Guid, object>(g, v));
+                }
+                else
+                {
+                    throw new MoleNotFound();
+                }
+            };
+
+            item.AttachmentsGet = () => null;
         }
 
         public VList ParentList
@@ -482,6 +535,26 @@ namespace SPMocksBuilder
                 return _Values;
             }
         }Dictionary<Guid, object> _Values = new Dictionary<Guid, object>();
+
+        public Dictionary<string, object> ValuesByName
+        {
+            set
+            {
+                foreach (var p in value)
+                {
+                    AddValueByName(p);
+                }
+            }
+            get
+            {
+                return _ValuesByName;
+            }
+        }Dictionary<string, object> _ValuesByName = new Dictionary<string, object>();
+
+        private void AddValueByName(KeyValuePair<string, object> p)
+        {
+            _ValuesByName[p.Key] = p.Value;
+        }
 
         private void AddValue(KeyValuePair<Guid, object> p)
         {
@@ -526,6 +599,8 @@ namespace SPMocksBuilder
         public VFolder Folder { set; get; }
 
         public VFile File { set; get; }
+
+        public SPListItem Item { get { return (SPListItem)item; } }
     }
 
     public class VFolder
@@ -565,7 +640,7 @@ namespace SPMocksBuilder
             return t;
         }
 
-        public static MSPFieldCollection Mock(this ICollection<SPFieldBuilder> fields)
+        public static MSPFieldCollection Mock(this ICollection<VField> fields)
         {
             var mock = new MSPFieldCollection();
             mock.GetFieldByDisplayNameStringBoolean = (s, b) => fields.FirstOrThrow(f => f.Name == s).field;

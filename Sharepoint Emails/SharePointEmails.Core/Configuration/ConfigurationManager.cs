@@ -24,7 +24,11 @@ namespace SharePointEmails.Core.Configuration
 
         public WebConfiguration GetConfig(SPWeb web)
         {
-            var str = web.Properties[s];
+            var str = string.Empty;
+            if (web.Properties != null)
+            {
+                str = web.Properties[s];
+            }
             return SerializeHelper.Parse<WebConfiguration>(str);
         }
 
