@@ -203,17 +203,17 @@
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
     <None Include="Resources\TestContextXML.txt" />
-    <None Include="Resources\testsubj.xslt" />
+    <None Include="Resources\subjectTemplate.xslt" />
     <Content Include="Images\SharepointEmails\logo.jpg" />
     <Content Include="Layouts\SharePointEmails\ApprovePage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\Switcher\FieldSwitches.js" />
     <None Include="Resources\alerttemplates.xml" />
-    <Content Include="Resources\BodyTemplate.html" />
     <Content Include="Resources\BodyTemplate.xslt" />
     <Content Include="Resources\BodyTemplateForDiscussionBoard.xslt" />
     <Content Include="Resources\AdminAddressTemplate.xslt" />
+    <Content Include="Resources\BodyTemplateForTasks.xslt" />
     <Content Include="Resources\EmailHeader.xslt" />
     <Content Include="Resources\ListAddressTemplate.xslt" />
     <Content Include="Resources\TEstXMLMessageAdded.xml" />
