@@ -55,7 +55,7 @@ namespace SharePointEmails.Layouts.SharePointEmails
         public void UpdateView(WebConfiguration config)
         {
             cb_Disabled.Checked = config.Disabled;
-            cb_IncludeChilds.Checked = config.DisableIncludeChilds;
+            cb_IncludeChilds.Checked = config.DisableIncludeChilds;            
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -64,7 +64,8 @@ namespace SharePointEmails.Layouts.SharePointEmails
             {
                 Config = getExisted();
             }
-
+            HyperLink1.NavigateUrl = Web.ServerRelativeUrl + "/Lists/HiddenTemplatesList";
+            HyperLink2.NavigateUrl = Web.ServerRelativeUrl + "/Lists/HiddenXsltTemplates";
             btn_Save.Click += new EventHandler(btn_Save_Click);
             btn_Exit.Click += new EventHandler(btn_Exit_Click);
             btn_GetXml.Click += new EventHandler(btn_GetXml_Click);

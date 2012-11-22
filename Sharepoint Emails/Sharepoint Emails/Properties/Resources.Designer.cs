@@ -121,13 +121,11 @@ namespace SharePointEmails.Properties {
         ///                xmlns:d=&quot;urn:sharepointemail-discussionboard&quot;&gt;
         ///  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
         ///  &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
+        ///  &lt;xsl:include href=&quot;EmailHeader.xslt&quot;/&gt;
         ///  &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///    &lt;Html&gt;
         ///      &lt;head&gt;
-        ///        &lt;base href=&quot;{SSite.Url}&quot;/&gt;
-        ///      &lt;/head&gt;
-        ///      &lt;Body&gt;
-        ///        [rest of string was truncated]&quot;;.
+        ///        &lt;base href=&quot;{SSite.Url [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplateForDiscussionBoard {
             get {
@@ -145,16 +143,38 @@ namespace SharePointEmails.Properties {
         ///    xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
         ///&gt;
         ///
-        ///  &lt;xs:element name=&quot;DiscussionBoard&quot;&gt;
-        ///    &lt;xs:complexType&gt;
-        ///      &lt;xs:sequence&gt;
-        ///        &lt;xs:element name=&quot;Discussion&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
-        ///        &lt;/xs:element&gt;
-        ///      &lt; [rest of string was truncated]&quot;;.
+        ///  &lt;xs:complexType name=&quot;Message&quot;&gt;
+        ///    &lt;xs:sequence&gt;
+        ///      &lt;xs:element name=&quot;Body&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot;&gt;
+        ///        &lt;xs:complexType&gt;
+        ///          &lt;xs:sequence&gt;
+        ///            &lt;xs [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DiscussionBoardSchema {
             get {
                 return ResourceManager.GetString("DiscussionBoardSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
+        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
+        ///&gt;
+        ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+        ///    &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
+        ///
+        ///    &lt;xsl:template name=&quot;emailheader&quot;&gt;
+        ///      &lt;div class=&quot;header&quot;&gt;
+        ///        &lt;table&gt;
+        ///          &lt;tr&gt;
+        ///            &lt;td&gt;
+        ///              &lt;div&gt;
+        ///                &lt;image src=&quot;http://dev/_layouts/images/SharePointEmails/logo.jpg&quot; a [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string EmailHeader {
+            get {
+                return ResourceManager.GetString("EmailHeader", resourceCulture);
             }
         }
         

@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SharePointEmails.Core.Application" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAQAKAAIACAACgACAAABAIEAABAAAABAAAAAAsAA=</HashCode>
+      <FileName>Application.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.ClassContainer" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAAAAEAAAAAAABAAQAQAAACAIAAAA=</HashCode>
+      <FileName>ClassContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.SiteManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAIAAEAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>DefaultSiteManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.DefaultTemplatesManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAIABAAAAAAAAAAAAAAAAACAAEAAAAAAAAA=</HashCode>
+      <FileName>DefaultTemplatesManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.TemplatesList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAADAAAAAAAAAAAAAAAEAAQAAAAAAAAAA=</HashCode>
+      <FileName>DefaultTemplatesManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Constants" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAEAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dictionaries\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.TemplesListParams" Collapsed="true">
+    <Position X="18.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAIAAAAIAA=</HashCode>
+      <FileName>Dictionaries\HiddenTemplesList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.EnumConverter" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAIAAAAEAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.GeneratedMessage" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAIABAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.SearchContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAEAAAgAAEgAAAQAAAAAAAAEAAAQACAAAQBAI=</HashCode>
+      <FileName>SearchContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Template" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ggICAAgAAAJAEgIEAoBRABQhABBAAAAQBQIABAAgYEA=</HashCode>
+      <FileName>Template.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Associations.Association" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAABKggAAAAAAAAAQAAAAAAAAAAQAAAAAAIAA=</HashCode>
+      <FileName>Associations\Association.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Associations.AssociationConfiguration" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAAAAACABEAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Associations\AssociationConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Associations.ContentTypeAssociation" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAABCAAAQEAAAAAAAAAAAAAAAAAQAAAQAAAAA=</HashCode>
+      <FileName>Associations\ContentTypeAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Associations.GroupAssociation" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAABCAAAAEAAAAAAAAAAAAAAAAAQAAAAAAAgA=</HashCode>
+      <FileName>Associations\GroupAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Associations.IDAssociation" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAABAAAAAEgAAAAAAAAAACAAAAAQBAAAYAAgA=</HashCode>
+      <FileName>Associations\IDAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Configuration.ConfigurationManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAMAAAAAAAAA=</HashCode>
+      <FileName>Configuration\ConfigurationManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Configuration.FarmConfiguration" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configuration\FarmConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Configuration.SerializeHelper" Collapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Configuration\SerializeHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Configuration.WebConfiguration" Collapsed="true">
+    <Position X="22.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Configuration\WebConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TemplateCT" Collapsed="true">
+    <Position X="25.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAQACEgAgAAAAAAAQAQQAAAEAIACAACICACgIAQA=</HashCode>
+      <FileName>Dictionaries\TemplateCT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Exceptions.SeBaseException" Collapsed="true">
+    <Position X="3.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Exceptions.SeTemplateNotFound" Collapsed="true">
+    <Position X="3.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Extensions.SPListItemHelper" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAEAAAACAAAAAAAAAAgABAAAAAAA=</HashCode>
+      <FileName>Extensions\SPListItemHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Extensions.StreamHelpers" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Extensions\StreamHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Extensions.XmlExtensions" Collapsed="true">
+    <Position X="24" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAIQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Extensions\XmlExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Interfaces.SearchMatchLevel" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAEAIQgAAAAAgAAAggAAAgCIAAAIAAA=</HashCode>
+      <FileName>Interfaces\ISearchContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.EmailReceiver" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MailProcessors\EmailReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.MailProcessors.IncomingDiscussionBoardProcessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEABAACAAQACAAkgAAAAABAAAQAgAAAQICAAACAE=</HashCode>
+      <FileName>MailProcessors\IncomingDiscussionBoardProcessor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.MailProcessors.OutcomingDiscussionBoardProcessor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>MailProcessors\OutcomingDiscussionBoardProcessor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.MailProcessors.ProcessorsManager" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAIAAAAAQAAAABAkAAAAAAgIQCAAAAIAAAA=</HashCode>
+      <FileName>MailProcessors\ProcessorsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.MailProcessors.SEMessage" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABBAAEACIAIgAAAAgAAAEJAAAIAAAAIAAA=</HashCode>
+      <FileName>MailProcessors\SEMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.MailProcessors.SubjectThreadStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAgAAAAAA=</HashCode>
+      <FileName>MailProcessors\Strategies\SubjectThreadStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.MailProcessors.Strategies.TextParserStrategy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAQAAA=</HashCode>
+      <FileName>MailProcessors\Strategies\TextParserStrategy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.BaseSubstitution" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\BaseSubstitution.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.FieldChange" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABAAAAAAAAIAAAAAAAAAACAAUAAAAAAAAEAAAA=</HashCode>
+      <FileName>Substitutions\Change.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.UserFieldChange" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\Change.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.ComplexSubstitution" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\ComplexSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.ContextVarsSubstitution" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\ContextSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.ContextVars" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAIAABQAAAAAAAAAAAAAAAQAAAEAAAgECIA=</HashCode>
+      <FileName>Substitutions\ContextVars.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.DiscussionBoardXml" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAABAAIABAAAAAAAAABAAAAAEAAAAIAAAAoAQA=</HashCode>
+      <FileName>Substitutions\DiscussionBoardXml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.FieldSubstitution" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\FieldSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.Modifier" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgACAAggAAAAAQAAAAAIAAAAIAAAAAAAA=</HashCode>
+      <FileName>Substitutions\Modifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.ModifiersCollection" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\Modifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.OneLineSubstitution" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\OneLineSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.RemoveXmlTagsSubstitution" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\RemoveXmlTagsSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.ResourceSubstitution" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\ResourceSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.SubstitutionContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAQgEIABAgAEAAQAEAAAAABAAAAQAAAECEgAAA=</HashCode>
+      <FileName>Substitutions\SubstitutionContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.SubstitutionManager" Collapsed="true">
+    <Position X="20.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Substitutions\SubstitutionManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.SubstitutionWorker" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAgCAAAAAAAAAAEhAAAAAAAAAAAg=</HashCode>
+      <FileName>Substitutions\SubstitutionWorker.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharePointEmails.Core.Substitutions.XlstSubstitution" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\XlstSubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="SharePointEmails.Core.Substitutions.ApproveClass" Collapsed="true">
+    <Position X="17" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAwAAAgAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Substitutions\ContextVars.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="SharePointEmails.Core.Configuration.IConfigurationManager" Collapsed="true">
+    <Position X="17" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Configuration\IConfigurationManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.IIncomingMessageProcessor" Collapsed="true">
+    <Position X="18.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IIncomingMessageProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ISearchContext" Collapsed="true">
+    <Position X="22.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAEAAAgAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISearchContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ISiteManager" Collapsed="true">
+    <Position X="24" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAIAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISiteManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ISubstitution" Collapsed="true">
+    <Position X="25.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISubstitution.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ISubstitutionContext" Collapsed="true">
+    <Position X="17" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAgAEAAAAEAAAAAAAAAAQAAAACAAAAA=</HashCode>
+      <FileName>Interfaces\ISubstitutionContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ISubstitutionWorker" Collapsed="true">
+    <Position X="18.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISubstitutionWorker.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ITemplate" Collapsed="true">
+    <Position X="20.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ggICAAgAAAAAAgAAAoBBAAQAAABAAAAABQAABAAAQAA=</HashCode>
+      <FileName>Interfaces\ITemplate.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ITemplateConfigurationHolder" Collapsed="true">
+    <Position X="22.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITemplateConfigurationHolder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.Interfaces.ITemplatesManager" Collapsed="true">
+    <Position X="24" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITemplatesResolver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.MailProcessors.IOutcomingDiscussionBoardProcessor" Collapsed="true">
+    <Position X="20.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MailProcessors\IOutcomingDiscussionBoardProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.MailProcessors.IThreadStrategy" Collapsed="true">
+    <Position X="17" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>MailProcessors\Strategies\IThreadStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SharePointEmails.Core.MailProcessors.Strategies.ITextParserStrategy" Collapsed="true">
+    <Position X="25.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAQAAA=</HashCode>
+      <FileName>MailProcessors\Strategies\ITextParserStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SharePointEmails.Core.TemplateTypeEnum" Collapsed="true">
+    <Position X="22.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAQAAAAAAAAAAAAAgAgAAAAAAAAAAAABA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SharePointEmails.Core.TemplateStateEnum" Collapsed="true">
+    <Position X="20.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SharePointEmails.Core.Associations.AssType" Collapsed="true">
+    <Position X="17" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Associations\Association.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SharePointEmails.Core.Associations.GroupType" Collapsed="true">
+    <Position X="18.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAIAAAAAAAABAAAAAAAAAAAAAAABAAAECkEAAA=</HashCode>
+      <FileName>Associations\GroupAssociation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

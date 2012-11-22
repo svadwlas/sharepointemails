@@ -58,7 +58,7 @@ namespace SharePointEmails.Core
 
         bool EnabledAndfeatureActivated(SPWeb web)
         {
-            var config = ConfigManager.GetConfig(web);
+            var config = ConfigManager.GetConfigOrdefault(web);
             if (config == null)
                 return false;
 

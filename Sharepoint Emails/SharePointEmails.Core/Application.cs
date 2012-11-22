@@ -227,7 +227,7 @@ namespace SharePointEmails.Core
             Logger.WriteTrace(text.ToString(), SeverityEnum.Verbose);
         }
 
-        GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
+        internal GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type,receiverEmail);
             var res = Manager.GetTemplate(search);

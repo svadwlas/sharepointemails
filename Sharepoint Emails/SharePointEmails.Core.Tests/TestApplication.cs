@@ -8,6 +8,7 @@ using Moq;
 using SharePointEmails.Logging;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Moles;
+using Microsoft.SharePoint.Behaviors;
 
 namespace SharePointEmails.Core.Tests
 {
@@ -20,7 +21,8 @@ namespace SharePointEmails.Core.Tests
         {
             Application.Current = null;
             ClassContainer.Instance = null;
-            ClassContainer.mockLogger = new Mock<ILogger>().Object;
+            ClassContainer.mockLogger = new Mock<ILogger>().Object;           
+
             var list = TestUtils.CreateWithTemplates();
             var vSite = new VSite()
             {

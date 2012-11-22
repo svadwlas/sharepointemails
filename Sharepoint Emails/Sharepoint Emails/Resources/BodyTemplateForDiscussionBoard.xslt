@@ -1,52 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" 
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" 
-               
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
+                exclude-result-prefixes="msxsl" 
                 xmlns:d="urn:sharepointemail-discussionboard">
   <xsl:output method="xml" indent="yes"/>
-  <xsl:include href="Utils.xslt"/>
+  <xsl:include href="EmailHeader.xslt"/>
   <xsl:template match="@* | node()">
     <Html>
       <head>
         <base href="{SSite.Url}"/>
       </head>
       <Body>
-        <div class="header">
-          <table>
-            <tr>
-              <td>
-                <div>
-                  <image src="http://dev/_layouts/images/SharePointEmails/logo.jpg" alt="Logo Inage" width="50" height="50"/>
-                </div>
-              </td>
-              <td>
-                <div class="menu">
-                  <ul>
-                    <li>
-                      <a href="{SList.DefaultViewUrl}">View list</a>
-                    </li>
-                    <xsl:if test="'{SItem}' != ''">
-                      <li>
-                        <a>
-                          <xsl:attribute name="href">
-                            <xsl:call-template name="itemViewUrl"/>
-                          </xsl:attribute>
-                          View <xsl:call-template name="itemType"/>
-                        </a>
-                      </li>
-                    </xsl:if>
-                    <li>
-                      <a href="/_layouts/MySubs.aspx">Manage My allerts</a>
-                    </li>
-                    <li>
-                      <a href="mailto:melnikvitaly@gmail.com?subject=Feedback about SharePoinr Emails&amp;body=Write your feedback">Feedback</a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
+        <xsl:call-template  name="emailheader"/>
+        
         <div class="main">
           <xsl:variable name="DiscussionAdded" select="descendant::d:Discussion[1]/@Current"/>
           <p>Hello {DUser.LoginName}</p>
@@ -75,6 +42,8 @@
             </xsl:apply-templates>
           </div>
         </div>
+
+        <xsl:call-template  name="emailfooter"/>
       </Body>
     </Html>
   </xsl:template>

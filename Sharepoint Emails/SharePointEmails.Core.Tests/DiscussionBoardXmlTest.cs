@@ -10,6 +10,7 @@ using System.Xml.Schema;
 using System.IO;
 using SPMocksBuilder;
 using System.Diagnostics;
+using Microsoft.SharePoint.Behaviors;
 namespace SharePointEmails.Core.Tests
 {
 
@@ -37,6 +38,7 @@ namespace SharePointEmails.Core.Tests
 
         private SPSite GetSiteWithDiscussionBoard(ICollection<VListItem> items)
         {
+          
             var vSite = new VSite()
             {
                 RootWeb = new VWeb
