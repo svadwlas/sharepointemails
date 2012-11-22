@@ -96,16 +96,18 @@ namespace SharePointEmails.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; xmlns:user=&quot;urn:my-scripts&quot;&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; &gt;
         ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///    &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
+        ///    &lt;xsl:include href=&quot;EmailHeader.xslt&quot;/&gt;
         ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///      &lt;Html&gt;
         ///        &lt;head&gt;
         ///          &lt;base href=&quot;{SSite.Url}&quot;/&gt;
         ///          &lt;style type=&quot;text/css&quot;&gt;
         ///            .main table{
-        ///            border: 1px solid blac [rest of string was truncated]&quot;;.
+        ///            border: 1px solid black;
+        ///            }
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplate {
             get {
@@ -116,16 +118,17 @@ namespace SharePointEmails.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;1.0&quot; 
-        ///                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; 
-        ///               
+        ///                xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; 
+        ///                xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; 
+        ///                exclude-result-prefixes=&quot;msxsl&quot; 
         ///                xmlns:d=&quot;urn:sharepointemail-discussionboard&quot;&gt;
         ///  &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///  &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
         ///  &lt;xsl:include href=&quot;EmailHeader.xslt&quot;/&gt;
         ///  &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///    &lt;Html&gt;
         ///      &lt;head&gt;
-        ///        &lt;base href=&quot;{SSite.Url [rest of string was truncated]&quot;;.
+        ///        &lt;base href=&quot;{SSite.Url}&quot;/&gt;
+        ///      &lt;/hea [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplateForDiscussionBoard {
             get {
@@ -160,6 +163,7 @@ namespace SharePointEmails.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
         ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
+        ///    xmlns:user=&quot;urn:my-scripts&quot;
         ///&gt;
         ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
         ///    &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
@@ -170,7 +174,7 @@ namespace SharePointEmails.Properties {
         ///          &lt;tr&gt;
         ///            &lt;td&gt;
         ///              &lt;div&gt;
-        ///                &lt;image src=&quot;http://dev/_layouts/images/SharePointEmails/logo.jpg&quot; a [rest of string was truncated]&quot;;.
+        ///                &lt;image src=&quot;http://dev/_layouts/im [rest of string was truncated]&quot;;.
         /// </summary>
         public static string EmailHeader {
             get {

@@ -147,7 +147,7 @@
     <None Include="Features\SharePointEmails\SharePointEmails.feature">
       <FeatureId>{585de7b7-919f-4687-ac7b-c8e5c57f976c}</FeatureId>
     </None>
-    <None Include="Resources\DiscussionBoardSchema.xsd">
+    <None Include="Resources\xsd\DiscussionBoardSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="SwitchWebPart\SharePointProjectItem.spdata">
@@ -202,22 +202,22 @@
     <Content Include="Features\SharePointEmails\SharePointEmails.Template.xml">
       <DependentUpon>SharePointEmails.feature</DependentUpon>
     </Content>
-    <None Include="Resources\TestContextXML.txt" />
-    <None Include="Resources\subjectTemplate.xslt" />
+    <None Include="Resources\TestDocs\TestContextXML.txt" />
+    <None Include="Resources\templates\subjectTemplate.xslt" />
     <Content Include="Images\SharepointEmails\logo.jpg" />
     <Content Include="Layouts\SharePointEmails\ApprovePage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Layouts\Switcher\FieldSwitches.js" />
     <None Include="Resources\alerttemplates.xml" />
-    <Content Include="Resources\BodyTemplate.xslt" />
-    <Content Include="Resources\BodyTemplateForDiscussionBoard.xslt" />
-    <Content Include="Resources\AdminAddressTemplate.xslt" />
-    <Content Include="Resources\BodyTemplateForTasks.xslt" />
-    <Content Include="Resources\EmailHeader.xslt" />
-    <Content Include="Resources\ListAddressTemplate.xslt" />
-    <Content Include="Resources\TEstXMLMessageAdded.xml" />
-    <Content Include="Resources\Utils.xslt" />
+    <Content Include="Resources\templates\BodyTemplate.xslt" />
+    <Content Include="Resources\templates\BodyTemplateForDiscussionBoard.xslt" />
+    <Content Include="Resources\templates\AdminAddressTemplate.xslt" />
+    <Content Include="Resources\templates\BodyTemplateForTasks.xslt" />
+    <Content Include="Resources\templates\EmailHeader.xslt" />
+    <Content Include="Resources\templates\ListAddressTemplate.xslt" />
+    <Content Include="Resources\TestDocs\TEstXMLMessageAdded.xml" />
+    <Content Include="Resources\templates\Utils.xslt" />
     <Content Include="SwitchWebPart\Elements.xml" />
     <Content Include="TemplatesList\HiddenTemplatesList\Elements.xml" />
     <Content Include="HiddenXsltTemplatesLibrary\EditDlg.htm" />
@@ -267,8 +267,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

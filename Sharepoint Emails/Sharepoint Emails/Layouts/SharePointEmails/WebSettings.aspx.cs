@@ -6,6 +6,7 @@ using SharePointEmails.Core;
 using Microsoft.SharePoint.WebPartPages;
 using System.Web.UI.WebControls.WebParts;
 using System.IO;
+using System.Web;
 namespace SharePointEmails.Layouts.SharePointEmails
 {
     public partial class WebSettings : LayoutsPageBase
@@ -64,8 +65,8 @@ namespace SharePointEmails.Layouts.SharePointEmails
             {
                 Config = getExisted();
             }
-            HyperLink1.NavigateUrl = Web.ServerRelativeUrl + "/Lists/HiddenTemplatesList";
-            HyperLink2.NavigateUrl = Web.ServerRelativeUrl + "/Lists/HiddenXsltTemplates";
+            HyperLink1.NavigateUrl =VirtualPathUtility.Combine(Web.ServerRelativeUrl, "/Lists/HiddenTemplatesList");
+            HyperLink2.NavigateUrl = VirtualPathUtility.Combine(Web.ServerRelativeUrl, "/Lists/HiddenXsltTemplates");
             btn_Save.Click += new EventHandler(btn_Save_Click);
             btn_Exit.Click += new EventHandler(btn_Exit_Click);
             btn_GetXml.Click += new EventHandler(btn_GetXml_Click);
