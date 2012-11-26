@@ -1,21 +1,21 @@
-﻿<Data>
-  <EventData EventType="1" EventTypeName="Add" ListEmail="disc@dev.test.domain.com" AdminEmail="melnikvitaly@gmail.com">
-    <Field Type="string" DisplayName="Content Type ID" Name="ContentTypeId" Changed="true" New="0x010700F7F50D2C1749FC45A820B1832F80583D" Old="" Value="0x010700F7F50D2C1749FC45A820B1832F80583D" Hidden="true" />
-    <Field Type="string" DisplayName="Body" Name="Body" Changed="true" New="&lt;div class=&quot;ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassBF425C96D6A64E919DF578CE83705AD5&quot;&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" Old="" Value="&lt;div class=&quot;ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassBF425C96D6A64E919DF578CE83705AD5&quot;&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" Hidden="false" />
-    <Field Type="string" DisplayName="Message ID" Name="MessageId" Changed="true" New="&lt;a87bb356e18e455696fe933f91590196@SharePoint&gt;" Old="" Value="&lt;a87bb356e18e455696fe933f91590196@SharePoint&gt;" Hidden="true" />
-    <Field Type="integer" DisplayName="Parent Folder Id" Name="ParentFolderId" Changed="true" New="53" Old="" Value="53" Hidden="true" />
-    <Field Type="null" DisplayName="ID" Name="ID" Changed="true" New="" Old="" Value="" Hidden="false" />
-    <Field Type="user" DisplayName="Created By" Name="Author" Changed="true" New="TEST\administrator" Old="" Value="TEST\administrator" Hidden="false" />
-    <Field Type="user" DisplayName="Modified By" Name="Editor" Changed="true" New="TEST\administrator" Old="" Value="TEST\administrator" Hidden="false" />
-    <Field Type="string" DisplayName="GUID" Name="GUID" Changed="true" New="C82A8A89-ED51-4D37-886D-1A9C14612704" Old="" Value="C82A8A89-ED51-4D37-886D-1A9C14612704" Hidden="true" />
-    <Field Type="null" DisplayName="Level" Name="_Level" Changed="true" New="1" Old="" Value="1" Hidden="true" />
-    <Field Type="string" DisplayName="Thread Index" Name="ThreadIndex" Changed="true" New="0x01CF5C1A1025E94C4ABFD598485790BF0F2B0AECE8190000553DF7001649B2220000216FA7" Old="" Value="0x01CF5C1A1025E94C4ABFD598485790BF0F2B0AECE8190000553DF7001649B2220000216FA7" Hidden="true" />
-    <Field Type="string" DisplayName="FileRef" Name="FileRef" Changed="false" New="" Old="Lists/Team Discussion/with 6711/" Value="Lists/Team Discussion/with 6711/" Hidden="true" />
-    <Field Type="string" DisplayName="FileDirRef" Name="FileDirRef" Changed="false" New="" Old="Lists/Team Discussion/with 6711" Value="Lists/Team Discussion/with 6711" Hidden="true" />
-    <Field Type="integer" DisplayName="_DraftVisibility" Name="_DraftVisibility" Changed="true" New="0" Old="" Value="0" />
-    <Approve RejectUrl="http://google.com/" ApproveUrl="http://google.com?search=reject" PageUrl="http://google.com?search=pageurl" CanApprove="false" Status="" />
-    <DiscussionBoard xmlns="urn:sharepointemail-discussionboard">
-      <Discussion >
+﻿<Data xmlns="urn:sharepointemail-context" >
+  <EventData EventType="1" ListEmail="disc@dev.test.domain.com" AdminEmail="melnikvitaly@gmail.com">
+    <Field DisplayName="Content Type ID" Name="ContentTypeId" Changed="true" New="0x010700F7F50D2C1749FC45A820B1832F80583D" Old="" Value="0x010700F7F50D2C1749FC45A820B1832F80583D" Hidden="true" />
+    <Field DisplayName="Body" Name="Body" Changed="true" New="&lt;div class=&quot;ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassBF425C96D6A64E919DF578CE83705AD5&quot;&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" Old="" Value="&lt;div class=&quot;ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C&quot;&gt;&lt;div&gt;&lt;div class=&quot;ExternalClassBF425C96D6A64E919DF578CE83705AD5&quot;&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" Hidden="false" />
+    <Field DisplayName="Message ID" Name="MessageId" Changed="true" New="&lt;a87bb356e18e455696fe933f91590196@SharePoint&gt;" Old="" Value="&lt;a87bb356e18e455696fe933f91590196@SharePoint&gt;" Hidden="true" />
+    <Field DisplayName="Parent Folder Id" Name="ParentFolderId" Changed="true" New="53" Old="" Value="53" Hidden="true" />
+    <Field DisplayName="ID" Name="ID" Changed="true" New="" Old="" Value="" Hidden="false" />
+    <Field DisplayName="Created By" Name="Author" Changed="true" New="TEST\administrator" Old="" Value="TEST\administrator" Hidden="false" />
+    <Field DisplayName="Modified By" Name="Editor" Changed="true" New="TEST\administrator" Old="" Value="TEST\administrator" Hidden="false" />
+    <Field DisplayName="GUID" Name="GUID" Changed="true" New="C82A8A89-ED51-4D37-886D-1A9C14612704" Old="" Value="C82A8A89-ED51-4D37-886D-1A9C14612704" Hidden="true" />
+    <Field DisplayName="Level" Name="_Level" Changed="true" New="1" Old="" Value="1" Hidden="true" />
+    <Field DisplayName="Thread Index" Name="ThreadIndex" Changed="true" New="0x01CF5C1A1025E94C4ABFD598485790BF0F2B0AECE8190000553DF7001649B2220000216FA7" Old="" Value="0x01CF5C1A1025E94C4ABFD598485790BF0F2B0AECE8190000553DF7001649B2220000216FA7" Hidden="true" />
+    <Field DisplayName="FileRef" Name="FileRef" Changed="false" New="" Old="Lists/Team Discussion/with 6711/" Value="Lists/Team Discussion/with 6711/" Hidden="true" />
+    <Field DisplayName="FileDirRef" Name="FileDirRef" Changed="false" New="" Old="Lists/Team Discussion/with 6711" Value="Lists/Team Discussion/with 6711" Hidden="true" />
+    <Field DisplayName="_DraftVisibility" Name="_DraftVisibility" Changed="true" New="0" Old="" Value="0" Hidden="true" />
+    <Approve RejectUrl="http://google.com/" ApproveUrl="http://google.com?search=reject" PageUrl="http://google.com?search=pageurl" CanApprove="false" />
+    <DiscussionBoard>
+      <Discussion User="test\user1">
         <Subject>
           <Value></Value>
           <ClearValue>clear discussion subject text</ClearValue>
@@ -24,11 +24,17 @@
           <Value>&lt;div class="ExternalClassBF425C96D6A64E919DF578CE83705AD5"&gt;&lt;p&gt;​with&lt;/p&gt;&lt;/div&gt;</Value>
           <ClearValue>clear discussion body text</ClearValue>
         </Body>
-        <Message Current="true">
+        <Message User="test\user2">
           <Body>
             <Value>&lt;div class="ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41"&gt;&lt;div&gt;&lt;div class="ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8"&gt;&lt;div&gt;&lt;div class="ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C"&gt;&lt;div&gt;&lt;div class="ExternalClassBF425C96D6A64E919DF578CE83705AD5"&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</Value>
             <ClearValue>clear message body text</ClearValue>
           </Body>
+          <Message Current="true" User="test\user3">
+            <Body>
+              <Value>&lt;div class="ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41"&gt;&lt;div&gt;&lt;div class="ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8"&gt;&lt;div&gt;&lt;div class="ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C"&gt;&lt;div&gt;&lt;div class="ExternalClassBF425C96D6A64E919DF578CE83705AD5"&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</Value>
+              <ClearValue>clear message body text</ClearValue>
+            </Body>
+          </Message>
         </Message>
       </Discussion>
     </DiscussionBoard>

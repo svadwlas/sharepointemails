@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DiscussionBoardSchema"
+    targetNamespace="urn:sharepointemail-context"
+    elementFormDefault="qualified"
+    xmlns="urn:sharepointemail-context"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:complexType name="Message">
+    <xs:sequence>
+      <xs:element name="Body" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ClearValue" type="xs:string" minOccurs="1" maxOccurs="1"/>            
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Message" type="Message" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="Current" type="xs:boolean" use="optional"/>
+    <xs:attribute name="Created" type="xs:dateTime" use="optional"/>
+    <xs:attribute name="UserName" type="xs:string" use="optional"/>
+    <xs:attribute name="UserProfileUrl" type="xs:string" use="optional"/>
+    <xs:attribute name="User" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DiscussionBoard">
+    <xs:sequence>
+      <xs:element name="Discussion" maxOccurs="1" minOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Subject" minOccurs="1" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  <xs:element name="ClearValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Body" minOccurs="1" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  <xs:element name="ClearValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Message"  type="Message" minOccurs="0" maxOccurs="1"/>
+          </xs:sequence>
+          <xs:attribute name="Current" type="xs:boolean" use="optional"/>
+          <xs:attribute name="User" type="xs:string" use="required"/>
+          <xs:attribute name="UserName" type="xs:string" use="optional"/>
+          <xs:attribute name="UserProfileUrl" type="xs:string" use="optional"/>
+          <xs:attribute name="Created" type="xs:dateTime" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Field">
+      <xs:attribute name="DisplayName" type="xs:string" use="required"/>
+      <xs:attribute name="Changed" type="xs:boolean" use="required"/>
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="Old" type="xs:string" use="required"/>
+      <xs:attribute name="New" type="xs:string" use="required"/>
+      <xs:attribute name="Value" type="xs:string" use="required"/>
+      <xs:attribute name="Hidden" type="xs:string" use="required"/>
+  </xs:complexType>
+  
+  <xs:complexType name="Approve">
+    <xs:attribute name="RejectUrl" type="xs:string" use="required"/>
+    <xs:attribute name="ApproveUrl" type="xs:string" use="required"/>
+    <xs:attribute name="PageUrl" type="xs:string" use="required"/>
+    <xs:attribute name="CanApprove" type="xs:boolean" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="Data">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="EventData" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Field" minOccurs="1" maxOccurs="unbounded" type="Field"/>
+              <xs:element name="Approve" minOccurs="1" maxOccurs="1" type="Approve"/>
+              <xs:element name="DiscussionBoard" minOccurs="0" maxOccurs="1" type="DiscussionBoard"/>
+            </xs:sequence>
+            <xs:attribute name="ListEmail" use="required" type="xs:string"/>
+            <xs:attribute name="AdminEmail" use="required" type="xs:string"/>
+            <xs:attribute name="EventType" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                  <xs:enumeration id="Add" value="1"/>
+                  <xs:enumeration id="Modify" value="2"/>
+                  <xs:enumeration id="Delete" value="4"/>
+                  <xs:enumeration id="Discussion" value="4080"/>
+                  <xs:enumeration id="All" value="-1"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element> 
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>

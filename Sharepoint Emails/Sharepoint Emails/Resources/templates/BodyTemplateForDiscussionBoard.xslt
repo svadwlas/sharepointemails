@@ -3,8 +3,8 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
                 xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
                 exclude-result-prefixes="msxsl" 
-                xmlns:d="urn:sharepointemail-discussionboard">
-  <xsl:output method="xml" indent="yes"/>
+                xmlns:d="urn:sharepointemail-context">
+  <xsl:output method="html" indent="yes"/>
   <xsl:include href="EmailHeader.xslt"/>
   <xsl:template match="@* | node()">
     <Html>
@@ -28,19 +28,23 @@
               </xsl:otherwise>
             </xsl:choose>
           </p>
-          <div>
-            <p>
-              Discussion Subject : <xsl:value-of select="descendant::d:Discussion[1]/d:Subject/d:ClearValue"/>
-            </p>
-            <p>
-              Discussion Text : <xsl:value-of select="descendant::d:Discussion[1]/d:Body/d:ClearValue"/>
-            </p>
+          <div >
+            <div style="height:10px;border-width:1px;border-color:lightblue;border-style:solid">
+              Started:
+            </div>
+            <div style="border:2px inset orange">
+              <p>
+                Discussion Subject : <xsl:value-of select="descendant::d:Discussion[1]/d:Subject/d:ClearValue"/>
+              </p>
+              <p>
+                Discussion Text : <xsl:value-of select="descendant::d:Discussion[1]/d:Body/d:ClearValue"/>
+              </p>
+            </div>
           </div>
-          <div>
-            <xsl:apply-templates select="descendant::d:Discussion[1]/d:Message">
-              <xsl:with-param select="30" name="otstup"/>
-            </xsl:apply-templates>
-          </div>
+          <xsl:apply-templates select="descendant::d:Discussion[1]/d:Message">
+              <xsl:with-param select="5" name="otstup"/>
+              <xsl:with-param select="5" name="step"/>
+          </xsl:apply-templates>
         </div>
 
         <xsl:call-template  name="emailfooter"/>
@@ -50,14 +54,17 @@
 
   <xsl:template match="d:Message">
     <xsl:param name="otstup"/>
+    <xsl:param name="step"/>
     <div>
       <xsl:attribute name="style">
-        <xsl:value-of select="concat('margin-left:',$otstup,'px;border:6px inset orange')"/>
+        <xsl:value-of select="concat('margin-left:',$otstup,'px')"/>
       </xsl:attribute>
-      <p>User : <xsl:value-of select="@User"/></p>
-      <p>Message Text : <xsl:value-of select ="d:Body/d:ClearValue"/></p>
+      <div style="border:2px inset orange">
+        <p>User : <xsl:value-of select="@User"/></p>
+        <p>Message Text : <xsl:value-of select ="d:Body/d:ClearValue"/></p>
+      </div>
       <xsl:apply-templates select="./d:Message">
-        <xsl:with-param name="otstup" select="$otstup+20"/>
+        <xsl:with-param name="otstup" select="$otstup+$step"/>
       </xsl:apply-templates>
     </div>
   </xsl:template>  
