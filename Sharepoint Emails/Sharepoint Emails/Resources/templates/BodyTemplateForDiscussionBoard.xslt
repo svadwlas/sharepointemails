@@ -13,42 +13,41 @@
       </head>
       <Body>
         <xsl:call-template  name="emailheader"/>
-        
-        <div class="main">
-          <xsl:variable name="DiscussionAdded" select="descendant::d:Discussion[1]/@Current"/>
-          <p>Hello {DUser.LoginName}</p>
+        <div>
+          <xsl:variable name="Discussion" select="descendant::d:Discussion[1]"/>
+          <xsl:variable name="DiscussionAdded" select="$Discussion/@Current"/>
           <p>
-            {SUser.LoginName} added new 
+            <xsl:call-template name="titleTextStyle"/>
+            Hello <xsl:call-template name="DUserDisplayName"/>
+          </p>
+          <p>
+            <xsl:call-template name="normalTextStyle"/>
+            <xsl:call-template name="SUserDisplayName"/> added new 
             <xsl:choose>
-              <xsl:when test="$DiscussionAdded = 'true'">
-                discussion
-              </xsl:when>
-              <xsl:otherwise>
-                message
-              </xsl:otherwise>
+              <xsl:when test="$DiscussionAdded">discussion</xsl:when>
+              <xsl:otherwise>message</xsl:otherwise>
             </xsl:choose>
           </p>
-          <div >
+          <div>
             <xsl:call-template name="postHeader">
-              <xsl:with-param name="node" select="descendant::d:Discussion[1]"/>
+              <xsl:with-param name="node" select="$Discussion"/>
             </xsl:call-template>
             <div>
               <xsl:call-template name="postBodyStyle"/>
               <div>
                 <xsl:call-template name="postTitleStyle"/>
-                Discussion Subject : <xsl:value-of select="descendant::d:Discussion[1]/d:Subject/d:ClearValue"/>
+                <xsl:value-of select="$Discussion/d:Subject/d:ClearValue"/>
               </div>
               <div>
-                Discussion Text : <xsl:value-of select="descendant::d:Discussion[1]/d:Body/d:ClearValue"/>
+                <xsl:value-of select="$Discussion/d:Body/d:ClearValue"/>
               </div>
             </div>
           </div>
-          <xsl:apply-templates select="descendant::d:Discussion[1]/d:Message">
+          <xsl:apply-templates select="$Discussion/d:Message">
               <xsl:with-param select="15" name="otstup"/>
               <xsl:with-param select="15" name="step"/>
           </xsl:apply-templates>
         </div>
-
         <xsl:call-template  name="emailfooter"/>
       </Body>
     </Html>
@@ -59,13 +58,11 @@
     <div>
       <xsl:call-template name="postHeaderStyle"/>
       <xsl:if test="$node/@Current">
-        <span style="color:green; font-weight:bold;">
-          **New**
-        </span>
+       <xsl:call-template name="newLabel"/>
       </xsl:if>
       <xsl:choose>
-        <xsl:when test="local-name($node)='Discussion'">Started: </xsl:when>
-        <xsl:otherwise>Posted: </xsl:otherwise>
+        <xsl:when test="local-name($node)='Discussion'">Discussion started: </xsl:when>
+        <xsl:otherwise>Message posted: </xsl:otherwise>
       </xsl:choose>
       <xsl:value-of select="$node/@DateTimeAsString"/> by                  
       <xsl:call-template name="getUser">
@@ -93,5 +90,12 @@
       <xsl:with-param name="otstup" select="$otstup+$step"/>
     </xsl:apply-templates>
   </xsl:template>  
+
+<xsl:template name="newLabel">
+  <span style="color:green; font-weight:bold;">
+    **New**
+  </span>
+</xsl:template>
  </xsl:stylesheet>
+
 

@@ -3,33 +3,32 @@
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
     xmlns:user="urn:my-scripts"
 >
-    <xsl:output method="xml" indent="yes"/>
-    <xsl:include href="Utils.xslt"/>
+  <xsl:include href="Utils.xslt"/>
   <xsl:include href="Styles.xslt"/>
 
     <xsl:template name="emailheader">
-      <div class="header">
+      <div>
         <table>
           <tr>
             <td>
               <div>
-                <image src="http://dev/_layouts/images/SharePointEmails/logo.jpg" alt="Logo Inage" width="50" height="50"/>
+                <image src="{SSite.Url}/_layouts/images/SharePointEmails/logo.jpg" alt="Logo Inage" width="50" height="50"/>
               </div>
             </td>
             <td>
               <xsl:call-template name="headerTable-menutd"/>
-              <table class="menu">
-                <xsl:call-template name="menuTable"/>
+              <table>
+                <xsl:call-template name="menuTableStyle"/>
                 <td>
                   <a href="{SList.DefaultViewUrl}">
-                    <xsl:call-template name="customlinks"/>
+                    <xsl:call-template name="menuLinksStyle"/>
                     View list
                   </a>
                 </td>
                 <xsl:if test="'{SItem}' != ''">
                     <td>
                       <a>
-                        <xsl:call-template name="customlinks"/>
+                        <xsl:call-template name="menuLinksStyle"/>
                         <xsl:attribute name="href">
                           <xsl:call-template name="itemViewUrl"/>
                         </xsl:attribute>
@@ -39,16 +38,16 @@
                 </xsl:if>
                 <td>
                   <a href="/_layouts/MySubs.aspx">
-                    <xsl:call-template name="customlinks"/>
+                    <xsl:call-template name="menuLinksStyle"/>
                     Manage My allerts
                   </a>
                 </td>
                 <td>
-                  <a href="mailto:melnikvitaly@gmail.com?subject=Feedback about alerts Emails&amp;body=Write your feedback">
+                  <a>
                     <xsl:attribute name="href">
-                      mailto:<xsl:value-of  select="@AdminEmail"/>
+                      mailto:<xsl:value-of  select="@AdminEmail"/>?subject=Feedback about alert email&amp;body=Write your feedback
                     </xsl:attribute>
-                    <xsl:call-template name="customlinks"/>
+                    <xsl:call-template name="menuLinksStyle"/>
                     Feedback
                   </a>
                 </td>

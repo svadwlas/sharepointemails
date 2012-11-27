@@ -36,4 +36,12 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:template name="DUserDisplayName">
+    {DUser.LoginName}
+  </xsl:template>
+  <xsl:template name="SUserDisplayName">
+    {SUser.LoginName}
+  </xsl:template>
+
 </xsl:stylesheet>
