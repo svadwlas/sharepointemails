@@ -29,21 +29,23 @@
             </xsl:choose>
           </p>
           <div >
-            <div style="height:10px;border-width:1px;border-color:lightblue;border-style:solid">
-              Started:
-            </div>
-            <div style="border:2px inset orange">
-              <p>
+            <xsl:call-template name="postHeader">
+              <xsl:with-param name="node" select="descendant::d:Discussion[1]"/>
+            </xsl:call-template>
+            <div>
+              <xsl:call-template name="postBodyStyle"/>
+              <div>
+                <xsl:call-template name="postTitleStyle"/>
                 Discussion Subject : <xsl:value-of select="descendant::d:Discussion[1]/d:Subject/d:ClearValue"/>
-              </p>
-              <p>
+              </div>
+              <div>
                 Discussion Text : <xsl:value-of select="descendant::d:Discussion[1]/d:Body/d:ClearValue"/>
-              </p>
+              </div>
             </div>
           </div>
           <xsl:apply-templates select="descendant::d:Discussion[1]/d:Message">
-              <xsl:with-param select="5" name="otstup"/>
-              <xsl:with-param select="5" name="step"/>
+              <xsl:with-param select="15" name="otstup"/>
+              <xsl:with-param select="15" name="step"/>
           </xsl:apply-templates>
         </div>
 
@@ -52,6 +54,26 @@
     </Html>
   </xsl:template>
 
+  <xsl:template name="postHeader">
+    <xsl:param name="node"/>
+    <div>
+      <xsl:call-template name="postHeaderStyle"/>
+      <xsl:if test="$node/@Current">
+        <span style="color:green; font-weight:bold;">
+          **New**
+        </span>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="local-name($node)='Discussion'">Started: </xsl:when>
+        <xsl:otherwise>Posted: </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of select="$node/@DateTimeAsString"/> by                  
+      <xsl:call-template name="getUser">
+        <xsl:with-param name="node" select="$node"/>
+      </xsl:call-template> 
+    </div>
+  </xsl:template>
+    
   <xsl:template match="d:Message">
     <xsl:param name="otstup"/>
     <xsl:param name="step"/>
@@ -59,14 +81,17 @@
       <xsl:attribute name="style">
         <xsl:value-of select="concat('margin-left:',$otstup,'px')"/>
       </xsl:attribute>
-      <div style="border:2px inset orange">
-        <p>User : <xsl:value-of select="@User"/></p>
-        <p>Message Text : <xsl:value-of select ="d:Body/d:ClearValue"/></p>
+      <xsl:call-template name="postHeader">
+        <xsl:with-param name="node" select="."/>
+      </xsl:call-template>
+      <div>
+        <xsl:call-template name="postBodyStyle"/>
+        <xsl:value-of select ="d:Body/d:ClearValue"/>
       </div>
-      <xsl:apply-templates select="./d:Message">
-        <xsl:with-param name="otstup" select="$otstup+$step"/>
-      </xsl:apply-templates>
     </div>
+    <xsl:apply-templates select="./d:Message">
+      <xsl:with-param name="otstup" select="$otstup+$step"/>
+    </xsl:apply-templates>
   </xsl:template>  
  </xsl:stylesheet>
 

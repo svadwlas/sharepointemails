@@ -15,7 +15,7 @@
     <Field DisplayName="_DraftVisibility" Name="_DraftVisibility" Changed="true" New="0" Old="" Value="0" Hidden="true" />
     <Approve RejectUrl="http://google.com/" ApproveUrl="http://google.com?search=reject" PageUrl="http://google.com?search=pageurl" CanApprove="false" />
     <DiscussionBoard>
-      <Discussion User="test\user1">
+      <Discussion User="test\user1" UserName="vasya" DateTimeAsString="11/12/2010 8:12 AM">
         <Subject>
           <Value></Value>
           <ClearValue>clear discussion subject text</ClearValue>
@@ -24,12 +24,12 @@
           <Value>&lt;div class="ExternalClassBF425C96D6A64E919DF578CE83705AD5"&gt;&lt;p&gt;​with&lt;/p&gt;&lt;/div&gt;</Value>
           <ClearValue>clear discussion body text</ClearValue>
         </Body>
-        <Message User="test\user2">
+        <Message User="test\user2" DateTimeAsString="21/12/2010 18:12 AM">
           <Body>
             <Value>&lt;div class="ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41"&gt;&lt;div&gt;&lt;div class="ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8"&gt;&lt;div&gt;&lt;div class="ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C"&gt;&lt;div&gt;&lt;div class="ExternalClassBF425C96D6A64E919DF578CE83705AD5"&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</Value>
             <ClearValue>clear message body text</ClearValue>
           </Body>
-          <Message Current="true" User="test\user3">
+          <Message Current="true" User="test\user3" DateTimeAsString="11/12/2011 8:12 AM">
             <Body>
               <Value>&lt;div class="ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41"&gt;&lt;div&gt;&lt;div class="ExternalClassE8A440A05EEC411AB07F4B40E4E97DE8"&gt;&lt;div&gt;&lt;div class="ExternalClassA5C14DB2E0DC496C9AC8A0D836518E2C"&gt;&lt;div&gt;&lt;div class="ExternalClassBF425C96D6A64E919DF578CE83705AD5"&gt;&lt;p&gt;reply 3&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</Value>
               <ClearValue>clear message body text</ClearValue>

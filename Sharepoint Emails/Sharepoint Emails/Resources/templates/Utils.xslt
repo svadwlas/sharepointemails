@@ -24,4 +24,16 @@
   <xsl:template name="itemViewUrl">
     <xsl:value-of select="concat('{SList.DefaultDisplayFormUrl}','?ID=','{SItem.ID}')"/>
   </xsl:template>
+
+  <xsl:template name="getUser">
+    <xsl:param name="node" />
+    <xsl:choose>
+      <xsl:when test="$node/@UserName!=''">
+        <xsl:value-of select="$node/@UserName"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$node/@User"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>
