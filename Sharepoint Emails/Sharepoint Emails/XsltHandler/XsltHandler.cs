@@ -8,6 +8,7 @@ using System.Web;
 using System.IO;
 using System.Xml.Xsl;
 using System.Xml;
+using SharePointEmails.Core;
 
 namespace SharePointEmails.XsltHandler
 {
@@ -18,10 +19,13 @@ namespace SharePointEmails.XsltHandler
     {
         void UpdateItem(SPItemEventProperties properties)
         {
-            EventFiringEnabled = false;
-            properties.ListItem["Title"] = properties.ListItem.File.Name;
-            properties.ListItem.Update();
-            EventFiringEnabled = true;
+            if (string.Equals(properties.ListTitle, Constants.XsltLibrary))
+            {
+                EventFiringEnabled = false;
+                properties.ListItem["Title"] = properties.ListItem.File.Name;
+                properties.ListItem.Update();
+                EventFiringEnabled = true;
+            }
         }
         /// <summary>
         /// An item was updated.
