@@ -23,7 +23,7 @@ namespace SharePointEmails.XsltHandler
             {
                 EventFiringEnabled = false;
                 properties.ListItem["Title"] = properties.ListItem.File.Name;
-                properties.ListItem.Update();
+                properties.ListItem.SystemUpdate(false);
                 EventFiringEnabled = true;
             }
         }
