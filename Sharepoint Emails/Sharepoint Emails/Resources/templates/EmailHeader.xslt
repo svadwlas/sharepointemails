@@ -44,7 +44,10 @@
                   </a>
                 </td>
                 <td>
-                  <a href="mailto:melnikvitaly@gmail.com?subject=Feedback about SharePoinr Emails&amp;body=Write your feedback">
+                  <a href="mailto:melnikvitaly@gmail.com?subject=Feedback about alerts Emails&amp;body=Write your feedback">
+                    <xsl:attribute name="href">
+                      mailto:<xsl:value-of  select="@AdminEmail"/>
+                    </xsl:attribute>
                     <xsl:call-template name="customlinks"/>
                     Feedback
                   </a>

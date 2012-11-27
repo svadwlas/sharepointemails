@@ -4,6 +4,9 @@
 
   <xsl:template name="menuTable">
     <xsl:attribute name="border">1</xsl:attribute>
+    <xsl:attribute name="style">
+      background-color:rgb(215,232,255);
+    </xsl:attribute>
   </xsl:template>
   <xsl:template name="headerTable-menutd">
     <xsl:attribute name="style">vertical-align:top</xsl:attribute>
