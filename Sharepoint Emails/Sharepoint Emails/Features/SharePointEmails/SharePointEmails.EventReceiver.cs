@@ -201,7 +201,12 @@ namespace SharePointEmails.Features.SharePointEmails
                     new GroupAssociation
                     {
                         ItemType=GroupType.AllList,
-                        Name="Default association"
+                        Name="Default Lists association"
+                    },
+                    new GroupAssociation
+                    {
+                        ItemType=GroupType.AllDocumentLibrary,
+                        Name="Default Libraries association"
                     }
                 }.ToString();
                 templ.Update();

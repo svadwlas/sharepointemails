@@ -112,6 +112,7 @@ namespace SharePointEmails.Core
         public SEMessage OnNotification(SPWeb web, SPAlertHandlerParams ahp)
         {
             SPList list = null;
+            var eventID = Guid.NewGuid();
             if (ahp.a != null)
             {
                 if (ahp.eventData.Length == 1)
@@ -122,7 +123,7 @@ namespace SharePointEmails.Core
                     list = web.Lists[ahp.a.ListID];
                     try
                     {
-                        message = GetMessageForItem(list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
+                        message = GetMessageForItem(eventID,list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
                     }
                     catch (SeTemplateNotFound ex)
                     {
@@ -136,7 +137,7 @@ namespace SharePointEmails.Core
                     }
                     if (message != null)
                     {
-                        var mail = SEMessage.Create(message, ahp.headers, ahp.body);
+                        var mail = SEMessage.Create(eventID, message, ahp.headers, ahp.body);
 
                         Application.Current.Logger.WriteTrace("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
 
@@ -227,14 +228,14 @@ namespace SharePointEmails.Core
             Logger.WriteTrace(text.ToString(), SeverityEnum.Verbose);
         }
 
-        internal GeneratedMessage GetMessageForItem(SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
+        internal GeneratedMessage GetMessageForItem(Guid eventID, SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type,receiverEmail);
             var res = Manager.GetTemplate(search);
             if (res != null)
             {
                 Logger.WriteTrace("Found template:"+Environment.NewLine+res.ToString(), SeverityEnum.Verbose);
-                var substitutionContext = new SubstitutionContext(eventXML, list, ItemID, modifierName, receiverEmail, alertCreatorID,type);
+                var substitutionContext = new SubstitutionContext(eventID,eventXML, list, ItemID, modifierName, receiverEmail, alertCreatorID,type);
                 Logger.WriteTrace("XML data:" + Environment.NewLine + substitutionContext.GetXML(), SeverityEnum.Verbose);
                 return new GeneratedMessage
                     {

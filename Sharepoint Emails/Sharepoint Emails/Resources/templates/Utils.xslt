@@ -41,7 +41,14 @@
     {DUser.LoginName}
   </xsl:template>
   <xsl:template name="SUserDisplayName">
-    {SUser.LoginName}
+    <a href="/_layouts/userdisp.aspx?ID={SUser.ID}">{SUser.LoginName}</a>
   </xsl:template>
 
+  <xsl:template name="Greeting">
+    <p>
+      <xsl:call-template name="titleTextStyle"/>
+      Hello <xsl:call-template name="DUserDisplayName"/>
+    </p>
+  </xsl:template>
+  
 </xsl:stylesheet>

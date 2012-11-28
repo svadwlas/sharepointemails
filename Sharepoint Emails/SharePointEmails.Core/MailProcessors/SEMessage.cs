@@ -14,10 +14,11 @@ namespace SharePointEmails.Core.MailProcessors
         public const string REPLYTO = "reply-to";
         public const string FROM = "from";
 
-        public static SEMessage Create(GeneratedMessage message, StringDictionary stringDictionary, string body)
+        public static SEMessage Create(Guid eventID, GeneratedMessage message, StringDictionary stringDictionary, string body)
         {
             var mail = new SEMessage();
             mail.HtmlBody = body;
+            mail.EventID = eventID;
             foreach (string key in stringDictionary.Keys)
             {
                 mail[key] = stringDictionary[key];
@@ -71,6 +72,7 @@ namespace SharePointEmails.Core.MailProcessors
 
         public StringDictionary headers = new StringDictionary();
 
+        public Guid EventID{ set; get; }
         public string PlainBody { set; get; }
         public string HtmlBody { set; get; }
         public string Sender { set; get; }

@@ -23,6 +23,8 @@ namespace SharePointEmails.Core.Substitutions
         ILogger Logger;
         SPEventType m_eventType = SPEventType.All;
 
+        Guid eventID;
+
         public List<FieldChange> Changes {private set; get; }
 
         public SubstitutionContext(string eventData):this(eventData,null){}
@@ -30,11 +32,16 @@ namespace SharePointEmails.Core.Substitutions
         public SubstitutionContext(string eventData, SPList sourceList):this(eventData,sourceList,-1,null,null,-1,SPEventType.All){}
 
         public SubstitutionContext(string eventData, SPList sourceList, int itemId, string modifierName, string receiverEmail, int alertCreatorId, SPEventType eventType)
+            : this(Guid.NewGuid(), eventData, sourceList, -1, null, null, -1, SPEventType.All)
+        {
+        }
+
+        public SubstitutionContext(Guid eventID,string eventData, SPList sourceList, int itemId, string modifierName, string receiverEmail, int alertCreatorId, SPEventType eventType)
         {
             Logger = Application.Current.Logger;
             m_eventType = eventType;
             m_sourceList = sourceList;
-
+            this.eventID = eventID;
             Vars = new ContextVars(sourceList, itemId, modifierName, receiverEmail, alertCreatorId);
             Changes = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
         }
@@ -53,13 +60,16 @@ namespace SharePointEmails.Core.Substitutions
         public string GetXML()
         {
             XDocument res = new XDocument();
-            res.Add(new XElement("Data"));
+            var dataEl = new XElement("Data");
+            dataEl.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList));
+            dataEl.SetAttributeValue("EventID", eventID.ToString());
+            res.Add(dataEl);
             var eventData = new XElement("EventData");
             res.Root.Add(eventData);
             eventData.SetAttributeValue("EventType", (int)m_eventType);
             eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
             eventData.SetAttributeValue("ListEmail", GetListEmail(Vars.SList));
-            eventData.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList));
+            
             foreach (var change in Changes)
             {
                 var el = new XElement("Field");

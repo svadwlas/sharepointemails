@@ -105,6 +105,7 @@
         </xs:element> 
       </xs:sequence>
       <xs:attribute name="AdminEmail" use="required" type="xs:string"/>
+      <xs:attribute name="EventID" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   

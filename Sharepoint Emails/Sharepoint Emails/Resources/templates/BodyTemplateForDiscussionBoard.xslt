@@ -16,10 +16,7 @@
         <div>
           <xsl:variable name="Discussion" select="descendant::d:Discussion[1]"/>
           <xsl:variable name="DiscussionAdded" select="$Discussion/@Current"/>
-          <p>
-            <xsl:call-template name="titleTextStyle"/>
-            Hello <xsl:call-template name="DUserDisplayName"/>
-          </p>
+          <xsl:call-template name="Greeting"/>
           <p>
             <xsl:call-template name="normalTextStyle"/>
             <xsl:call-template name="SUserDisplayName"/> added new 

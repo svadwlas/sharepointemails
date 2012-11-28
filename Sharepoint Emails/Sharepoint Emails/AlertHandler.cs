@@ -71,11 +71,22 @@ namespace SharePointEmails
                                         try
                                         {
                                             SPUtility.SendEmail(web, mail.headers, mail.HtmlBody);
-                                            handled = true;
+                                            handled = true;                                            
                                         }
                                         catch (Exception ex)
                                         {
                                             Application.Current.Logger.WriteTrace("Cannot send generated message", SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                            Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                                        }
+
+                                        try
+                                        {
+                                            EmailStorage.Add(mail.EventID, mail.HtmlBody);
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Application.Current.Logger.WriteTrace("Cannot add message to EmailStorage", SharePointEmails.Logging.SeverityEnum.CriticalError);
                                             Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
                                         }
                                     }
