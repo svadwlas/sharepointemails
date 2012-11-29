@@ -17,24 +17,27 @@ namespace SharePointEmails.Core.Substitutions
         public override string Process(string text, ISubstitutionContext context)
         {
             string res = text;
-            foreach (Match m in Regex.Matches(res, @"\{\$Resources:(.+?)\,(.+?)\}"))
+            if (!string.IsNullOrEmpty(res))
             {
-                try
+                foreach (Match m in Regex.Matches(res, @"\{\$Resources:(.+?)\,(.+?)\}"))
                 {
-                    var lcid = (uint)Thread.CurrentThread.CurrentCulture.LCID;
-                    var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
-                    if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
+                    try
                     {
-                        Logger.WriteTrace(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
+                        var lcid = (uint)Thread.CurrentThread.CurrentCulture.LCID;
+                        var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
+                        if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
+                        {
+                            Logger.WriteTrace(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
+                        }
+                        if (fieldTextValue != null)
+                        {
+                            res = res.Replace(m.Value, fieldTextValue);
+                        }
                     }
-                    if (fieldTextValue != null)
+                    catch (Exception ex)
                     {
-                        res = res.Replace(m.Value, fieldTextValue);
+                        Logger.WriteTrace(ex, SeverityEnum.Error);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteTrace(ex, SeverityEnum.Error);
                 }
             }
             return res;

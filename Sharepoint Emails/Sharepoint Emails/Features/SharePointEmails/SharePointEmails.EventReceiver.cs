@@ -163,7 +163,8 @@ namespace SharePointEmails.Features.SharePointEmails
                     new DefaultTemplateFile{Name="ListAddressTemplate.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.ListAddressTemplate)},
                     new DefaultTemplateFile{Name="AdminAddressTemplate.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.AdminAddressTemplate)},
                     new DefaultTemplateFile{Name="Utils.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.Utils)},
-                    new DefaultTemplateFile{Name="EmailHeader.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.EmailHeader)}
+                    new DefaultTemplateFile{Name="EmailHeader.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.EmailHeader)},
+                    new DefaultTemplateFile{Name="Styles.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.Styles)}
                 };
 
                 Func<string, SPFieldLookupValue> getId = (s) =>
@@ -207,7 +208,13 @@ namespace SharePointEmails.Features.SharePointEmails
                     {
                         ItemType=GroupType.AllDocumentLibrary,
                         Name="Default Libraries association"
+                    },
+                    new GroupAssociation
+                    {
+                        ItemType=GroupType.AllTasks,
+                        Name="Default Libraries association"
                     }
+                    
                 }.ToString();
                 templ.Update();
 

@@ -82,7 +82,7 @@ namespace SharePointEmails
                                         try
                                         {
                                             EmailStorage.Add(mail.EventID, mail.HtmlBody);
-
+                                            Application.Current.Logger.WriteTrace("Added to storage with key="+mail.EventID, SharePointEmails.Logging.SeverityEnum.Verbose);
                                         }
                                         catch (Exception ex)
                                         {

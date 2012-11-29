@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using Microsoft.SharePoint;
+using SharePointEmails.Core;
 
 namespace SharePointEmails
 {
@@ -90,8 +91,9 @@ namespace SharePointEmails
             {
                 CreateFile(id, html);
             }
-            catch (DirectoryNotFoundException)
+            catch (DirectoryNotFoundException ex)
             {
+                Application.Current.Logger.WriteTrace(ex, Logging.SeverityEnum.Error);
                 CreateTempDir();
                 CreateFile(id, html);
             }

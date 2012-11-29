@@ -96,18 +96,13 @@ namespace SharePointEmails.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; &gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;  xmlns:d=&quot;urn:sharepointemail-context&quot;&gt;
         ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
         ///    &lt;xsl:include href=&quot;EmailHeader.xslt&quot;/&gt;
         ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
         ///      &lt;Html&gt;
-        ///        &lt;head&gt;
-        ///          &lt;base href=&quot;{SSite.Url}&quot;/&gt;
-        ///          &lt;style type=&quot;text/css&quot;&gt;
-        ///            .main table{
-        ///            border: 1px solid black;
-        ///            }
-        ///   [rest of string was truncated]&quot;;.
+        ///        &lt;xsl:variable name =&quot;eventData&quot; select=&quot;./d:EventData[1]&quot;/&gt;
+        ///        &lt;xsl:variable name =&quot;fields&quot; select=&quot;$eventData/d:Field [rest of string was truncated]&quot;;.
         /// </summary>
         public static string BodyTemplate {
             get {
@@ -163,20 +158,18 @@ namespace SharePointEmails.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
-        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot;
-        ///    xmlns:user=&quot;urn:my-scripts&quot;
-        ///&gt;
-        ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
-        ///    &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
+        ///    xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; xmlns:user=&quot;urn:my-scripts&quot;&gt;
+        ///  &lt;xsl:include href=&quot;Utils.xslt&quot;/&gt;
         ///  &lt;xsl:include href=&quot;Styles.xslt&quot;/&gt;
         ///
-        ///    &lt;xsl:template name=&quot;emailheader&quot;&gt;
-        ///      &lt;div class=&quot;header&quot;&gt;
+        ///  &lt;xsl:template name=&quot;emailheader&quot;&gt;
+        ///    &lt;xsl:param name=&quot;eventID&quot; select=&quot;@EventID&quot;/&gt;
+        ///      &lt;div&gt;
         ///        &lt;table&gt;
         ///          &lt;tr&gt;
         ///            &lt;td&gt;
         ///              &lt;div&gt;
-        ///              [rest of string was truncated]&quot;;.
+        ///                &lt;image src=&quot;{SSit [rest of string was truncated]&quot;;.
         /// </summary>
         public static string EmailHeader {
             get {
@@ -197,6 +190,24 @@ namespace SharePointEmails.Properties {
         public static string ListAddressTemplate {
             get {
                 return ResourceManager.GetString("ListAddressTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; &gt;
+        ///  &lt;xsl:template name=&quot;menuTableStyle&quot;&gt;
+        ///    &lt;xsl:attribute name=&quot;border&quot;&gt;1&lt;/xsl:attribute&gt;
+        ///    &lt;xsl:attribute name=&quot;style&quot;&gt;
+        ///      background-color:rgb(215,232,255);
+        ///    &lt;/xsl:attribute&gt;
+        ///  &lt;/xsl:template&gt;
+        ///  &lt;xsl:template name=&quot;headerTable-menutd&quot;&gt;
+        ///    &lt;xsl:attribute name=&quot;style&quot;&gt;vertical-align:top&lt;/xsl:attr [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Styles {
+            get {
+                return ResourceManager.GetString("Styles", resourceCulture);
             }
         }
         
@@ -230,10 +241,10 @@ namespace SharePointEmails.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;Data xmlns=&quot;urn:sharepointemail-context&quot; &gt;
-        ///  &lt;EventData EventType=&quot;1&quot; ListEmail=&quot;disc@dev.test.domain.com&quot; AdminEmail=&quot;melnikvitaly@gmail.com&quot;&gt;
+        ///   Looks up a localized string similar to &lt;Data xmlns=&quot;urn:sharepointemail-context&quot; EventID=&quot;123213eventID123213&quot; AdminEmail=&quot;admin@host.com&quot;&gt;
+        ///  &lt;EventData EventType=&quot;1&quot; ListEmail=&quot;disc@dev.test.domain.com&quot; &gt;
         ///    &lt;Field DisplayName=&quot;Content Type ID&quot; Name=&quot;ContentTypeId&quot; Changed=&quot;true&quot; New=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Old=&quot;&quot; Value=&quot;0x010700F7F50D2C1749FC45A820B1832F80583D&quot; Hidden=&quot;true&quot; /&gt;
-        ///    &lt;Field DisplayName=&quot;Body&quot; Name=&quot;Body&quot; Changed=&quot;true&quot; New=&quot;&amp;lt;div class=&amp;quot;ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41&amp;quot;&amp;gt;&amp;lt;div&amp;gt;&amp;lt;div class=&amp;quot [rest of string was truncated]&quot;;.
+        ///    &lt;Field DisplayName=&quot;Body&quot; Name=&quot;Body&quot; Changed=&quot;true&quot; New=&quot;&amp;lt;div class=&amp;quot;ExternalClassA42E99C976A5497B8B2BDE5C5B91EE41&amp;quot;&amp;gt;&amp;lt;div&amp; [rest of string was truncated]&quot;;.
         /// </summary>
         public static string TEstXMLMessageAdded {
             get {

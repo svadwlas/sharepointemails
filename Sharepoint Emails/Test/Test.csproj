@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\ISAPI\Microsoft.SharePoint.dll</HintPath>
     </Reference>
+    <Reference Include="SharePointEmails.Core">
+      <HintPath>..\Sharepoint Emails\bin\Debug\SharePointEmails.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,9 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharePointEmails.Core\SharePointEmails.Core.csproj">
-      <Project>{E73985B3-3C00-4C7C-92D3-70186DBC3D93}</Project>
-      <Name>SharePointEmails.Core</Name>
+    <ProjectReference Include="..\SharePointEmails.Logging\SharePointEmails.Logging.csproj">
+      <Project>{f5fac138-e7b6-4f4e-8b03-b08fccaa0777}</Project>
+      <Name>SharePointEmails.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
