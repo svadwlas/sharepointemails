@@ -134,6 +134,22 @@ namespace SharePointEmails.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; exclude-result-prefixes=&quot;msxsl&quot; xmlns:d=&quot;urn:sharepointemail-context&quot; &gt;
+        ///    &lt;xsl:output method=&quot;xml&quot; indent=&quot;yes&quot;/&gt;
+        ///    &lt;xsl:include href=&quot;EmailHeader.xslt&quot;/&gt;
+        ///    &lt;xsl:template match=&quot;@* | node()&quot;&gt;
+        ///      &lt;Html&gt;
+        ///        &lt;xsl:variable name =&quot;eventData&quot; select=&quot;./d:EventData[1]&quot;/&gt;
+        ///        &lt;xsl:variable name =&quot;fields&quot; select=&quot;$eventData/d:Field [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string BodyTemplateForTasks {
+            get {
+                return ResourceManager.GetString("BodyTemplateForTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xs:schema id=&quot;DiscussionBoardSchema&quot;
         ///    targetNamespace=&quot;urn:sharepointemail-context&quot;
         ///    elementFormDefault=&quot;qualified&quot;

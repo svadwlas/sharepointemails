@@ -164,7 +164,8 @@ namespace SharePointEmails.Features.SharePointEmails
                     new DefaultTemplateFile{Name="AdminAddressTemplate.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.AdminAddressTemplate)},
                     new DefaultTemplateFile{Name="Utils.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.Utils)},
                     new DefaultTemplateFile{Name="EmailHeader.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.EmailHeader)},
-                    new DefaultTemplateFile{Name="Styles.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.Styles)}
+                    new DefaultTemplateFile{Name="Styles.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.Styles)},
+                    new DefaultTemplateFile{Name="BodyTemplateForTasks.xslt", Bytes=Encoding.Default.GetBytes(Properties.Resources.BodyTemplateForTasks)}
                 };
 
                 Func<string, SPFieldLookupValue> getId = (s) =>

@@ -21,7 +21,7 @@
             <td><asp:CheckBox ID="cb_Enabled" runat="server" /></td>
         </tr>
         <tr>
-            <td>Save / Cancel</td> 
+            <td></td> 
             <td><asp:Button ID="btn_Save" runat="server" Text="Save" /><asp:Button ID="btn_Cancel" runat="server" Text="Cancel"/></td>
         </tr>
     </table>

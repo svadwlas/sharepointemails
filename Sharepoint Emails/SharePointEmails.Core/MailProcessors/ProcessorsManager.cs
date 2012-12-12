@@ -56,9 +56,9 @@ namespace SharePointEmails.Core.MailProcessors
             }
         }
 
-        public bool IsDiscussionBoardIntegrationEnabled(SPList list)
+        public bool IsIntegrationEnabled(SPList list)
         {
-            if (list == null || list.BaseTemplate != SPListTemplateType.DiscussionBoard) return false;
+            //if (list == null || list.BaseTemplate != SPListTemplateType.DiscussionBoard) return false;
             var emailReceivers = GetReceivers(list);
             return emailReceivers.Any(p => p == ReceiverType.FullName);
         }
@@ -118,7 +118,7 @@ namespace SharePointEmails.Core.MailProcessors
             {
                 if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
                 {
-                    if (IsDiscussionBoardIntegrationEnabled(list))
+                    if (IsIntegrationEnabled(list))
                     {
                         return new OutcomingDiscussionBoardProcessor(Logger,new SubjectThreadStrategy());
                     }

@@ -20,8 +20,9 @@ namespace SharePointEmails.Layouts.SharePointEmails
             if (m_list != null)
             {
                 lbl_ListName.Text = m_list.Title;
-                cb_Enabled.Checked = Manager.IsDiscussionBoardIntegrationEnabled(m_list);
+                
                 var emailReceivers = Manager.GetReceivers(m_list);
+                cb_Enabled.Checked = Manager.IsIntegrationEnabled(m_list);
                 if (emailReceivers.Any())
                 {
                     cb_Enabled.ToolTip = emailReceivers.Aggregate((s1, s2) => s1 + Environment.NewLine + s2);
