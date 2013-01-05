@@ -11,8 +11,6 @@ namespace SharePointEmails.Core.Substitutions
 {
     public class DiscussionBoardXml
     {
-        const string DiscussionBoardNameSpace = "urn:sharepointemail-discussionboard";
-
         public static DiscussionBoardXml Create()
         {
             return new DiscussionBoardXml();
@@ -20,12 +18,16 @@ namespace SharePointEmails.Core.Substitutions
 
         private DiscussionBoardXml() { }
 
+        public static XName L(string name)
+        {
+            return SubstitutionContext.L(name);
+        }
+
         public XElement GetElement(SPListItem listItem)
         {
             if (listItem != null && (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message) || listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion)))
             {
-                XNamespace nsp = XNamespace.Get(DiscussionBoardNameSpace);
-                var element = new XElement(nsp + "DiscussionBoard");
+                var element = new XElement(L("DiscussionBoard"));
                 List<SPListItem> chain = new List<SPListItem>();
                 if (listItem.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Message))
                 {
@@ -42,24 +44,24 @@ namespace SharePointEmails.Core.Substitutions
                 {
                     if (item.ContentTypeId.IsChildOf(SPBuiltInContentTypeId.Discussion))
                     {
-                        curent = new XElement(nsp + "Discussion");
+                        curent = new XElement(L("Discussion"));
                         
                         element.Add(curent);
-                        var subjElement = new XElement(nsp + "Subject");
-                        var bodyElement = new XElement(nsp + "Body");
-                        var subjText = new XElement(nsp + "Value")
+                        var subjElement = new XElement(L("Subject"));
+                        var bodyElement = new XElement(L("Body"));
+                        var subjText = new XElement(L("Value"))
                         {
                             Value = item.GetFieldValue<string>(SPBuiltInFieldId.Title, string.Empty)
                         };
 
-                        var clearSubjText = new XElement(nsp + "ClearValue") { Value = GetClearDiscussionSubjText(subjText.Value) };
+                        var clearSubjText = new XElement(L("ClearValue")) { Value = GetClearDiscussionSubjText(subjText.Value) };
 
-                        var bodyText = new XElement(nsp + "Value")
+                        var bodyText = new XElement(L("Value"))
                         {
                             Value = item.GetFieldValue<string>(SPBuiltInFieldId.Body, string.Empty)
                         };
 
-                        var clearBodyText = new XElement(nsp + "ClearValue") { Value = GetClearDiscussionBodyText(bodyText.Value) };
+                        var clearBodyText = new XElement(L("ClearValue")) { Value = GetClearDiscussionBodyText(bodyText.Value) };
 
                         subjElement.Add(subjText, clearSubjText);
                         bodyElement.Add(bodyText, clearBodyText);
@@ -67,14 +69,14 @@ namespace SharePointEmails.Core.Substitutions
                     }
                     else
                     {
-                        curent = new XElement(nsp + "Message");
-                        var bodyElement = new XElement(nsp + "Body");
-                        var bodyText = new XElement(nsp + "Value")
+                        curent = new XElement(L("Message"));
+                        var bodyElement = new XElement(L("Body"));
+                        var bodyText = new XElement(L("Value"))
                         {
                             Value = item.GetFieldValue<string>(SPBuiltInFieldId.Body, string.Empty)
                         };
 
-                        var clearBodyText = new XElement(nsp + "ClearValue") { Value = GetClearMessageBodyText(bodyText.Value) };
+                        var clearBodyText = new XElement(L("ClearValue")) { Value = GetClearMessageBodyText(bodyText.Value) };
 
                         bodyElement.Add(bodyText, clearBodyText);
                         curent.Add(bodyElement);

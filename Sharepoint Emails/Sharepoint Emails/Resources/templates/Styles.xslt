@@ -3,7 +3,11 @@
   <xsl:template name="menuTableStyle">
     <xsl:attribute name="border">1</xsl:attribute>
     <xsl:attribute name="style">
-      background-color:rgb(215,232,255);
+      <xsl:call-template name="replaceChars">
+        <xsl:with-param name="str">
+          background-color:rgb(215,232,255);
+        </xsl:with-param>
+    </xsl:call-template>
     </xsl:attribute>
   </xsl:template>
   <xsl:template name="headerTable-menutd">

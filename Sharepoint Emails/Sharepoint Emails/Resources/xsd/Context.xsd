@@ -90,6 +90,7 @@
               <xs:element name="DiscussionBoard" minOccurs="0" maxOccurs="1" type="DiscussionBoard"/>
             </xs:sequence>
             <xs:attribute name="ListEmail" use="required" type="xs:string"/>
+            <xs:attribute name="SUserName" use="required" type="xs:string"/>
             <xs:attribute name="EventType" use="required">
               <xs:simpleType>
                 <xs:restriction base="xs:integer">

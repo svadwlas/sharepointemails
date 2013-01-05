@@ -20,6 +20,7 @@ namespace SharePointEmails.Core.Substitutions
         ContextVars Vars;
         string m_eventData = string.Empty;
         SPList m_sourceList=null;
+        string m_modifierName = string.Empty;
         ILogger Logger;
         SPEventType m_eventType = SPEventType.All;
 
@@ -41,6 +42,7 @@ namespace SharePointEmails.Core.Substitutions
             Logger = Application.Current.Logger;
             m_eventType = eventType;
             m_sourceList = sourceList;
+            m_modifierName = modifierName;
             this.eventID = eventID;
             Vars = new ContextVars(sourceList, itemId, modifierName, receiverEmail, alertCreatorId);
             Changes = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
@@ -57,22 +59,31 @@ namespace SharePointEmails.Core.Substitutions
             return GetValueFromObjByPath(Vars, value);
         }
 
+        static string ContextNameSpace = "urn:sharepointemail-context";
+        static XNamespace nsp = XNamespace.Get(ContextNameSpace);
+        public static XName L(string name)
+        {
+            return nsp + name;
+        }
         public string GetXML()
         {
             XDocument res = new XDocument();
-            var dataEl = new XElement("Data");
+            
+            var dataEl = new XElement(L("Data"));
+            
             dataEl.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList));
             dataEl.SetAttributeValue("EventID", eventID.ToString());
             res.Add(dataEl);
-            var eventData = new XElement("EventData");
+            var eventData = new XElement(L("EventData"));
             res.Root.Add(eventData);
             eventData.SetAttributeValue("EventType", (int)m_eventType);
             eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
             eventData.SetAttributeValue("ListEmail", GetListEmail(Vars.SList));
+            eventData.SetAttributeValue("SUserName", m_modifierName);
             
             foreach (var change in Changes)
             {
-                var el = new XElement("Field");
+                var el = new XElement(L("Field"));
                 el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
                 el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? change.FieldName ?? string.Empty);
                 el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
@@ -110,7 +121,7 @@ namespace SharePointEmails.Core.Substitutions
         {
             if (Vars.SItem != null && Vars.DUser != null)
             {
-                var approve = new XElement("Approve");
+                var approve = new XElement(L("Approve"));
                 var url = "/_layouts/approve.aspx?List=" + Vars.SList.ID + "&ID=" + Vars.SItem.ID;
                 approve.SetAttributeValue("RejectUrl", url);
                 approve.SetAttributeValue("ApproveUrl", url);

@@ -240,6 +240,7 @@
     <Content Include="Resources\templates\EmailHeader.xslt" />
     <Content Include="Resources\templates\ListAddressTemplate.xslt" />
     <Content Include="Resources\templates\Styles.xslt" />
+    <Content Include="Resources\TestDocs\temp.xml" />
     <Content Include="Resources\TestDocs\TEstXMLMessageAdded.xml" />
     <Content Include="Resources\templates\Utils.xslt" />
     <Content Include="SwitchWebPart\Elements.xml" />

@@ -43,9 +43,7 @@
                 </td>
                 <td>
                   <a>
-                    <xsl:attribute name="href">
-                      mailto:<xsl:value-of  select="@AdminEmail"/>?subject=Feedback about alert email&amp;body=Write your feedback
-                    </xsl:attribute>
+                    <xsl:attribute name="href">mailto:<xsl:value-of  select="@AdminEmail"/>?subject=Feedback about alert email&amp;body=Write your feedback</xsl:attribute>
                     <xsl:call-template name="menuLinksStyle"/>
                     Feedback
                   </a>
