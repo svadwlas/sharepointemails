@@ -53,9 +53,9 @@ namespace SharePointEmails.Logging
                 case SeverityEnum.Information: 
                 case  SeverityEnum.Warning:
                     return TraceSeverity.Monitorable;
-                case SeverityEnum.Trace: return TraceSeverity.Medium;
-                case SeverityEnum.Verbose: return TraceSeverity.Verbose;
-                default: return TraceSeverity.Verbose;
+                case SeverityEnum.Trace: return TraceSeverity.Verbose;
+                case SeverityEnum.Verbose: return TraceSeverity.VerboseEx;
+                default: return TraceSeverity.VerboseEx;
             }
         }
 
