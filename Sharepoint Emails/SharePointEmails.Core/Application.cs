@@ -228,6 +228,22 @@ namespace SharePointEmails.Core
             Logger.WriteTrace(text.ToString(), SeverityEnum.Verbose);
         }
 
+        private string GetProcessedItem(ISubstitutionContext context, string input, SubstitutionManager.WorkerType itemType)
+        {
+            Logger.WriteTrace(string.Format("{0} processing ",itemType),SeverityEnum.Trace);
+            var worker = SubstitutionManager.GetWorker(context, itemType);
+            return worker.Process(input, context);
+        }
+
+        SubstitutionManager SubstitutionManager
+        {
+            get
+            {
+                return ClassContainer.Instance.Resolve<SubstitutionManager>();
+            }
+        }
+
+
         internal GeneratedMessage GetMessageForItem(Guid eventID, SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type,receiverEmail);
@@ -239,10 +255,10 @@ namespace SharePointEmails.Core
                 Logger.WriteTrace("XML data:" + Environment.NewLine + substitutionContext.GetXML(), SeverityEnum.Verbose);
                 return new GeneratedMessage
                     {
-                        Body = res.GetProcessedBody(substitutionContext),
-                        Subject = res.GetProcessedSubj(substitutionContext),
-                        From = res.GetProcessedFrom(substitutionContext),
-                        Replay = res.GetProcessedReplay(substitutionContext)
+                        Body = GetProcessedItem(substitutionContext,res.Body,SubstitutionManager.WorkerType.ForBody),
+                        Subject = GetProcessedItem(substitutionContext, res.Subject, SubstitutionManager.WorkerType.ForSubject),
+                        From = GetProcessedItem(substitutionContext, res.From, SubstitutionManager.WorkerType.ForFrom),
+                        Replay = GetProcessedItem(substitutionContext, res.Replay, SubstitutionManager.WorkerType.ForReplay)
                     };
             }
             else

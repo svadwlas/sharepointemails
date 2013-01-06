@@ -33,11 +33,5 @@ namespace SharePointEmails.Core.Interfaces
         void SaveChanges();
 
         void SaveTo(SPListItem item);
-
-        string GetProcessedBody(ISubstitutionContext context);
-
-        string GetProcessedSubj(ISubstitutionContext context);
-        string GetProcessedFrom(ISubstitutionContext context);
-        string GetProcessedReplay(ISubstitutionContext context);
     }
 }

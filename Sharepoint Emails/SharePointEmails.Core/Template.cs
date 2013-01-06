@@ -46,14 +46,6 @@ namespace SharePointEmails.Core
             set;
         }
 
-        public SubstitutionManager SubstitutionManager
-        {
-            get
-            {
-                return ClassContainer.Instance.Resolve<SubstitutionManager>();
-            }
-        }
-
         public string Subject { set; get; }
 
         public string From { set; get; }
@@ -85,14 +77,14 @@ namespace SharePointEmails.Core
         }
         string _Config = null;
 
-      
+
 
         void Refresh()
         {
             this.Name = m_Item[TemplateCT.TemplateName] as string;
             this.State = EnumConverter.ToState(m_Item[TemplateCT.TemplateState] as string);
 
-            SPFieldUserValueCollection v=new SPFieldUserValueCollection(m_Item.Web, m_Item.GetFieldValue<object>(TemplateCT.SendDraftTo,string.Empty).ToString());
+            SPFieldUserValueCollection v = new SPFieldUserValueCollection(m_Item.Web, m_Item.GetFieldValue<object>(TemplateCT.SendDraftTo, string.Empty).ToString());
 
             this.SendDraftToAdresses = v.Select(p => p.User.Email).ToList();
 
@@ -101,8 +93,8 @@ namespace SharePointEmails.Core
             this.UseFileForFrom = m_Item.GetFieldValue<bool>(TemplateCT.TemplateFromUseFile);
             this.UseFileForReply = m_Item.GetFieldValue<bool>(TemplateCT.TemplateReplayUseFile);
 
-            this.From = m_Item.GetValueFromTextFieldOrFile(this.UseFileForFrom, TemplateCT.TemplateFrom,TemplateCT.TemplateFromFile, out FromAttached);
-            this.Replay = m_Item.GetValueFromTextFieldOrFile(this.UseFileForReply, TemplateCT.TemplateReplay, TemplateCT.TemplateReplayFile,out ReplyAttached);
+            this.From = m_Item.GetValueFromTextFieldOrFile(this.UseFileForFrom, TemplateCT.TemplateFrom, TemplateCT.TemplateFromFile, out FromAttached);
+            this.Replay = m_Item.GetValueFromTextFieldOrFile(this.UseFileForReply, TemplateCT.TemplateReplay, TemplateCT.TemplateReplayFile, out ReplyAttached);
             this.Body = m_Item.GetValueFromTextFieldOrFile(this.UseFileForBody, TemplateCT.TemplateBody, TemplateCT.TemplateBodyFile, out this.BodyAttached);
             this.Subject = m_Item.GetValueFromTextFieldOrFile(this.UseFileForSubject, TemplateCT.TemplateSubject, TemplateCT.TemplateSubjectFile, out this.SubjectAttached);
 
@@ -138,12 +130,6 @@ namespace SharePointEmails.Core
             Refresh();
         }
 
-        private string GetProcessedItem(ISubstitutionContext context,string input, SubstitutionManager.WorkerType itemType)
-        {
-            var worker = SubstitutionManager.GetWorker(context, itemType);
-            return worker.Process(input, context);
-        }
-
         ILogger Logger
         {
             get
@@ -155,19 +141,6 @@ namespace SharePointEmails.Core
                 return _Logger;
             }
         }ILogger _Logger;
-
-        public string GetProcessedBody(ISubstitutionContext context)
-        {
-            Logger.WriteTrace("In GetProcessedBody",SeverityEnum.Verbose);
-            return GetProcessedItem(context, Body, SubstitutionManager.WorkerType.ForBody);
-        }
-
-        public string GetProcessedSubj(ISubstitutionContext context)
-        {
-            Logger.WriteTrace("In GetProcessedSubj", SeverityEnum.Verbose);
-            return GetProcessedItem(context, Subject, SubstitutionManager.WorkerType.ForSubject);
-        }
-
 
         public override string ToString()
         {
@@ -183,18 +156,5 @@ namespace SharePointEmails.Core
             return s;
         }
 
-        public string GetProcessedFrom(ISubstitutionContext context)
-        {
-            Logger.WriteTrace("In GetProcessedFrom", SeverityEnum.Verbose);
-            if (string.IsNullOrEmpty(From)) return string.Empty;
-            return GetProcessedItem(context, From, SubstitutionManager.WorkerType.ForFrom);
-        }
-
-        public string GetProcessedReplay(ISubstitutionContext context)
-        {
-            Logger.WriteTrace("In GetProcessedReplay", SeverityEnum.Verbose);
-            if (string.IsNullOrEmpty(From)) return string.Empty;
-            return GetProcessedItem(context, Replay, SubstitutionManager.WorkerType.ForReplay);
-        }
     }
 }
