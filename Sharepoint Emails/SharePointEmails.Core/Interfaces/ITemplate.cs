@@ -31,7 +31,5 @@ namespace SharePointEmails.Core.Interfaces
         IEnumerable<string> SendDraftToAdresses { get; set; }
 
         void SaveChanges();
-
-        void SaveTo(SPListItem item);
     }
 }
