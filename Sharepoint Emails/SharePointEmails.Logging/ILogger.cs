@@ -9,5 +9,6 @@ namespace SharePointEmails.Logging
     {
         void WriteTrace(string text, SeverityEnum severety, Category area=Category.Default);
         void WriteTrace(Exception ex, SeverityEnum severety, Category area=Category.Default);
+        void WriteTrace(string text,Exception ex, SeverityEnum severety, Category area = Category.Default);
     }
 }

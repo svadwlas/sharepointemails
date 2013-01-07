@@ -114,5 +114,91 @@
       <xsl:with-param name="noValue" select="'-'"/>
     </xsl:call-template>
   </xsl:template>
+
+  <xsl:template name="changeTable">
+    <xsl:param name="eventType"/>
+    <xsl:param name="visibleFields"/>
+    <xsl:param name="changedFields"/>
+    <xsl:param name="notChangedFields"/>
+    <xsl:choose>
+              <xsl:when test="$eventType=1">
+                <h3>
+                  Fields values:
+                </h3>
+                <table width="400" border="1">
+                  <tr>
+                    <th>FieldName</th>
+                    <th>Value</th>
+                  </tr>
+                  <xsl:for-each select="$visibleFields">
+                    <tr>
+                      <td>
+                        <xsl:value-of select="@DisplayName"/>
+                      </td>
+                      <td>
+                        <xsl:call-template name="dispayFieldValue"/>
+                      </td>
+                    </tr>
+                  </xsl:for-each>
+                </table>
+              </xsl:when>
+              <xsl:when test="$eventType=2">
+                <h3>
+                  The following fields of <xsl:call-template name="itemType"/> was modified
+                </h3>
+                <table width="400" border="1">
+                  <tr>
+                    <th>FieldName</th>
+                    <th>Previous Value</th>
+                    <th>Next Value</th>
+                  </tr>
+                  <xsl:for-each select="$changedFields">
+                    <xsl:variable name="new" select="@New"/>
+                    <xsl:variable name="old" select="@Old"/>
+                    <tr>
+                      <td>
+                        <xsl:value-of select="@DisplayName"/>
+                      </td>
+                      <td>
+                        <xsl:if test="$old=''">
+                            <xsl:attribute name="style">text-align:center;</xsl:attribute>
+                        </xsl:if>
+                        <xsl:call-template name="dispayOldFieldValue"/>
+                      </td>
+                      <td>
+                         <xsl:if test="$new=''">
+                            <xsl:attribute name="style">text-align:center;</xsl:attribute>
+                        </xsl:if>
+                        <xsl:call-template name="dispayNewFieldValue"/>
+                      </td>
+                    </tr>
+                  </xsl:for-each>
+                </table>
+
+                <xsl:if test="count($notChangedFields)!=0">
+                  <h3>
+                    Other fields of <xsl:call-template name="itemType"/>:
+                  </h3>
+                  <table width="400" border="1">
+                    <tr>
+                      <th>FieldName</th>
+                      <th>Previous Value</th>
+                    </tr>
+                    <xsl:for-each select="$notChangedFields">
+                      <tr>
+                        <td>
+                          <xsl:value-of select="@DisplayName"/>
+                        </td>
+                        <td>
+                          <xsl:call-template name="dispayFieldValue"/>
+                        </td>
+                      </tr>
+                    </xsl:for-each>
+                  </table>
+                </xsl:if>
+              </xsl:when>
+              <xsl:when test="$eventType=4"></xsl:when>
+            </xsl:choose>
+  </xsl:template>
   
 </xsl:stylesheet>

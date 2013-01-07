@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml.Xsl;
 using SharePointEmails.Logging;
 using Microsoft.SharePoint;
+using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Extensions
 {
@@ -33,15 +34,15 @@ namespace SharePointEmails.Core.Extensions
             }
         }
 
-        public static string ApplyXslt(this string xml, string xslt, SPDocumentLibrary library, Func<string, string> processIncludes=null)
+        public static string ApplyXslt(this string xml, string xslt, ISubstitutionContext context, Func<string, string> processIncludes=null)
         {
             var temp = Path.GetTempFileName();
             var res = new StringBuilder();
             try
             {
-                var c = new System.Xml.Xsl.XslCompiledTransform();
+                var c = new System.Xml.Xsl.XslCompiledTransform(true);
                 File.WriteAllText(temp, xslt);
-                c.Load(temp, new XsltSettings(true, true), new Resolver(library, temp, processIncludes));
+                c.Load(temp, new XsltSettings(true, true), new Resolver(context, temp, processIncludes));
 
                 using (var xmlreader = XmlReader.Create(new StringReader(xml)))
                 {
@@ -65,16 +66,16 @@ namespace SharePointEmails.Core.Extensions
 
             string tempXslt;
 
-            SPDocumentLibrary lib;
+            ISubstitutionContext m_context;
             Func<string, string> processIncludes;
-            public Resolver(SPDocumentLibrary library, string tempXslt, Func<string, string> processIncludes)
+            public Resolver(ISubstitutionContext context, string tempXslt, Func<string, string> processIncludes)
             {
                 Logger = Application.Current.Logger;
 
                 if (Logger == null) throw new InvalidProgramException("No logger configured");
                 this.tempXslt = tempXslt;
                 this.processIncludes = processIncludes;
-                lib = library;
+                this.m_context = context;
             }
 
             public override System.Net.ICredentials Credentials
@@ -94,23 +95,19 @@ namespace SharePointEmails.Core.Extensions
                 }
                 else
                 {
-                    if (lib != null)
+
+                    if (m_context != null)
                     {
-                        foreach (SPListItem item in lib.Items)
+                        using (var includeReader = new StreamReader(m_context.GetTemplateFile(Path.GetFileName(absoluteUri.LocalPath))))
                         {
-                            if (item.File != null && string.Equals(item.File.Name, Path.GetFileName(absoluteUri.LocalPath)))
+                            var include = includeReader.ReadToEnd();
+                            if (processIncludes != null)
                             {
-                                using (var reader = new StreamReader(item.File.OpenBinaryStream()))
-                                {
-                                    var include = reader.ReadToEnd();
-                                    if (processIncludes != null)
-                                    {
-                                        include = processIncludes(include);
-                                    }
-                                    return new MemoryStream(Encoding.Default.GetBytes(include));
-                                }
+                                include = processIncludes(include);
                             }
+                            return new MemoryStream(Encoding.Default.GetBytes(include));
                         }
+
                     }
                 }
 

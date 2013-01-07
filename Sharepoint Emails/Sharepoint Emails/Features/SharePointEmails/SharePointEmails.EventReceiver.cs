@@ -31,27 +31,19 @@ namespace SharePointEmails.Features.SharePointEmails
         const string TEMP_FILE = "SE_tmp_template_file";
         const int SERVICE_NOT_STARTED = 2;
 
-        void DeleteTMPFile(SPSite site)
-        {
-            var web = site.RootWeb;
-            if (web.Properties.ContainsKey(TEMP_FILE))
-            {
-                try
-                {
-                    File.Delete(web.Properties[TEMP_FILE]);
-                }
-                catch { }
-                web.Properties.Remove(TEMP_FILE);
-                web.Properties.Update();
-            }
-        }
-
+        /// <summary>
+        /// Updates alert templates file for site
+        /// </summary>
+        /// <param name="site"></param>
+        /// <param name="alertsFile"></param>
         void ExecuteUpdate(SPSite site, string alertsFile)
         {
+            //update alert templates file
             var bin = SPUtility.GetGenericSetupPath(@"BIN\");
-            Execute(Path.Combine(bin, "stsadm.exe"), GetUpdateAlertsParams(site, alertsFile));
-            Execute("net", "stop SPTimerV4", new int[] { SERVICE_NOT_STARTED });
-            Execute("net", "start SPTimerV4");
+            ExecuteShellCommand(Path.Combine(bin, "stsadm.exe"), GetUpdateAlertsParams(site, alertsFile));
+            //restart timer
+            ExecuteShellCommand("net", "stop SPTimerV4", new int[] { SERVICE_NOT_STARTED });
+            ExecuteShellCommand("net", "start SPTimerV4");
         }
 
         string GetUpdateAlertsParams(SPSite site, string alertsFile)
@@ -59,11 +51,18 @@ namespace SharePointEmails.Features.SharePointEmails
             return string.Format("-o updatealerttemplates -url {0} -f \"{1}\"", site.Url, alertsFile);
         }
 
-        void Execute(string exe, string param)
+        void ExecuteShellCommand(string exe, string param)
         {
-            Execute(exe, param, new int[0]);
+            ExecuteShellCommand(exe, param, new int[0]);
         }
-        void Execute(string exe, string param, int[] ignoreCode)
+
+        /// <summary>
+        /// Execute shell command
+        /// </summary>
+        /// <param name="exe"></param>
+        /// <param name="param"></param>
+        /// <param name="ignoreCode"></param>
+        void ExecuteShellCommand(string exe, string param, int[] ignoreCode)
         {
             
             Process process = new Process();
@@ -104,6 +103,10 @@ namespace SharePointEmails.Features.SharePointEmails
             return alertsFile;
         }
 
+        /// <summary>
+        /// register custom alert handler for site
+        /// </summary>
+        /// <param name="site"></param>
         private void RegisterAlertHandler(SPSite site)
         {
             DeleteTMPFile(site);
@@ -122,7 +125,11 @@ namespace SharePointEmails.Features.SharePointEmails
             ExecuteUpdate(site, alertsFile);
         }
 
-        private void RegisterWebParts(SPWeb sPWeb)
+        /// <summary>
+        /// register Web Part for switching of fields
+        /// </summary>
+        /// <param name="web"></param>
+        private void RegisterWebParts(SPWeb web)
         {
             try
             {
@@ -130,12 +137,12 @@ namespace SharePointEmails.Features.SharePointEmails
                                +"[TemplateSubjectUseFile{true:TemplateSubject;false:TemplateSubjectFile;}]"
                                +"[TemplateReplayUseFile{true:TemplateReplay;false:TemplateReplayFile;}]"
                                +"[TemplateFromUseFile{true:TemplateFrom;false:TemplateFromFile;}]";
-                var templates = sPWeb.Lists[Constants.TemplateListName];
-                var wm = sPWeb.GetLimitedWebPartManager(templates.DefaultEditFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
+                var templates = web.Lists[Constants.TemplateListName];
+                var wm = web.GetLimitedWebPartManager(templates.DefaultEditFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
                 var wp = new SwitchWebPart.SwitchWebPart() { Info = tohide };
                 wm.AddWebPart(wp, null, 0);
                 wm.SaveChanges(wp);
-                wm = sPWeb.GetLimitedWebPartManager(templates.DefaultNewFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
+                wm = web.GetLimitedWebPartManager(templates.DefaultNewFormUrl, System.Web.UI.WebControls.WebParts.PersonalizationScope.Shared);
                 wp=new SwitchWebPart.SwitchWebPart() {Info=tohide };
                 wm.AddWebPart(wp, null, 0);
                 wm.SaveChanges(wp);
@@ -146,13 +153,11 @@ namespace SharePointEmails.Features.SharePointEmails
             }
         }
 
-        class DefaultTemplateFile
-        {
-            public string Name;
-            public byte[] Bytes;
-        }
-
-        private void UploadBasicFiles(SPWeb sPWeb)
+        /// <summary>
+        /// Upload default XSLT files and add default email  templates to template list
+        /// </summary>
+        /// <param name="web"></param>
+        private void UploadBasicFiles(SPWeb web)
         {
             try
             {
@@ -174,7 +179,7 @@ namespace SharePointEmails.Features.SharePointEmails
                         return new SPFieldLookupValue(files.IndexOf(files.Single(p => string.Equals(p.Name, s, StringComparison.CurrentCultureIgnoreCase))) + 1, s);
                     };
 
-                var list = sPWeb.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
+                var list = web.Lists[Constants.XsltLibrary] as SPDocumentLibrary;
                 foreach (var p in files)
                 {
                     list.RootFolder.Files.Add(p.Name, p.Bytes);
@@ -187,7 +192,7 @@ namespace SharePointEmails.Features.SharePointEmails
                     item.Update();
                 }
 
-                var templates = sPWeb.Lists[Constants.TemplateListName];
+                var templates = web.Lists[Constants.TemplateListName];
                 var templ = templates.AddItem();
 
                 templ[TemplateCT.TemplateName] = "Default template";
@@ -271,7 +276,7 @@ namespace SharePointEmails.Features.SharePointEmails
             }
         }
 
-        private void DeleteLists(SPWeb web, string title)
+        private void DeleteList(SPWeb web, string title)
         {
             var list = web.Lists.TryGetList(title);
             if (list != null)
@@ -298,12 +303,26 @@ namespace SharePointEmails.Features.SharePointEmails
             if (properties.Feature.Parent is SPSite)
             {
                 var site = (SPSite)properties.Feature.Parent;
-                DeleteLists(site.RootWeb, Constants.TemplateListName);
-                DeleteLists(site.RootWeb, Constants.XsltLibrary);
+                DeleteList(site.RootWeb, Constants.TemplateListName);
+                DeleteList(site.RootWeb, Constants.XsltLibrary);
                 UnRegisterAlertHandler(site);
             }
         }
 
+        void DeleteTMPFile(SPSite site)
+        {
+            var web = site.RootWeb;
+            if (web.Properties.ContainsKey(TEMP_FILE))
+            {
+                try
+                {
+                    File.Delete(web.Properties[TEMP_FILE]);
+                }
+                catch { }
+                web.Properties.Remove(TEMP_FILE);
+                web.Properties.Update();
+            }
+        }
 
         // Uncomment the method below to handle the event raised after a feature has been installed.
 
@@ -323,5 +342,11 @@ namespace SharePointEmails.Features.SharePointEmails
         //public override void FeatureUpgrading(SPFeatureReceiverProperties properties, string upgradeActionName, System.Collections.Generic.IDictionary<string, string> parameters)
         //{
         //}
+
+        class DefaultTemplateFile
+        {
+            public string Name;
+            public byte[] Bytes;
+        }
     }
 }

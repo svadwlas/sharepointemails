@@ -7,6 +7,9 @@ using SharePointEmails.Logging;
 
 namespace SharePointEmails.Core.Substitutions
 {
+    /// <summary>
+    /// Context objects
+    /// </summary>
     class ContextVars
     {
         ILogger Logger;
@@ -48,12 +51,35 @@ namespace SharePointEmails.Core.Substitutions
             {
                 try
                 {
-                    SUser = SWeb.SiteUsers[modifierName];
+                    SPUser suser=null;
+                    foreach (SPUser user in SWeb.SiteUsers)
+                    {
+                        if (string.Equals(user.LoginName, modifierName,StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            suser = user;
+                            break;
+                        }
+                        if (string.Equals(user.Name, modifierName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (suser != null)
+                            {
+                                throw new Exception(string.Format("Two user with same name. User1={0} and User2={1}", suser.LoginName, user.LoginName)); ;
+                            }
+                            suser = user;
+                        }
+                    }
+                    if(suser!=null)
+                    {
+                        SUser=suser;
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("cannot find user. Name={0} ",modifierName));
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteTrace("Cannot get SUser", SeverityEnum.Error);
-                    Logger.WriteTrace(ex, SeverityEnum.Error);
+                    Logger.WriteTrace(string.Format("Cannot get SUser/ Name={0}",modifierName),ex, SeverityEnum.Error);
                 }
             }
 
@@ -65,23 +91,14 @@ namespace SharePointEmails.Core.Substitutions
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteTrace("Cannot get DUser", SeverityEnum.Error);
-                    Logger.WriteTrace(ex, SeverityEnum.Error);
+                    Logger.WriteTrace(string.Format("Cannot get DUser. Email={0}", toemail), ex, SeverityEnum.Error);
                 }
             }
         }
 
-        public SPWeb SWeb
-        {
-            get;
-            set;
-        }
+        public SPWeb SWeb{get;set;}
 
-        public SPSite SSite
-        {
-            get;
-            set;
-        }
+        public SPSite SSite{get;set;}
 
         public SPUser SUser { set; get; }//force alert
 
@@ -89,36 +106,8 @@ namespace SharePointEmails.Core.Substitutions
 
         public SPUser CUser { set; get; }//create alert
 
-        public SPList SList
-        {
-            get;
-            set;
-        }
+        public SPList SList{get;set;}
 
-        public SPListItem SItem
-        {
-            get;
-            set;
-        }
-
-        public bool DUserCanApprove { set; get; }
-
-        public ApproveClass Approve { set; get; }
-    }
-
-    struct ApproveClass
-    {
-        public bool CanApprove { set; get; }
-
-        public string ApproveUrl { set; get; }
-
-        public string RejectUrl { set; get; }
-
-        public string PageUrl { set; get; }
-
-        public string ToTrace()
-        {
-            return string.Format("CanApprove={0}, ApproveUrl={1}, RejectUrl={2}, PageUrl={3}", CanApprove, ApproveUrl, RejectUrl, PageUrl);
-        }
+        public SPListItem SItem{get;set;}
     }
 }

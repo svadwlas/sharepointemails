@@ -36,7 +36,7 @@ namespace SharePointEmails.Core.Substitutions
         private string GetGhanges(ISubstitutionContext context)
         {
             var sb = new StringBuilder();
-            List<FieldChange> toDisplay = context.Changes.Where(p => p.IsChanged).ToList();
+            List<FieldChange> toDisplay = context.FieldsValues.Where(p => p.IsChanged).ToList();
             sb.Append("<table class='changes-table'>");
             if (toDisplay.Count > 0)
             {

@@ -12,6 +12,7 @@ using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.Administration;
 using System.Configuration;
 using SharePointEmails.Core.Interfaces;
+using System.IO;
 
 namespace SharePointEmails.Core.Substitutions
 {
@@ -23,10 +24,9 @@ namespace SharePointEmails.Core.Substitutions
         string m_modifierName = string.Empty;
         ILogger Logger;
         SPEventType m_eventType = SPEventType.All;
-
         Guid eventID;
 
-        public List<FieldChange> Changes {private set; get; }
+        public List<FieldChange> FieldsValues {private set; get; }
 
         public SubstitutionContext(string eventData):this(eventData,null){}
 
@@ -45,19 +45,74 @@ namespace SharePointEmails.Core.Substitutions
             m_modifierName = modifierName;
             this.eventID = eventID;
             Vars = new ContextVars(sourceList, itemId, modifierName, receiverEmail, alertCreatorId);
-            Changes = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
+            FieldsValues = (!string.IsNullOrEmpty(eventData)) ? XDocument.Parse(eventData).Descendants("Field").Select(p => FieldChange.Create(p)).ToList() : new List<FieldChange>();
         }
 
-        public string GetField(string fieldName, ModifiersCollection modifiers = null)
+
+        /// <summary>
+        /// Get actual value of items' field
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="modifiers"></param>
+        /// <returns></returns>
+        public string GetCurrentFieldValue(string fieldName, ModifiersCollection modifiers = null)
         {
-            var change = Changes.Where(p => p.FieldDisplayName == fieldName || p.FieldName == fieldName).FirstOrDefault();
-            return (change != null)?change.GetText(modifiers ?? ModifiersCollection.Empty):null;
+            if (Vars.SItem != null && Vars.SItem.Fields.ContainsField(fieldName))
+            {
+                return Convert.ToString(Vars.SItem[fieldName]);
+            }
+            else
+            {
+                return null;
+            }
         }
 
+
+        /// <summary>
+        /// Get value from context objects
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="modifiers"></param>
+        /// <returns></returns>
         public string GetContextValue(string value, ModifiersCollection modifiers)
         {
             return GetValueFromObjByPath(Vars, value);
         }
+
+       /// <summary>
+       /// Get culture for destination user
+       /// </summary>
+       /// <returns></returns>
+        public CultureInfo GetDestinationCulture()
+        {
+            return CultureInfo.CurrentCulture;
+        }
+
+
+        /// <summary>
+        /// get template file from template files storage
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public Stream GetTemplateFile(string fileName)
+        {
+            var library = GetTemplateLibrary();
+            if (library != null)
+            {
+                foreach (SPListItem item in library.Items)
+                {
+                    if (item.File != null && string.Equals(item.File.Name, fileName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return item.File.OpenBinaryStream();
+                    }
+                }
+            }
+            throw new FileNotFoundException("Cannot find template with name=" + fileName);
+        }
+
+       
+
+        #region XML generation
 
         static string ContextNameSpace = "urn:sharepointemail-context";
         static XNamespace nsp = XNamespace.Get(ContextNameSpace);
@@ -65,47 +120,53 @@ namespace SharePointEmails.Core.Substitutions
         {
             return nsp + name;
         }
+
+        string _Xml = null;
         public string GetXML()
         {
-            XDocument res = new XDocument();
-            
-            var dataEl = new XElement(L("Data"));
-            
-            dataEl.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList));
-            dataEl.SetAttributeValue("EventID", eventID.ToString());
-            res.Add(dataEl);
-            var eventData = new XElement(L("EventData"));
-            res.Root.Add(eventData);
-            eventData.SetAttributeValue("EventType", (int)m_eventType);
-            eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
-            eventData.SetAttributeValue("ListEmail", GetListEmail(Vars.SList));
-            eventData.SetAttributeValue("SUserName", m_modifierName);
-            
-            foreach (var change in Changes)
+            if (_Xml == null)
             {
-                var el = new XElement(L("Field"));
-                el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
-                el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? change.FieldName ?? string.Empty);
-                el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
-                el.SetAttributeValue("Changed", change.IsChanged);
-                el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
-                el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
-                el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
-                if (Vars.SList != null)
+                XDocument res = new XDocument();
+
+                var dataEl = new XElement(L("Data"));
+
+                dataEl.SetAttributeValue("AdminEmail", GetAdminEmail(Vars.SList));
+                dataEl.SetAttributeValue("EventID", eventID.ToString());
+                res.Add(dataEl);
+                var eventData = new XElement(L("EventData"));
+                res.Root.Add(eventData);
+                eventData.SetAttributeValue("EventType", (int)m_eventType);
+                eventData.SetAttributeValue("EventTypeName", m_eventType.ToString());
+                eventData.SetAttributeValue("ListEmail", GetListEmail(Vars.SList));
+                eventData.SetAttributeValue("SUserName", m_modifierName);
+
+                foreach (var change in FieldsValues)
                 {
-                    if (Vars.SList.Fields.ContainsFieldWithStaticName(change.FieldName))
+                    var el = new XElement(L("Field"));
+                    el.SetAttributeValue("Type", change.FieldType ?? string.Empty);
+                    el.SetAttributeValue("DisplayName", change.FieldDisplayName ?? change.FieldName ?? string.Empty);
+                    el.SetAttributeValue("Name", change.FieldName ?? string.Empty);
+                    el.SetAttributeValue("Changed", change.IsChanged);
+                    el.SetAttributeValue("New", (change.GetText(new ModifiersCollection { Modifier.New }) ?? string.Empty));
+                    el.SetAttributeValue("Old", (change.GetText(new ModifiersCollection { Modifier.Old }) ?? string.Empty));
+                    el.SetAttributeValue("Value", change.GetText(ModifiersCollection.Empty) ?? string.Empty);
+                    if (Vars.SList != null)
                     {
-                        var hidden = Vars.SList.Fields.GetFieldByInternalName(change.FieldName).Hidden;
-                        el.SetAttributeValue("Hidden", hidden);
+                        if (Vars.SList.Fields.ContainsFieldWithStaticName(change.FieldName))
+                        {
+                            var hidden = Vars.SList.Fields.GetFieldByInternalName(change.FieldName).Hidden;
+                            el.SetAttributeValue("Hidden", hidden);
+                        }
                     }
+                    eventData.Add(el);
                 }
-                eventData.Add(el);
+
+                AddApproveElement(eventData);
+                AddDiscussionBoardElement(eventData);
+
+                _Xml = res.ToString();
             }
-
-            AddApproveElement(eventData);
-            AddDiscussionBoardElement(eventData);
-
-            return res.ToString();
+            return _Xml;
         }
 
         private void AddDiscussionBoardElement(XElement eventData)
@@ -123,11 +184,12 @@ namespace SharePointEmails.Core.Substitutions
             {
                 var approve = new XElement(L("Approve"));
                 var url = "/_layouts/approve.aspx?List=" + Vars.SList.ID + "&ID=" + Vars.SItem.ID;
-                approve.SetAttributeValue("Enabled", true);
+
+                approve.SetAttributeValue("Enabled", Vars.SList.EnableModeration);
                 approve.SetAttributeValue("RejectUrl", url);
                 approve.SetAttributeValue("ApproveUrl", url);
                 approve.SetAttributeValue("PageUrl", url);
-                approve.SetAttributeValue("CanApprove", Vars.SItem.DoesUserHavePermissions(Vars.DUser, SPBasePermissions.ApproveItems));                
+                approve.SetAttributeValue("CanApprove", Vars.SItem.DoesUserHavePermissions(Vars.DUser, SPBasePermissions.ApproveItems));
                 approve.SetAttributeValue("Status", (Vars.SItem.ModerationInformation != null) ? Vars.SItem.ModerationInformation.Status.ToString() : "");
                 eventData.Add(approve);
             }
@@ -137,12 +199,11 @@ namespace SharePointEmails.Core.Substitutions
             }
         }
 
-        public CultureInfo GetDestinationCulture()
-        {
-            return CultureInfo.CurrentCulture;
-        }
+        #endregion
 
-        public SPDocumentLibrary GetTemplateLibrary()
+        #region privates
+
+        SPDocumentLibrary GetTemplateLibrary()
         {
             if (Vars.SSite != null)
             {
@@ -150,8 +211,6 @@ namespace SharePointEmails.Core.Substitutions
             }
             return null;
         }
-
-        #region privates
 
         string GetListEmail(SPList list)
         {
@@ -172,7 +231,7 @@ namespace SharePointEmails.Core.Substitutions
                             }
                             else
                             {
-                                Logger.WriteTrace("No email server address for list ", SeverityEnum.Warning);
+                                Logger.WriteTrace("No email server address", SeverityEnum.Warning);
                             }
                         }
                         else
@@ -207,7 +266,7 @@ namespace SharePointEmails.Core.Substitutions
                     }
                     else
                     {
-                        Logger.WriteTrace("No admins with emails", SeverityEnum.Warning);
+                        Logger.WriteTrace("No site admins with emails", SeverityEnum.Warning);
                     }
                 }
             }

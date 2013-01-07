@@ -31,12 +31,12 @@ namespace SharePointEmails.Core.Tests
         {
             string eventData = Properties.Resources.EventDataFileAdded;
             SubstitutionContext target = new SubstitutionContext(eventData);
-            Assert.AreEqual(@"TEST\administrator", target.GetField("Document Created By", new ModifiersCollection { Modifier.New }));
-            Assert.AreEqual(null, target.GetField("Document Created By", new ModifiersCollection { Modifier.Old }));
-            Assert.AreEqual(null, target.GetField("Author", new ModifiersCollection { Modifier.Old }));
-            Assert.AreEqual(@"TEST\administrator", target.GetField("Author", new ModifiersCollection { Modifier.New }));
-            Assert.AreEqual(@"TEST\administrator", target.GetField("Editor", new ModifiersCollection { Modifier.New }));
-            Assert.AreEqual(null, target.GetField("Editor", new ModifiersCollection { Modifier.Old }));
+            Assert.AreEqual(@"TEST\administrator", target.GetCurrentFieldValue("Document Created By", new ModifiersCollection { Modifier.New }));
+            Assert.AreEqual(null, target.GetCurrentFieldValue("Document Created By", new ModifiersCollection { Modifier.Old }));
+            Assert.AreEqual(null, target.GetCurrentFieldValue("Author", new ModifiersCollection { Modifier.Old }));
+            Assert.AreEqual(@"TEST\administrator", target.GetCurrentFieldValue("Author", new ModifiersCollection { Modifier.New }));
+            Assert.AreEqual(@"TEST\administrator", target.GetCurrentFieldValue("Editor", new ModifiersCollection { Modifier.New }));
+            Assert.AreEqual(null, target.GetCurrentFieldValue("Editor", new ModifiersCollection { Modifier.Old }));
         }
 
         [TestMethod]

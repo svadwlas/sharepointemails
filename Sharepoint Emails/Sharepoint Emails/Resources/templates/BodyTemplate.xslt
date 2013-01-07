@@ -6,6 +6,10 @@
       <Html>
         <xsl:variable name ="eventData" select="./d:EventData[1]"/>
         <xsl:variable name ="fields" select="$eventData/d:Field"/>
+        <xsl:variable name="changedFields" select="$fields[(@Hidden='false') and (@Changed = 'true') and (string-length(./@DisplayName) &gt; 0)]"/>
+        <xsl:variable name="notChangedFields" select="$fields[(@Hidden='false') and (@Changed = 'false') and (string-length(./@DisplayName) &gt; 0)]"/>
+        <xsl:variable name="visibleFields" select="$fields[(@Hidden='false') and (string-length(./@DisplayName) &gt; 0)]"/>
+        <xsl:variable name="eventType" select="./d:EventData[1]/@EventType"/>
         <head>
           <base href="{SSite.Url}"/>
         </head>
@@ -27,73 +31,13 @@
                 item
               </a>
             </p>
-            <h3>The following fields of <xsl:call-template name="itemType"/> was modified</h3>
-            <table width="400" border="1">
-              <tr>
-                <th>FieldName</th>
-                <th>Previous Value</th>
-                <th>Next Value</th>
-              </tr>
-              <xsl:for-each select="$fields[(@Hidden='false') and (@Changed = 'true') and (string-length(./@DisplayName) &gt; 0)]">
-                <xsl:variable name="new" select="@New"/>
-                <xsl:variable name="old" select="@Old"/>
-                    <tr>
-                      <td>
-                        <xsl:value-of select="@DisplayName"/>
-                      </td>
-                      <td>
-                        <xsl:choose>
-                          <xsl:when test="$old!=''">
-                            <xsl:value-of select="$old"/>
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:attribute name="style">
-                              text-align:center;
-                            </xsl:attribute>
-                            <xsl:text>-</xsl:text>
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </td>
-                      <td>
-                        <xsl:choose>
-                          <xsl:when test="$new!=''">
-                            <xsl:value-of select="$new"/>
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:attribute name="style">
-                              text-align:center;
-                            </xsl:attribute>
-                            <xsl:text>-</xsl:text>
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </td>
-                    </tr>
-              </xsl:for-each>
-            </table>
-
-            <h3>Other fields of <xsl:call-template name="itemType"/>: </h3>
-            <table width="400" border="1">
-              <tr>
-                <th>FieldName</th>
-                <th>Previous Value</th>
-              </tr>
-              <xsl:for-each select="$fields[(@Changed = 'false') and (string-length(./@DisplayName) &gt; 0)]">
-                    <tr>
-                      <td>
-                        <xsl:value-of select="@DisplayName"/>
-                      </td>
-                      <td>
-                        <xsl:value-of select="@Value"/>
-                      </td>
-                    </tr>
-              </xsl:for-each>
-            </table>
-            <p>
-              You have the permissions to approve or reject these chanegs 
-              <a href="/_layouts/approve.aspx?List={SList.ID}&amp;ID={SItem.ID}" class="approveActionLink">
-                <input type="button" value="Approve Page"/>
-              </a>
-            </p>
+            <xsl:call-template name="changeTable">
+              <xsl:with-param name="changedFields" select="$changedFields"/>
+              <xsl:with-param name="eventType" select="$eventType"/>
+              <xsl:with-param name="notChangedFields" select="$notChangedFields"/>
+              <xsl:with-param name="visibleFields" select="$visibleFields"/>
+            </xsl:call-template>
+            <xsl:call-template name="Approvement"/>
           </div>
           <xsl:call-template  name="emailfooter"/>
         </Body>

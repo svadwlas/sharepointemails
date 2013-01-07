@@ -44,7 +44,7 @@ namespace SharePointEmails.Core.Substitutions
                 {
                     log.AppendLine("Incoming XML");
                     log.AppendLine(xml);
-                    res = xml.ApplyXslt(text, context.GetTemplateLibrary(), Worker.OnPartLoaded);
+                    res = xml.ApplyXslt(text, context, Worker.OnPartLoaded);
                     log.AppendLine("Result:");
                     log.AppendLine(res);
                 }

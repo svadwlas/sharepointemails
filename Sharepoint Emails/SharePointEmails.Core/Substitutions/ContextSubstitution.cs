@@ -9,11 +9,14 @@ using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
+    /// <summary>
+    /// substitutes context variables and properties
+    /// </summary>
     class ContextVarsSubstitution : BaseSubstitution
     {
         public string Pattern
         {
-            get { return "{VarPath}"; }
+            get { return @"\{([^\$ ]+?)\}"; }
         }
 
         public string Description
@@ -24,7 +27,7 @@ namespace SharePointEmails.Core.Substitutions
         public override string Process(string text, ISubstitutionContext context)
         {
             var res = text;
-            foreach (Match m in Regex.Matches(text, @"\{([^\$ ]+?)\}"))
+            foreach (Match m in Regex.Matches(text,Pattern))
             {
                 try
                 {

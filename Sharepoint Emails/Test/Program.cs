@@ -233,7 +233,7 @@ namespace Test
 
      //       ClassCleanUp();
 
-            Application.Current.Logger.WriteTrace("1" + Environment. + "2", SharePointEmails.Logging.SeverityEnum.CriticalError);
+            //Application.Current.Logger.WriteTrace("1" + Environment. + "2", SharePointEmails.Logging.SeverityEnum.CriticalError);
         }
     }
 }

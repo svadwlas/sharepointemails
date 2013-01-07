@@ -10,14 +10,6 @@ namespace SharePointEmails.Logging
 {
     public class DefaultLogger : ILogger
     {
-        string CurTime
-        {
-            get
-            {
-                return DateTime.Now.ToString("hh:mm:ss dd mm yyyy");
-            }
-        }
-
         private DiagnosticService Local
         {
             get
@@ -44,6 +36,19 @@ namespace SharePointEmails.Logging
 
         }
 
+        public void WriteTrace(string text,Exception ex, SeverityEnum severety, Category area)
+        {
+            Local.WriteTrace(0, Local[area], Get(severety), text + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+
+            //var line=string.Format("{0,24}: {1,20} {2} {3}"+Environment.NewLine, CurTime, severety, area, text);
+            //Debug.Write(text);
+            //var desktop=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //var log=Path.Combine(desktop, "log.txt");
+            //if(!File.Exists(log))File.WriteAllText(log,"");
+            //File.AppendAllText(log, line);
+
+        }
+
         TraceSeverity Get(SeverityEnum severity)
         {
             switch (severity)
@@ -53,9 +58,9 @@ namespace SharePointEmails.Logging
                 case SeverityEnum.Information: 
                 case  SeverityEnum.Warning:
                     return TraceSeverity.Monitorable;
-                case SeverityEnum.Trace: return TraceSeverity.Verbose;
-                case SeverityEnum.Verbose: return TraceSeverity.VerboseEx;
-                default: return TraceSeverity.VerboseEx;
+                case SeverityEnum.Trace: return TraceSeverity.Medium;
+                case SeverityEnum.Verbose: return TraceSeverity.Verbose;
+                default: return TraceSeverity.Verbose;
             }
         }
 
