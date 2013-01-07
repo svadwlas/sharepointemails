@@ -49,14 +49,14 @@ namespace SharePointEmails.Core.Tests
             return vSite.Site.RootWeb.Lists[0];
         }
 
-        ITemplate CreateTemplate(int eventTypes, TemplateStateEnum templateState, AssociationConfiguration asses)
+        ITemplate CreateTemplate(int eventTypes, TemplateStateEnum templateState, AssociationCollection asses)
         {
             var res = new Mock<ITemplate>() { DefaultValue = DefaultValue.Mock };
             res.Setup(p => p.Name).Returns(Guid.NewGuid().ToString());
             res.Setup(p => p.Id).Returns(Guid.NewGuid());
             res.Setup(p => p.EventTypes).Returns(eventTypes);
             res.Setup(p => p.State).Returns(templateState);
-            res.Setup(p => p.Asses).Returns(asses);
+            res.Setup(p => p.Associations).Returns(asses);
             return res.Object;
         }
 
@@ -86,7 +86,7 @@ namespace SharePointEmails.Core.Tests
         {
             var moleSourceList=CreateSourceListAllOnTheRootSite(ItemCTId, 1);
             var expected = CreateTemplate(TemplateEvents, templateState,
-                                                new AssociationConfiguration
+                                                new AssociationCollection
                                                 {
                                                    ass
                                                 });

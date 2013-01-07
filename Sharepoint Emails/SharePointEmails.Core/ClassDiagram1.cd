@@ -3,7 +3,7 @@
   <Class Name="SharePointEmails.Core.Application" Collapsed="true">
     <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAQAKAAIACAACgACAAABAIEAABAAAABAAAAAAsAA=</HashCode>
+      <HashCode>AAAIAQAKAAIACAACgACAABBAIEAABAAAABAAAAAAsEA=</HashCode>
       <FileName>Application.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -74,13 +74,13 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="SharePointEmails.Core.Template" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="SharePointEmails.Core.Template" BaseTypeListCollapsed="true">
     <Position X="24" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ggICAAgAAAJAEgIEAoBRABQhABBAAAAQBQIABAAgYEA=</HashCode>
+      <HashCode>ggACAAgAAAJAEgIEAoARAAQhABAAAAAQAQIABAAgIQA=</HashCode>
       <FileName>Template.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="SharePointEmails.Core.Associations.Association" Collapsed="true">
     <Position X="3" Y="3.5" Width="1.5" />
@@ -89,7 +89,7 @@
       <FileName>Associations\Association.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SharePointEmails.Core.Associations.AssociationConfiguration" Collapsed="true">
+  <Class Name="SharePointEmails.Core.Associations.AssociationCollection" Collapsed="true">
     <Position X="18.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAgAAAAAAAACABEAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -426,15 +426,15 @@
       <FileName>Interfaces\ISubstitutionWorker.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="SharePointEmails.Core.Interfaces.ITemplate" Collapsed="true">
-    <Position X="20.5" Y="8.75" Width="1.5" />
+  <Interface Name="SharePointEmails.Core.Interfaces.ITemplate">
+    <Position X="20.5" Y="8.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>ggICAAgAAAAAAgAAAoBBAAQAAABAAAAABQAABAAAQAA=</HashCode>
+      <HashCode>ggACAAAAAAAAAgAAAoABAAQAAAAAAAAAAQAABAAAAQA=</HashCode>
       <FileName>Interfaces\ITemplate.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="SharePointEmails.Core.Interfaces.ITemplateConfigurationHolder" Collapsed="true">
-    <Position X="22.25" Y="8.75" Width="1.5" />
+    <Position X="22.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ITemplateConfigurationHolder.cs</FileName>
@@ -469,14 +469,14 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="SharePointEmails.Core.TemplateTypeEnum" Collapsed="true">
-    <Position X="22.25" Y="10.5" Width="1.5" />
+    <Position X="22.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAQAAAAAAAAAAAAAgAgAAAAAAAAAAAABA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="SharePointEmails.Core.TemplateStateEnum" Collapsed="true">
-    <Position X="20.5" Y="10.5" Width="1.5" />
+    <Position X="18.75" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Enums.cs</FileName>

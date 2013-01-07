@@ -60,7 +60,7 @@ namespace SharePointEmails.Core
         int CheckAsses(ITemplate template)
         {
             int res = SearchMatchLevel.NONE;
-            foreach (var ass in template.Asses)
+            foreach (var ass in template.Associations)
             {
                 var m = ass.IsMatch(List, ItemContentTypeId, ItemId);
                 if (m > res) res = m;

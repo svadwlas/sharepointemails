@@ -123,6 +123,7 @@ namespace SharePointEmails.Core.Substitutions
             {
                 var approve = new XElement(L("Approve"));
                 var url = "/_layouts/approve.aspx?List=" + Vars.SList.ID + "&ID=" + Vars.SItem.ID;
+                approve.SetAttributeValue("Enabled", true);
                 approve.SetAttributeValue("RejectUrl", url);
                 approve.SetAttributeValue("ApproveUrl", url);
                 approve.SetAttributeValue("PageUrl", url);

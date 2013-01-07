@@ -11,7 +11,7 @@ using SharePointEmails.Logging;
 namespace SharePointEmails.Core.Associations
 {
     [Serializable]
-    public class AssociationConfiguration:List<Association>
+    public class AssociationCollection:List<Association>
     {
         static XmlSerializer Searilizer
         {
@@ -20,21 +20,21 @@ namespace SharePointEmails.Core.Associations
             {
                 if (_Serializer == null)
                 {
-                    _Serializer = new XmlSerializer(typeof(AssociationConfiguration));
+                    _Serializer = new XmlSerializer(typeof(AssociationCollection));
                 }
                 return _Serializer;
             }
         }static XmlSerializer _Serializer;
 
-        public static AssociationConfiguration Parse(string str)
+        public static AssociationCollection Parse(string str)
         {
             using (var reader = new StringReader(str))
             {
-                return (AssociationConfiguration)Searilizer.Deserialize(reader);
+                return (AssociationCollection)Searilizer.Deserialize(reader);
             }
         }
 
-        public static AssociationConfiguration ParseOrDefault(string str)
+        public static AssociationCollection ParseOrDefault(string str)
         {
             try
             {
@@ -44,11 +44,11 @@ namespace SharePointEmails.Core.Associations
             {
                 Application.Current.Logger.WriteTrace("Cannot parse config. empty will be returned", SeverityEnum.Error);
                 Application.Current.Logger.WriteTrace(ex.ToString(), SeverityEnum.Error);
-                return AssociationConfiguration.Empty;
+                return AssociationCollection.Empty;
             }
         }
 
-        public static AssociationConfiguration Empty { get { return new AssociationConfiguration(); } }
+        public static AssociationCollection Empty { get { return new AssociationCollection(); } }
 
         public override string ToString()
         {

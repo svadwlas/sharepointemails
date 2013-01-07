@@ -73,10 +73,12 @@
   </xs:complexType>
   
   <xs:complexType name="Approve">
+    <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
     <xs:attribute name="RejectUrl" type="xs:string" use="required"/>
     <xs:attribute name="ApproveUrl" type="xs:string" use="required"/>
     <xs:attribute name="PageUrl" type="xs:string" use="required"/>
     <xs:attribute name="CanApprove" type="xs:boolean" use="required"/>
+    <xs:attribute name="Status" type="xs:string" use="required"/>
   </xs:complexType>
 
   <xs:element name="Data">

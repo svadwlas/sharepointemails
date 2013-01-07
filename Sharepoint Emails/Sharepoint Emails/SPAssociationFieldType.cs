@@ -33,7 +33,7 @@ namespace SharePointEmails
         {
             try
             {
-                var config=AssociationConfiguration.ParseOrDefault(SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1));
+                var config=AssociationCollection.ParseOrDefault(SPHttpUtility.ConvertSimpleHtmlToText(value.ToString(), -1));
                 int count = config.Count;
                 if (count > 0)
                 {

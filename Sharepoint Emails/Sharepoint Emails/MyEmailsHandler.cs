@@ -61,7 +61,7 @@ namespace SharePointEmails
         {
             get
             {
-                return Path.Combine(Path.GetTempPath(), "Emails");
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"SharePointEmails\Emails");
             }
         }
 
@@ -93,7 +93,6 @@ namespace SharePointEmails
             }
             catch (DirectoryNotFoundException ex)
             {
-                Application.Current.Logger.WriteTrace(ex, Logging.SeverityEnum.Error);
                 CreateTempDir();
                 CreateFile(id, html);
             }

@@ -225,14 +225,16 @@ namespace SharePointEmails.Core
 
             text.AppendLine("Subj:" + Environment.NewLine + message.Subject + Environment.NewLine + "Body:" + Environment.NewLine + message.Body);
 
-            Logger.WriteTrace(text.ToString(), SeverityEnum.Verbose);
+            Logger.WriteTrace(text.ToString(), SeverityEnum.Trace);
         }
 
         private string GetProcessedItem(ISubstitutionContext context, string input, SubstitutionManager.WorkerType itemType)
         {
             Logger.WriteTrace(string.Format("{0} processing ",itemType),SeverityEnum.Trace);
             var worker = SubstitutionManager.GetWorker(context, itemType);
-            return worker.Process(input, context);
+            var res= worker.Process(input, context);
+            Logger.WriteTrace(string.Format("{0} result: {1}", itemType,res), SeverityEnum.Trace);
+            return res;
         }
 
         SubstitutionManager SubstitutionManager
@@ -250,9 +252,9 @@ namespace SharePointEmails.Core
             var res = Manager.GetTemplate(search);
             if (res != null)
             {
-                Logger.WriteTrace("Found template:"+Environment.NewLine+res.ToString(), SeverityEnum.Verbose);
+                Logger.WriteTrace("Found template:"+Environment.NewLine+res.ToString(), SeverityEnum.Trace);
                 var substitutionContext = new SubstitutionContext(eventID,eventXML, list, ItemID, modifierName, receiverEmail, alertCreatorID,type);
-                Logger.WriteTrace("XML data:" + Environment.NewLine + substitutionContext.GetXML(), SeverityEnum.Verbose);
+                Logger.WriteTrace("XML data:" + Environment.NewLine + substitutionContext.GetXML(), SeverityEnum.Trace);
                 return new GeneratedMessage
                     {
                         Body = GetProcessedItem(substitutionContext,res.Body,SubstitutionManager.WorkerType.ForBody),

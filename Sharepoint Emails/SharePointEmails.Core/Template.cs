@@ -64,15 +64,15 @@ namespace SharePointEmails.Core
 
         public int EventTypes { get; set; }
 
-        public AssociationConfiguration Asses
+        public AssociationCollection Associations
         {
             get
             {
-                return AssociationConfiguration.ParseOrDefault(_Config);
+                return AssociationCollection.ParseOrDefault(_Config);
             }
             set
             {
-                _Config = (value ?? AssociationConfiguration.Empty).ToString();
+                _Config = (value ?? AssociationCollection.Empty).ToString();
             }
         }
         string _Config = null;
@@ -108,7 +108,7 @@ namespace SharePointEmails.Core
                 this.EventTypes = (int)TemplateTypeEnum.Unknown;
             }
 
-            this.Asses = AssociationConfiguration.ParseOrDefault(m_Item[TemplateCT.Associations] as string);
+            this.Associations = AssociationCollection.ParseOrDefault(m_Item[TemplateCT.Associations] as string);
         }
 
         public void SaveTo(SPListItem item)
@@ -125,7 +125,7 @@ namespace SharePointEmails.Core
             m_Item[TemplateCT.TemplateBody] = this.Body;
             m_Item[TemplateCT.TemplateType] = EnumConverter.TypeToValue(this.EventTypes);
             m_Item[TemplateCT.TemplateState] = EnumConverter.StateToValue(this.State);
-            m_Item[TemplateCT.Associations] = Asses.ToString();
+            m_Item[TemplateCT.Associations] = Associations.ToString();
             m_Item.Update();
             Refresh();
         }
@@ -149,7 +149,7 @@ namespace SharePointEmails.Core
                 "EventTypes: " + EventTypes + Environment.NewLine +
                 "State: " + State + Environment.NewLine +
                 "Pattern: " + Body + Environment.NewLine;
-            foreach (var ass in Asses)
+            foreach (var ass in Associations)
             {
                 s += "Ass: " + Environment.NewLine + ass.ToString() + Environment.NewLine;
             }

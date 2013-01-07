@@ -52,7 +52,7 @@ namespace SharePointEmails
         {
             try
             {
-                Application.Current.Logger.WriteTrace("Start OnNotification" + Environment.NewLine + GetTrace(ahp), SharePointEmails.Logging.SeverityEnum.Verbose);
+                Application.Current.Logger.WriteTrace("Start OnNotification" + Environment.NewLine + GetTrace(ahp), SharePointEmails.Logging.SeverityEnum.Trace);
                 bool handled = false;
                 
                 using (SPSite site = new SPSite(ahp.siteId))

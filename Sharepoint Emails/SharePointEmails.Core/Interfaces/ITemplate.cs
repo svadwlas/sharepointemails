@@ -26,7 +26,7 @@ namespace SharePointEmails.Core.Interfaces
 
         string Name { get; set; }
 
-        AssociationConfiguration Asses { get; set; }
+        AssociationCollection Associations { get; set; }
 
         IEnumerable<string> SendDraftToAdresses { get; set; }
 

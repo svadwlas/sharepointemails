@@ -63,5 +63,56 @@
       Hello <xsl:call-template name="DUserDisplayName"/>
     </p>
   </xsl:template>
+  <xsl:template name="Approvement">
+    <xsl:variable name="appNode"  select="./d:EventData[1]/d:Approve"/>
+    <xsl:variable name="status"  select="./d:EventData[1]/d:Approve[1]/@Status"/>
+    <xsl:variable name="canApprove"  select="./d:EventData[1]/d:Approve[1]/@CanApprove='true'"/>
+    <xsl:if test="count($appNode)!=0">
+      <xsl:if test="$appNode[1]/@Enabled='true'">
+          <p>
+            Current approvement status is <xsl:value-of select="$status"/>
+            <xsl:if test="$canApprove">
+                You have the permissions to approve or reject these chanegs
+                <a href="/_layouts/approve.aspx?List={SList.ID}&amp;ID={SItem.ID}" class="approveActionLink">
+                  <input type="button" value="Approve Page"/>
+                </a>
+            </xsl:if>
+          </p>
+        </xsl:if>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name ="displayValue">
+    <xsl:param name="value"/>
+    <xsl:param name="noValue"/>
+    <xsl:choose>
+      <xsl:when test="$value!=''">
+        <xsl:value-of select="$value"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$noValue"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  <xsl:template name="dispayFieldValue">
+    <xsl:call-template name="displayValue">
+      <xsl:with-param name="value" select="@Value"/>
+      <xsl:with-param name="noValue" select="'-'"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="dispayNewFieldValue">
+    <xsl:call-template name="displayValue">
+      <xsl:with-param name="value" select="@New"/>
+      <xsl:with-param name="noValue" select="'-'"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="dispayOldFieldValue">
+    <xsl:call-template name="displayValue">
+      <xsl:with-param name="value" select="@Old"/>
+      <xsl:with-param name="noValue" select="'-'"/>
+    </xsl:call-template>
+  </xsl:template>
   
 </xsl:stylesheet>

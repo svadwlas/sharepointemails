@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
 using SharePointEmails.SwitchWebPart;
+using SharePointEmails.Logging;
 
 namespace SharePointEmails.Features.SharePointEmails
 {
@@ -198,7 +199,7 @@ namespace SharePointEmails.Features.SharePointEmails
                 templ[TemplateCT.TemplateBodyUseFile] = true;
                 templ[TemplateCT.TemplateSubjectFile] = getId("subj.xslt");
                 templ[TemplateCT.TemplateBodyFile] = getId("BodyTemplate.xslt");
-                templ[TemplateCT.Associations] = new AssociationConfiguration
+                templ[TemplateCT.Associations] = new AssociationCollection
                 {
                     new GroupAssociation
                     {
@@ -209,13 +210,7 @@ namespace SharePointEmails.Features.SharePointEmails
                     {
                         ItemType=GroupType.AllDocumentLibrary,
                         Name="Default Libraries association"
-                    },
-                    new GroupAssociation
-                    {
-                        ItemType=GroupType.AllTasks,
-                        Name="Default Libraries association"
                     }
-                    
                 }.ToString();
                 templ.Update();
 
@@ -232,7 +227,7 @@ namespace SharePointEmails.Features.SharePointEmails
                 temp2[TemplateCT.TemplateBodyUseFile] = true;
                 temp2[TemplateCT.TemplateSubjectFile] = getId( "subj.xslt");
                 temp2[TemplateCT.TemplateBodyFile] = getId("BodyTemplateForDiscussionBoard.xslt");
-                temp2[TemplateCT.Associations] = new AssociationConfiguration
+                temp2[TemplateCT.Associations] = new AssociationCollection
                 {
                     new GroupAssociation
                     {
@@ -246,6 +241,29 @@ namespace SharePointEmails.Features.SharePointEmails
                     },
                 }.ToString();
                 temp2.Update();
+
+                var temp3 = templates.AddItem();
+
+                temp3[TemplateCT.TemplateName] = "Default template for tasks";
+                temp3[TemplateCT.TemplateState] = TemplateCT.StateChoices.Published;
+                temp3[TemplateCT.TemplateType] = new SPFieldMultiChoiceValue(TemplateCT.TypeChoices.All);
+                temp3[TemplateCT.TemplateFromUseFile] = true;
+                temp3[TemplateCT.TemplateFromFile] = getId("ListAddressTemplate.xslt");
+                temp3[TemplateCT.TemplateReplayUseFile] = true;
+                temp3[TemplateCT.TemplateReplayFile] = getId("ListAddressTemplate.xslt");
+                temp3[TemplateCT.TemplateSubjectUseFile] = true;
+                temp3[TemplateCT.TemplateBodyUseFile] = true;
+                temp3[TemplateCT.TemplateSubjectFile] = getId("subj.xslt");
+                temp3[TemplateCT.TemplateBodyFile] = getId("BodyTemplateForTasks.xslt");
+                temp3[TemplateCT.Associations] = new AssociationCollection
+                {
+                    new GroupAssociation
+                    {
+                        ItemType=GroupType.AllTasks,
+                        Name="Default association for all discussions"
+                    }
+                }.ToString();
+                temp3.Update();
             }
             catch (Exception ex)
             {
@@ -265,6 +283,7 @@ namespace SharePointEmails.Features.SharePointEmails
 
         public override void FeatureActivated(SPFeatureReceiverProperties properties)
         {
+            Application.Current.Logger.WriteTrace("Feature activating", SeverityEnum.Information);
             if (properties.Feature.Parent is SPSite)
             {
                 var site = (SPSite)properties.Feature.Parent;

@@ -83,11 +83,11 @@ namespace SharePointEmails
 
         #region private props
 
-        AssociationConfiguration FromItem
+        AssociationCollection FromItem
         {
             get
             {
-                return AssociationConfiguration.ParseOrDefault(this.ItemFieldValue as string);
+                return AssociationCollection.ParseOrDefault(this.ItemFieldValue as string);
             }
         }
 
@@ -96,16 +96,16 @@ namespace SharePointEmails
             get { return ControlMode == SPControlMode.New || ControlMode == SPControlMode.Edit; }
         }
 
-        public AssociationConfiguration Temp
+        public AssociationCollection Temp
         {
             get
             {
-                AssociationConfiguration res = null;
+                AssociationCollection res = null;
                 if (this.Context.Session != null)
                 {
                     if (this.Context.Session[TempID] != null)
                     {
-                        res = this.Context.Session[TempID] as AssociationConfiguration;
+                        res = this.Context.Session[TempID] as AssociationCollection;
                     }
                 }
                 else
@@ -114,15 +114,15 @@ namespace SharePointEmails
                     {
                         if (this.Context.Cache[TempID] != null)
                         {
-                            res = this.Context.Cache[TempID] as AssociationConfiguration;
+                            res = this.Context.Cache[TempID] as AssociationCollection;
                         }
                     }
                     else
                     {
-                        res = AssociationConfiguration.ParseOrDefault(SPContext.Current.Web.Properties["boo"] as string);
+                        res = AssociationCollection.ParseOrDefault(SPContext.Current.Web.Properties["boo"] as string);
                     }
                 }
-                return res ?? AssociationConfiguration.Empty;
+                return res ?? AssociationCollection.Empty;
             }
 
             set
@@ -674,7 +674,7 @@ namespace SharePointEmails
             association.IncludingChilds = v_Editing_v_ByCT_cb_IncludeChildren.Checked;
         }
 
-        void Update(AssociationConfiguration config)
+        void Update(AssociationCollection config)
         {
             Temp = config;
         }
