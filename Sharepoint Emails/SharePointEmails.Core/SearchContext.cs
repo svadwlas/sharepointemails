@@ -10,13 +10,12 @@ namespace SharePointEmails.Core
 {
     public  class SearchContext:ISearchContext
     {
-
         public static ISearchContext Create(SPList list, int itemId, string eventData, SPEventType type, string receiverEmail)
         {
             return new SearchContext(list,itemId,eventData,type,receiverEmail);
         }
 
-        TemplateTypeEnum get(SPEventType type)
+        TemplateTypeEnum convertEventType(SPEventType type)
         {
             switch (type)
             {
@@ -31,7 +30,7 @@ namespace SharePointEmails.Core
         SearchContext(SPList list, int itemId, string eventData, SPEventType type, string receiverEmail)
         {
             List = list;
-            Type = get(type);
+            Type = convertEventType(type);
             ItemId = itemId;
             m_receiverEmail = receiverEmail;
 
@@ -57,7 +56,7 @@ namespace SharePointEmails.Core
 
         public TemplateTypeEnum Type { set; get; }
 
-        int CheckAsses(ITemplate template)
+        int CheckAssociations(ITemplate template)
         {
             int res = SearchMatchLevel.NONE;
             foreach (var ass in template.Associations)
@@ -68,7 +67,7 @@ namespace SharePointEmails.Core
             return res;
         }
 
-        public int Match(ITemplate template)
+        public int MatchTemplate(ITemplate template)
         {
             if (template.State == TemplateStateEnum.Draft)
             {
@@ -79,7 +78,7 @@ namespace SharePointEmails.Core
             }
             if ((Contains((int)Type, template.EventTypes)) || (Contains(template.EventTypes, Type)))
             {
-                return CheckAsses(template);
+                return CheckAssociations(template);
             }
             else
             {
@@ -87,17 +86,17 @@ namespace SharePointEmails.Core
             }
         }
 
-        public bool Contains(int parent,int type)
+        public bool Contains(int templateType,int type)
         {
-            return (((int)parent & type) != 0);
+            return (((int)templateType & type) != 0);
         }
-        public bool Contains(int parent, TemplateTypeEnum type)
+        public bool Contains(int templateType, TemplateTypeEnum type)
         {
-            return (((int)parent & (int)type) != 0);
+            return (((int)templateType & (int)type) != 0);
         }
-        public bool Contains(TemplateTypeEnum parent, TemplateTypeEnum type)
+        public bool Contains(TemplateTypeEnum templateType, TemplateTypeEnum type)
         {
-            return Contains((int)parent,(int)type);
+            return Contains((int)templateType,(int)type);
         }
 
         public Guid SiteId

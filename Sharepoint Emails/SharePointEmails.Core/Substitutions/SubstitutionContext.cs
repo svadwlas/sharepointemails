@@ -289,8 +289,5 @@ namespace SharePointEmails.Core.Substitutions
         }
 
         #endregion
-
-        
     }
-
 }

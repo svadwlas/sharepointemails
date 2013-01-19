@@ -20,13 +20,13 @@ namespace SharePointEmails.Core.Substitutions
         public SubstitutionWorker(ILogger logger, List<ISubstitution> sustitutions)
         {
             m_Logger = logger;
-            m_substitutions = sustitutions ?? new List<ISubstitution>(); ;
+            m_substitutions = sustitutions ?? new List<ISubstitution>();
             m_alreadyProcessed = new List<ISubstitution>();
         }
 
-        public string OnPartLoaded(string part)//some substitutions can include new parts to template so we need process them with already processed substitutions
+        public string OnPartLoaded(string includedPart)//some substitutions can include new parts to template so we need process them with already processed substitutions
         {
-            return Process(part, m_alreadyProcessed, m_currentContext, null);
+            return Process(includedPart, m_alreadyProcessed, m_currentContext, null);
         }
 
         string Process(string res, IList<ISubstitution> substitutions, ISubstitutionContext context, Action<ISubstitution> processedCallback)
@@ -42,21 +42,18 @@ namespace SharePointEmails.Core.Substitutions
                         m_currentContext = context;
                         substitution.Worker = this;
                         res = substitution.Process(res, context);
-                    }
-                    catch (Exception ex)
-                    {
-                        m_Logger.WriteTrace(ex, SeverityEnum.CriticalError);
-                    }
-                    finally
-                    {
+                        m_Logger.WriteTrace("FINISHED substitution : " + substitution.GetType().Name + "with result template :" + Environment.NewLine + res, SeverityEnum.Verbose);
                         if (processedCallback != null)
                         {
                             processedCallback(substitution);
                         }
-                        m_Logger.WriteTrace("FINISHED substitution : " + substitution.GetType().Name + "with result template :" + Environment.NewLine + res, SeverityEnum.Verbose);
+                    }
+                    catch (Exception ex)
+                    {
+                        m_Logger.WriteTrace("Error from substitution" + substitution.GetType().Name, ex, SeverityEnum.CriticalError);
+                        throw;
                     }
                 }
-                
             }
             m_Logger.WriteTrace("FINISHED Processing following data:" + Environment.NewLine + res, SeverityEnum.Verbose);
             return res;

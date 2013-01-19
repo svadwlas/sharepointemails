@@ -19,11 +19,6 @@ namespace SharePointEmails.Core.Substitutions
             get { return @"\{([^\$ ]+?)\}"; }
         }
 
-        public string Description
-        {
-            get { return "Context variables"; }
-        }
-
         public override string Process(string text, ISubstitutionContext context)
         {
             var res = text;

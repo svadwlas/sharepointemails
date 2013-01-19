@@ -19,14 +19,6 @@ namespace SharePointEmails.Core.Substitutions
             }
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Field substitution";
-            }
-        }
-
         public override string Process(string text, ISubstitutionContext context)
         {
             string res = text;

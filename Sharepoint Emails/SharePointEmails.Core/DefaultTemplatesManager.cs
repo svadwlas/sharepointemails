@@ -44,7 +44,7 @@ namespace SharePointEmails.Core
                 {
                     foreach (var item in TemplatesList.Create(list))
                     {
-                        var res = context.Match(item);
+                        var res = context.MatchTemplate(item);
                         if (res != SearchMatchLevel.NONE)
                         {
                             matched[item] = res + deep;

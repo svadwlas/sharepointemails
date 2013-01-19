@@ -13,7 +13,7 @@ namespace SharePointEmails.Layouts.SharePointEmails
     {
         WebConfiguration getExisted()
         {
-            return global::SharePointEmails.Core.Application.Current.WebConfig(Web);
+            return global::SharePointEmails.Core.Application.Current.GetWebConfiguration(Web);
         }
 
         WebConfiguration Config

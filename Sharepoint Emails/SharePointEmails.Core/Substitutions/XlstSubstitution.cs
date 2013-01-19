@@ -13,16 +13,6 @@ namespace SharePointEmails.Core.Substitutions
 {
     public class XlstSubstitution : BaseSubstitution
     {
-        public string Pattern
-        {
-            get { return "XSLT"; }
-        }
-
-        public string Description
-        {
-            get { return "eXtensible Stylesheet Language Transformations"; }
-        }
-
         public override string Process(string text, ISubstitutionContext context)
         {
             try
@@ -31,13 +21,13 @@ namespace SharePointEmails.Core.Substitutions
                 var xml = context.GetXML();
                 var log = new StringBuilder();
                 log.AppendLine("Applying XSLT");
-                log.AppendLine("Template");
+                log.AppendLine("Template:");
                 log.AppendLine(text);
 
                 
                 if (!text.IsXslt())
                 {
-                    log.AppendLine("Template is wrong");
+                    log.AppendLine("Template is not xslt");
                     res = text;
                 }
                 else
@@ -53,14 +43,12 @@ namespace SharePointEmails.Core.Substitutions
             }
             catch (XsltException ex)
             {
-                Logger.WriteTrace("Cannot parse or transform template. maybe because it is not xslt template", SeverityEnum.Warning);
-                Logger.WriteTrace(ex, SeverityEnum.Warning);
+                Logger.WriteTrace("Cannot parse or transform template. maybe because it is not xslt template",ex, SeverityEnum.Warning);
                 return text;
             }
             catch (Exception ex)
             {
-                Logger.WriteTrace("ERROR DURIN|G GEMERATING OUTPUT HTML", SeverityEnum.CriticalError);
-                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace("ERROR DURIN|G GEMERATING OUTPUT HTML",ex, SeverityEnum.CriticalError);
                 return text;
             }
         }

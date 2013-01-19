@@ -24,14 +24,14 @@ namespace SharePointEmails.Core.Substitutions
                     try
                     {
                         var lcid = (uint)Thread.CurrentThread.CurrentCulture.LCID;
-                        var fieldTextValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
-                        if (fieldTextValue != null && fieldTextValue.StartsWith("$Resources:"))
+                        var resourceValue = SPUtility.GetLocalizedString("$Resources:" + m.Groups[2].Value, m.Groups[1].Value, lcid);
+                        if (resourceValue != null && resourceValue.StartsWith("$Resources:"))
                         {
                             Logger.WriteTrace(string.Format("{0} - is not localized for LCID={1}", m.Value, lcid), SeverityEnum.Warning);
                         }
-                        if (fieldTextValue != null)
+                        if (resourceValue != null)
                         {
-                            res = res.Replace(m.Value, fieldTextValue);
+                            res = res.Replace(m.Value, resourceValue);
                         }
                     }
                     catch (Exception ex)

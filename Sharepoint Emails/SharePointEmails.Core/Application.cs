@@ -63,7 +63,7 @@ namespace SharePointEmails.Core
         }
         ILogger _Logger;
 
-        ITemplatesManager Manager
+        ITemplatesManager TemplateManager
         {
             get
             {
@@ -90,7 +90,7 @@ namespace SharePointEmails.Core
             var temp = web;
             while (temp != null)
             {
-                var config = WebConfig(temp);
+                var config = GetWebConfiguration(temp);
                 if (config != null)
                 {
                     if (temp.Equals(web) && ((config.Disabled)))
@@ -102,42 +102,47 @@ namespace SharePointEmails.Core
             return false;
         }
 
-        public WebConfiguration WebConfig(SPWeb web)
+        public WebConfiguration GetWebConfiguration(SPWeb web)
         {
             var configManager = ClassContainer.Instance.Resolve<ConfigurationManager>();
             var res = configManager.GetConfigOrdefault(web);
             return res;
         }
 
-        public SEMessage OnNotification(SPWeb web, SPAlertHandlerParams ahp)
+        /// <summary>
+        /// On alert notification
+        /// </summary>
+        /// <param name="web">current web</param>
+        /// <param name="eventArgs">params of alert and event</param>
+        /// <returns>Generated cutom message</returns>
+        public SEMessage OnNotification(SPWeb web, SPAlertHandlerParams eventArgs)
         {
             SPList list = null;
             var eventID = Guid.NewGuid();
-            if (ahp.a != null)
+            if (eventArgs.a != null)
             {
-                if (ahp.eventData.Length == 1)
+                if (eventArgs.eventData.Length == 1)
                 {
                     GeneratedMessage message = null;
-                    var receiverEmail = ahp.headers["to"];
-                    var ed = ahp.eventData[0];
-                    list = web.Lists[ahp.a.ListID];
+                    var receiverEmail = eventArgs.headers["to"];
+                    var ed = eventArgs.eventData[0];
+                    list = web.Lists[eventArgs.a.ListID];
                     try
                     {
-                        message = GetMessageForItem(eventID,list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, ahp.a.UserId);
+                        message = GetMessageForItem(eventID, list, ed.itemId, (SPEventType)ed.eventType, ed.eventXml, ed.modifiedBy, receiverEmail, eventArgs.a.UserId);
                     }
                     catch (SeTemplateNotFound ex)
                     {
-                        Application.Current.Logger.WriteTrace("TEMPLATE NOT FOUND", SharePointEmails.Logging.SeverityEnum.Verbose);
-                        Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.Warning);
+                        Application.Current.Logger.WriteTrace("TEMPLATE NOT FOUND", ex, SharePointEmails.Logging.SeverityEnum.Verbose);
                     }
                     catch (Exception ex)
                     {
                         Application.Current.Logger.WriteTrace("ERROR DURING GETTING MESSAGE", SharePointEmails.Logging.SeverityEnum.Verbose);
-                        Application.Current.Logger.WriteTrace(ex, SharePointEmails.Logging.SeverityEnum.CriticalError);
+                        throw;
                     }
                     if (message != null)
                     {
-                        var mail = SEMessage.Create(eventID, message, ahp.headers, ahp.body);
+                        var mail = SEMessage.Create(eventID, message, eventArgs.headers, eventArgs.body);
 
                         Application.Current.Logger.WriteTrace("Message will be sent sent", SharePointEmails.Logging.SeverityEnum.Verbose);
 
@@ -163,6 +168,11 @@ namespace SharePointEmails.Core
             return null;
         }
 
+        /// <summary>
+        /// On Incaming message
+        /// </summary>
+        /// <param name="list">list wich received the message</param>
+        /// <param name="emailMessage">received message</param>
         public void OnIncomingMail(SPList list, Microsoft.SharePoint.Utilities.SPEmailMessage emailMessage)
         {
             Logger.WriteTrace("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
@@ -178,8 +188,7 @@ namespace SharePointEmails.Core
                     }
                     catch (Exception ex)
                     {
-                        Logger.WriteTrace("Error during processing of message", SeverityEnum.CriticalError);
-                        Logger.WriteTrace(ex, SeverityEnum.CriticalError);
+                        Logger.WriteTrace("Error during processing of message",ex, SeverityEnum.CriticalError);
                     }
                 }
                 else
@@ -189,8 +198,7 @@ namespace SharePointEmails.Core
             }
             catch (Exception ex)
             {
-                Logger.WriteTrace("Error in the handler", SeverityEnum.CriticalError);
-                Logger.WriteTrace(ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace("Error in the handler",ex, SeverityEnum.CriticalError);
             }
         }
 
@@ -249,7 +257,7 @@ namespace SharePointEmails.Core
         internal GeneratedMessage GetMessageForItem(Guid eventID, SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
             ISearchContext search = SearchContext.Create(list, ItemID, eventXML, type,receiverEmail);
-            var res = Manager.GetTemplate(search);
+            var res = TemplateManager.GetTemplate(search);
             if (res != null)
             {
                 Logger.WriteTrace("Found template:"+Environment.NewLine+res.ToString(), SeverityEnum.Trace);
@@ -271,7 +279,5 @@ namespace SharePointEmails.Core
         }
 
         #endregion
-
-        
     }
 }
