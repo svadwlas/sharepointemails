@@ -46,32 +46,7 @@ namespace SharePointEmails.Core
         }
         static Application _Curent;
 
-        public ILogger Logger
-        {
-            get
-            {
-                if (_Logger == null)
-                {
-                    lock (_LoggerLock)
-                    {
-                        if (_Logger == null)
-                        {
-                            _Logger = ClassContainer.Instance.Resolve<ILogger>();
-                        }
-                    }
-                }
-                return _Logger;
-            }
-        }
-        ILogger _Logger;
-
-        ITemplatesManager TemplateManager
-        {
-            get
-            {
-                return ClassContainer.Instance.Resolve<ITemplatesManager>();
-            }
-        }
+        
 
         #region public
 
@@ -262,6 +237,22 @@ namespace SharePointEmails.Core
             get
             {
                 return ClassContainer.Instance.Resolve<SubstitutionManager>();
+            }
+        }
+
+        public ILogger Logger
+        {
+            get
+            {
+                return ClassContainer.Instance.Resolve<ILogger>();
+            }
+        }
+
+        ITemplatesManager TemplateManager
+        {
+            get
+            {
+                return ClassContainer.Instance.Resolve<ITemplatesManager>();
             }
         }
 
