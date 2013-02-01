@@ -7,6 +7,8 @@ namespace SharePointEmails.Core.Interfaces
 {
     public interface ISubstitutionWorker
     {
+        string PreProcess(string data, ISubstitutionContext context);
+        string PostProcess(string data, ISubstitutionContext context);
         string OnPartLoaded(string part);
     }
 }

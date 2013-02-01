@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="70de6943-ffdf-45f8-9e1e-3d778be1951e"
+  name="Associations"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="b7b8b2ee-bc9a-4b8f-82b1-c5370c732336"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails.Core.Associations"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="1b0f2dad-6372-4c8a-80b4-155a2a4c18b4"
+        name="AssociationCollection"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="d52782fb-0212-4b2f-8c91-2b55cc2bdbff"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Associations Type%3DAssociationCollection"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="e316b48d-449d-4141-b1de-66e731564818"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6c832fa8-1651-44ee-8f64-559f63cf296e">
+                <propertyInstance
+                  Id="9b713ab2-19dd-4d93-a12e-344c76b66520"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="32beb877-3b9c-43cc-bfd6-5f41a7e0678e">
+                <propertyInstance
+                  Id="8a712ef1-3735-46e2-b641-04a69ea85f5b"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e8ad442d-fd5d-485b-b819-a9f3ce6151df">
+                <propertyInstance
+                  Id="51147f28-e110-4269-832e-e3b1c845c5fc"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3de4d671-b955-4626-9c9c-c5b73cb6cf9d">
+                <propertyInstance
+                  Id="cf642d9e-c6cc-45f3-b9a8-c8fb366d843c"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ef55f72b-b3fb-4b13-aab1-6812471b23c5">
+                <propertyInstance
+                  Id="833361e6-ed16-4ee1-a2d6-ffa1abd5b4b7"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

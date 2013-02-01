@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="649c78c9-16b4-4c2a-8798-1a680a8d6174"
+  name="Strategies"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="f22b6df9-9938-442e-96ad-1106a86d51b1"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails.Core.MailProcessors.Strategies"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="c80566a9-5af0-465e-9b64-ad6ecfa541e1"
+        name="ITextParserStrategy"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="ef74f6db-c81f-44cf-9dfe-cfb26c95949d"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.MailProcessors.Strategies Type%3DITextParserStrategy"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="2a044b3f-a4be-4558-8678-9be09ee0b3ac"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bd285ae7-7feb-494f-beb4-5b750f6c7c1b">
+                <propertyInstance
+                  Id="8f51abc7-2632-4015-b8b4-4c2699a0112c"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="10ab380e-2413-435d-8d37-00d7285ffadd">
+                <propertyInstance
+                  Id="8f0c9964-fef9-4913-b7c8-cf4596ce71dc"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7c1339ab-a769-4eb1-924f-393dc174bb07">
+                <propertyInstance
+                  Id="e43aac83-b2cd-42ea-b875-936be33d4165"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ced12351-f209-404f-a4c4-16ef3accca3d">
+                <propertyInstance
+                  Id="4f850d14-53b6-47c3-abfd-46c80c457c49"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="98bb04a9-8347-40b1-8d5a-c99775ddd34f"
+  name="MailProcessors"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="17a9c7e4-bacf-49e2-be60-071db9ccaa19"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails.MailProcessors"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="56078fef-6fad-4199-8a53-70081629d34d"
+        name="IncomingDiscussionBoardProcessor"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="88c9650e-5342-4747-948c-4881ea5f05ed"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.MailProcessors Type%3DIncomingDiscussionBoardProcessor"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="49fbdf4c-7da1-4cdd-b6c1-9c96eb49acf0"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6d43053e-c744-4e42-8d79-2df2ba7ff06c">
+                <propertyInstance
+                  Id="5b6c939f-8f72-4ea8-a4e7-a501bcf4914c"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c63d723b-d144-4e0a-9a02-d8bea4653c04">
+                <propertyInstance
+                  Id="736f4caf-40e4-4c31-bc96-b090b37ec853"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fa4a3421-6eea-49cd-891c-36d1146a7e8f">
+                <propertyInstance
+                  Id="9224ea8d-1eb6-4ab8-b7c6-e20f61f474cb"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dd082523-3d03-42c5-a6ef-248727609edb">
+                <propertyInstance
+                  Id="93867f36-3e28-414f-81c4-601724514bff"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0a2606e4-02aa-4c36-a624-58c9111d9757">
+                <propertyInstance
+                  Id="419fa609-da72-4053-889f-0e3a3ca3947f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="b4af70db-35d0-4f47-ba63-de6c73380d38">
+            <interfaceMoniker
+              Id="f3183be7-e591-417f-9dfe-0589bf1e77e8"
+              LastKnownName="IIncomingMessageProcessor"
+              LastKnownLocation="Package10_1312.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="840764a0-6617-4fef-a5c5-6c8c089221f3"
+            name="Process"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="d30a70e7-dd75-4f24-b299-2bd26792c7be"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.MailProcessors Type%3DIncomingDiscussionBoardProcessor Member%3DProcess"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="1acbb702-e059-4707-8e62-b94ee65cfca2"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c67eec55-d37a-43ed-ab1f-e9713fb3173d">
+                    <propertyInstance
+                      Id="b995392b-6b3b-408f-8b78-016ec15a3151"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a422a165-ffc1-48bf-89d3-47cba470d8b3">
+                    <propertyInstance
+                      Id="b0e78230-3481-4484-bcf4-67c0fe5720e5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e85d5846-6aaa-4422-a3b2-99323cf9d97f">
+                    <propertyInstance
+                      Id="81168f4d-3072-4462-a8d7-ae39ce59e470"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8cb1845f-3a4e-4a43-8ad8-81ecaf74bbea">
+                    <propertyInstance
+                      Id="eddde458-b37d-4a5f-ab1f-78e4b987fef1"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d8ee9fb2-7f9c-4a5f-917c-4c46c141be08">
+                    <propertyInstance
+                      Id="5a0a11ce-07de-4ca3-9d90-36e238d639b3"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d063e06f-e951-47fe-931e-d011408b58c8">
+                    <propertyInstance
+                      Id="e7910aa7-ad9c-42e9-9fc1-76edbcae5095"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

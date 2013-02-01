@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="f374b4f0-8bcc-4555-a7ca-a7e20f468f49"
+  name="Configuration"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="4dfa75e3-5695-4084-a790-f00a8b47407e"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails.Core.Configuration"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="f44f4fa5-2270-451a-94e1-b91eb6200d97"
+        name="WebConfiguration"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="dba7d6f3-7af4-4b0a-8dec-08b6287f4af7"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Configuration Type%3DWebConfiguration"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="cb4b8849-5b00-4dbe-8aaa-f8b4021cecd9"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5249f676-6069-4eb6-a6ae-78d689b65e8c">
+                <propertyInstance
+                  Id="f7596e94-e34c-4d6b-8d10-6cf7054de9b2"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cbb3a0ab-02c8-433d-be0b-4cddc1838e66">
+                <propertyInstance
+                  Id="c3d91d21-f0c5-4d7b-9eeb-2f628cf10fa8"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9d1f0f12-1da7-4f79-83e2-8cc6f74f7031">
+                <propertyInstance
+                  Id="74046a3e-c523-46f1-a007-4a4cc6f36ba8"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4ad28191-86a2-401c-a08a-9a45f4aea4a9">
+                <propertyInstance
+                  Id="73650b5c-701b-4c55-a709-62747961861b"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dadcc463-953c-43ca-9c98-9d0f7422cf74">
+                <propertyInstance
+                  Id="c1100219-a65e-434c-85db-9cc87ab34a5e"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0727e52e-de77-455e-9fbb-4642d49cf90e"
+        name="ConfigurationManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="9f7cdf29-97c0-42ae-aeba-bc86813695ec"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Configuration Type%3DConfigurationManager"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="0065ea52-a833-461a-b395-6b4883c7d8b8"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8f8c6c0c-2361-46c6-9c65-5ece7fcee1ce">
+                <propertyInstance
+                  Id="8570609f-f519-449d-bd37-21b7ecbbc9a1"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f94c7133-72b7-42bf-8123-fb7a48102495">
+                <propertyInstance
+                  Id="746afc81-4617-4e22-8776-189a8cddf27e"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ca13f54c-d683-4125-a1b2-b7fb7f26d65d">
+                <propertyInstance
+                  Id="04ae9aea-e016-45de-b687-1995265e2cc6"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9b45eb7f-6cbd-4774-902d-8160a4b7d8b8">
+                <propertyInstance
+                  Id="06f8e5ef-3223-432e-9b89-1e6f199cbf7b"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="015270b5-96cb-45d7-a26f-a4f833cf986f">
+                <propertyInstance
+                  Id="1a7e7b0f-60ef-4d38-b80f-4f5940ab97e8"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="f4426e20-4a11-4784-b6ba-3d1437cd8b34">
+            <interfaceMoniker
+              Id="d55c4617-4d78-4484-a7fc-2ae18f81e22c"
+              LastKnownName="IConfigurationManager"
+              LastKnownLocation="Package4_1312.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="fc1665f2-b8b9-43ab-a3df-805b6ebbf2d1"
+        name="FarmConfiguration"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="a4a78f2f-4512-47de-b497-1ef3a7353ad2"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Configuration Type%3DFarmConfiguration"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="1701fb93-0611-4a6a-8add-bbdff9d26cef"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="51fb0473-c54d-4712-9e54-356a71af6de5">
+                <propertyInstance
+                  Id="608bb736-a9ea-4e05-8e18-61f0759cdf89"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0f0b148e-832a-4072-ad8d-beb9d6df3f90">
+                <propertyInstance
+                  Id="5340c267-beee-4935-89dc-2c11ed0d521c"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5273e674-1ae0-49c5-8b3b-94262df106cf">
+                <propertyInstance
+                  Id="25c3d3db-0ef2-4b3e-85b6-ff72ee339b07"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d17bb682-ae94-4a5d-99d1-a5d54e332f40">
+                <propertyInstance
+                  Id="b50d33e7-c336-45cf-a95a-8bb478a6681e"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="37a797c2-25b8-4643-8313-09f1bb8872ea">
+                <propertyInstance
+                  Id="880d201b-7047-4d73-a93f-c285801d9d5c"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="d55c4617-4d78-4484-a7fc-2ae18f81e22c"
+        name="IConfigurationManager"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="67d110a3-aabd-4b82-bc31-65c3c2f11194"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Configuration Type%3DIConfigurationManager"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3e9509a9-ddeb-475d-8e87-5c45a780ca97"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="866fbf65-c665-4eb0-ad93-dc731315fd33">
+                <propertyInstance
+                  Id="4278ba66-d648-422e-8d4e-919dd74ec074"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8441da67-7c6c-4b00-b76b-95be620a9db1">
+                <propertyInstance
+                  Id="32c78de3-1724-4f54-8fc4-f216e32c7222"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="82416304-fd28-4d69-b895-be028279e8e3">
+                <propertyInstance
+                  Id="917f1390-21db-4930-8f04-331143558496"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="853cddd0-3edb-4cf8-8ed4-77c1a3aec496">
+                <propertyInstance
+                  Id="8ce708c8-c2f3-4153-bee3-991502ec9929"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

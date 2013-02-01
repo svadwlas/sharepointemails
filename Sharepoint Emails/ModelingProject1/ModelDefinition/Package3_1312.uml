@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="62031595-4abb-4c4d-a04b-edc3ce98335e"
+  name="SharePoint"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="560b1a41-8b0f-4cd3-af64-e7cf470b54b4"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DMicrosoft.SharePoint"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="443deec9-7863-450b-862e-9c400091d862"
+        name="SPSite"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="0cb2ccd0-46e8-4318-b7b8-da102a08533e"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPSite"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="f126430a-99f8-4981-a5e6-b69e390ec68a"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="58d103b7-37a0-4f99-8be2-b2ec5b1cd281">
+                <propertyInstance
+                  Id="7dd6320a-4534-47bb-9a5d-a4a6d61e7e50"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9e917e35-6620-4400-9286-1373d1c957b3">
+                <propertyInstance
+                  Id="c9caa61a-f7c1-429a-afca-d02216cfc63c"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c7d81acd-b22e-4b40-881a-3c097df3855b">
+                <propertyInstance
+                  Id="d3c175c2-ddff-4ddc-87bc-3e73feb584ac"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9473da50-bf76-4e93-a2ad-2ecef7a4f022">
+                <propertyInstance
+                  Id="d6015960-1658-4cb5-af11-747ff531b554"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f1e97e4e-c691-462a-bd4b-bcc7f490a2b2">
+                <propertyInstance
+                  Id="6f43f852-55ce-4cbb-9c92-7f8e501fabba"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f418bb26-0cdd-49d8-9649-18ef63f6b652"
+        name="SPWeb"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="a6a7512a-98f0-4c10-a415-c00c5765bfd9"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPWeb"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="78eedf17-7731-4b00-bc3d-7cae7980988a"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dfaa47c1-a685-4442-824b-1c826258cbec">
+                <propertyInstance
+                  Id="3307b469-b879-40d5-87a6-71d29d2888fb"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b20eed7b-3d69-4e98-8c3d-c7eb68039221">
+                <propertyInstance
+                  Id="f6cf90da-2cb0-4061-bf4f-0696fc871d71"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="414f374c-d7d2-4eb4-8c1c-d52031a35e78">
+                <propertyInstance
+                  Id="ad0f1519-7fac-47f2-bab5-4879e4db34c7"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="411b1798-392d-4031-95b7-476e6509b712">
+                <propertyInstance
+                  Id="33057676-9882-4fda-b892-5d466dbe0247"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="78348fb2-e0cf-41f1-aba5-b640f4ae6aba">
+                <propertyInstance
+                  Id="0bf355cf-c905-4ae9-b1ca-0e5ce75c802c"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8d25de22-d22a-43d7-81d8-d99c1dbb7167"
+        name="SPAlertHandlerParams"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="2c44e43a-0119-44b8-bc20-e1f506663e03"
+            handle="viewcode://./CodeSchema_Struct?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPAlertHandlerParams"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="7c82f436-1bd4-45dc-a9a2-53f1508c76f2"
+            name="struct"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2f21a119-bbb1-46e1-98b0-46527759d217">
+                <propertyInstance
+                  Id="123b9a30-4654-4e2e-b2a3-73fc76cc098b"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="df8b96aa-bc74-420b-8b20-5685e8bd505b">
+                <propertyInstance
+                  Id="fdf2782c-ff39-4688-bcc7-1f1c436a7e1b"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f98edc52-81a5-41c5-b1ab-4e74b1b80f36">
+                <propertyInstance
+                  Id="56c293a0-dda9-49c8-8112-7f20d0bf3216"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="39ddb245-3a88-4126-bb90-8f98f8f67c37">
+                <propertyInstance
+                  Id="39ee45e6-430f-45bb-b270-f50423b8a493"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="53a998e1-9eb9-48b4-a69c-d9e611eb14d5"
+        name="SPList"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="3b75ff9c-2ddf-4898-9045-70ff186cd12b"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5e2eea7b-7217-478b-af67-77a19a5b762a"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c094dd01-6fe2-46dd-b5e0-ec1d79354ba1">
+                <propertyInstance
+                  Id="3a21d889-ba92-476c-8ce7-df55451cae6f"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d902322b-b303-469a-872e-d09c8b1db3ad">
+                <propertyInstance
+                  Id="6a2a112d-61f1-4b4c-8d02-a0b0162ba17a"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ba53f28b-8959-467c-8723-ac783fedfbe9">
+                <propertyInstance
+                  Id="9b58f94d-9c10-4aea-8e47-33d14ec632b1"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e4edbe69-2a9a-40a4-9c25-8f33c3be95db">
+                <propertyInstance
+                  Id="b8e968ec-69cb-4d9b-bd86-9c61dff05ace"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="49b6819e-5b3a-49dd-bdca-a0b2a5c49996">
+                <propertyInstance
+                  Id="2d82bbc4-b631-4b31-8ade-e1d129ab1c68"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="84ee2a8f-9d2d-4525-acf6-196cb1d63c50"
+        LastKnownName="Utilities"
+        LastKnownLocation="Package6_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="a3722e65-0156-4a65-931f-9b04f572cc7b"
+        name="SPEventType"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="bf618761-149a-4db3-87e2-3f17bc6a88ce"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPEventType"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="69a4e031-68b9-4fac-a74c-aa4c4c59b765"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="704d2f01-d150-47a2-bcf8-269cd0a462f5">
+                <propertyInstance
+                  Id="c5dbd406-1048-4ec4-bee5-afd845733e73"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="888d99f3-7ad8-4c30-be02-7af9ee7b3e17">
+                <propertyInstance
+                  Id="2a2a7bc5-c45c-4ded-8493-7916ea2925d3"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="33f54172-1a04-4a20-a8a5-a30b07bced58">
+                <propertyInstance
+                  Id="1dbd9b21-d954-4b32-ac4f-4d9560fc6905"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5b2e9c3c-22fa-4a0b-8637-480ed7fea307"
+        name="SPListItem"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="59f263d1-3837-4842-bc2c-877fcd700902"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPListItem"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="0abcb9e4-350b-4590-9dfe-64f8651adab1"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b8c079f0-b1b9-4f27-9bc8-8695904e47b7">
+                <propertyInstance
+                  Id="183051ed-ab48-4810-8428-419a6358bb24"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="980eb9db-3ad5-40d5-a461-02b8862844e3">
+                <propertyInstance
+                  Id="468fbe52-3b81-4eb3-850a-22a9a2e4e037"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2f642688-d60c-4cd5-be1c-b86564a98959">
+                <propertyInstance
+                  Id="cfac408c-79d9-4335-b5f9-a608aca73b4f"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9f204a00-97ca-42f2-8e11-ae8b02b66f80">
+                <propertyInstance
+                  Id="5088edc3-3bdc-4cf1-83ce-460560ff0456"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="86e51953-a0ea-4ecf-bd5b-38ca77749d0e">
+                <propertyInstance
+                  Id="151e5aad-c78f-411a-8216-f4f1b3f50086"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8641649f-e8c1-46f7-9ae5-13bb974f2a90"
+        name="SPDocumentLibrary"
+        visibility="Private"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="16c2f85d-1af3-4aa1-a5dc-ba7aa2862248"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPDocumentLibrary"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="4c77f8e5-73c9-45ed-a971-43f0941ad8c9"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8046a305-6fac-45c5-9fad-84cf91849a74">
+                <propertyInstance
+                  Id="d070b2f9-9cce-4a3b-8aa7-d523da82133f"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3352709d-f32e-4e6a-972d-411c8f9d996e">
+                <propertyInstance
+                  Id="4f2bd8de-f87d-464c-87ff-3d3061003b10"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4d53cfb1-04a8-4e2a-b12d-81fd3eb0f56b">
+                <propertyInstance
+                  Id="d4610d86-473f-4c31-8d44-ee5e568ba5e7"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="391a368e-a9a1-43cb-b6df-c73fdf7876e8">
+                <propertyInstance
+                  Id="bd0cdca3-ba09-4d5d-ae41-516ef9c238bb"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="71bc6707-43b4-4c87-a4d7-ac89a48f1ef0">
+                <propertyInstance
+                  Id="fa4a5e5b-b7ec-4c2a-bd06-dee4e6113c12"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="f266f6b9-8181-49fc-98e5-5206190ad81e"
+            isSubstitutable="false">
+            <classMoniker
+              Id="53a998e1-9eb9-48b4-a69c-d9e611eb14d5"
+              LastKnownName="SPList"
+              LastKnownLocation="Package3_1312.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="bcb9afcd-7d6e-422b-a17d-af492236b8d1"
+        name="SPContentTypeId"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="ae4bd14e-3312-408e-b89f-7efe9a0a3be2"
+            handle="viewcode://./CodeSchema_Struct?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPContentTypeId"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ece901a0-ff72-45bb-b670-bf0f0a9942f3"
+            name="struct"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c4ab8d2d-40c6-49da-8917-c84b811bfbb3">
+                <propertyInstance
+                  Id="3f05ae04-7080-4317-bb92-cafec1775a0d"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="158afd8d-6ade-4ce6-a804-940b2c5c1e21">
+                <propertyInstance
+                  Id="85375d6a-81d0-48ca-bee1-567e7a908fde"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0cc83f3e-2012-4667-92c7-a5c5732bd0c2">
+                <propertyInstance
+                  Id="eb5e6a99-1b77-4ebd-b698-90576726c8ed"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4dc04d1c-8d4f-4fa6-9ca4-22ae50e1f8ca">
+                <propertyInstance
+                  Id="09c58875-95b0-43db-a7d5-855664badd7a"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="4b80b470-631c-450e-9ea0-aed54075d630"
+        name="SPAlertEventData"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="7f5e1d18-4fe2-44c7-b6e6-6291762f8069"
+            handle="viewcode://./CodeSchema_Struct?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPAlertEventData"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="91291150-d521-4d4a-ac82-e90cecb44744"
+            name="struct"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5bfcbd27-847f-43eb-a41f-a8177c04cbee">
+                <propertyInstance
+                  Id="a95c3457-6d1e-4f84-8612-d704e64036cf"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9ec87776-3443-4724-8c05-167f063ebb1d">
+                <propertyInstance
+                  Id="665c2421-3709-434d-90e2-4aa4021edf58"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5c6cd9a4-23b9-4762-897f-8cb87b63a8d1">
+                <propertyInstance
+                  Id="4d0dc9f0-930e-427d-a20d-4ebf2aaaa6a2"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5d4cf332-899a-4573-b884-56924a5f1b56">
+                <propertyInstance
+                  Id="7c57f2ef-20ad-4a17-97a8-6da14bf45482"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="81ed8f5c-116f-44dd-9acc-89083898070b"
+        name="SPUser"
+        isAbstract="false"
+        isLeaf="true"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="adfba57e-be62-4ee2-a93f-0d01907d895f"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPUser"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5800f60d-044c-410b-a058-85ebbd7b9199"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dbaf98de-2806-45eb-9687-06ae3eb8e46e">
+                <propertyInstance
+                  Id="e4b293aa-2bc5-4c94-93ae-3c27246aa905"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bc621daf-a4f1-4af2-a9fa-e69769fdf983">
+                <propertyInstance
+                  Id="33ac63b1-2b11-4635-b324-df829d2e963c"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bb9f8ac6-43ef-42bc-bd28-b80fc366c792">
+                <propertyInstance
+                  Id="bf5c7a8c-c1cc-43a5-9916-4322f56e0332"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="97874de4-966b-4d0f-9ef3-75801c05186a">
+                <propertyInstance
+                  Id="b3d00d4d-052a-47dd-a545-3b26af22b5e2"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d6b86d83-bf9b-42a5-ad51-b6d748642cfb">
+                <propertyInstance
+                  Id="b378b6c1-b826-4050-981b-ea24dbc77beb"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f5130a0e-b1d7-4e34-b06d-8811d6ca22a1"
+        name="SPEmailEventReceiver"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="2bc87e81-0c80-470a-a750-65eb4abcf3f2"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPEmailEventReceiver"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="28e6d0e4-99fd-45da-be72-c4bc319a6656"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2d4872f5-9cbb-4814-8e79-6244d6817ad4">
+                <propertyInstance
+                  Id="a5c4aa8c-8fff-4d10-9baf-8966e4d90f3a"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="db59a24d-81cf-44cf-8a82-62c8933078cd">
+                <propertyInstance
+                  Id="5d4ca2d3-4a15-4509-80b9-733030f81be4"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="03908de2-79ce-452a-bb85-59e7028462e1">
+                <propertyInstance
+                  Id="8cb6f3ec-f503-4cfb-a39d-3f223d46bf70"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="80a521db-3429-44db-82af-6b81f1834801">
+                <propertyInstance
+                  Id="144c6d2c-d3c5-4f3c-8934-e97fe9a03536"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="77de165b-9df8-4609-a926-ad7058e360bc">
+                <propertyInstance
+                  Id="0a1a4ee0-6671-463e-b308-be14dea21080"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="0656bddc-769a-4326-9621-13e566cf7d04"
+        name="IAlertNotifyHandler"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="75cccee9-8bb4-4f3b-ba3c-bec72aabfb00"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DIAlertNotifyHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="0eadda91-6e64-4bc8-a9ee-23e77b06f901"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7627b20d-2f4c-4c63-952b-5e478ee62bb0">
+                <propertyInstance
+                  Id="31cd1e67-e3f9-4775-ab9d-fd547437acbc"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="823c4594-2a38-44f0-96e6-59bd6727d662">
+                <propertyInstance
+                  Id="bb50121d-6bc1-4598-9b69-033398ea6222"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e2ee5bf8-2805-4d0e-ac45-97d2ce670a67">
+                <propertyInstance
+                  Id="82db3418-7bfd-4908-b961-027df58be65a"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="789bad13-7b20-43bd-b77a-fa45d78ffc49">
+                <propertyInstance
+                  Id="f57c0b0f-fe67-4017-ad82-1677ee9ce0ed"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

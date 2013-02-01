@@ -7,6 +7,7 @@ using Microsoft.Practices.Unity;
 using SharePointEmails.Core.Configuration;
 using SharePointEmails.Core.Substitutions;
 using SharePointEmails.Core.Interfaces;
+using SharePointEmails.Core.Transformations;
 
 namespace SharePointEmails.Core
 {
@@ -57,6 +58,7 @@ namespace SharePointEmails.Core
             container.RegisterType<ITemplatesManager, DefaultTemplatesManager>();
             container.RegisterType<ISiteManager, SiteManager>();
             container.RegisterType<SubstitutionManager, SubstitutionManager>();
+            container.RegisterType<TransformationManager, TransformationManager>();
         }
 
         private UnityContainer Container

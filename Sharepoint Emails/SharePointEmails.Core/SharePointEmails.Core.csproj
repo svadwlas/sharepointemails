@@ -26,6 +26,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -113,8 +115,11 @@
     <Compile Include="Dictionaries\Constants.cs" />
     <Compile Include="DefaultSiteManager.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Enums\MessageFieldType.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
+    <Compile Include="Interfaces\IMianTemplateTransformation.cs" />
+    <Compile Include="Interfaces\ISubstitutionManager.cs" />
     <Compile Include="Substitutions\BaseSubstitution.cs" />
     <Compile Include="Interfaces\ISubstitutionWorker.cs" />
     <Compile Include="MailProcessors\EmailReceiver.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Substitutions\ContextSubstitution.cs" />
     <Compile Include="Substitutions\ContextVars.cs" />
     <Compile Include="Substitutions\DiscussionBoardXml.cs" />
+    <Compile Include="Transformations\MainTransformation.cs" />
     <Compile Include="Substitutions\Modifier.cs" />
     <Compile Include="Substitutions\OneLineSubstitution.cs" />
     <Compile Include="Substitutions\RemoveXmlTagsSubstitution.cs" />
@@ -153,7 +159,8 @@
     <Compile Include="Substitutions\FieldSubstitution.cs" />
     <Compile Include="Substitutions\SubstitutionContext.cs" />
     <Compile Include="Substitutions\SubstitutionManager.cs" />
-    <Compile Include="Substitutions\XlstSubstitution.cs" />
+    <Compile Include="Transformations\TransformationManager.cs" />
+    <Compile Include="Transformations\XsltTransformation.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="SearchContext.cs" />
     <Compile Include="DefaultTemplatesManager.cs" />

@@ -8,19 +8,20 @@ using SharePointEmails.Core.Interfaces;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    public class SubstitutionWorker : ISubstitution, ISubstitutionWorker
+    public class SubstitutionWorker : ISubstitutionWorker
     {
-        private List<ISubstitution> m_substitutions; //all substitutions
+        private List<ISubstitution> m_preSubstitutions; //all pre substitutions
+        private List<ISubstitution> m_postSustitutions; //all post substitutions
         private List<ISubstitution> m_alreadyProcessed;//substitutions which have been already used
 
         private ILogger m_Logger;
 
         private ISubstitutionContext m_currentContext;
 
-        public SubstitutionWorker(ILogger logger, List<ISubstitution> sustitutions)
+        public SubstitutionWorker(ILogger logger, List<ISubstitution> sustitutions, List<ISubstitution> postsustitutions)
         {
             m_Logger = logger;
-            m_substitutions = sustitutions ?? new List<ISubstitution>();
+            m_preSubstitutions = sustitutions ?? new List<ISubstitution>();
             m_alreadyProcessed = new List<ISubstitution>();
         }
 
@@ -59,18 +60,22 @@ namespace SharePointEmails.Core.Substitutions
             return res;
         }
 
-        public string Process(string data, ISubstitutionContext context)
+        public string PreProcess(string data, ISubstitutionContext context)
+        {
+            return Process(data, m_preSubstitutions, context);
+        }
+
+        string Process(string data, IList<ISubstitution> subs, ISubstitutionContext context)
         {
             var res = data ?? "";
             m_alreadyProcessed.Clear();
-            res = Process(data, m_substitutions, context, (s) => m_alreadyProcessed.Add(s));
+            res = Process(data, subs, context, (s) => m_alreadyProcessed.Add(s));
             return (string.IsNullOrEmpty(res)) ? "empty" : res;
         }
 
-
-        public ISubstitutionWorker Worker
+        public string PostProcess(string data, ISubstitutionContext context)
         {
-            get;set;
+           return Process(data, m_postSustitutions, context);
         }
     }
 }

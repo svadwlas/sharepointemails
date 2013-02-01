@@ -12,6 +12,8 @@ using System.IO;
 using System.Collections.Specialized;
 using SharePointEmails.Core.Interfaces;
 using SharePointEmails.Core.Substitutions;
+using SharePointEmails.Core.Enums;
+using SharePointEmails.Core.Transformations;
 
 namespace SharePointEmails.Core
 {
@@ -169,13 +171,13 @@ namespace SharePointEmails.Core
         }
 
         /// <summary>
-        /// On Incaming message
+        /// On Incoming message
         /// </summary>
         /// <param name="list">list wich received the message</param>
         /// <param name="emailMessage">received message</param>
         public void OnIncomingMail(SPList list, Microsoft.SharePoint.Utilities.SPEmailMessage emailMessage)
         {
-            Logger.WriteTrace("List " + list.Title + " recieved mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
+            Logger.WriteTrace("List " + list.Title + " received mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
             try
             {
                 var processor = ProcessorsManager.Instance.CreateIncomingProcessor(list, SEMessage.Create(emailMessage));
@@ -225,24 +227,34 @@ namespace SharePointEmails.Core
         {
             var text = new StringBuilder();
             text.AppendLine("GENERATED message\r\n");
-
             foreach (string key in newheaders.Keys)
             {
-                text.AppendLine(key + ":" + newheaders[key]+"\r\n");
+                text.AppendLine(key + ":" + newheaders[key] + "\r\n");
             }
-
             text.AppendLine("Subj:" + Environment.NewLine + message.Subject + Environment.NewLine + "Body:" + Environment.NewLine + message.Body);
-
             Logger.WriteTrace(text.ToString(), SeverityEnum.Trace);
         }
 
-        private string GetProcessedItem(ISubstitutionContext context, string input, SubstitutionManager.WorkerType itemType)
+        private string GetProcessedItem(ISubstitutionContext context, string input, MessageFieldType itemType)
         {
             Logger.WriteTrace(string.Format("{0} processing ",itemType),SeverityEnum.Trace);
             var worker = SubstitutionManager.GetWorker(context, itemType);
-            var res= worker.Process(input, context);
+            var res= worker.PreProcess(input, context);
+            var transformation = TransformationManager.GetTransformation(itemType, context);
+            res = transformation.Transform(input, context,worker.OnPartLoaded);
+            res = worker.PostProcess(input, context);
             Logger.WriteTrace(string.Format("{0} result: {1}", itemType,res), SeverityEnum.Trace);
             return res;
+        }
+
+        #region managers
+
+        TransformationManager TransformationManager
+        {
+            get
+            {
+                return ClassContainer.Instance.Resolve<TransformationManager>();
+            }
         }
 
         SubstitutionManager SubstitutionManager
@@ -253,6 +265,7 @@ namespace SharePointEmails.Core
             }
         }
 
+        #endregion
 
         internal GeneratedMessage GetMessageForItem(Guid eventID, SPList list, int ItemID, SPEventType type, string eventXML, string modifierName, string receiverEmail, int alertCreatorID)
         {
@@ -265,10 +278,10 @@ namespace SharePointEmails.Core
                 Logger.WriteTrace("XML data:" + Environment.NewLine + substitutionContext.GetXML(), SeverityEnum.Trace);
                 return new GeneratedMessage
                     {
-                        Body = GetProcessedItem(substitutionContext,res.Body,SubstitutionManager.WorkerType.ForBody),
-                        Subject = GetProcessedItem(substitutionContext, res.Subject, SubstitutionManager.WorkerType.ForSubject),
-                        From = GetProcessedItem(substitutionContext, res.From, SubstitutionManager.WorkerType.ForFrom),
-                        Replay = GetProcessedItem(substitutionContext, res.Replay, SubstitutionManager.WorkerType.ForReplay)
+                        Body = GetProcessedItem(substitutionContext,res.Body,MessageFieldType.ForBody),
+                        Subject = GetProcessedItem(substitutionContext, res.Subject, MessageFieldType.ForSubject),
+                        From = GetProcessedItem(substitutionContext, res.From, MessageFieldType.ForFrom),
+                        Replay = GetProcessedItem(substitutionContext, res.Replay, MessageFieldType.ForReplay)
                     };
             }
             else

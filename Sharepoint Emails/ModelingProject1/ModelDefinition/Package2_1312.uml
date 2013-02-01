@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="ad9af4e6-0d93-4b89-9f69-1c66150dc73a"
+  name="Microsoft"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="9e6be189-e632-408a-9dd3-e89aba4af28e"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DMicrosoft"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="62031595-4abb-4c4d-a04b-edc3ce98335e"
+        LastKnownName="SharePoint"
+        LastKnownLocation="Package3_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="fe0b6b0b-938c-4a25-9b61-c645e7aed944"
+        LastKnownName="Practices"
+        LastKnownLocation="Package_1316.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

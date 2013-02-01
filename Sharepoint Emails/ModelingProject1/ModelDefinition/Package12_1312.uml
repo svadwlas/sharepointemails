@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="a22f2d73-4a04-44c6-85b1-78f94f2da144"
+  name="Logging"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="7ac22fad-2b5d-4967-a796-d68cf1011e1c"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails.Logging"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="6a4985cd-47a5-444e-8280-2ab7c6f43167"
+        name="ILogger"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="d63fcca2-7528-41e2-a940-2521c81548c1"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Logging%2Fbin%2FDebug%2FSharePointEmails.Logging.dll&quot; Namespace%3DSharePointEmails.Logging Type%3DILogger"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="a49801d2-6a8a-4e4f-a6c6-62dd8721edd5"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e96bcfa4-ff39-435c-bf39-b0b158ea4fd6">
+                <propertyInstance
+                  Id="5a92b605-0825-4b19-8874-e5a756c920e8"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="59b73e4d-a387-4870-b6fc-4866bff50be4">
+                <propertyInstance
+                  Id="1a67166c-b328-4412-a68a-a96b97dc36e8"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bcadd20a-b1a0-4405-82ac-0d8906ea0b0b">
+                <propertyInstance
+                  Id="55ade0c6-b942-48d4-9e97-95c17d180e35"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="45dd3a6c-6d85-4787-bb8a-c911a57a1857">
+                <propertyInstance
+                  Id="73683738-40f7-469a-a111-e775e9a14e99"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

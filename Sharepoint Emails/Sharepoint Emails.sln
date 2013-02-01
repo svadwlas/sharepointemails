@@ -29,9 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePointEmails.Functional
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{C2085B48-13DC-4456-8860-80D7ECEB9E68}"
 EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ModelingProject1", "ModelingProject1\ModelingProject1.modelproj", "{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 10
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs27
 		SccLocalPath0 = .
@@ -62,6 +64,9 @@ Global
 		SccProjectUniqueName9 = Test\\Test.csproj
 		SccProjectName9 = Test
 		SccLocalPath9 = Test
+		SccProjectUniqueName10 = ModelingProject1\\ModelingProject1.modelproj
+		SccProjectName10 = ModelingProject1
+		SccLocalPath10 = ModelingProject1
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Sharepoint Emails.vsmdi
@@ -202,6 +207,18 @@ Global
 		{C2085B48-13DC-4456-8860-80D7ECEB9E68}.Release|X64.ActiveCfg = Release|x86
 		{C2085B48-13DC-4456-8860-80D7ECEB9E68}.Release|x86.ActiveCfg = Release|x86
 		{C2085B48-13DC-4456-8860-80D7ECEB9E68}.Release|x86.Build.0 = Release|x86
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Debug|X64.ActiveCfg = Debug|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Release|X64.ActiveCfg = Release|Any CPU
+		{890C2EF9-F837-4776-9524-5BDBBEB6ECE3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

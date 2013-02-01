@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="37ca21c8-9050-4420-8e54-8189915568f1"
+  name="Unity"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="3cadd1fc-82dc-4a5a-8edf-2e444874c8d4"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DMicrosoft.Practices.Unity"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="89b59d11-027c-43e3-ab12-e4e7fd03f23e"
+        name="UnityContainer"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="8d21cc19-0271-49c8-9413-5db923348165"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FThirdParty%2FUnity%2FBin%2FMicrosoft.Practices.Unity.dll&quot; Namespace%3DMicrosoft.Practices.Unity Type%3DUnityContainer"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="0aaa9466-050d-440f-a2ac-ba782960f168"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="817c00e5-c4bf-48dd-9d9f-ae292756a008">
+                <propertyInstance
+                  Id="b58f0bed-b7d9-40f8-a11b-28a0433e145e"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f8475acc-dc54-4015-bb96-4875e998fe86">
+                <propertyInstance
+                  Id="e384f7f9-dc9f-46ed-9c8b-1f37bfaa72f5"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0391b6de-bd18-4ee4-adfc-34008432729e">
+                <propertyInstance
+                  Id="cf48671f-d5a4-4f80-8df6-75e57b9ec92c"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="862f256a-3aca-4417-ad87-187659cd7ea8">
+                <propertyInstance
+                  Id="aa5585bb-b3e7-4411-bf62-d94030f7dfbd"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3c8110b5-fabb-4843-a5b9-e259682b5ef6">
+                <propertyInstance
+                  Id="2f3143db-525c-4f58-8e3e-85ac4e4dc5d0"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

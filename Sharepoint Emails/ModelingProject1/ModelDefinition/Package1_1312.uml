@@ -1,0 +1,2622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="7d04e659-b67c-4dbf-8587-9a006d123a1f"
+  name="Core"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="8de966ad-d4b2-49f7-80c0-1a8bc0970469"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails.Core"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="41983fbb-111e-436b-83dc-a55f07244662"
+        name="Application"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="ed8aca5a-a168-46c2-92cd-63fb7a6e6b1a"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DApplication"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="9d1d598c-f289-44c5-8946-448497ad4722"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0aaabe55-3f8b-48f3-89aa-a4d7527dc4a2">
+                <propertyInstance
+                  Id="6d6d246c-7e28-4c38-af02-538be91b87c9"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e73efa34-bda8-4346-98e1-442e1aae6227">
+                <propertyInstance
+                  Id="66622d29-519b-4bbc-9da5-4b372a09d2f6"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ad7ae240-1909-4f89-a465-628bc72a12c8">
+                <propertyInstance
+                  Id="7d0c5618-f3cb-4f8d-9690-afd2dfe353ee"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a1c64c54-575e-4480-8368-e2c680a67e54">
+                <propertyInstance
+                  Id="8f3e1f33-04c9-4d06-be0d-d5f168344b4c"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="627843a4-78f3-4026-8de1-928887490c65">
+                <propertyInstance
+                  Id="f5b8874c-76f5-4832-baf3-b2da8cadf70a"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="58d169f4-ef85-4f50-a397-068fbed1e8bf">
+            <classMoniker
+              Id="ac6b3016-18d3-4709-969a-5fe1cf76c6b5"
+              LastKnownName="ProcessorsManager"
+              LastKnownLocation="Package5_1312.uml" />
+          </dependency>
+          <dependency
+            Id="5ab19489-ae44-4722-bedc-4038b0a02000">
+            <interfaceMoniker
+              Id="91869c97-281c-42a9-8cae-5de16367212e"
+              LastKnownName="IOutcomingDiscussionBoardProcessor"
+              LastKnownLocation="Package5_1312.uml" />
+          </dependency>
+          <dependency
+            Id="d1f508a4-304a-4ad6-8a2b-ac72cb6ec84f">
+            <interfaceMoniker
+              Id="f3183be7-e591-417f-9dfe-0589bf1e77e8"
+              LastKnownName="IIncomingMessageProcessor"
+              LastKnownLocation="Package10_1312.uml" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="340cebe0-5484-4fa5-bec4-07659acae16c"
+            isDerived="false"
+            sourceEndRoleName="Application"
+            targetEndRoleName="Logger"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="6a4985cd-47a5-444e-8280-2ab7c6f43167"
+              LastKnownName="ILogger"
+              LastKnownLocation="Package12_1312.uml" />
+            <description>Property Logger references type ILogger.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a6e10c7c-dd31-485b-8888-0ad5f11ea6d6"
+                  name="Application"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="102c17d7-c5e0-416d-98bd-305d1c8aa65c"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="c969431a-b748-4c8d-a1f7-51ffaf1c1bc3"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6ee8cd85-2157-491b-8d32-004679fa0464"
+                  name="Logger"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="223aa99e-204c-4e64-9e48-7324f355522c"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="681127da-a426-4f4e-8543-60a72674ea6d"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="cdf3a104-c893-48d9-9a7e-a9399eb853e8"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="9103c036-0786-40eb-a13b-d508573fc812"
+              LastKnownName="ITemplatesManager"
+              LastKnownLocation="Package10_1312.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="741ab292-b146-4b2a-ab63-3541a4340744"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="16d575a4-a86f-4e29-a213-2291e00e398f"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8ade4e34-02df-4154-b8ce-4e73598ffdf0"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="f3e57d06-78a5-4374-881d-2013442a0a42"
+              LastKnownName="ClassContainer"
+              LastKnownLocation="Package1_1312.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a4c58b4e-d7d7-413c-ac00-f21a092b36cf"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9cc1821a-ea13-4da5-b479-c9dbe088ebcc"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="69233848-0a8e-4fa7-b40a-ca295638041b"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="c1f36101-fb5c-4ce2-9ffd-e339b9fd76e8"
+              LastKnownName="ISubstitutionManager"
+              LastKnownLocation="Package10_1312.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="53ddf97e-18bb-4c68-a6c5-42ba060b249e"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cb70540b-5baf-4d59-9647-36a21d273995"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="3bdad101-765c-4f01-b452-5e1045a43890"
+            name="OnIncomingMail"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="f6ce32ee-cc1d-4f4a-9ce3-8f87e043a132"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DApplication Member%3D(Name%3DOnIncomingMail OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e7392df3-b86f-4bcf-bc4d-c6dcdb677c19"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e179788e-fead-44bd-8cbd-ef0f98e07233">
+                    <propertyInstance
+                      Id="2283e9a1-4522-4339-9200-ea172ed261e9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2c6e50fb-2bb7-4be3-9687-742965b72056">
+                    <propertyInstance
+                      Id="208bc14f-6dba-4588-aa63-0515c4573653"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8d62d9e7-901f-4dd7-968f-bc95f0a9eac6">
+                    <propertyInstance
+                      Id="f97e0df0-1fa8-4112-8790-16c4b03f0d0e"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="522c5fa7-5301-4224-bb8b-98609e79dc05">
+                    <propertyInstance
+                      Id="65c7a023-a740-4572-bf27-384b3a77d644"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f1a16f02-df1c-4059-bb26-a5d10a476756">
+                    <propertyInstance
+                      Id="f4bba654-c9d2-43f6-813f-7b59f250a313"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bdac8d41-dd7f-4e47-b801-e916582cfb7e">
+                    <propertyInstance
+                      Id="5a774052-3e52-4ebd-88b4-057ef0dbf46d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6525ec38-3db0-4fd0-a0ff-c75081d32d71"
+                  name="list"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="60b339b9-1868-4fd7-a3a5-9edbeede8cfa"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DApplication Member%3D(Name%3DOnIncomingMail OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)]) ParameterIdentifier%3Dlist"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="53a998e1-9eb9-48b4-a69c-d9e611eb14d5"
+                      LastKnownName="SPList"
+                      LastKnownLocation="Package3_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="07cd8d3e-918f-425e-9fe5-24bbd5c43a2d"
+                  name="emailMessage"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="108e4c3f-648b-4070-bcd4-1fb2e5dfb78c"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DApplication Member%3D(Name%3DOnIncomingMail OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)]) ParameterIdentifier%3DemailMessage"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="22de1a13-78e5-4d53-b578-abbcae1a36c6"
+                      LastKnownName="SPEmailMessage"
+                      LastKnownLocation="Package6_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="f374b4f0-8bcc-4555-a7ca-a7e20f468f49"
+        LastKnownName="Configuration"
+        LastKnownLocation="Package4_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="ca5ccf18-dc61-4f02-a5cb-95241587e050"
+        LastKnownName="MailProcessors"
+        LastKnownLocation="Package5_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f0cb42be-f34c-4486-a951-a12d2fcac792"
+        name="GeneratedMessage"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="9242f24b-a250-496a-ad77-9fe85374cbe3"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DGeneratedMessage"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ac4f82cf-0aea-40c2-b6be-05b076fcf497"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0b8b2be0-332b-4657-b445-98313591bb89">
+                <propertyInstance
+                  Id="e5ec1af1-8045-4a1c-bbab-ed793a8e4c02"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bfc798c5-be84-4bc7-9152-10355e2725ce">
+                <propertyInstance
+                  Id="bbe5080d-17b4-4f22-bdef-f5e9bc8e1177"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="78c5cf5a-8cfe-4036-a746-5f8909a1a03c">
+                <propertyInstance
+                  Id="9ff9d533-61c5-4139-8d0c-a09f2c2d7974"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fea0c100-8142-41fc-84fe-6e0a848dbdb9">
+                <propertyInstance
+                  Id="2df322d4-9da8-497e-840e-ffc6daf54bef"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="273a0840-85d0-4dcc-a3b1-837c0afd5abe">
+                <propertyInstance
+                  Id="aa84ef6f-c5cc-4730-a5f2-11e8fdd3bf5b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="89e0a5da-13e8-45fb-869b-1553f71358af"
+        LastKnownName="Interfaces"
+        LastKnownLocation="Package10_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="ca98342d-ed44-4a47-b08d-6b560ba65e32"
+        LastKnownName="Substitutions"
+        LastKnownLocation="Package11_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="26afce33-ca29-44cb-8cee-04962aaf1a80"
+        name="DefaultTemplatesManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="05062389-e333-44e4-be3f-c34efb647d0c"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DDefaultTemplatesManager"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="f46c71a0-6ef3-4e5d-90db-73c0475b6fbc"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="831f7f85-4997-46d3-b193-3baa864b0e8f">
+                <propertyInstance
+                  Id="d4de2830-91c7-4a15-9738-5f6f8effd9c8"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fe63f800-ad0f-4588-81db-27866ad6e017">
+                <propertyInstance
+                  Id="983e75f7-d44e-450c-976e-58caac43a374"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a289b636-df02-497b-b9b7-eb54b17e1c64">
+                <propertyInstance
+                  Id="b9f3e4a4-4421-4354-8aef-aa3534434e5e"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4465ae15-8996-4960-8f21-7a3edd535a19">
+                <propertyInstance
+                  Id="f7197adf-e8de-4709-9059-2a0a273ac3ed"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e84a27c8-5f61-4528-a5e5-89b6ed20430a">
+                <propertyInstance
+                  Id="15a10410-ad47-4d27-a8a3-6a3d6c796cb7"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="8684576a-5b4d-4cce-bd49-b21cf4e31020">
+            <interfaceMoniker
+              Id="9103c036-0786-40eb-a13b-d508573fc812"
+              LastKnownName="ITemplatesManager"
+              LastKnownLocation="Package10_1312.uml" />
+          </interfaceRealization>
+          <dependency
+            Id="11e7886d-4266-48d0-838d-632a16a08472">
+            <classMoniker
+              Id="388e0542-4000-432e-a9d6-7c9fbb239546"
+              LastKnownName="Template"
+              LastKnownLocation="Package1_1312.uml" />
+          </dependency>
+          <dependency
+            Id="1e5e6148-646b-4e31-9457-1146e00d83fc">
+            <interfaceMoniker
+              Id="2d9acbb4-5a26-45d7-af69-c01a70103085"
+              LastKnownName="ISearchContext"
+              LastKnownLocation="Package10_1312.uml" />
+          </dependency>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="0dffbcca-24ed-40b2-a6ae-2b067c3961d7"
+            name="GetTemplate"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="e534b350-6387-43c8-803d-d09edd7bd2f7"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DDefaultTemplatesManager Member%3D(Name%3DGetTemplate OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Interfaces Type%3DISearchContext)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f0f491df-8efb-4b22-8ca7-c253593ac931"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="85f29eee-ae22-456a-8949-284ea5262602">
+                    <propertyInstance
+                      Id="f13ce43e-b5cc-420d-99f1-68e33836e599"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="63ecb7f5-a0f4-41f0-ae21-0d5420440c2c">
+                    <propertyInstance
+                      Id="c3fff161-d17d-4d16-8815-6b2a120b60c5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ee4db821-dfb2-429a-bf8a-c19b02c7f3a9">
+                    <propertyInstance
+                      Id="27daf4cd-95f9-455d-ac1f-d6fe03907f51"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b6645146-602c-4e9d-bdbc-82cb1cce4a8c">
+                    <propertyInstance
+                      Id="807c8af0-d726-4453-9aa7-b5a5171c203a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="03062402-5623-491f-948f-6688c0e5950e">
+                    <propertyInstance
+                      Id="54373d09-1bee-460f-bd9e-c5121e3fbe4d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bd47b496-4fa0-41c7-ba8a-2a226854532f">
+                    <propertyInstance
+                      Id="f1bbb7e4-40da-4f70-bf7e-1100fe2eb275"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0f75acdb-3274-4c2e-a4c0-5dbc5424184a"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="fb43e2a1-61df-447f-91ce-dfbfe6b2af11"
+                      LastKnownName="ITemplate"
+                      LastKnownLocation="Package10_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="65c314a8-6d6b-481c-bc1f-f780b253cc02"
+                  name="context"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="04b2cbfa-33d4-45ec-b287-cc2b909cf646"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DDefaultTemplatesManager Member%3D(Name%3DGetTemplate OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Interfaces Type%3DISearchContext)]) ParameterIdentifier%3Dcontext"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="2d9acbb4-5a26-45d7-af69-c01a70103085"
+                      LastKnownName="ISearchContext"
+                      LastKnownLocation="Package10_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="09695d77-bb30-43c1-b367-d4b476fd16fa"
+        name="TemplateStateEnum"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="c1bb5e6f-f6bf-4e1c-a685-0e8c2f867b20"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplateStateEnum"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="898e46b5-72a3-4a77-b8a0-18c2ffb402e6"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="55f86025-6cb6-4a13-a362-c959262c0732">
+                <propertyInstance
+                  Id="47441d21-0708-4ba4-b534-0c0441f4d52c"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c13c8204-d41b-4fa1-9156-25fa879feea7">
+                <propertyInstance
+                  Id="502e556c-c079-4a3a-8aa5-229a135ecc9d"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6f66b83d-ad0d-4459-8b58-9bb31049dd66">
+                <propertyInstance
+                  Id="8e4c1ea7-20e1-43b6-a706-6a54315f2367"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="70de6943-ffdf-45f8-9e1e-3d778be1951e"
+        LastKnownName="Associations"
+        LastKnownLocation="Package_1314.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f3e57d06-78a5-4374-881d-2013442a0a42"
+        name="ClassContainer"
+        visibility="Package"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="1c9abf5d-f959-43d4-aaf0-3d5978d2694b"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DClassContainer"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="359fac39-e049-49f7-8c5b-c85b9c1c92a4"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="521c3029-46c8-4d00-b8be-8cfb3f91581b">
+                <propertyInstance
+                  Id="5df1a141-6b21-41d6-b069-47c4b10f68af"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f9c1c4b9-2fa6-40af-9ea4-fccd643775d8">
+                <propertyInstance
+                  Id="2eac9588-cdc2-4188-9887-6375a067beb4"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bc7749a9-474c-4b65-b401-c7a8e8a67b4f">
+                <propertyInstance
+                  Id="d34f66b4-af99-42b7-bd00-01e45af79bba"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5afd0346-9491-4db0-9ae4-13931c04b694">
+                <propertyInstance
+                  Id="5c51cacf-64c2-4a8f-bb8d-978ce2760253"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0860171c-5285-400b-9406-dc8a04e7bc52">
+                <propertyInstance
+                  Id="b615558f-829c-4650-bf83-755fd8abbd18"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="604963fa-1206-416f-80c5-47edfaa60f5a">
+            <classMoniker
+              Id="388e0542-4000-432e-a9d6-7c9fbb239546"
+              LastKnownName="Template"
+              LastKnownLocation="Package1_1312.uml" />
+          </dependency>
+          <dependency
+            Id="37bde752-4cc4-4cdd-8e59-e846e9df1b1f">
+            <classMoniker
+              Id="26afce33-ca29-44cb-8cee-04962aaf1a80"
+              LastKnownName="DefaultTemplatesManager"
+              LastKnownLocation="Package1_1312.uml" />
+          </dependency>
+          <dependency
+            Id="052c4216-5b8b-4497-9efb-eea6f0f0ea60">
+            <classMoniker
+              Id="7d4e5068-fd68-41c7-ba12-68f89a565543"
+              LastKnownName="SearchContext"
+              LastKnownLocation="Package1_1312.uml" />
+          </dependency>
+          <dependency
+            Id="8105ba64-748e-4273-b9bc-e86ebd1da5e9">
+            <classMoniker
+              Id="65d97e2a-f561-47b1-8a63-64acbe23e31d"
+              LastKnownName="SubstitutionContext"
+              LastKnownLocation="Package11_1312.uml" />
+          </dependency>
+          <dependency
+            Id="c52c87bd-eaa9-4b28-a2f5-8fdfcc025750">
+            <classMoniker
+              Id="97317b35-b212-44a0-8d68-d478ca45288b"
+              LastKnownName="SubstitutionManager"
+              LastKnownLocation="Package11_1312.uml" />
+          </dependency>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="02fc7032-c68b-4eb3-93e4-259dbeb83797"
+            name="Register"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="487df7e5-d41e-428b-8a4b-5dc3ffc5e755"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DClassContainer Member%3D(Name%3DRegister OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FThirdParty%2FUnity%2FBin%2FMicrosoft.Practices.Unity.dll&quot; Namespace%3DMicrosoft.Practices.Unity Type%3DUnityContainer)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="dcda82a8-a0c7-4253-b10a-a299640e6a59"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="93bbd05b-ef56-4eea-afdf-f44961e425cb">
+                    <propertyInstance
+                      Id="6b837501-bf77-4c4e-bb2b-490aa276f807"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d8512a59-212c-4d55-870b-bf4c5444ccbf">
+                    <propertyInstance
+                      Id="b03fa81b-5979-4101-a0bd-54b869ae24c8"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="daa3a50d-6912-4edf-be0a-f89becf04632">
+                    <propertyInstance
+                      Id="a3f495b7-81d9-4a4d-b9b1-4f0080a47cee"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e5026255-9a40-4e9e-bde2-e90539d1d7f4">
+                    <propertyInstance
+                      Id="21368fb8-0e5f-427c-b924-af0896fa5283"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d9f2d8c3-8f04-4545-8a19-161037352e3c">
+                    <propertyInstance
+                      Id="a4a1472c-4d6e-441e-a428-d8c19509d734"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c9d3de58-f7e7-49f9-b5c4-5a4c6cce4202">
+                    <propertyInstance
+                      Id="7697b573-cfd2-43ba-b8c7-660c245dfed5"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5d2c80f0-43c6-4bbb-8778-41fceff55439"
+                  name="container"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="1e3afaf8-ede4-4c22-a822-8b50bf357176"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DClassContainer Member%3D(Name%3DRegister OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FThirdParty%2FUnity%2FBin%2FMicrosoft.Practices.Unity.dll&quot; Namespace%3DMicrosoft.Practices.Unity Type%3DUnityContainer)]) ParameterIdentifier%3Dcontainer"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="89b59d11-027c-43e3-ab12-e4e7fd03f23e"
+                      LastKnownName="UnityContainer"
+                      LastKnownLocation="Package1_1316.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="51a0abfd-3015-440d-af80-f4056e74db0a"
+            name="Resolve‎&lt;T‎&gt;"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="c2f32525-b746-44eb-a59b-5fa8b3b26359"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DClassContainer Member%3D(Name%3DResolve GenericParameterCount%3D1)"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0d43278c-f2c3-4eb8-8aa7-ca8f56087e5a"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="98d61687-5507-45e7-9533-25bf667369ff">
+                    <propertyInstance
+                      Id="a3cbbc82-89e6-4be5-bb9d-4e8e424045c4"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a766e560-2a37-4795-af16-2a8788028d83">
+                    <propertyInstance
+                      Id="4959aafb-1e6b-497a-aad6-ab2813ab6834"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30d1d873-2f02-434c-aa44-693276434ae5">
+                    <propertyInstance
+                      Id="91f5efd4-6f5c-4968-a988-010f6159abd3"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b70f1df-3aa9-45b0-8124-f34efb3688ed">
+                    <propertyInstance
+                      Id="2b5b471f-fa30-4736-afbf-fc7e34ec7266"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c59ff21a-c9a2-47cf-b9c3-35feec46d2e9">
+                    <propertyInstance
+                      Id="b3d42e9a-b9f2-4902-90a6-ed66caa43396"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4e5b6b28-6102-4528-a5ff-3d6b85d1f496">
+                    <propertyInstance
+                      Id="f93282c7-38f7-4155-9e0e-0ef052141760"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6c4dd43f-8585-4fc4-a50f-762eb4f13559"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="b525ce44-e673-4d0d-b723-4724023b490e"
+                      LastKnownName="T"
+                      LastKnownLocation="Package_1313.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="388e0542-4000-432e-a9d6-7c9fbb239546"
+        name="Template"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="1d50d611-2b3c-4d36-95f7-50671fa7d31c"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="b781651b-7260-4f26-a1dc-793e97c3bc74"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5fdad1e5-3ec3-4eef-a2b0-4b5c9c40a429">
+                <propertyInstance
+                  Id="f1978d03-b4a7-4671-bc94-c38c85eaa4c2"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b4b4a694-60d6-4272-a2be-037684fca808">
+                <propertyInstance
+                  Id="8ce95fa7-a41c-487b-8c38-a77a218254e7"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8fb8211d-2a58-4e27-aad0-47d5a1cca9f8">
+                <propertyInstance
+                  Id="a9140d85-8ad4-4bde-9b19-1140eb5b6b71"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ceb424ec-708d-49f7-95b3-0f625a0e09ab">
+                <propertyInstance
+                  Id="d119ee97-b805-48a8-8b6e-3248540b259e"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8a6655dd-ada0-4e34-b90c-9f6e98768c8a">
+                <propertyInstance
+                  Id="4fd91524-d16e-4410-a079-f887e4924513"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="09638584-a067-4421-8256-5bd58a106f51">
+            <interfaceMoniker
+              Id="fb43e2a1-61df-447f-91ce-dfbfe6b2af11"
+              LastKnownName="ITemplate"
+              LastKnownLocation="Package10_1312.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="ea0904d6-57bc-4fda-88a7-b0d794a0baa9"
+            isDerived="false"
+            sourceEndRoleName="Template"
+            targetEndRoleName="Id"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="ba23b93a-e0a7-47cf-b68b-c1edc0044872"
+              LastKnownName="Guid"
+              LastKnownLocation="Package7_1312.uml" />
+            <description>Property Id references type Guid.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4b87eb56-5897-4ad6-b860-eed14b63a04a"
+                  name="Template"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="b7def188-4b62-4c46-9d07-22ca9ae3c7ec"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="dfb99419-b45a-4499-8c7d-041bc9faa928"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="76330bc0-43fa-4368-b114-c626864e7b0a"
+                  name="Id"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="cbec9956-1559-44dc-bc59-c783f23878e7"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="602afdf0-e1dd-4e94-89b1-e9ff7d29b1de"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="695cc3e9-a0a3-44a5-859f-aa87b78ac5ef"
+            isDerived="false"
+            sourceEndRoleName="Template"
+            targetEndRoleName="SendDraftToAdresses"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="0664a67b-d9b0-44ff-90d5-fcec8bbd2a27"
+              LastKnownName="IEnumerable&lt;String‎&gt;"
+              LastKnownLocation="Package_1313.uml" />
+            <description>Property SendDraftToAdresses references type IEnumerable&lt;String‎&gt;.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="38d9041d-e71e-4ece-bb2b-6486f3e1b66a"
+                  name="Template"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="e25ef28c-667a-4239-80d2-d722797b1976"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="917bf626-e8c9-4bb1-b522-06be8255a465"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1abb8136-711a-4250-b06f-07879516e334"
+                  name="SendDraftToAdresses"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="122b32fb-713e-46e4-8cf5-6730e70ecf01"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="9355d299-2821-43e2-a55d-75c832c7f509"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f02e5b2b-5f0a-4c48-8e17-9725a4e44606"
+            isDerived="false"
+            sourceEndRoleName="Template"
+            targetEndRoleName="State"
+            isLeaf="false"
+            isAbstract="false">
+            <enumerationMoniker
+              Id="09695d77-bb30-43c1-b367-d4b476fd16fa"
+              LastKnownName="TemplateStateEnum"
+              LastKnownLocation="Package1_1312.uml" />
+            <description>Property State references type TemplateStateEnum.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0230b914-2517-4472-91b5-275008d3227e"
+                  name="Template"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="b0912a22-c693-4b95-bedf-ad9d03258912"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="75d2899f-d2b8-4a38-a84a-b63b78e933ed"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="66722a4b-1ba9-4a7b-8426-de1b1e2cea5c"
+                  name="State"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="07f702d8-5b33-436b-b627-5b480f36de6f"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="5520ce6e-302e-40b0-9a5c-60620749ca86"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8895f368-35d0-4560-91b6-2d1179e18ec8"
+            isDerived="false"
+            sourceEndRoleName="Template"
+            targetEndRoleName="Associations"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="1b0f2dad-6372-4c8a-80b4-155a2a4c18b4"
+              LastKnownName="AssociationCollection"
+              LastKnownLocation="Package_1314.uml" />
+            <description>Property Associations references type AssociationCollection.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d4ac3fc5-73f8-4627-990f-c861aa567c06"
+                  name="Template"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="87534787-edb8-494b-be6c-e00f91f85d9a"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="474ae984-7483-4b55-ac94-81a7a03ddabb"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d5e2f9b8-295e-4b99-adda-bdba06b70db5"
+                  name="Associations"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="238ad90a-f7e9-4dbf-9650-b66fd0481bd8"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4e706741-6559-4d4c-ba57-589d217e8723"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="f91ee45f-7e4c-42a0-a01a-ae23cb4e554e"
+            name="Body"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="250aca71-1db9-4fca-80e5-f491214f5b01"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DBody"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="66012115-6f08-4edf-8b98-d1b61d9df584"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1a980cc2-b528-465f-80f7-58aace5f547c">
+                    <propertyInstance
+                      Id="5baed511-5429-4dda-9d13-065d46565864"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b205b616-9a11-43db-8625-49e2288040b4">
+                    <propertyInstance
+                      Id="b601c280-b426-4644-96af-f5017c772684"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="375cb7cd-0cd3-4e73-910e-a0ec7333d634">
+                    <propertyInstance
+                      Id="f134b277-cc56-49a5-8753-ca7fb3ec4d1a"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d665fb22-8cd3-45ba-b31e-db33dc92f8ef">
+                    <propertyInstance
+                      Id="e2918720-9b44-46b9-bd0a-91d790e273fb"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9052d1b6-8cee-418f-a627-3c7682531332">
+                    <propertyInstance
+                      Id="aade08dd-c2da-4381-a15c-899183a223ff"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="71d5e80d-a26c-4cf5-9231-6becf7cd4dcc">
+                    <propertyInstance
+                      Id="e6088a09-b745-4a5f-a93d-a94c3b652c4c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="184f4dab-2fa2-4d76-8c16-5b4b76db3ec4">
+                    <propertyInstance
+                      Id="d46c09c0-0add-48b5-97ac-3a20f4682fab"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="fb3cc39a-1332-4b1b-8b1c-386ac62a3646"
+            name="Id"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="c3b136e8-9357-424a-a421-4b7454557d48"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DId"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="123ceb36-39fd-4711-ac83-141eb36689b9"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="196f6c7c-651a-4185-8b15-e92f64232471">
+                    <propertyInstance
+                      Id="d27a38a2-66b8-4fce-876f-0102081cea00"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="47a0fff9-6dc0-435b-8edc-d666e97500c7">
+                    <propertyInstance
+                      Id="50fee094-7717-4fdb-9402-7a17ab089fc8"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c210ad6c-b4e9-46eb-8806-cbdf91db6c32">
+                    <propertyInstance
+                      Id="559611b4-ad94-4a18-a0a2-487cc9c18990"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="22f02851-7264-4291-8f9d-94ff5bcf082c">
+                    <propertyInstance
+                      Id="fb2aa1b3-a6f0-4f33-b331-98bbc706e72a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d7098442-2fc0-4114-8d13-7f600694e419">
+                    <propertyInstance
+                      Id="4836e728-5069-4100-8b19-76efa2a48250"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7e096cc7-fd1e-40bd-b3b8-9c4f7a80f68a">
+                    <propertyInstance
+                      Id="ed518352-12eb-456c-b686-0f55a281a1de"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3efc8b68-2506-4b7f-af80-8e89f93013f7">
+                    <propertyInstance
+                      Id="db3934d7-04c5-4d02-8845-6a86b262a57d"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="ba23b93a-e0a7-47cf-b68b-c1edc0044872"
+                LastKnownName="Guid"
+                LastKnownLocation="Package7_1312.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="a912322e-c952-4a9b-aa08-434d552d2070"
+            name="Subject"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="7cf59d0b-87e3-427a-85d5-78d7d1bf52cf"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DSubject"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="08b89713-4e0d-4879-8049-36d5b488ad5a"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c2a7610f-49ae-451a-b95e-edfe33a10e0e">
+                    <propertyInstance
+                      Id="23f82d3c-dd76-4680-978b-ea1f10cca948"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cffc1648-9346-4ebb-a20e-7b7e0465091f">
+                    <propertyInstance
+                      Id="0324c662-3940-400b-b1d9-fae7106206e5"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="53f4f266-c6e8-4dee-811d-8a2f0f7dc662">
+                    <propertyInstance
+                      Id="8c528a47-8a80-436b-86de-fcbf3abe2814"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2cf3c296-b191-4f13-8e99-b752f595a809">
+                    <propertyInstance
+                      Id="72dcc6e6-7432-4e3c-ae19-019550be8a33"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="45a9ebad-0630-4e12-8c4c-e141edbf8388">
+                    <propertyInstance
+                      Id="1738f2cc-7502-4e2b-8709-44f0657cb356"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="261ca0b2-811f-4e36-b3d1-3edd716b8895">
+                    <propertyInstance
+                      Id="cf6a31fb-13c2-4660-8bb0-12d1d5ffec5e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b26b7026-7d88-4ccc-adeb-d7d14dc60a1c">
+                    <propertyInstance
+                      Id="bb6420c5-e707-4687-a95e-a55a48657414"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="9f038b24-f6f4-4342-a29b-4be7b61da2c4"
+            name="From"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="64e7924d-129c-4d9b-b1ab-b1c9f3b60445"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DFrom"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="db0e6734-86f3-4478-8297-83ea5136e369"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b9d91c40-2665-4d76-9769-82334b154fff">
+                    <propertyInstance
+                      Id="1b4ff6d1-b54d-4ec5-bbc9-75ee4e25937c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="919a15a0-8e0e-4faf-82de-0b0ccfcff4c3">
+                    <propertyInstance
+                      Id="1f36dc3e-1770-41ff-88c4-9b1e552a3d51"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1731f5ea-6449-4fa1-a1b1-260d797de33c">
+                    <propertyInstance
+                      Id="048f0598-9378-420c-9b33-7ff31fa4d0ec"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c3c8074d-ba85-4a8c-bf21-bdc658acbe68">
+                    <propertyInstance
+                      Id="975b0a7f-97af-47a9-a07d-7c48f4e2c1e2"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4db8b2b4-0174-48d3-9f9c-b72521178e8d">
+                    <propertyInstance
+                      Id="075f9e53-c660-4f8d-9572-df22f6f3a229"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="af3f4d93-f272-48d1-b74c-2b16720d38ea">
+                    <propertyInstance
+                      Id="9519b3a5-d70d-4174-9103-318f6e0278e8"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5c857db8-790d-4fe2-9773-989f8781e8ff">
+                    <propertyInstance
+                      Id="31a57cb6-285f-45a1-b59d-83a8992735e9"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="872d202b-5f86-4d81-bf28-1dc82138e5a7"
+            name="Replay"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="f11ae160-1d39-4935-8a6f-55d50d248de8"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DReplay"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="04cb9148-8ff8-4731-bb1a-fb38e7765fe4"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b09b2b9f-0306-4bc0-9a14-f9e4ff35d3f3">
+                    <propertyInstance
+                      Id="e0573fc7-9bc8-410d-b8df-975c8edb5496"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0863f8d8-fa7c-4d6a-8d1a-3823024bda29">
+                    <propertyInstance
+                      Id="fcaa04f7-bdad-4c19-9c84-d47a7108980f"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f73840e8-3318-44ce-961f-8dd92e980b4b">
+                    <propertyInstance
+                      Id="722a444d-8c63-410c-854b-21a547c77acc"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9d64d8f5-efa8-4b6a-aeec-c78efaf6d3cb">
+                    <propertyInstance
+                      Id="dcd6abce-51ae-41f0-b98e-f34e97edecd8"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e6395c03-4ff0-4ee7-b4fb-693aa45dc2cb">
+                    <propertyInstance
+                      Id="4e0f6d0c-2d01-4c9b-9b43-7f05a1453e43"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="98947cad-d508-496f-867e-58c4b23136d3">
+                    <propertyInstance
+                      Id="acd5c1d0-b2da-4d81-8256-60c1065e721a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0241ff9d-0460-4d61-945e-aef744a35eeb">
+                    <propertyInstance
+                      Id="d25e9f99-7ca4-443b-bf8b-596a18d056ea"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="73b77654-d6c6-4a19-9931-ba550a6f6846"
+            name="Name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="abbcdc03-ce4c-4ce4-b08b-23e6687170d6"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DName"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b703f711-d6fa-462d-bfa4-82f0bf60dcc6"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c89c58aa-4260-491a-95d5-caa415ca7738">
+                    <propertyInstance
+                      Id="4ca0d0ca-0a2e-471d-aa20-388a1ac6aeca"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2cd21b78-6349-4427-9fab-07b2f3c6b3cb">
+                    <propertyInstance
+                      Id="f322aa25-561d-4dbb-81bf-4465e966e851"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="18e8e611-2f96-4725-9df8-a359e8877b38">
+                    <propertyInstance
+                      Id="5f0232ad-ff63-440a-9e7f-eb0f9a6a8948"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a30fda4f-97e4-4efc-86ba-66307efa6040">
+                    <propertyInstance
+                      Id="8fa25c45-64f9-43af-817e-b98829f03e82"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="36aa0701-49af-45f7-88ae-55e7ce7ddc5f">
+                    <propertyInstance
+                      Id="4a1ff594-2781-4d7c-a240-d50831b110f6"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1e395be5-252d-47a8-950a-63d146c42cec">
+                    <propertyInstance
+                      Id="8810b843-e4bc-4890-aebd-c7096f5a037d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f44bb633-33f4-4e72-9478-e4f02d79cfff">
+                    <propertyInstance
+                      Id="7d81b282-5e6f-46e5-b5ca-6f279c84df4a"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="e54f0cae-cdc2-4206-beb6-0a79a0a17faa"
+            name="State"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="b8e8987d-f52b-4fd9-8255-6a44c8ed6bd8"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DState"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="661bffba-0f7c-4301-bb6c-78d8151b5d3b"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0c8adf3d-bf7f-4d6a-9649-cac4b5280b60">
+                    <propertyInstance
+                      Id="4b1437f8-05bc-4f04-a22d-3d6b0cf4fb8b"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="95ff91e0-0f5a-430d-9fb2-2e6883557f06">
+                    <propertyInstance
+                      Id="5b687b6a-cb0f-412f-ad69-2ae4106ac206"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="de4afcc7-2354-4fb6-92c9-ece25d90a817">
+                    <propertyInstance
+                      Id="93fa6480-ba70-48cc-9327-030143e94e37"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="204a8ae0-c05a-4bd2-a4d3-a00d2782f9ae">
+                    <propertyInstance
+                      Id="2f8c1147-4942-4a52-8290-c9991a143658"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0d948232-1d4d-49f9-a535-85562cf45f04">
+                    <propertyInstance
+                      Id="835889af-d3d5-4f8e-9b49-8c6f482ac470"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="974c5b8f-af48-42c4-b3a5-27c7e6995cb3">
+                    <propertyInstance
+                      Id="47d6d62b-d198-4122-8a0d-73d34d285cdf"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34454dc3-5ef3-4fd6-912e-0261d5b72407">
+                    <propertyInstance
+                      Id="de75ceeb-44f5-4840-8264-d3bae3a83f89"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <enumerationMoniker
+                Id="09695d77-bb30-43c1-b367-d4b476fd16fa"
+                LastKnownName="TemplateStateEnum"
+                LastKnownLocation="Package1_1312.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="da114f80-9278-4eb8-8c15-efe7b47db3d1"
+            name="EventTypes"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="66b5cf46-1195-4c60-97d0-8d5f68300297"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DEventTypes"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6a00c7d2-34c8-43bd-ab3b-82784832574b"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="db9ead88-17e4-477e-bc17-e044e7a59e48">
+                    <propertyInstance
+                      Id="09a8244a-5203-4f12-aac7-dcdedb278ee1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7fbb43d1-7a39-4d8b-966c-6dcd48c83525">
+                    <propertyInstance
+                      Id="72837c30-b8f9-4faa-8732-634a22591018"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b803422a-a610-43dc-825e-ff9cc5f67ea3">
+                    <propertyInstance
+                      Id="f3894705-4497-446e-b83f-37c6bef58bcf"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="38412b6a-f80d-4bb5-808a-ebccbc98ccde">
+                    <propertyInstance
+                      Id="0731654d-760e-47ff-a6f6-acdd063f0d54"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5603f61d-2e95-4304-aa92-082881c33b44">
+                    <propertyInstance
+                      Id="3a265173-8eaa-4047-b098-326405bac951"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a59e2765-2af5-445b-8b99-b097fdbc888c">
+                    <propertyInstance
+                      Id="20a69f9b-722f-472d-a85d-9ffc1c7d613e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0f6f874b-edd7-43b3-9fe9-b2a70ff95720">
+                    <propertyInstance
+                      Id="635bd57b-e8f3-4eb2-accf-6b45e2ed8efe"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                LastKnownName="Integer"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="db1c2cd2-1345-42b2-bb2b-7696dfd41921"
+            name="Associations"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="6bda77cb-74fc-473b-bc8a-df7162cd5fe2"
+                handle="viewcode://./CodeSchema_Property?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DAssociations"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="107ff28b-b3be-4d42-bdf1-005e87dc8987"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="717ec268-4ba4-481c-80cd-1b4335822157">
+                    <propertyInstance
+                      Id="aa52719f-51cc-44a0-b661-9e537d3b959c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6aeb3a09-5a71-4ad6-b301-3a33d831313f">
+                    <propertyInstance
+                      Id="d40c1d60-bfa6-448e-80b9-2bc478856ce4"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="436e362e-58b5-4f68-9b68-84837280aa53">
+                    <propertyInstance
+                      Id="edb9309a-e7b4-4f0c-bee7-4192b0cd5176"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d1a958a1-cc81-4f82-bc6c-d18d0561efa5">
+                    <propertyInstance
+                      Id="1bef4a10-ddde-4497-bb80-11b623ee6040"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fbcec529-39ff-4221-8ff7-d7d31c64fc77">
+                    <propertyInstance
+                      Id="44c913b3-38b0-4de6-a9c9-563d72e64222"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="de90daef-d504-4157-87a5-c0251d61c691">
+                    <propertyInstance
+                      Id="05cbe273-184a-4955-bc2f-771e52100a6b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fdf492d5-e959-4b23-abfc-1617b65d7e2b">
+                    <propertyInstance
+                      Id="e3391133-ecef-49d9-b942-a9789e74fea7"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="1b0f2dad-6372-4c8a-80b4-155a2a4c18b4"
+                LastKnownName="AssociationCollection"
+                LastKnownLocation="Package_1314.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="ab6a9a44-7281-44ab-ae70-3d0bb133ce26"
+            name="SaveChanges"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="307084d6-41c1-4529-9fa8-25e2e47a9bb1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplate Member%3DSaveChanges"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e5ca7c4a-410c-4e4d-9b88-53b9db2cc247"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bd6e5b1a-ea0f-4d2c-90ac-1769ca5f1c8b">
+                    <propertyInstance
+                      Id="9590f97a-0b8f-497a-ba76-1c994bf61130"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="335357e4-b0c8-402e-8c2b-f6b087a49621">
+                    <propertyInstance
+                      Id="db537bcd-e749-4270-903d-c0cc2b494246"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fced6d5b-c0fd-4aa3-80a8-38046930662b">
+                    <propertyInstance
+                      Id="3acba777-6102-48e9-ae2c-c2c1aa493175"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9bf4087d-ab80-4b53-ac89-853f7f8e759a">
+                    <propertyInstance
+                      Id="4abadaa9-27e7-4dce-8cb4-4c3be5ade0fc"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8fa30067-ef0c-4b65-b8de-035c30d1f836">
+                    <propertyInstance
+                      Id="7b909de0-306e-4890-8696-d9949818b799"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7e965e1a-52b5-4955-b716-3ef2ad607b02">
+                    <propertyInstance
+                      Id="c30e2925-25ed-46dc-a845-d7c7e973270e"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="7d4e5068-fd68-41c7-ba12-68f89a565543"
+        name="SearchContext"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="f5d30fae-274e-4e60-9e6e-480a06a84fa9"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DSearchContext"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="e9b89eea-114a-4ecf-bcfb-6c8bed456e69"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="42c4a734-a0b1-425d-81d4-1a9818c8b8be">
+                <propertyInstance
+                  Id="00dd7420-1b1f-4af4-b8ff-4ae55aaccea9"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9b13ab61-7e5a-4c1f-8209-73d245ae1f00">
+                <propertyInstance
+                  Id="df3e9cc2-1595-441a-af0e-b4e8a0be14c4"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="24eefd53-05db-458b-8aa9-a4619c03b883">
+                <propertyInstance
+                  Id="f5230a96-964d-4158-9a5b-edec28ad2425"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8a07ffee-e2aa-435c-a3f5-ccdf22f1b059">
+                <propertyInstance
+                  Id="7d86c4f7-dff7-4866-b783-781650c9ebff"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2ceaedcd-5703-4f23-9fcd-94e519ef4333">
+                <propertyInstance
+                  Id="9172116f-fa2a-473d-8cc2-6f728b0ee79f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="312eb4e5-491f-48ed-a5a5-1ef76cf65a95">
+            <interfaceMoniker
+              Id="2d9acbb4-5a26-45d7-af69-c01a70103085"
+              LastKnownName="ISearchContext"
+              LastKnownLocation="Package10_1312.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="b4fe4762-b190-4b2f-a9dd-06ee8ee6f435"
+            isDerived="false"
+            sourceEndRoleName="SearchContext"
+            targetEndRoleName="ItemContentTypeId"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="bcb9afcd-7d6e-422b-a17d-af492236b8d1"
+              LastKnownName="SPContentTypeId"
+              LastKnownLocation="Package3_1312.uml" />
+            <description>Property ItemContentTypeId references type SPContentTypeId.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7c2655a4-b42c-411b-8fd4-7f0295c30945"
+                  name="SearchContext"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="4df89c23-13b7-4886-adb6-a3dd5a986ebd"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="20a0caff-c66d-4655-91bc-68e761320e57"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c0eac1be-85af-46f9-abb3-e5ea791c79d8"
+                  name="ItemContentTypeId"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d7190b86-3325-4d78-a385-be3e631f7ed7"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="9873c943-517e-4722-a131-7fb6d52e7065"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="22ece39e-b84a-47bc-b36f-0cc28c7def2e"
+            isDerived="false"
+            sourceEndRoleName="SearchContext"
+            targetEndRoleName="Type"
+            isLeaf="false"
+            isAbstract="false">
+            <enumerationMoniker
+              Id="11608625-e645-4746-9254-c94a2468d36e"
+              LastKnownName="TemplateTypeEnum"
+              LastKnownLocation="Package1_1312.uml" />
+            <description>Property Type references type TemplateTypeEnum.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="551f34fa-9fb9-42c8-adba-41295ffa5ed3"
+                  name="SearchContext"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="9b5a8151-4a7a-4edf-9841-482543633814"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="325875b1-6fcd-4a97-96c1-e3738cd6f146"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="530691ff-b9f4-4ae2-bfaf-6abefbffe7a5"
+                  name="Type"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="2165423f-bd5f-4f24-92ac-24a892bc7895"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ca93a028-5f16-4011-97e6-ea761c460a5a"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f22deb63-0acc-47f2-a34b-d966c608467c"
+            isDerived="false"
+            sourceEndRoleName="SearchContext"
+            targetEndRoleName="SiteId"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="ba23b93a-e0a7-47cf-b68b-c1edc0044872"
+              LastKnownName="Guid"
+              LastKnownLocation="Package7_1312.uml" />
+            <description>Property SiteId references type Guid.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9ccc697a-5f8a-49c9-bd0d-029aa4f280d5"
+                  name="SearchContext"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="7bfb41ed-38c4-4dfd-8901-2e859997bb41"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="56332375-5b41-494b-a4b1-d0bf1d48d8eb"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4128c9a4-9885-42b3-b1f1-32179421436d"
+                  name="SiteId"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="dfc5924b-7c55-4caf-9338-7ed4614e408b"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="fa6ea28d-2e7a-4cf9-adf9-1e571a495d5e"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8bcdb327-3e48-4c67-9f08-443c07f859cb"
+            isDerived="false"
+            sourceEndRoleName="SearchContext"
+            targetEndRoleName="WebId"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="ba23b93a-e0a7-47cf-b68b-c1edc0044872"
+              LastKnownName="Guid"
+              LastKnownLocation="Package7_1312.uml" />
+            <description>Property WebId references type Guid.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e9fb3e3d-ab6f-4baa-bf6d-7ef63713db9d"
+                  name="SearchContext"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="84ee5ad9-4c91-4ae8-ba35-bdbaf39739f3"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ce1e2a80-36c1-4997-8dcc-05cebd0f55cb"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0efde18f-5ba9-4edb-9f5a-b2647a773f77"
+                  name="WebId"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="a80a5c74-6705-4ce5-a2af-6459a52468cf"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="917e0545-7638-4519-b630-30a2f6778546"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="09afdd00-3206-4944-b533-1bea689dc317"
+            isDerived="false"
+            sourceEndRoleName="SearchContext"
+            targetEndRoleName="Site"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="443deec9-7863-450b-862e-9c400091d862"
+              LastKnownName="SPSite"
+              LastKnownLocation="Package3_1312.uml" />
+            <description>Property Site references type SPSite.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="47968add-5416-42d3-9fc3-308bd322a847"
+                  name="SearchContext"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="7c8abbc7-e500-42b3-81c6-06a8b103d4d5"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="62b3230b-b22d-42f3-a0fc-37c26a657790"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1bc599b6-5a50-4e89-a86d-d03d8d702a60"
+                  name="Site"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="f3cfebdf-3d62-4f1e-aff8-a7dafabd96b3"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="bf6f61ca-bb25-4f43-840a-3ec030e87129"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="1ca9b644-2541-4dc2-966f-b10c89d025df"
+            name="MatchTemplate"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a881d872-cb4c-4eaf-9fdd-e6dbb4ca8d61"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DSearchContext Member%3D(Name%3DMatchTemplate OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Interfaces Type%3DITemplate)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="871faba8-1908-4f2c-9ea9-9b34ae10c321"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8132a0ee-bc4a-452d-8c69-2a142f3d0ad0">
+                    <propertyInstance
+                      Id="29d62095-c5c3-4de3-8bfb-f087a7c54fa5"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="77212933-acaf-47e9-b463-b56b376b3bb0">
+                    <propertyInstance
+                      Id="e73426ac-b816-4cec-aa6d-549e0af47509"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ede4a21-ea72-4098-a816-20fb6545d9c7">
+                    <propertyInstance
+                      Id="978d714f-c05a-46b2-9e0d-048f77fbb308"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4402aa76-ba3d-4283-9223-a7996c9053fd">
+                    <propertyInstance
+                      Id="88b5c71d-e788-4726-99b6-2341ea519329"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a3ca0bba-c9a7-4ada-a40a-e42c34ff3fed">
+                    <propertyInstance
+                      Id="0757530b-6556-4870-870e-fe453713cbc3"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4a1b6b38-ff84-4e86-a387-d0b0068779c1">
+                    <propertyInstance
+                      Id="e9795f3f-509f-45d9-9bb2-9eff69d2ba70"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="5468d742-e2fe-43f8-96ac-92352e244e49"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                      LastKnownName="Integer"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e2169c14-c510-48d4-a0f1-b231d3723e51"
+                  name="template"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="5f987fed-2579-48a1-aae9-6227cf514a9e"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DSearchContext Member%3D(Name%3DMatchTemplate OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core.Interfaces Type%3DITemplate)]) ParameterIdentifier%3Dtemplate"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="fb43e2a1-61df-447f-91ce-dfbfe6b2af11"
+                      LastKnownName="ITemplate"
+                      LastKnownLocation="Package10_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="11608625-e645-4746-9254-c94a2468d36e"
+        name="TemplateTypeEnum"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="61da1a72-aff5-4940-aa29-aea6c4f1674b"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails.Core Type%3DTemplateTypeEnum"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ee539ed2-9f99-42bd-bc17-ece0e1ad3fa8"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="de5ee318-1aff-44fd-8e92-0bf219592a24">
+                <propertyInstance
+                  Id="234ab801-dc91-415e-a816-a6294aca6b4e"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="eaa7354c-7d9d-47d9-8afb-c0d6fe7e894f">
+                <propertyInstance
+                  Id="a07be9ed-11c7-48fe-9857-e464025227b9"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4b41866f-66f3-4c33-964a-34d2b6980537">
+                <propertyInstance
+                  Id="8fcc12b5-e1b8-4abc-b368-2b09e6eb92c0"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </enumeration>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

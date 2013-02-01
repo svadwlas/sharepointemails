@@ -5,53 +5,58 @@ using System.Text;
 using SharePointEmails.Logging;
 using SharePointEmails.Core.Substitutions;
 using SharePointEmails.Core.Interfaces;
+using SharePointEmails.Core.Enums;
 
 namespace SharePointEmails.Core.Substitutions
 {
-    public class SubstitutionManager
+    public class SubstitutionManager:ISubstitutionManager
     {
-        public ISubstitution GetWorker(ISubstitutionContext context, WorkerType type)
+        public ISubstitutionWorker GetWorker(ISubstitutionContext context, MessageFieldType type)
         {
             switch (type)
             {
-                case WorkerType.ForBody:
-                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(),  new List<ISubstitution>
+                case MessageFieldType.ForBody:
+                    return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ComplexSubstitution(),
                                                                                                                         new ContextVarsSubstitution(),
-                                                                                                                        new XlstSubstitution()
+                                                                                                                    },
+                                                                                            new List<ISubstitution>
+                                                                                                                    {
                                                                                                                     });
-                case WorkerType.ForSubject:
+                case MessageFieldType.ForSubject:
                     return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ContextVarsSubstitution(),
-                                                                                                                        new XlstSubstitution(),
+                                                                                                                        
+                                                                                                                    },
+                                                                                            new List<ISubstitution>
+                                                                                                                    {
                                                                                                                         new RemoveXmlTagsSubstitution(),
                                                                                                                         new OneLineSubstitution()
                                                                                                                     });
-                case WorkerType.ForFrom:
-                case WorkerType.ForReplay:
+                case MessageFieldType.ForFrom:
+                case MessageFieldType.ForReplay:
                     return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>
                                                                                                                     {
                                                                                                                         new ResourceSubstitution(),
                                                                                                                         new FieldSubstitution(),
                                                                                                                         new ContextVarsSubstitution(),
-                                                                                                                        new XlstSubstitution(),
+                                                                                                                    },
+                                                                                            new List<ISubstitution>
+                                                                                                                    {
                                                                                                                         new RemoveXmlTagsSubstitution(),
                                                                                                                         new OneLineSubstitution()
                                                                                                                     });
-                default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>());
+                default: return new SubstitutionWorker(ClassContainer.Instance.Resolve<ILogger>(), new List<ISubstitution>(), new List<ISubstitution>());
             }
         }
 
-        public enum WorkerType
-        {
-            ForBody, ForSubject, ForFrom, ForReplay
-        }
+       
     }
 
 }

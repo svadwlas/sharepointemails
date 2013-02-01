@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="f52fa090-d4bc-45d2-8878-a1eed9ce1893"
+  name="SharePointEmails"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="a45dd8cc-abec-4936-a653-0a3b55963bb3"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSharePointEmails"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="7d04e659-b67c-4dbf-8587-9a006d123a1f"
+        LastKnownName="Core"
+        LastKnownLocation="Package1_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="a22f2d73-4a04-44c6-85b1-78f94f2da144"
+        LastKnownName="Logging"
+        LastKnownLocation="Package12_1312.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="98bb04a9-8347-40b1-8d5a-c99775ddd34f"
+        LastKnownName="MailProcessors"
+        LastKnownLocation="Package_1449.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="819918eb-1ef1-4f8d-88b0-71988db117cf"
+        name="EmailReceiver"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="4a7ab8f4-0d10-414c-ae33-2c58fc58c170"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails Type%3DEmailReceiver"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="ea2f3567-46e9-4fdf-bd7a-9efe1f2121e4"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="15925843-62af-4fb2-910a-06ff0592eb78">
+                <propertyInstance
+                  Id="0971bec5-bdf9-4c3b-920f-722511a72512"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e7113ce1-9227-46f3-85b1-392ea77f1b8a">
+                <propertyInstance
+                  Id="bae8c1f3-e93d-4ec8-b976-d92e11727dc6"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d89d6700-adb4-46ce-a146-36be8dc2c684">
+                <propertyInstance
+                  Id="e613d276-b809-4577-907a-b348f4b1c6eb"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1f20a049-c987-4d24-9d77-f4389e455c7b">
+                <propertyInstance
+                  Id="449e83fd-5aac-4b4f-acb0-dc3f26ae85c6"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="078db7de-c1f4-4bbd-b4bd-0e98abfcaf02">
+                <propertyInstance
+                  Id="0d1fc5fe-77a6-4b0c-bb25-9c5b37d94648"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="a69a6b70-5b11-4a04-939e-f1b789525c00">
+            <classMoniker
+              Id="41983fbb-111e-436b-83dc-a55f07244662"
+              LastKnownName="Application"
+              LastKnownLocation="Package1_1312.uml" />
+          </dependency>
+        </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="f42e3489-d50f-4adb-aa08-ce14599001fa"
+            isSubstitutable="false">
+            <classMoniker
+              Id="f5130a0e-b1d7-4e34-b06d-8811d6ca22a1"
+              LastKnownName="SPEmailEventReceiver"
+              LastKnownLocation="Package3_1312.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="a81474ba-cc35-4fa0-827e-ba9ce6535615"
+            name="EmailReceived"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="de5b237e-a5ce-48cb-8c81-56230cd2c676"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails Type%3DEmailReceiver Member%3D(Name%3DEmailReceived OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FWindows%2FMicrosoft.NET%2FFramework%2Fv2.0.50727%2Fmscorlib.dll Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="cad8eb2e-2bb2-4782-8ea3-682518c99659"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f6365643-c074-4c4e-8a9b-5ee609ff8472">
+                    <propertyInstance
+                      Id="66282faa-899a-46b1-af87-e5a59911b2d5"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34647ad4-c7c3-43d0-a02c-50afa7a39af1">
+                    <propertyInstance
+                      Id="cf7676c1-0f1c-4000-abe1-ba76d776604a"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ef237df3-faff-4218-8895-334b58a3be52">
+                    <propertyInstance
+                      Id="bf18291a-e91f-4f63-bcd1-dfbd3f1fb2a9"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f262012a-2d85-48a0-bef2-8ef8873b0a35">
+                    <propertyInstance
+                      Id="771654e2-b09f-4c24-997f-bce49f608efe"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="545eb515-4444-49fa-89e8-d7cb1165bf09">
+                    <propertyInstance
+                      Id="069987d2-ab7b-4329-842f-ee5d6fb24aae"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8bdb68b5-9ad8-413b-9cb1-49586b5394ae">
+                    <propertyInstance
+                      Id="5cc2cd2a-98e0-4c42-a786-d442bd539027"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a8219644-2ec1-4edb-b8e3-39c2a31ee3f3"
+                  name="list"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="d2a7383a-715f-4212-8ae3-93c9c517ab94"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails Type%3DEmailReceiver Member%3D(Name%3DEmailReceived OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FWindows%2FMicrosoft.NET%2FFramework%2Fv2.0.50727%2Fmscorlib.dll Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dlist"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="53a998e1-9eb9-48b4-a69c-d9e611eb14d5"
+                      LastKnownName="SPList"
+                      LastKnownLocation="Package3_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3eec763e-4b7f-442b-84fe-e9c1102499c5"
+                  name="emailMessage"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="a413692e-ed8c-4ee2-88d3-2fa8bac7d20b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails Type%3DEmailReceiver Member%3D(Name%3DEmailReceived OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FWindows%2FMicrosoft.NET%2FFramework%2Fv2.0.50727%2Fmscorlib.dll Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3DemailMessage"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="22de1a13-78e5-4d53-b578-abbcae1a36c6"
+                      LastKnownName="SPEmailMessage"
+                      LastKnownLocation="Package6_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f9ada78f-cfde-4728-ad14-c9128315a6cf"
+                  name="receiverData"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="0323870d-b684-46a0-a8ff-690a8bf30095"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharePointEmails.Core%2Fbin%2FDebug%2FSharePointEmails.Core.dll&quot; Namespace%3DSharePointEmails Type%3DEmailReceiver Member%3D(Name%3DEmailReceived OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPList)%2C(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint.Utilities Type%3DSPEmailMessage)%2C(Assembly%3Dfile:%2F%2F%2FC:%2FWindows%2FMicrosoft.NET%2FFramework%2Fv2.0.50727%2Fmscorlib.dll Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3DreceiverData"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a5c3cf5e-0a9a-41fd-bc3f-02c0294a28a7"
+        name="AlertHandler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="879faaee-9802-449d-bc82-9359ac693d30"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharepoint Emails%2Fbin%2FDebug%2FSharePointEmails.dll&quot; Namespace%3DSharePointEmails Type%3DAlertHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="5bb444d3-d461-4f57-88ce-300f02fcaa99"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d1c4c039-c592-44c1-8f8a-735e3bc6fd37">
+                <propertyInstance
+                  Id="74ebeea2-e2e3-4f7f-b46a-d83239643457"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8f2b79e7-8998-40c1-b757-3b75b68a651f">
+                <propertyInstance
+                  Id="8764e034-a2c2-4f8f-98ef-7dfe7fdf09f4"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="124654b6-d40e-490e-9352-bcdeb5a3a174">
+                <propertyInstance
+                  Id="bbbced3a-2ffe-4f37-ae16-7ea0ceb5b961"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bba1012d-dba0-4d0d-9517-347bf7984725">
+                <propertyInstance
+                  Id="d284a1fa-709f-438b-813c-f41f9340db40"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2a866a60-a230-4934-bd58-a937ac599de3">
+                <propertyInstance
+                  Id="33abca22-d6e9-404e-a063-f0e39a66e535"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="8a2e1e23-74b6-4daa-87d1-51fde2cd8166">
+            <interfaceMoniker
+              Id="0656bddc-769a-4326-9621-13e566cf7d04"
+              LastKnownName="IAlertNotifyHandler"
+              LastKnownLocation="Package3_1312.uml" />
+          </interfaceRealization>
+          <dependency
+            Id="b97e35c3-6942-4d20-af28-2a998fd73001">
+            <classMoniker
+              Id="41983fbb-111e-436b-83dc-a55f07244662"
+              LastKnownName="Application"
+              LastKnownLocation="Package1_1312.uml" />
+          </dependency>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="2eceb9ae-a256-4b2c-8183-85abf10524b4"
+            name="OnNotification"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="9533fabf-b530-4885-a4b3-24101f2cfbc3"
+                handle="viewcode://./CodeSchema_Method?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharepoint Emails%2Fbin%2FDebug%2FSharePointEmails.dll&quot; Namespace%3DSharePointEmails Type%3DAlertHandler Member%3D(Name%3DOnNotification OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPAlertHandlerParams)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="fe172d1e-9946-4d21-a77f-89ef466c2bce"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c9034f6a-eb1c-4530-8877-fa139aee9c9c">
+                    <propertyInstance
+                      Id="b79cd8aa-e1c4-406c-8d1a-5a26ff858704"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9aa5b28f-fbaf-463c-99e2-b105df3dfa8b">
+                    <propertyInstance
+                      Id="aa90dff7-74aa-4436-b32b-2d83068b2381"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="56680a25-7cbe-41e9-ab61-ef7bb598cf21">
+                    <propertyInstance
+                      Id="a120a246-9e9f-46ff-9462-259cd83b2365"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bea9e179-5854-4960-9431-84f4f5694732">
+                    <propertyInstance
+                      Id="a26242f8-e50b-40e6-a7fe-ecef4e4ea040"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="125f78ae-5868-4f8d-a254-bb4b1de0300d">
+                    <propertyInstance
+                      Id="a3c06170-3090-49b3-8592-f242b6fcba21"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="31ea10e6-ec8d-4bea-9c81-b99214f99fe3">
+                    <propertyInstance
+                      Id="5615bdc0-361c-4ca2-8cc9-9964ea74fdc6"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="15235063-71ae-43e6-8c3a-812f21e4ce2b"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b295dacf-1ec2-4048-819b-8044a578e8d6"
+                  name="ahp"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="00af22e1-0fb6-474e-bcab-9e48fe5f8206"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3D&quot;file:%2F%2F%2FC:%2FUsers%2FAdministrator%2FDocuments%2FVisual Studio 2010%2FProjects%2FSharepoint Emails%2FSharepoint Emails%2Fbin%2FDebug%2FSharePointEmails.dll&quot; Namespace%3DSharePointEmails Type%3DAlertHandler Member%3D(Name%3DOnNotification OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files%2FCommon Files%2FMicrosoft Shared%2FWeb Server Extensions%2F14%2FISAPI%2FMicrosoft.SharePoint.dll&quot; Namespace%3DMicrosoft.SharePoint Type%3DSPAlertHandlerParams)]) ParameterIdentifier%3Dahp"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="8d25de22-d22a-43d7-81d8-d99c1dbb7167"
+                      LastKnownName="SPAlertHandlerParams"
+                      LastKnownLocation="Package3_1312.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
