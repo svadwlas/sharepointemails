@@ -120,13 +120,14 @@
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
     <Compile Include="Interfaces\IMianTemplateTransformation.cs" />
     <Compile Include="Interfaces\ISubstitutionManager.cs" />
+    <Compile Include="MailProcessors\Document Library\DocumentLibraryIncomingProcessor.cs" />
     <Compile Include="Substitutions\BaseSubstitution.cs" />
     <Compile Include="Interfaces\ISubstitutionWorker.cs" />
     <Compile Include="MailProcessors\EmailReceiver.cs" />
-    <Compile Include="MailProcessors\IOutcomingDiscussionBoardProcessor.cs" />
-    <Compile Include="MailProcessors\Strategies\IThreadStrategy.cs" />
-    <Compile Include="MailProcessors\IncomingDiscussionBoardProcessor.cs" />
-    <Compile Include="Interfaces\IIncomingMessageProcessor.cs" />
+    <Compile Include="Interfaces\MailProcessor\IOutcomingDiscussionBoardProcessor.cs" />
+    <Compile Include="Interfaces\MailProcessor\Strategies\IThreadStrategy.cs" />
+    <Compile Include="MailProcessors\Discussion Board\IncomingDiscussionBoardProcessor.cs" />
+    <Compile Include="Interfaces\MailProcessor\IIncomingMessageProcessor.cs" />
     <Compile Include="Interfaces\ISiteManager.cs" />
     <Compile Include="Interfaces\ISubstitution.cs" />
     <Compile Include="Interfaces\ISubstitutionContext.cs" />
@@ -134,12 +135,12 @@
     <Compile Include="Interfaces\ISearchContext.cs" />
     <Compile Include="Interfaces\ITemplateConfigurationHolder.cs" />
     <Compile Include="Interfaces\ITemplatesResolver.cs" />
-    <Compile Include="MailProcessors\OutcomingDiscussionBoardProcessor.cs" />
+    <Compile Include="MailProcessors\Discussion Board\OutcomingDiscussionBoardProcessor.cs" />
     <Compile Include="MailProcessors\ProcessorsManager.cs" />
     <Compile Include="MailProcessors\SEMessage.cs" />
-    <Compile Include="MailProcessors\Strategies\ITextParserStrategy.cs" />
-    <Compile Include="MailProcessors\Strategies\SubjectThreadStrategy.cs" />
-    <Compile Include="MailProcessors\Strategies\TextParserStrategy.cs" />
+    <Compile Include="Interfaces\MailProcessor\Strategies\ITextParserStrategy.cs" />
+    <Compile Include="MailProcessors\Discussion Board\Strategies\SubjectThreadStrategy.cs" />
+    <Compile Include="MailProcessors\Discussion Board\Strategies\TextParserStrategy.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\TemplateCT.cs" />
@@ -178,6 +179,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="MailProcessors\Strategies\" />
     <Folder Include="Reprisotories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

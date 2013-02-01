@@ -3,7 +3,7 @@
   <Class Name="SharePointEmails.Core.Application" Collapsed="true">
     <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAQAKAAIACAACgACAABBAIEAABAAAABAAAAAAsEA=</HashCode>
+      <HashCode>AAAIAQAKAAIAAAAigACAABBAIEAAAgAAABAAACAAkEA=</HashCode>
       <FileName>Application.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -69,7 +69,7 @@
   <Class Name="SharePointEmails.Core.SearchContext" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="25.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAEAAAgAAEgAAAQAAAAAAAAEAAAQACAAAQBAI=</HashCode>
+      <HashCode>AAAAAAAAEAACgAAEgAAIAIAAAAAAAEAAAQACAAAQAAI=</HashCode>
       <FileName>SearchContext.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -280,14 +280,14 @@
   <Class Name="SharePointEmails.Core.Substitutions.ContextVarsSubstitution" Collapsed="true">
     <Position X="5.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Substitutions\ContextSubstitution.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SharePointEmails.Core.Substitutions.ContextVars" Collapsed="true">
     <Position X="25.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAIAABQAAAAAAAAAAAAAAAQAAAEAAAgECIA=</HashCode>
+      <HashCode>AAAAAAAAAAIAAAQAAAAAAAAAAAAAAAQAAAEAAAgECIA=</HashCode>
       <FileName>Substitutions\ContextVars.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -301,7 +301,7 @@
   <Class Name="SharePointEmails.Core.Substitutions.FieldSubstitution" Collapsed="true">
     <Position X="8.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Substitutions\FieldSubstitution.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -320,7 +320,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SharePointEmails.Core.Substitutions.OneLineSubstitution" Collapsed="true">
-    <Position X="10.75" Y="2.75" Width="1.5" />
+    <Position X="9.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Substitutions\OneLineSubstitution.cs</FileName>
@@ -343,7 +343,7 @@
   <Class Name="SharePointEmails.Core.Substitutions.SubstitutionContext" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="18.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAwgEIABAgAEACQAEAAAAABAAAAwAAAECUgQAA=</HashCode>
+      <HashCode>CAAAAAAwAEMABAAAMACQAEACAAABAAAAwAAAEiUgQAA=</HashCode>
       <FileName>Substitutions\SubstitutionContext.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -354,21 +354,15 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
       <FileName>Substitutions\SubstitutionManager.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="SharePointEmails.Core.Substitutions.SubstitutionWorker" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="22.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAAAAAgCAAAAAAAAAAEhAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAAAAACAAAAACAAAIgCAAAAAAAAAAAhAAAAAAgAAAAg=</HashCode>
       <FileName>Substitutions\SubstitutionWorker.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="SharePointEmails.Core.Substitutions.XlstSubstitution" Collapsed="true">
-    <Position X="9.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Substitutions\XlstSubstitution.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Struct Name="SharePointEmails.Core.Substitutions.ApproveClass" Collapsed="true">
     <Position X="17" Y="6.75" Width="1.5" />
@@ -394,7 +388,7 @@
   <Interface Name="SharePointEmails.Core.Interfaces.ISearchContext" Collapsed="true">
     <Position X="22.25" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAEAAAgAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAEAAAgAAAAAAAAIAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Interfaces\ISearchContext.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -415,14 +409,14 @@
   <Interface Name="SharePointEmails.Core.Interfaces.ISubstitutionContext" Collapsed="true">
     <Position X="17" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAgAEAAAAEAAAAAAAAAAQAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAEAAAAAMAAAAEACAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>Interfaces\ISubstitutionContext.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="SharePointEmails.Core.Interfaces.ISubstitutionWorker" Collapsed="true">
     <Position X="18.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ISubstitutionWorker.cs</FileName>
     </TypeIdentifier>
   </Interface>

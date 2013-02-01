@@ -13,17 +13,12 @@ namespace SharePointEmails.Core.MailProcessors
 {
     public class ProcessorsManager
     {
-        static ILogger m_Logger = null;
 
         private static ILogger Logger
         {
             get
             {
-                if (m_Logger == null)
-                {
-                    m_Logger = ClassContainer.Instance.Resolve<ILogger>();
-                }
-                return m_Logger;
+                return ClassContainer.Instance.Resolve<ILogger>();
             }
         }
 
@@ -100,6 +95,10 @@ namespace SharePointEmails.Core.MailProcessors
             try
             {
                 if (list.BaseTemplate == SPListTemplateType.DiscussionBoard)
+                {
+                    return new IncomingDiscussionBoardProcessor(list, message, Logger, new SubjectThreadStrategy(), new TextParserStrategy());
+                }
+                else if(list.BaseTemplate==SPListTemplateType.DocumentLibrary)
                 {
                     return new IncomingDiscussionBoardProcessor(list, message, Logger, new SubjectThreadStrategy(), new TextParserStrategy());
                 }
