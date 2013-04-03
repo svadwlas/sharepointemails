@@ -120,6 +120,9 @@
     <Compile Include="Dictionaries\HiddenTemplesList.cs" />
     <Compile Include="Interfaces\IMianTemplateTransformation.cs" />
     <Compile Include="Interfaces\ISubstitutionManager.cs" />
+    <Compile Include="Interfaces\MailProcessor\Strategies\IDocumentLibraryGetFile.cs" />
+    <Compile Include="MailProcessors\BaseIncomingMailProcessor.cs" />
+    <Compile Include="MailProcessors\Document Library\ConfigProvider.cs" />
     <Compile Include="MailProcessors\Document Library\DocumentLibraryIncomingProcessor.cs" />
     <Compile Include="Substitutions\BaseSubstitution.cs" />
     <Compile Include="Interfaces\ISubstitutionWorker.cs" />
@@ -144,7 +147,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\TemplateCT.cs" />
-    <Compile Include="Extensions\SPListItemHelper.cs" />
+    <Compile Include="Extensions\SPObjectsHelper.cs" />
     <Compile Include="Extensions\StreamHelpers.cs" />
     <Compile Include="Substitutions\Change.cs" />
     <Compile Include="Substitutions\ComplexSubstitution.cs" />
@@ -179,7 +182,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MailProcessors\Strategies\" />
+    <Folder Include="MailProcessors\Document Library\Strategies\" />
     <Folder Include="Reprisotories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,18 +4,40 @@ using System.Linq;
 using System.Text;
 using Microsoft.SharePoint;
 using SharePointEmails.Core.Interfaces;
-
+using SharePointEmails.Core.Interfaces.MailProcessor.Strategies;
+using SharePointEmails.Core.Extensions;
 namespace SharePointEmails.Core.MailProcessors.Document_Library
 {
-    class DocumentLibraryIncomingProcessor : IIncomingMessageProcessor
+    class DocumentLibraryIncomingProcessor : BaseIncomingMailProcessor
     {
-        internal DocumentLibraryIncomingProcessor(SPDocumentLibrary library, SEMessage message)
+        IDocumentLibraryGetFile getFileStarategy;
+        SEMessage message;
+        ConfigProvider config;
+        SPDocumentLibrary library;
+        internal DocumentLibraryIncomingProcessor(SPDocumentLibrary library, SEMessage message, ConfigProvider config)
         {
+
         }
 
-        public void Process()
+        public override void Process()
         {
-            throw new NotImplementedException();
+            if (config.AddAttachment)
+            {
+                var file = getFileStarategy.GetFile(message);
+                if (file != null)
+                {
+                    var item = library.AddItem();
+                    if (config.SaveInitialMessage)
+                    {
+                        using (var stream = message.GetMessageStream())
+                        {
+                            item.Attachments.Add("initial message.eml", stream.ReadFully());
+                        }
+                    }
+
+                    item.File.SaveBinary(file, false);
+                }
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.SharePoint.WebControls;
 
 namespace SharePointEmails.Core.Extensions
 {
-    public static class SPListItemHelper
+    public static class SPObjectsHelper
     {
         public static string GetAttachmentContent(this SPListItem item, string filename)
         {
@@ -98,6 +98,11 @@ namespace SharePointEmails.Core.Extensions
         {
             var obj = (item.Fields.Contains(fieldGuid)) ? item[fieldGuid] : null;
             return obj == null ? defaultValue : (T)obj;
+        }
+
+        public static SPUser GetUserByEmail(this SPWeb web, string email)
+        {
+            return web.SiteUsers.GetByEmail(email);
         }
     }
 }

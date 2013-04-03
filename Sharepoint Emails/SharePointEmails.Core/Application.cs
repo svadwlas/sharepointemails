@@ -14,7 +14,8 @@ using SharePointEmails.Core.Interfaces;
 using SharePointEmails.Core.Substitutions;
 using SharePointEmails.Core.Enums;
 using SharePointEmails.Core.Transformations;
-
+using SharePointEmails.Core.Extensions;
+using SharePointEmails.Core.MailProcessors.Document_Library;
 namespace SharePointEmails.Core
 {
     public class Application
@@ -152,30 +153,66 @@ namespace SharePointEmails.Core
         /// <param name="emailMessage">received message</param>
         public void OnIncomingMail(SPList list, Microsoft.SharePoint.Utilities.SPEmailMessage emailMessage)
         {
-            Logger.WriteTrace("List " + list.Title + " received mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
             try
             {
-                var processor = ProcessorsManager.Instance.CreateIncomingProcessor(list, SEMessage.Create(emailMessage));
-                if (processor != null)
+                Logger.WriteTrace("List " + list.Title + " received mail from " + emailMessage.EnvelopeSender, SeverityEnum.Trace);
+                var config = new ConfigProvider();
+                var sender = list.ParentWeb.GetUserByEmail(emailMessage.Sender);
+                Action<SPList> action = (impersonatedList) =>
+                    {
+                        try
+                        {
+                            var processor = ProcessorsManager.Instance.CreateIncomingProcessor(impersonatedList, SEMessage.Create(emailMessage));
+                            if (processor != null)
+                            {
+                                Logger.WriteTrace(processor.GetType().FullName + " was found as incoming processor for list " + impersonatedList.Title, SeverityEnum.Trace);
+                                try
+                                {
+                                    processor.Process();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.WriteTrace("Error during processing of message", ex, SeverityEnum.CriticalError);
+                                }
+                            }
+                            else
+                            {
+                                Logger.WriteTrace("No incoming processor found for list " + impersonatedList.Title, SeverityEnum.Trace, Category.IncomingMessages);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.WriteTrace("Error in the handler", ex, SeverityEnum.CriticalError);
+                            throw;
+                        }
+                    };
+                if (sender != null)
                 {
-                    Logger.WriteTrace(processor.GetType().FullName + " was found as incoming processor for list " + list.Title, SeverityEnum.Trace);
-                    try
+                    Logger.WriteTrace("User has been found. User="+sender.LoginName, SeverityEnum.Trace);
+                    using (var site = new SPSite(list.ParentWeb.Site.ID, sender.UserToken))
                     {
-                        processor.Process();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteTrace("Error during processing of message",ex, SeverityEnum.CriticalError);
+                        using (var web = site.OpenWeb(list.ParentWeb.ID))
+                        {
+                            var impList = web.Lists[list.ID];
+                            action(impList);
+                        }
                     }
                 }
                 else
                 {
-                    Logger.WriteTrace("No incoming processor found for list " + list.Title, SeverityEnum.Trace, Category.IncomingMessages);
+                    if (config.AllowAnonym)
+                    {
+                        action(list);
+                    }
+                    else
+                    {
+                        Logger.WriteTrace("Anonyms are not allowed", SeverityEnum.Trace);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteTrace("Error in the handler",ex, SeverityEnum.CriticalError);
+                Logger.WriteTrace(ex, SeverityEnum.Trace, Category.IncomingMessages);
             }
         }
 
