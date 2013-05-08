@@ -4,7 +4,7 @@
   <AlertTemplate Type="Custom"  Name="SETemplate" Default="True">
     <EventTypes IsVisible="True"/>
     <Properties>
-      <NotificationHandlerAssembly>SharePointEmails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b</NotificationHandlerAssembly>
+      <NotificationHandlerAssembly>SharePointEmails, Version=0.1.0.0, Culture=neutral, PublicKeyToken=a5fc54174e7eb38b</NotificationHandlerAssembly>
       <NotificationHandlerClassName>SharePointEmails.AlertHandler</NotificationHandlerClassName>
     </Properties>
   </AlertTemplate>
